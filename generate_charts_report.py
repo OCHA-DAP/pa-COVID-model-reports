@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import requests
-import geopandas
+import geopandas as gpd
 from datetime import timedelta, date
 
 from utils import set_matlotlib
@@ -39,9 +39,9 @@ def main(country_iso3='AFG',download_covid=False):
         get_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
     set_matlotlib(plt)
 
-    generate_key_figures(country_iso3)
-    generate_current_status(country_iso3,parameters)
-    generate_daily_projections(country_iso3,parameters)
+    # generate_key_figures(country_iso3)
+    # generate_current_status(country_iso3,parameters)
+    # generate_daily_projections(country_iso3,parameters)
     create_maps(country_iso3, parameters)
     calculate_trends(country_iso3, parameters)
     plt.show()
@@ -237,7 +237,7 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
 def create_new_subplot(fig_title):
     fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
     # TODO debug why this is not working
-    axis.yaxis.grid()
+    # axis.yaxis.grid()
     
     locator = mdates.AutoDateLocator(minticks=3, maxticks=7)
     formatter = mdates.DateFormatter('%d %b')
@@ -253,26 +253,26 @@ def create_new_subplot(fig_title):
 
 def create_maps(country_iso3, parameters):
     # Total cases - four weeks projection
-    npi_admin1 = pd.read_csv(parameters['npi_admin1'])
-    npi_admin1['datetime'] = pd.to_datetime(npi_admin1['date']).dt.date
-    reg_4weeks = npi_admin1.loc[
-        (npi_admin1['datetime'] >= TODAY) & (npi_admin1['datetime'] <= FOUR_WEEKS) & (npi_admin1['q'] == 0.5)]
-    reg_4weeks_grp = reg_4weeks[['adm1', 'cases_active']].groupby(
-        'adm1').sum().reset_index()
-    reg_4weeks_grp['adm1'] = parameters['country_iso2'] + reg_4weeks_grp['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
-    shape = geopandas.read_file(parameters['shape'])
-    shape = shape.merge(reg_4weeks_grp, left_on='ADM1_PCODE', right_on='adm1', how='left')
-    plt.figure(figsize=(8, 4))
-    ax = shape.plot(column='cases_active', cmap='Blues', figsize=(10, 10), edgecolor='gray')
-    ax.set(title="Active Cases Four Weeks Projection in Afghanistan")
-    plt.savefig('active_cases_map.png')
-    plt.savefig(f'Outputs/{country_iso3}/active_cases_map.png')
-    return None
-
+    bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
+    bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','cases_per_100k']]
+    bucky_npi = bucky_npi.loc[FOUR_WEEKS,:]
+    bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
+    shapefile = gpd.read_file(parameters['shape'])
+    shapefile = shapefile.merge(bucky_npi, left_on='ADM1_PCODE', right_on='adm1', how='left')
+    fig_title='Ranking: number of cases per 100,000 people'
+    fig,axis=create_new_subplot(fig_title)
+    axis.axis('off')
+    shapefile.plot(column='cases_per_100k', figsize=(10, 10),edgecolor='gray',ax=axis,
+                #    legend=True,
+                #    legend_kwds={'label': "Cases per 100,000 people",'orientation': "horizontal"},
+                   scheme='Quantiles',k=len(shapefile)
+                   )
+    fig.savefig(f'Outputs/{country_iso3}/map_cases_per_100k_4w.png')
 
 def calculate_trends(country_iso3, parameters):
     # Top 5 and bottom 5 districts - 4 weeks trend
-    npi_admin1 = pd.read_csv(parameters['npi_admin1'])
+        bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
+
     npi_admin1['datetime'] = pd.to_datetime(npi_admin1['date'])
     start = npi_admin1.loc[npi_admin1['datetime']==TODAY]
     end = npi_admin1.loc[npi_admin1['datetime'] == FOUR_WEEKS]

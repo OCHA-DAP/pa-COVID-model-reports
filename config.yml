@@ -1,10 +1,8 @@
 AFG:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/AFG/COVID/AFG_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
-  #shape: 'https://github.com/OCHA-DAP/pa-COVID-model-reports/raw/master/Shapes/afg_admbnda_adm1_agcho_20180522/afg_admbnda_adm1_agcho_20180522.shp'
+  iso2_code: 'AF'
   shape: 'Shapes/afg_admbnda_adm1_agcho_20180522/afg_admbnda_adm1_agcho_20180522.shp'
-  npi_admin1: 'Bucky_results/AFG_npi/adm1_quantiles.csv'
-  country_iso2: 'AF'
 COD:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/COD/COVID/COD_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'

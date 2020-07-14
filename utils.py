@@ -7,6 +7,7 @@ def set_matlotlib(plt):
     plt.rcParams['grid.linestyle'] = 'solid'
     plt.rcParams['grid.linewidth'] = 0.5
     plt.rcParams.update({'font.size': 15})
+    plt.tight_layout()
 
 
 def parse_yaml(filename):
