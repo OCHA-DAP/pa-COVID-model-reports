@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import requests
 from datetime import timedelta, date
 
+from utils import set_matlotlib
+
 CONFIG_FILE = 'config.yml'
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 WHO_COVID_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vSe-8lf6l_ShJHvd126J-jGti992SUbNLu-kmJfx1IRkvma_r4DHi0bwEW89opArs8ZkSY5G2-Bc1yT/pub?gid=0&single=true&output=csv'
@@ -16,10 +18,11 @@ HLX_TAG_TOTAL_CASES = "#affected+infected+confirmed+total"
 HLX_TAG_TOTAL_DEATHS = "#affected+infected+dead+total"
 HLX_TAG_DATE = "#date"
 
-FIG_SIZE=(8,8)
+FIG_SIZE=(8,6)
 
 TODAY = date.today()
 FOUR_WEEKS = TODAY + timedelta(days=28)
+THREE_MONTHS = TODAY + timedelta(days=28)
 LAST_MONTH = TODAY - timedelta(days=30)
 
 NPI_COLOR='g'
@@ -30,12 +33,12 @@ def main(country_iso3='AFG',download_covid=False):
     if download_covid:
     # Download latest covid file tiles and read them in
         get_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
-    
+    set_matlotlib(plt)
+
     generate_current_status(country_iso3,parameters)
+    generate_daily_projections(country_iso3,parameters)
     plt.show()
  
-    # print(parameters)
-
 def download_url(url, save_path, chunk_size=128):
     r = requests.get(url, stream=True)
     with open(save_path, 'wb') as fd:
@@ -50,6 +53,66 @@ def get_covid_data(url, save_path):
         download_url(url, save_path)
     except Exception:
         print(f'Cannot download COVID file from from HDX')
+
+def generate_daily_projections(country_iso3,parameters):
+   # get bucky with NPIs 
+    bucky_npi=pd.read_csv(f'Bucky_results/{country_iso3}_npi/adm0_quantiles.csv')
+    bucky_npi['date']=pd.to_datetime(bucky_npi['date']).dt.date
+    bucky_npi=bucky_npi[(bucky_npi['date']>=LAST_MONTH) &\
+                        (bucky_npi['date']<=THREE_MONTHS)]
+    bucky_npi=bucky_npi.set_index('date')
+    
+    # get bucky without NPIs 
+    bucky_no_npi=pd.read_csv(f'Bucky_results/{country_iso3}_no_npi/adm0_quantiles.csv')
+    bucky_no_npi['date']=pd.to_datetime(bucky_no_npi['date']).dt.date
+    bucky_no_npi=bucky_no_npi[(bucky_no_npi['date']>=LAST_MONTH) &\
+                        (bucky_no_npi['date']<=THREE_MONTHS)]
+    bucky_no_npi=bucky_no_npi.set_index('date')
+
+    draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_cases_reported')
+    draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_deaths')
+    draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'hospitalizations')
+
+def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric):
+    if metric=='daily_cases_reported':
+        bucky_var='daily_cases_reported'
+        fig_title='Daily reported cases'
+    elif metric=='daily_deaths':
+        bucky_var='daily_deaths'
+        fig_title='daily deaths'
+    elif metric=='hospitalizations':
+        bucky_var='hospitalizations'
+        fig_title='People requiring healthcare support'
+    else:
+        print(f'metric {metric} not implemented')
+        return
+
+    fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
+    # TODO debug why this is not working
+    axis.yaxis.grid('True')
+    axis.set_title(fig_title)
+    # draw line NPI
+    bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
+    bucky_npi_reff=bucky_npi['Reff'].mean()
+    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Keeping current NPIs ( Reff= {:.2f})'.format(bucky_npi_reff))
+    axis.fill_between(bucky_npi_median.index,\
+                          bucky_npi[bucky_npi['q']==0.25][bucky_var],
+                          bucky_npi[bucky_npi['q']==0.75][bucky_var],
+                          color=NPI_COLOR,alpha=0.2
+                          )
+    # draw line NO NPI
+    bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
+    bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
+    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='Keeping current NPIs ( Reff= {:.2f})'.format(bucky_no_npi_reff))
+    axis.fill_between(bucky_no_npi_cases_median.index,\
+                          bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
+                          bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
+                          color=NO_NPI_COLOR,alpha=0.2
+                          )
+    plt.legend()
+    fig.savefig(f'Outputs/{country_iso3}/projection_{metric}.png')
+
+
 
 def generate_current_status(country_iso3,parameters):
     # get subnational from COVID parameterization repo
@@ -81,17 +144,17 @@ def generate_current_status(country_iso3,parameters):
                         (bucky_no_npi['date']<=FOUR_WEEKS)]
     bucky_no_npi=bucky_no_npi.set_index('date')
     
-    draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'reported_cases')
-    draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'deaths')
+    draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_reported_cases')
+    draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_deaths')
 
 def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
-    if metric=='reported_cases':
+    if metric=='cumulative_reported_cases':
         who_var='CumCase'
         bucky_var='cumulative_cases_reported'
         subnational_var=HLX_TAG_TOTAL_CASES
         subnational_source=parameters['subnational_cases_source']
         fig_title='Cumulative reported cases'
-    elif metric=='deaths':
+    elif metric=='cumulative_deaths':
         who_var='CumDeath'
         bucky_var='cumulative_deaths'
         subnational_var=HLX_TAG_TOTAL_DEATHS
@@ -99,9 +162,10 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
         fig_title='Cumulative reported deaths'
     else:
         print(f'metric {metric} not implemented')
-        
 
     fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
+    # TODO debug why this is not working
+    axis.yaxis.grid('True')
     axis.set_title(fig_title)
     # draw subnational reported cumulative cases
     axis.scatter(who_covid.index, who_covid[who_var],\
@@ -110,7 +174,8 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
                      alpha=0.8, s=20,c='blue',marker='o',label=subnational_source)
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
-    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Keeping current NPIs')
+    bucky_npi_reff=bucky_npi['Reff'].mean()
+    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Keeping current NPIs ( Reff= {:.2f})'.format(bucky_npi_reff))
     axis.fill_between(bucky_npi_median.index,\
                           bucky_npi[bucky_npi['q']==0.25][bucky_var],
                           bucky_npi[bucky_npi['q']==0.75][bucky_var],
@@ -118,14 +183,15 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
                           )
     # draw line NO NPI
     bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
-    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='Back to normal')
+    bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
+    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='Keeping current NPIs ( Reff= {:.2f})'.format(bucky_no_npi_reff))
     axis.fill_between(bucky_no_npi_cases_median.index,\
                           bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
                           bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
                           color=NO_NPI_COLOR,alpha=0.2
                           )
     plt.legend()
-    fig.savefig(f'Outputs/{country_iso3}/{metric}_2w.png')
+    fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
 
 def parse_args():
     parser = argparse.ArgumentParser()
