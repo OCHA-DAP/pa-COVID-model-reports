@@ -79,7 +79,7 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
         fig_title='Daily reported cases'
     elif metric=='daily_deaths':
         bucky_var='daily_deaths'
-        fig_title='daily deaths'
+        fig_title='Daily deaths'
     elif metric=='hospitalizations':
         bucky_var='hospitalizations'
         fig_title='People requiring healthcare support'
@@ -103,7 +103,7 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     # draw line NO NPI
     bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
     bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
-    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='Keeping current NPIs ( Reff= {:.2f})'.format(bucky_no_npi_reff))
+    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='Back to normal ( Reff= {:.2f})'.format(bucky_no_npi_reff))
     axis.fill_between(bucky_no_npi_cases_median.index,\
                           bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
                           bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
@@ -184,7 +184,7 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
     # draw line NO NPI
     bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
     bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
-    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='Keeping current NPIs ( Reff= {:.2f})'.format(bucky_no_npi_reff))
+    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='Back to normal ( Reff= {:.2f})'.format(bucky_no_npi_reff))
     axis.fill_between(bucky_no_npi_cases_median.index,\
                           bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
                           bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
