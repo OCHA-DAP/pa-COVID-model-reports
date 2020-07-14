@@ -22,6 +22,7 @@ HLX_TAG_DATE = "#date"
 
 FIG_SIZE=(8,6)
 
+# TODO adjust today to match the first day of simulation?
 TODAY = date.today()
 FOUR_WEEKS = TODAY + timedelta(days=28)
 THREE_MONTHS = TODAY + timedelta(days=28)
@@ -37,8 +38,7 @@ def main(country_iso3='AFG',download_covid=False):
         get_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
     set_matlotlib(plt)
 
-    # generate_key_figures(country_iso3,parameters)
-
+    generate_key_figures(country_iso3)
     generate_current_status(country_iso3,parameters)
     generate_daily_projections(country_iso3,parameters)
     plt.show()
@@ -67,6 +67,37 @@ def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     bucky_npi=bucky_npi.set_index('date')
     return bucky_npi
 
+def generate_key_figures(country_iso3):
+    who_covid=get_who_covid(country_iso3,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
+    who_deaths_today=who_covid.loc[TODAY,'CumDeath']
+    who_cases_today=who_covid.loc[TODAY,'CumCase']
+    print(f'Current situation {TODAY}: {who_cases_today} cases, {who_deaths_today} deaths')
+
+    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='npi')
+    reporting_rate=bucky_npi['CASE_REPORT'].mean()*100
+    reff_npi=bucky_npi['Reff'].mean()
+    min_cases_npi=bucky_npi[bucky_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    max_cases_npi=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    min_deaths_npi=bucky_npi[bucky_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_deaths']
+    max_deaths_npi=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_deaths']
+    print(f'- Projection date:{FOUR_WEEKS}')
+    
+    print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate}')
+    print(f'-- NPI: ESTIMATED Reff NPI {reff_npi}')
+    print(f'-- NPI: Projected reported cases in 4w: {min_cases_npi} - {max_cases_npi}')
+    print(f'-- NPI: Projected reported deaths in 4w: {min_deaths_npi} - {max_deaths_npi}')
+    
+    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='no_npi')
+    reff_no_npi=bucky_no_npi['Reff'].mean()
+    min_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    max_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    min_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_deaths']
+    max_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_deaths']
+    # print(bucky_no_npi.loc[FOUR_WEEKS,:])
+    print(f'--- no_npi: ESTIMATED Reff no_npi {reff_no_npi}')
+    print(f'--- no_npi: Projected reported cases in 4w: {min_cases_no_npi} - {max_cases_no_npi}')
+    print(f'--- no_npi: Projected reported deaths in 4w: {min_deaths_no_npi} - {max_deaths_no_npi}')
+    
 
 def generate_daily_projections(country_iso3,parameters):
    
