@@ -107,8 +107,8 @@ def generate_daily_projections(country_iso3,parameters):
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='no_npi')
 
-    draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_cases_reported')
-    draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_deaths')
+    # draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_cases_reported')
+    # draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_deaths')
     draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'hospitalizations')
 
 def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric):
@@ -146,6 +146,16 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
                           color=NO_NPI_COLOR,alpha=0.2
                           )
     plt.legend()
+    print(f'----{metric} statistics')
+    metric_today_min=bucky_no_npi[bucky_no_npi['q']==0.25].loc[TODAY,bucky_var]
+    metric_today_max=bucky_no_npi[bucky_no_npi['q']==0.75].loc[TODAY,bucky_var]
+    metric_4w_npi_min=bucky_npi[bucky_npi['q']==0.25].loc[FOUR_WEEKS,bucky_var]
+    metric_4w_npi_max=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,bucky_var]
+    metric_4w_no_npi_min=bucky_no_npi[bucky_no_npi['q']==0.25].loc[FOUR_WEEKS,bucky_var]
+    metric_4w_no_npi_max=bucky_no_npi[bucky_no_npi['q']==0.75].loc[FOUR_WEEKS,bucky_var]
+    print(f'----{metric} {TODAY}: {metric_today_min:.0f} - {metric_today_max:.0f}')
+    print(f'----{metric} NPI {FOUR_WEEKS}: {metric_4w_npi_min:.0f} - {metric_4w_npi_max:.0f}')
+    print(f'----{metric} NO NPI {FOUR_WEEKS}: {metric_4w_no_npi_min:.0f} - {metric_4w_no_npi_max:.0f}')
     fig.savefig(f'Outputs/{country_iso3}/projection_{metric}.png')
 
 def get_subnational_covid(parameters,aggregate,min_date,max_date):
