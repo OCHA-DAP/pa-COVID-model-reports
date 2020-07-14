@@ -271,21 +271,22 @@ def create_maps(country_iso3, parameters):
 
 def calculate_trends(country_iso3, parameters):
     # Top 5 and bottom 5 districts - 4 weeks trend
-        bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
-
-    npi_admin1['datetime'] = pd.to_datetime(npi_admin1['date'])
-    start = npi_admin1.loc[npi_admin1['datetime']==TODAY]
-    end = npi_admin1.loc[npi_admin1['datetime'] == FOUR_WEEKS]
-    combined = start.merge(end[['datetime', 'adm1', 'cases_per_100k']], how='left', on='adm1')
-    combined['active_cases_change'] = (combined['cases_per_100k_y'] / combined['cases_per_100k_x']) * 100
-    table = combined[['adm1', 'active_cases_change']]
-    table['trend'] = table['active_cases_change'].apply(lambda x: 1 if x > 100 else 0)
-    top = table.sort_values('active_cases_change', ascending=False)
-    top.head().to_csv(f'Outputs/top_5_district{country_iso3}.csv', index=False)
-    bottom = table.sort_values('active_cases_change', ascending=True)
-    bottom.head().to_csv(f'{country_iso3}/Outputs/bottom_5_district_{country_iso3}.csv', index=False)
-    return None
-
+    bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
+    # to remove noise
+    bucky_npi=bucky_npi[bucky_npi['cases_active']>100]
+    bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','cases_per_100k']]
+    bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
+    start = bucky_npi.loc[TODAY,:]
+    end = bucky_npi.loc[FOUR_WEEKS,:]
+    combined = start.merge(end[['adm1', 'cases_per_100k']], how='left', on='adm1')
+    combined['cases_per_100k_change'] = (combined['cases_per_100k_y']-combined['cases_per_100k_x']) / combined['cases_per_100k_x'] * 100
+    shapefile = gpd.read_file(parameters['shape'])
+    shapefile=shapefile[['ADM1_PCODE','ADM1_EN']]
+    combined=combined.merge(shapefile,how='left',left_on='adm1',right_on='ADM1_PCODE')
+    combined = combined.sort_values('cases_per_100k_change', ascending=False)
+    combined['cases_per_100k_change']=combined['cases_per_100k_change'].round(decimals=2)
+    combined=combined[['ADM1_EN','cases_per_100k_change']]
+    combined.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
 
 
 def parse_args():
