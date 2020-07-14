@@ -259,7 +259,7 @@ def create_maps(country_iso3, parameters):
     bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on='ADM1_PCODE', right_on='adm1', how='left')
-    fig_title='Ranking: number of cases per 100,000 people'
+    fig_title=f'Ranking: number of cases per 100,000 people on {FOUR_WEEKS}'
     fig,axis=create_new_subplot(fig_title)
     axis.axis('off')
     shapefile.plot(column='cases_per_100k', figsize=(10, 10),edgecolor='gray',ax=axis,
@@ -284,7 +284,7 @@ def calculate_trends(country_iso3, parameters):
     shapefile=shapefile[['ADM1_PCODE','ADM1_EN']]
     combined=combined.merge(shapefile,how='left',left_on='adm1',right_on='ADM1_PCODE')
     combined = combined.sort_values('cases_per_100k_change', ascending=False)
-    combined['cases_per_100k_change']=combined['cases_per_100k_change'].round(decimals=2)
+    combined['cases_per_100k_change']=combined['cases_per_100k_change'].round(decimals=1)
     combined=combined[['ADM1_EN','cases_per_100k_change']]
     combined.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
 
