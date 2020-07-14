@@ -24,6 +24,7 @@ def main(country_iso3):
     # print(parameters)
 
 def generate_current_status(country_iso3,parameters):
+    # get subnational from COVID parameterization repo
     subnational_covid=pd.read_csv(parameters['subnational_cases_url'])
     subnational_covid[HLX_TAG_DATE]=pd.to_datetime(subnational_covid[HLX_TAG_DATE]).dt.date
     subnational_covid=subnational_covid[(subnational_covid[HLX_TAG_DATE]>=LAST_MONTH) &\
@@ -31,18 +32,22 @@ def generate_current_status(country_iso3,parameters):
     subnational_covid=subnational_covid.groupby(HLX_TAG_DATE).sum()
 
     # TODO can be downloaded only once?
+    # Get national level data from WHO
     who_covid=pd.read_csv(WHO_COVID_URL)
     who_covid=who_covid[who_covid['ISO_3_CODE']==country_iso3]
     who_covid['date_epicrv']=pd.to_datetime(who_covid['date_epicrv']).dt.date
     who_covid=who_covid[(who_covid['date_epicrv']>=LAST_MONTH) &\
                         (who_covid['date_epicrv']<=TODAY)]
-    print(who_covid)
-    # who_covid=who_covid[who_covid['ISO_3_CODE']==country_iso3]
-
+    who_covid=who_covid.set_index('date_epicrv')
+    
     fig_cases,ax_cases=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
     # draw subnational reported cumulative cases
     ax_cases.scatter(subnational_covid.index, subnational_covid[HLX_TAG_TOTAL_CASES],\
                      alpha=0.8, s=10,c='blue',marker='o',label=parameters['subnational_cases_source'])
+    ax_cases.scatter(who_covid.index, who_covid['CumCase'],\
+                     alpha=0.8, s=10,c='red',marker='o',label='WHO')
+    
+    
     
     plt.legend()
     plt.show()
