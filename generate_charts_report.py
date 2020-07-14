@@ -1,8 +1,10 @@
+from matplotlib.pyplot import title
 import utils
 import os
 import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import requests
 from datetime import timedelta, date
 
@@ -87,10 +89,8 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
         print(f'metric {metric} not implemented')
         return
 
-    fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
-    # TODO debug why this is not working
-    axis.yaxis.grid('True')
-    axis.set_title(fig_title)
+    fig,axis=create_new_subplot(fig_title)
+    
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
     bucky_npi_reff=bucky_npi['Reff'].mean()
@@ -163,10 +163,8 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
     else:
         print(f'metric {metric} not implemented')
 
-    fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
-    # TODO debug why this is not working
-    axis.yaxis.grid('True')
-    axis.set_title(fig_title)
+    fig,axis=create_new_subplot(fig_title)
+
     # draw subnational reported cumulative cases
     axis.scatter(who_covid.index, who_covid[who_var],\
                      alpha=0.8, s=20,c='red',marker='*',label='WHO')
@@ -192,6 +190,22 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
                           )
     plt.legend()
     fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
+
+def create_new_subplot(fig_title):
+    fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
+    # TODO debug why this is not working
+    axis.yaxis.grid()
+    
+    locator = mdates.AutoDateLocator(minticks=3, maxticks=7)
+    formatter = mdates.DateFormatter('%d %b')
+    axis.xaxis.set_major_locator(locator)
+    axis.xaxis.set_major_formatter(formatter)
+
+    axis.set_title(fig_title)
+    x_axis = axis.axes.get_xaxis()
+    x_label = x_axis.get_label()
+    x_label.set_visible(False)
+    return fig,axis
 
 def parse_args():
     parser = argparse.ArgumentParser()
