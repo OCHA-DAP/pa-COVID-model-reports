@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import requests
+import geopandas
 from datetime import timedelta, date
 
 from utils import set_matlotlib
@@ -41,8 +42,8 @@ def main(country_iso3='AFG',download_covid=False):
     generate_key_figures(country_iso3)
     generate_current_status(country_iso3,parameters)
     generate_daily_projections(country_iso3,parameters)
-    # TODO adding map for daily reported cases per capita in 4 weeks at the ADM1 level
-    # TODO adding list of top 5 and bottom 5 adm1 where based on projected increase in daily cases
+    create_maps(country_iso3, parameters)
+    calculate_trends(country_iso3, parameters)
     plt.show()
 
 def download_url(url, save_path, chunk_size=128):
@@ -238,6 +239,44 @@ def create_new_subplot(fig_title):
     x_label = x_axis.get_label()
     x_label.set_visible(False)
     return fig,axis
+
+
+def create_maps(country_iso3, parameters):
+    # Total cases - four weeks projection
+    npi_admin1 = pd.read_csv(parameters['npi_admin1'])
+    npi_admin1['datetime'] = pd.to_datetime(npi_admin1['date'])
+    reg_4weeks = npi_admin1.loc[
+        (npi_admin1['datetime'] >= TODAY) & (npi_admin1['datetime'] <= FOUR_WEEKS) & (npi_admin1['q'] == 0.5)]
+    reg_4weeks_grp = reg_4weeks[['adm1', 'cases_active']].groupby(
+        'adm1').sum().reset_index()
+    reg_4weeks_grp['adm1'] = parameters['country_iso2'] + reg_4weeks_grp['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
+    shape = geopandas.read_file(parameters['shape'])
+    shape = shape.merge(reg_4weeks_grp, left_on='ADM1_PCODE', right_on='adm1', how='left')
+    plt.figure(figsize=(8, 4))
+    ax = shape.plot(column='cases_active', cmap='Blues', figsize=(10, 10), edgecolor='gray')
+    ax.set(title="Active Cases Four Weeks Projection in Afghanistan")
+    plt.savefig('active_cases_map.png')
+    plt.savefig(f'Outputs/{country_iso3}/active_cases_map.png')
+    return None
+
+
+def calculate_trends(country_iso3, parameters):
+    # Top 5 and bottom 5 districts - 4 weeks trend
+    npi_admin1 = pd.read_csv(parameters['npi_admin1'])
+    npi_admin1['datetime'] = pd.to_datetime(npi_admin1['date'])
+    start = npi_admin1.loc[npi_admin1['datetime']==TODAY]
+    end = npi_admin1.loc[npi_admin1['datetime'] == FOUR_WEEKS]
+    combined = start.merge(end[['datetime', 'adm1', 'cases_per_100k']], how='left', on='adm1')
+    combined['active_cases_change'] = (combined['cases_per_100k_y'] / combined['cases_per_100k_x']) * 100
+    table = combined[['adm1', 'active_cases_change']]
+    table['trend'] = table['active_cases_change'].apply(lambda x: 1 if x > 100 else 0)
+    top = table.sort_values('active_cases_change', ascending=False)
+    top.head().to_csv(f'Outputs/top_5_district{country_iso3}.csv', index=False)
+    bottom = table.sort_values('active_cases_change', ascending=True)
+    bottom.head().to_csv(f'{country_iso3}/Outputs/bottom_5_district_{country_iso3}.csv', index=False)
+    return None
+
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
