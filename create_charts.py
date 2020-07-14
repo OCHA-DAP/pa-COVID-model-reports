@@ -45,7 +45,7 @@ COUNTRY_2L = 'AF'
 
 # def create_mitigation_chart():
 #     plt.figure(figsize=(8, 4))
-#     ax = sns.lineplot(x="date", y="daily_cases", data=NPI_ADMIN0, label='NPIs')
+#     ax = sns.linefplot(x="date", y="daily_cases", data=NPI_ADMIN0, label='NPIs')
 #     ax1 = sns.lineplot(x="date", y="daily_cases", data=NO_NPI_ADMIN0, label='NO NPIs')
 #     ax.set(xticklabels=LABELS, xlabel="", ylabel="Daily Cases", title='Daily new Covid-19 cases in Afghanistan')
 #     plt.savefig('npis_daily_cases_' + COUNTRY + '.png')
