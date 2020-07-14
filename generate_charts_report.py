@@ -254,7 +254,7 @@ def create_new_subplot(fig_title):
 def create_maps(country_iso3, parameters):
     # Total cases - four weeks projection
     npi_admin1 = pd.read_csv(parameters['npi_admin1'])
-    npi_admin1['datetime'] = pd.to_datetime(npi_admin1['date'])
+    npi_admin1['datetime'] = pd.to_datetime(npi_admin1['date']).dt.date
     reg_4weeks = npi_admin1.loc[
         (npi_admin1['datetime'] >= TODAY) & (npi_admin1['datetime'] <= FOUR_WEEKS) & (npi_admin1['q'] == 0.5)]
     reg_4weeks_grp = reg_4weeks[['adm1', 'cases_active']].groupby(
