@@ -1,0 +1,4 @@
+AFG:
+  subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/AFG/COVID/AFG_COVID.csv'
+  subnational_cases_source: 'Ministry of Public Health'
+ 
