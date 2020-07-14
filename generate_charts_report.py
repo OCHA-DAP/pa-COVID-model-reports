@@ -15,21 +15,21 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 WHO_COVID_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vSe-8lf6l_ShJHvd126J-jGti992SUbNLu-kmJfx1IRkvma_r4DHi0bwEW89opArs8ZkSY5G2-Bc1yT/pub?gid=0&single=true&output=csv'
 WHO_COVID_FILENAME=WHO_COVID_FILENAME='WHO_data/Data_ WHO Coronavirus Covid-19 Cases and Deaths - WHO-COVID-19-global-data.csv'
 
-
 HLX_TAG_TOTAL_CASES = "#affected+infected+confirmed+total"
 HLX_TAG_TOTAL_DEATHS = "#affected+infected+dead+total"
 HLX_TAG_DATE = "#date"
 
 FIG_SIZE=(8,6)
 
-# TODO adjust today to match the first day of simulation?
 TODAY = date.today()
 FOUR_WEEKS = TODAY + timedelta(days=28)
-THREE_MONTHS = TODAY + timedelta(days=28)
+THREE_MONTHS = TODAY + timedelta(days=90)
 LAST_MONTH = TODAY - timedelta(days=30)
 
-NPI_COLOR='g'
-NO_NPI_COLOR='orange'
+NPI_COLOR='green'
+NO_NPI_COLOR='red'
+WHO_DATA_COLOR='dodgerblue'
+SUBNATIONAL_DATA_COLOR='navy'
 
 def main(country_iso3='AFG',download_covid=False):
     parameters = utils.parse_yaml(CONFIG_FILE)[country_iso3]
@@ -41,8 +41,10 @@ def main(country_iso3='AFG',download_covid=False):
     generate_key_figures(country_iso3)
     generate_current_status(country_iso3,parameters)
     generate_daily_projections(country_iso3,parameters)
+    # TODO adding map for daily reported cases per capita in 4 weeks at the ADM1 level
+    # TODO adding list of top 5 and bottom 5 adm1 where based on projected increase in daily cases
     plt.show()
- 
+
 def download_url(url, save_path, chunk_size=128):
     r = requests.get(url, stream=True)
     with open(save_path, 'wb') as fd:
@@ -68,6 +70,7 @@ def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     return bucky_npi
 
 def generate_key_figures(country_iso3):
+
     who_covid=get_who_covid(country_iso3,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
     who_deaths_today=who_covid.loc[TODAY,'CumDeath']
     who_cases_today=who_covid.loc[TODAY,'CumCase']
@@ -100,7 +103,7 @@ def generate_key_figures(country_iso3):
     
 
 def generate_daily_projections(country_iso3,parameters):
-   
+    # generate plot with long term projections of daily cases
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='no_npi')
 
@@ -109,6 +112,7 @@ def generate_daily_projections(country_iso3,parameters):
     draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'hospitalizations')
 
 def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric):
+    # draw NPI vs non NPIs projections
     if metric=='daily_cases_reported':
         bucky_var='daily_cases_reported'
         fig_title='Daily reported cases'
@@ -123,7 +127,6 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
         return
 
     fig,axis=create_new_subplot(fig_title)
-    
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
     bucky_npi_reff=bucky_npi['Reff'].mean()
@@ -166,7 +169,7 @@ def get_who_covid(country_iso3,min_date,max_date):
     return who_covid
 
 def generate_current_status(country_iso3,parameters):
-
+    # generate plot with subnational data, WHO data and projections
     subnational_covid=get_subnational_covid(parameters,aggregate=True,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
     who_covid=get_who_covid(country_iso3,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_MONTH,max_date=FOUR_WEEKS,npi_filter='npi')
@@ -176,6 +179,7 @@ def generate_current_status(country_iso3,parameters):
     draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_deaths')
 
 def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
+    # plot the 4 inputs and save figure
     if metric=='cumulative_reported_cases':
         who_var='CumCase'
         bucky_var='cumulative_cases_reported'
@@ -195,9 +199,9 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
 
     # draw subnational reported cumulative cases
     axis.scatter(who_covid.index, who_covid[who_var],\
-                     alpha=0.8, s=20,c='red',marker='*',label='WHO')
+                     alpha=0.8, s=20,c=WHO_DATA_COLOR,marker='*',label='WHO')
     axis.scatter(subnational_covid.index, subnational_covid[subnational_var],\
-                     alpha=0.8, s=20,c='blue',marker='o',label=subnational_source)
+                     alpha=0.8, s=20,c=SUBNATIONAL_DATA_COLOR,marker='o',label=subnational_source)
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
     bucky_npi_reff=bucky_npi['Reff'].mean()
