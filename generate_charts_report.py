@@ -37,6 +37,8 @@ def main(country_iso3='AFG',download_covid=False):
         get_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
     set_matlotlib(plt)
 
+    # generate_key_figures(country_iso3,parameters)
+
     generate_current_status(country_iso3,parameters)
     generate_daily_projections(country_iso3,parameters)
     plt.show()
@@ -56,20 +58,20 @@ def get_covid_data(url, save_path):
     except Exception:
         print(f'Cannot download COVID file from from HDX')
 
-def generate_daily_projections(country_iso3,parameters):
-   # get bucky with NPIs 
-    bucky_npi=pd.read_csv(f'Bucky_results/{country_iso3}_npi/adm0_quantiles.csv')
+def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
+    # get bucky with NPIs 
+    bucky_npi=pd.read_csv(f'Bucky_results/{country_iso3}_{npi_filter}/{admin_level}_quantiles.csv')
     bucky_npi['date']=pd.to_datetime(bucky_npi['date']).dt.date
-    bucky_npi=bucky_npi[(bucky_npi['date']>=LAST_MONTH) &\
-                        (bucky_npi['date']<=THREE_MONTHS)]
+    bucky_npi=bucky_npi[(bucky_npi['date']>=min_date) &\
+                        (bucky_npi['date']<=max_date)]
     bucky_npi=bucky_npi.set_index('date')
-    
-    # get bucky without NPIs 
-    bucky_no_npi=pd.read_csv(f'Bucky_results/{country_iso3}_no_npi/adm0_quantiles.csv')
-    bucky_no_npi['date']=pd.to_datetime(bucky_no_npi['date']).dt.date
-    bucky_no_npi=bucky_no_npi[(bucky_no_npi['date']>=LAST_MONTH) &\
-                        (bucky_no_npi['date']<=THREE_MONTHS)]
-    bucky_no_npi=bucky_no_npi.set_index('date')
+    return bucky_npi
+
+
+def generate_daily_projections(country_iso3,parameters):
+   
+    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='npi')
+    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='no_npi')
 
     draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_cases_reported')
     draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_deaths')
@@ -112,37 +114,32 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     plt.legend()
     fig.savefig(f'Outputs/{country_iso3}/projection_{metric}.png')
 
-
-
-def generate_current_status(country_iso3,parameters):
+def get_subnational_covid(parameters,aggregate,min_date,max_date):
     # get subnational from COVID parameterization repo
     subnational_covid=pd.read_csv(parameters['subnational_cases_url'])
     subnational_covid[HLX_TAG_DATE]=pd.to_datetime(subnational_covid[HLX_TAG_DATE]).dt.date
-    subnational_covid=subnational_covid[(subnational_covid[HLX_TAG_DATE]>=LAST_MONTH) &\
-                                        (subnational_covid[HLX_TAG_DATE]<=TODAY)]
-    subnational_covid=subnational_covid.groupby(HLX_TAG_DATE).sum()
+    subnational_covid=subnational_covid[(subnational_covid[HLX_TAG_DATE]>=min_date) &\
+                                        (subnational_covid[HLX_TAG_DATE]<=max_date)]
+    if aggregate:
+        subnational_covid=subnational_covid.groupby(HLX_TAG_DATE).sum()
+    return subnational_covid
 
+def get_who_covid(country_iso3,min_date,max_date):
     # Get national level data from WHO
     who_covid=pd.read_csv(WHO_COVID_FILENAME)
     who_covid=who_covid[who_covid['ISO_3_CODE']==country_iso3]
     who_covid['date_epicrv']=pd.to_datetime(who_covid['date_epicrv']).dt.date
-    who_covid=who_covid[(who_covid['date_epicrv']>=LAST_MONTH) &\
-                        (who_covid['date_epicrv']<=TODAY)]
+    who_covid=who_covid[(who_covid['date_epicrv']>=min_date) &\
+                        (who_covid['date_epicrv']<=max_date)]
     who_covid=who_covid.set_index('date_epicrv')
-    
-    # get bucky with NPIs 
-    bucky_npi=pd.read_csv(f'Bucky_results/{country_iso3}_npi/adm0_quantiles.csv')
-    bucky_npi['date']=pd.to_datetime(bucky_npi['date']).dt.date
-    bucky_npi=bucky_npi[(bucky_npi['date']>=LAST_MONTH) &\
-                        (bucky_npi['date']<=FOUR_WEEKS)]
-    bucky_npi=bucky_npi.set_index('date')
-    
-    # get bucky without NPIs 
-    bucky_no_npi=pd.read_csv(f'Bucky_results/{country_iso3}_no_npi/adm0_quantiles.csv')
-    bucky_no_npi['date']=pd.to_datetime(bucky_no_npi['date']).dt.date
-    bucky_no_npi=bucky_no_npi[(bucky_no_npi['date']>=LAST_MONTH) &\
-                        (bucky_no_npi['date']<=FOUR_WEEKS)]
-    bucky_no_npi=bucky_no_npi.set_index('date')
+    return who_covid
+
+def generate_current_status(country_iso3,parameters):
+
+    subnational_covid=get_subnational_covid(parameters,aggregate=True,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
+    who_covid=get_who_covid(country_iso3,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
+    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_MONTH,max_date=FOUR_WEEKS,npi_filter='npi')
+    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_MONTH,max_date=FOUR_WEEKS,npi_filter='no_npi')
     
     draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_reported_cases')
     draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_deaths')
