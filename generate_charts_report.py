@@ -22,7 +22,7 @@ HLX_TAG_DATE = "#date"
 
 FIG_SIZE=(8,6)
 
-TODAY = date.today() - timedelta(days=1)
+TODAY = date.today()
 FOUR_WEEKS = TODAY + timedelta(days=28)
 TWO_WEEKS = TODAY + timedelta(days=28)
 THREE_MONTHS = TODAY + timedelta(days=90)
@@ -278,7 +278,7 @@ def create_maps(country_iso3, parameters):
     bucky_npi = bucky_npi.loc[TWO_WEEKS,:]
     bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
     shapefile = gpd.read_file(parameters['shape'])
-    shapefile = shapefile.merge(bucky_npi, left_on='ADM1_PCODE', right_on='adm1', how='left')
+    shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
     fig_title=f'Ranking: number of cases per 100,000 people on {TWO_WEEKS}'
     fig,axis=create_new_subplot(fig_title)
     axis.axis('off')
@@ -301,8 +301,8 @@ def calculate_trends(country_iso3, parameters):
     combined = start.merge(end[['adm1', 'cases_per_100k']], how='left', on='adm1')
     combined['cases_per_100k_change'] = (combined['cases_per_100k_y']-combined['cases_per_100k_x']) / combined['cases_per_100k_x'] * 100
     shapefile = gpd.read_file(parameters['shape'])
-    shapefile=shapefile[['ADM1_PCODE',parameters['adm1_name']]]
-    combined=combined.merge(shapefile,how='left',left_on='adm1',right_on='ADM1_PCODE')
+    shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
+    combined=combined.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
     combined = combined.sort_values('cases_per_100k_change', ascending=False)
     combined['cases_per_100k_change']=combined['cases_per_100k_change'].round(decimals=1)
     combined=combined[[parameters['adm1_name'],'cases_per_100k_change']]
