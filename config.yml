@@ -2,21 +2,26 @@ AFG:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/AFG/COVID/AFG_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
   iso2_code: 'AF'
+  adm1_name: 'ADM1_EN'
   shape: 'Shapes/afg_admbnda_adm1_agcho_20180522/afg_admbnda_adm1_agcho_20180522.shp'
 COD:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/COD/COVID/COD_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
+  iso2_code: 'CD'
+  adm1_name: 'ADM1_FR'
+  shape: 'Shapes/cod_admbnda_rgc_itos_20190911_shp/cod_admbnda_adm1_rgc_itos_20190911.shp'
 SDN:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/SDN/COVID/SDN_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
   iso2_code: 'SD'
+  adm1_name: 'ADM1_EN'
   shape: 'Shapes/sdn_adm_cbs_nic_ssa_20200317_shp/sdn_admbnda_adm1_cbs_nic_ssa_20200317.shp'
 SSD:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/SSD/COVID/SSD_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
   iso2_code: 'SS'
+  adm1_name: 'ADM1_EN'
   shape: 'Shapes/ssd_admbnda_imwg_nbs_shp/ssd_admbnda_adm1_imwg_nbs_20180817.shp'
-
 SOM:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/SOM/COVID/SOM_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'

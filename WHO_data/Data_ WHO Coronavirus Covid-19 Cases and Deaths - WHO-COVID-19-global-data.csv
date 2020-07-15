@@ -141,7 +141,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 140,AF,AFG,Afghanistan,2020-07-12T00:00:00.000Z,100,34451,35,1010,阿富汗,Afghanistan,Afganistán,Афганистан,أفغانستان
 141,AF,AFG,Afghanistan,2020-07-13T00:00:00.000Z,0,34451,0,1010,阿富汗,Afghanistan,Afganistán,Афганистан,أفغانستان
 142,AF,AFG,Afghanistan,2020-07-14T00:00:00.000Z,289,34740,35,1045,阿富汗,Afghanistan,Afganistán,Афганистан,أفغانستان
-143,AF,AFG,Afghanistan,2020-07-15T00:00:00.000Z,0,34740,0,1045,阿富汗,Afghanistan,Afganistán,Афганистан,أفغانستان
+143,AF,AFG,Afghanistan,2020-07-15T00:00:00.000Z,200,34940,49,1094,阿富汗,Afghanistan,Afganistán,Афганистан,أفغانستان
 144,AL,ALB,Albania,2020-03-09T00:00:00.000Z,2,2,0,0,阿尔巴尼亚,Albanie,Albania,Албания,ألبانيا
 145,AL,ALB,Albania,2020-03-10T00:00:00.000Z,4,6,0,0,阿尔巴尼亚,Albanie,Albania,Албания,ألبانيا
 146,AL,ALB,Albania,2020-03-11T00:00:00.000Z,4,10,0,0,阿尔巴尼亚,Albanie,Albania,Албания,ألبانيا
@@ -270,7 +270,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 269,AL,ALB,Albania,2020-07-12T00:00:00.000Z,0,3371,0,89,阿尔巴尼亚,Albanie,Albania,Албания,ألبانيا
 270,AL,ALB,Albania,2020-07-13T00:00:00.000Z,200,3571,6,95,阿尔巴尼亚,Albanie,Albania,Албания,ألبانيا
 271,AL,ALB,Albania,2020-07-14T00:00:00.000Z,96,3667,2,97,阿尔巴尼亚,Albanie,Albania,Албания,ألبانيا
-272,AL,ALB,Albania,2020-07-15T00:00:00.000Z,0,3667,0,97,阿尔巴尼亚,Albanie,Albania,Албания,ألبانيا
+272,AL,ALB,Albania,2020-07-15T00:00:00.000Z,85,3752,4,101,阿尔巴尼亚,Albanie,Albania,Албания,ألبانيا
 273,DZ,DZA,Algeria,2020-02-25T00:00:00.000Z,1,1,0,0,阿尔及利亚,Algérie,Argelia,Алжир,الجزائر
 274,DZ,DZA,Algeria,2020-02-26T00:00:00.000Z,0,1,0,0,阿尔及利亚,Algérie,Argelia,Алжир,الجزائر
 275,DZ,DZA,Algeria,2020-02-27T00:00:00.000Z,0,1,0,0,阿尔及利亚,Algérie,Argelia,Алжир,الجزائر
@@ -412,7 +412,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 411,DZ,DZA,Algeria,2020-07-12T00:00:00.000Z,470,18712,8,1004,阿尔及利亚,Algérie,Argelia,Алжир,الجزائر
 412,DZ,DZA,Algeria,2020-07-13T00:00:00.000Z,483,19195,7,1011,阿尔及利亚,Algérie,Argelia,Алжир,الجزائر
 413,DZ,DZA,Algeria,2020-07-14T00:00:00.000Z,494,19689,7,1018,阿尔及利亚,Algérie,Argelia,Алжир,الجزائر
-414,DZ,DZA,Algeria,2020-07-15T00:00:00.000Z,0,19689,0,1018,阿尔及利亚,Algérie,Argelia,Алжир,الجزائر
+414,DZ,DZA,Algeria,2020-07-15T00:00:00.000Z,527,20216,10,1028,阿尔及利亚,Algérie,Argelia,Алжир,الجزائر
 415,AD,AND,Andorra,2020-03-02T00:00:00.000Z,1,1,0,0,安道尔,Andorre,Andorra,Андорра,أندورا
 416,AD,AND,Andorra,2020-03-03T00:00:00.000Z,0,1,0,0,安道尔,Andorre,Andorra,Андорра,أندورا
 417,AD,AND,Andorra,2020-03-04T00:00:00.000Z,0,1,0,0,安道尔,Andorre,Andorra,Андорра,أندورا
@@ -548,7 +548,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 547,AD,AND,Andorra,2020-07-12T00:00:00.000Z,0,855,0,52,安道尔,Andorre,Andorra,Андорра,أندورا
 548,AD,AND,Andorra,2020-07-13T00:00:00.000Z,0,855,0,52,安道尔,Andorre,Andorra,Андорра,أندورا
 549,AD,AND,Andorra,2020-07-14T00:00:00.000Z,3,858,0,52,安道尔,Andorre,Andorra,Андорра,أندورا
-550,AD,AND,Andorra,2020-07-15T00:00:00.000Z,0,858,0,52,安道尔,Andorre,Andorra,Андорра,أندورا
+550,AD,AND,Andorra,2020-07-15T00:00:00.000Z,3,861,0,52,安道尔,Andorre,Andorra,Андорра,أندورا
 551,AO,AGO,Angola,2020-03-21T00:00:00.000Z,2,2,0,0,安哥拉,Angola,Angola,Ангола,أنغولا
 552,AO,AGO,Angola,2020-03-22T00:00:00.000Z,0,2,0,0,安哥拉,Angola,Angola,Ангола,أنغولا
 553,AO,AGO,Angola,2020-03-23T00:00:00.000Z,0,2,0,0,安哥拉,Angola,Angola,Ангола,أنغولا
@@ -665,7 +665,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 664,AO,AGO,Angola,2020-07-12T00:00:00.000Z,21,483,2,25,安哥拉,Angola,Angola,Ангола,أنغولا
 665,AO,AGO,Angola,2020-07-13T00:00:00.000Z,23,506,1,26,安哥拉,Angola,Angola,Ангола,أنغولا
 666,AO,AGO,Angola,2020-07-14T00:00:00.000Z,19,525,0,26,安哥拉,Angola,Angola,Ангола,أنغولا
-667,AO,AGO,Angola,2020-07-15T00:00:00.000Z,0,525,0,26,安哥拉,Angola,Angola,Ангола,أنغولا
+667,AO,AGO,Angola,2020-07-15T00:00:00.000Z,16,541,0,26,安哥拉,Angola,Angola,Ангола,أنغولا
 668,AI,AIA,Anguilla,2020-03-26T00:00:00.000Z,2,2,0,0,"安圭拉
 ",,,,
 669,AI,AIA,Anguilla,2020-03-27T00:00:00.000Z,0,2,0,0,"安圭拉
@@ -1286,7 +1286,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 1173,AM,ARM,Armenia,2020-07-12T00:00:00.000Z,577,31969,6,565,亚美尼亚,Arménie,Armenia,Армения,أرمينيا
 1174,AM,ARM,Armenia,2020-07-13T00:00:00.000Z,182,32151,8,573,亚美尼亚,Arménie,Armenia,Армения,أرمينيا
 1175,AM,ARM,Armenia,2020-07-14T00:00:00.000Z,339,32490,8,581,亚美尼亚,Arménie,Armenia,Армения,أرمينيا
-1176,AM,ARM,Armenia,2020-07-15T00:00:00.000Z,0,32490,0,581,亚美尼亚,Arménie,Armenia,Армения,أرمينيا
+1176,AM,ARM,Armenia,2020-07-15T00:00:00.000Z,515,33005,11,592,亚美尼亚,Arménie,Armenia,Армения,أرمينيا
 1177,AW,ABW,Aruba,2020-03-17T00:00:00.000Z,2,2,0,0,"阿鲁巴
 ",,,,
 1178,AW,ABW,Aruba,2020-03-18T00:00:00.000Z,2,4,0,0,"阿鲁巴
@@ -1843,7 +1843,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 1609,AT,AUT,Austria,2020-07-12T00:00:00.000Z,108,18795,0,706,奥地利,Autriche,Austria,Австрия,النمسا
 1610,AT,AUT,Austria,2020-07-13T00:00:00.000Z,52,18847,2,708,奥地利,Autriche,Austria,Австрия,النمسا
 1611,AT,AUT,Austria,2020-07-14T00:00:00.000Z,12,18859,0,708,奥地利,Autriche,Austria,Австрия,النمسا
-1612,AT,AUT,Austria,2020-07-15T00:00:00.000Z,0,18859,0,708,奥地利,Autriche,Austria,Австрия,النمسا
+1612,AT,AUT,Austria,2020-07-15T00:00:00.000Z,201,19060,1,709,奥地利,Autriche,Austria,Австрия,النمسا
 1613,AZ,AZE,Azerbaijan,2020-02-29T00:00:00.000Z,3,3,0,0,阿塞拜疆,Azerbaïdjan,Azerbaiyán,Азербайджан,أذربيجان
 1614,AZ,AZE,Azerbaijan,2020-03-01T00:00:00.000Z,0,3,0,0,阿塞拜疆,Azerbaïdjan,Azerbaiyán,Азербайджан,أذربيجان
 1615,AZ,AZE,Azerbaijan,2020-03-02T00:00:00.000Z,0,3,0,0,阿塞拜疆,Azerbaïdjan,Azerbaiyán,Азербайджан,أذربيجان
@@ -1981,7 +1981,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 1747,AZ,AZE,Azerbaijan,2020-07-12T00:00:00.000Z,531,23521,6,298,阿塞拜疆,Azerbaïdjan,Azerbaiyán,Азербайджан,أذربيجان
 1748,AZ,AZE,Azerbaijan,2020-07-13T00:00:00.000Z,520,24041,8,306,阿塞拜疆,Azerbaïdjan,Azerbaiyán,Азербайджан,أذربيجان
 1749,AZ,AZE,Azerbaijan,2020-07-14T00:00:00.000Z,529,24570,7,313,阿塞拜疆,Azerbaïdjan,Azerbaiyán,Азербайджан,أذربيجان
-1750,AZ,AZE,Azerbaijan,2020-07-15T00:00:00.000Z,0,24570,0,313,阿塞拜疆,Azerbaïdjan,Azerbaiyán,Азербайджан,أذربيجان
+1750,AZ,AZE,Azerbaijan,2020-07-15T00:00:00.000Z,543,25113,6,319,阿塞拜疆,Azerbaïdjan,Azerbaiyán,Азербайджан,أذربيجان
 1751,BS,BHS,Bahamas,2020-03-17T00:00:00.000Z,1,1,0,0,巴哈马,Bahamas,Bahamas,Багамские Острова,جزر البهاما
 1752,BS,BHS,Bahamas,2020-03-18T00:00:00.000Z,2,3,0,0,巴哈马,Bahamas,Bahamas,Багамские Острова,جزر البهاما
 1753,BS,BHS,Bahamas,2020-03-19T00:00:00.000Z,0,3,0,0,巴哈马,Bahamas,Bahamas,Багамские Острова,جزر البهاما
@@ -2245,7 +2245,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 2011,BH,BHR,Bahrain,2020-07-12T00:00:00.000Z,431,32470,0,104,巴林,Bahreïn,Bahrein,Бахрейн,البحرين
 2012,BH,BHR,Bahrain,2020-07-13T00:00:00.000Z,471,32941,4,108,巴林,Bahreïn,Bahrein,Бахрейн,البحرين
 2013,BH,BHR,Bahrain,2020-07-14T00:00:00.000Z,535,33476,1,109,巴林,Bahreïn,Bahrein,Бахрейн,البحرين
-2014,BH,BHR,Bahrain,2020-07-15T00:00:00.000Z,0,33476,0,109,巴林,Bahreïn,Bahrein,Бахрейн,البحرين
+2014,BH,BHR,Bahrain,2020-07-15T00:00:00.000Z,602,34078,2,111,巴林,Bahreïn,Bahrein,Бахрейн,البحرين
 2015,BD,BGD,Bangladesh,2020-03-08T00:00:00.000Z,3,3,0,0,孟加拉国,Bangladesh,Bangladesh,Бангладеш,بنغلاديش
 2016,BD,BGD,Bangladesh,2020-03-09T00:00:00.000Z,0,3,0,0,孟加拉国,Bangladesh,Bangladesh,Бангладеш,بنغلاديش
 2017,BD,BGD,Bangladesh,2020-03-10T00:00:00.000Z,0,3,0,0,孟加拉国,Bangladesh,Bangladesh,Бангладеш,بنغلاديش
@@ -2375,7 +2375,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 2141,BD,BGD,Bangladesh,2020-07-12T00:00:00.000Z,2686,181129,30,2305,孟加拉国,Bangladesh,Bangladesh,Бангладеш,بنغلاديش
 2142,BD,BGD,Bangladesh,2020-07-13T00:00:00.000Z,2666,183795,47,2352,孟加拉国,Bangladesh,Bangladesh,Бангладеш,بنغلاديش
 2143,BD,BGD,Bangladesh,2020-07-14T00:00:00.000Z,3099,186894,39,2391,孟加拉国,Bangladesh,Bangladesh,Бангладеш,بنغلاديش
-2144,BD,BGD,Bangladesh,2020-07-15T00:00:00.000Z,0,186894,0,2391,孟加拉国,Bangladesh,Bangladesh,Бангладеш,بنغلاديش
+2144,BD,BGD,Bangladesh,2020-07-15T00:00:00.000Z,3163,190057,33,2424,孟加拉国,Bangladesh,Bangladesh,Бангладеш,بنغلاديش
 2145,BB,BRB,Barbados,2020-03-18T00:00:00.000Z,2,2,0,0,巴巴多斯,Barbade,Barbados,Барбадос,بربادوس
 2146,BB,BRB,Barbados,2020-03-19T00:00:00.000Z,0,2,0,0,巴巴多斯,Barbade,Barbados,Барбадос,بربادوس
 2147,BB,BRB,Barbados,2020-03-20T00:00:00.000Z,3,5,0,0,巴巴多斯,Barbade,Barbados,Барбадос,بربادوس
@@ -2634,7 +2634,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 2400,BY,BLR,Belarus,2020-07-12T00:00:00.000Z,160,64764,5,459,白俄罗斯,Bélarus,Belarús,Беларусь,بيلاروس
 2401,BY,BLR,Belarus,2020-07-13T00:00:00.000Z,168,64932,5,464,白俄罗斯,Bélarus,Belarús,Беларусь,بيلاروس
 2402,BY,BLR,Belarus,2020-07-14T00:00:00.000Z,182,65114,4,468,白俄罗斯,Bélarus,Belarús,Беларусь,بيلاروس
-2403,BY,BLR,Belarus,2020-07-15T00:00:00.000Z,0,65114,0,468,白俄罗斯,Bélarus,Belarús,Беларусь,بيلاروس
+2403,BY,BLR,Belarus,2020-07-15T00:00:00.000Z,155,65269,6,474,白俄罗斯,Bélarus,Belarús,Беларусь,بيلاروس
 2404,BE,BEL,Belgium,2020-02-04T00:00:00.000Z,1,1,0,0,比利时,Belgique,Bélgica,Бельгия,بلجيكا
 2405,BE,BEL,Belgium,2020-02-05T00:00:00.000Z,0,1,0,0,比利时,Belgique,Bélgica,Бельгия,بلجيكا
 2406,BE,BEL,Belgium,2020-02-06T00:00:00.000Z,0,1,0,0,比利时,Belgique,Bélgica,Бельгия,بلجيكا
@@ -3032,7 +3032,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 2798,BJ,BEN,Benin,2020-07-12T00:00:00.000Z,93,1378,3,26,贝宁,Bénin,Benin,Бенин,بنن
 2799,BJ,BEN,Benin,2020-07-13T00:00:00.000Z,0,1378,0,26,贝宁,Bénin,Benin,Бенин,بنن
 2800,BJ,BEN,Benin,2020-07-14T00:00:00.000Z,0,1378,0,26,贝宁,Bénin,Benin,Бенин,بنن
-2801,BJ,BEN,Benin,2020-07-15T00:00:00.000Z,0,1378,0,26,贝宁,Bénin,Benin,Бенин,بنن
+2801,BJ,BEN,Benin,2020-07-15T00:00:00.000Z,85,1463,2,28,贝宁,Bénin,Benin,Бенин,بنن
 2802,BM,BMU,Bermuda,2020-03-18T00:00:00.000Z,2,2,0,0,"百慕大
 ",,,,
 2803,BM,BMU,Bermuda,2020-03-19T00:00:00.000Z,0,2,0,0,"百慕大
@@ -4599,7 +4599,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 4030,BG,BGR,Bulgaria,2020-07-12T00:00:00.000Z,211,7175,0,262,保加利亚,Bulgarie,Bulgaria,Болгария,بلغاريا
 4031,BG,BGR,Bulgaria,2020-07-13T00:00:00.000Z,77,7252,6,268,保加利亚,Bulgarie,Bulgaria,Болгария,بلغاريا
 4032,BG,BGR,Bulgaria,2020-07-14T00:00:00.000Z,159,7411,8,276,保加利亚,Bulgarie,Bulgaria,Болгария,بلغاريا
-4033,BG,BGR,Bulgaria,2020-07-15T00:00:00.000Z,0,7411,0,276,保加利亚,Bulgarie,Bulgaria,Болгария,بلغاريا
+4033,BG,BGR,Bulgaria,2020-07-15T00:00:00.000Z,234,7645,7,283,保加利亚,Bulgarie,Bulgaria,Болгария,بلغاريا
 4034,BF,BFA,Burkina Faso,2020-03-11T00:00:00.000Z,2,2,0,0,布基纳法索,Burkina Faso,Burkina Faso,Буркина-Фасо,بوركينا فاسو
 4035,BF,BFA,Burkina Faso,2020-03-12T00:00:00.000Z,0,2,0,0,布基纳法索,Burkina Faso,Burkina Faso,Буркина-Фасо,بوركينا فاسو
 4036,BF,BFA,Burkina Faso,2020-03-13T00:00:00.000Z,0,2,0,0,布基纳法索,Burkina Faso,Burkina Faso,Буркина-Фасо,بوركينا فاسو
@@ -4726,7 +4726,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 4157,BF,BFA,Burkina Faso,2020-07-12T00:00:00.000Z,0,1020,0,54,布基纳法索,Burkina Faso,Burkina Faso,Буркина-Фасо,بوركينا فاسو
 4158,BF,BFA,Burkina Faso,2020-07-13T00:00:00.000Z,13,1033,-1,53,布基纳法索,Burkina Faso,Burkina Faso,Буркина-Фасо,بوركينا فاسو
 4159,BF,BFA,Burkina Faso,2020-07-14T00:00:00.000Z,3,1036,0,53,布基纳法索,Burkina Faso,Burkina Faso,Буркина-Фасо,بوركينا فاسو
-4160,BF,BFA,Burkina Faso,2020-07-15T00:00:00.000Z,0,1036,0,53,布基纳法索,Burkina Faso,Burkina Faso,Буркина-Фасо,بوركينا فاسو
+4160,BF,BFA,Burkina Faso,2020-07-15T00:00:00.000Z,1,1037,0,53,布基纳法索,Burkina Faso,Burkina Faso,Буркина-Фасо,بوركينا فاسو
 4161,BI,BDI,Burundi,2020-04-01T00:00:00.000Z,2,2,0,0,布隆迪,Burundi,Burundi,Бурунди,بوروندي
 4162,BI,BDI,Burundi,2020-04-02T00:00:00.000Z,0,2,0,0,布隆迪,Burundi,Burundi,Бурунди,بوروندي
 4163,BI,BDI,Burundi,2020-04-03T00:00:00.000Z,1,3,0,0,布隆迪,Burundi,Burundi,Бурунди,بوروندي
@@ -4950,7 +4950,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 4381,CV,CPV,Cabo Verde,2020-07-12T00:00:00.000Z,32,1623,0,19,佛得角,Cabo Verde,Cabo Verde,Кабо-Верде,كابو فيردي
 4382,CV,CPV,Cabo Verde,2020-07-13T00:00:00.000Z,75,1698,0,19,佛得角,Cabo Verde,Cabo Verde,Кабо-Верде,كابو فيردي
 4383,CV,CPV,Cabo Verde,2020-07-14T00:00:00.000Z,24,1722,0,19,佛得角,Cabo Verde,Cabo Verde,Кабо-Верде,كابو فيردي
-4384,CV,CPV,Cabo Verde,2020-07-15T00:00:00.000Z,0,1722,0,19,佛得角,Cabo Verde,Cabo Verde,Кабо-Верде,كابو فيردي
+4384,CV,CPV,Cabo Verde,2020-07-15T00:00:00.000Z,58,1780,0,19,佛得角,Cabo Verde,Cabo Verde,Кабо-Верде,كابو فيردي
 4385,KH,KHM,Cambodia,2020-01-27T00:00:00.000Z,1,1,0,0,柬埔寨,Cambodge,Camboya,Камбоджа,كمبوديا
 4386,KH,KHM,Cambodia,2020-01-28T00:00:00.000Z,0,1,0,0,柬埔寨,Cambodge,Camboya,Камбоджа,كمبوديا
 4387,KH,KHM,Cambodia,2020-01-29T00:00:00.000Z,0,1,0,0,柬埔寨,Cambodge,Camboya,Камбоджа,كمبوديا
@@ -5918,7 +5918,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 5224,TD,TCD,Chad,2020-07-12T00:00:00.000Z,0,874,0,74,乍得,Tchad,Chad (el),Чад,تشاد
 5225,TD,TCD,Chad,2020-07-13T00:00:00.000Z,6,880,1,75,乍得,Tchad,Chad (el),Чад,تشاد
 5226,TD,TCD,Chad,2020-07-14T00:00:00.000Z,0,880,0,75,乍得,Tchad,Chad (el),Чад,تشاد
-5227,TD,TCD,Chad,2020-07-15T00:00:00.000Z,0,880,0,75,乍得,Tchad,Chad (el),Чад,تشاد
+5227,TD,TCD,Chad,2020-07-15T00:00:00.000Z,4,884,0,75,乍得,Tchad,Chad (el),Чад,تشاد
 5228,CL,CHL,Chile,2020-03-03T00:00:00.000Z,1,1,0,0,智利,Chili,Chile,Чили,شيلي
 5229,CL,CHL,Chile,2020-03-04T00:00:00.000Z,0,1,0,0,智利,Chili,Chile,Чили,شيلي
 5230,CL,CHL,Chile,2020-03-05T00:00:00.000Z,0,1,0,0,智利,Chili,Chile,Чили,شيلي
@@ -6448,7 +6448,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 5754,KM,COM,Comoros,2020-07-12T00:00:00.000Z,0,314,0,7,科摩罗,Comores,Comoras,Коморские Острова,جزر القمر
 5755,KM,COM,Comoros,2020-07-13T00:00:00.000Z,3,317,0,7,科摩罗,Comores,Comoras,Коморские Острова,جزر القمر
 5756,KM,COM,Comoros,2020-07-14T00:00:00.000Z,0,317,0,7,科摩罗,Comores,Comoras,Коморские Острова,جزر القمر
-5757,KM,COM,Comoros,2020-07-15T00:00:00.000Z,0,317,0,7,科摩罗,Comores,Comoras,Коморские Острова,جزر القمر
+5757,KM,COM,Comoros,2020-07-15T00:00:00.000Z,4,321,0,7,科摩罗,Comores,Comoras,Коморские Острова,جزر القمر
 5758,CG,COG,Congo,2020-03-15T00:00:00.000Z,1,1,0,0,刚果,Congo,Congo (el),Конго,الكونغو
 5759,CG,COG,Congo,2020-03-16T00:00:00.000Z,0,1,0,0,刚果,Congo,Congo (el),Конго,الكونغو
 5760,CG,COG,Congo,2020-03-17T00:00:00.000Z,0,1,0,0,刚果,Congo,Congo (el),Конго,الكونغو
@@ -6571,7 +6571,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 5877,CG,COG,Congo,2020-07-12T00:00:00.000Z,75,2103,0,47,刚果,Congo,Congo (el),Конго,الكونغو
 5878,CG,COG,Congo,2020-07-13T00:00:00.000Z,0,2103,0,47,刚果,Congo,Congo (el),Конго,الكونغو
 5879,CG,COG,Congo,2020-07-14T00:00:00.000Z,119,2222,0,47,刚果,Congo,Congo (el),Конго,الكونغو
-5880,CG,COG,Congo,2020-07-15T00:00:00.000Z,0,2222,0,47,刚果,Congo,Congo (el),Конго,الكونغو
+5880,CG,COG,Congo,2020-07-15T00:00:00.000Z,136,2358,1,48,刚果,Congo,Congo (el),Конго,الكونغو
 5881,CR,CRI,Costa Rica,2020-03-08T00:00:00.000Z,5,5,0,0,哥斯达黎加,Costa Rica,Costa Rica,Коста-Рика,كوستاريكا
 5882,CR,CRI,Costa Rica,2020-03-09T00:00:00.000Z,4,9,0,0,哥斯达黎加,Costa Rica,Costa Rica,Коста-Рика,كوستاريكا
 5883,CR,CRI,Costa Rica,2020-03-10T00:00:00.000Z,0,9,0,0,哥斯达黎加,Costa Rica,Costa Rica,Коста-Рика,كوستاريكا
@@ -6827,7 +6827,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 6133,CI,CIV,Côte d’Ivoire,2020-07-12T00:00:00.000Z,548,12052,3,81,科特迪瓦,Côte d'Ivoire,Côte d'Ivoire,Кот-д'Ивуар,كوت ديفوار
 6134,CI,CIV,Côte d’Ivoire,2020-07-13T00:00:00.000Z,714,12766,3,84,科特迪瓦,Côte d'Ivoire,Côte d'Ivoire,Кот-д'Ивуар,كوت ديفوار
 6135,CI,CIV,Côte d’Ivoire,2020-07-14T00:00:00.000Z,106,12872,0,84,科特迪瓦,Côte d'Ivoire,Côte d'Ivoire,Кот-д'Ивуар,كوت ديفوار
-6136,CI,CIV,Côte d’Ivoire,2020-07-15T00:00:00.000Z,0,12872,0,84,科特迪瓦,Côte d'Ivoire,Côte d'Ivoire,Кот-д'Ивуар,كوت ديفوار
+6136,CI,CIV,Côte d’Ivoire,2020-07-15T00:00:00.000Z,165,13037,3,87,科特迪瓦,Côte d'Ivoire,Côte d'Ivoire,Кот-д'Ивуар,كوت ديفوار
 6137,HR,HRV,Croatia,2020-02-25T00:00:00.000Z,1,1,0,0,克罗地亚,Croatie,Croacia,Хорватия,كرواتيا
 6138,HR,HRV,Croatia,2020-02-26T00:00:00.000Z,2,3,0,0,克罗地亚,Croatie,Croacia,Хорватия,كرواتيا
 6139,HR,HRV,Croatia,2020-02-27T00:00:00.000Z,0,3,0,0,克罗地亚,Croatie,Croacia,Хорватия,كرواتيا
@@ -6969,7 +6969,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 6275,HR,HRV,Croatia,2020-07-12T00:00:00.000Z,140,3672,1,118,克罗地亚,Croatie,Croacia,Хорватия,كرواتيا
 6276,HR,HRV,Croatia,2020-07-13T00:00:00.000Z,50,3722,1,119,克罗地亚,Croatie,Croacia,Хорватия,كرواتيا
 6277,HR,HRV,Croatia,2020-07-14T00:00:00.000Z,53,3775,0,119,克罗地亚,Croatie,Croacia,Хорватия,كرواتيا
-6278,HR,HRV,Croatia,2020-07-15T00:00:00.000Z,0,3775,0,119,克罗地亚,Croatie,Croacia,Хорватия,كرواتيا
+6278,HR,HRV,Croatia,2020-07-15T00:00:00.000Z,52,3827,1,120,克罗地亚,Croatie,Croacia,Хорватия,كرواتيا
 6279,CU,CUB,Cuba,2020-03-13T00:00:00.000Z,4,4,0,0,古巴,Cuba,Cuba,Куба,كوبا
 6280,CU,CUB,Cuba,2020-03-14T00:00:00.000Z,0,4,0,0,古巴,Cuba,Cuba,Куба,كوبا
 6281,CU,CUB,Cuba,2020-03-15T00:00:00.000Z,0,4,0,0,古巴,Cuba,Cuba,Куба,كوبا
@@ -7610,7 +7610,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 6791,CZ,CZE,Czechia,2020-07-12T00:00:00.000Z,53,13115,0,352,捷克,Tchéquie,Chequia,Чехия,تشيكيا
 6792,CZ,CZE,Czechia,2020-07-13T00:00:00.000Z,59,13174,0,352,捷克,Tchéquie,Chequia,Чехия,تشيكيا
 6793,CZ,CZE,Czechia,2020-07-14T00:00:00.000Z,64,13238,1,353,捷克,Tchéquie,Chequia,Чехия,تشيكيا
-6794,CZ,CZE,Czechia,2020-07-15T00:00:00.000Z,0,13238,0,353,捷克,Tchéquie,Chequia,Чехия,تشيكيا
+6794,CZ,CZE,Czechia,2020-07-15T00:00:00.000Z,103,13341,2,355,捷克,Tchéquie,Chequia,Чехия,تشيكيا
 6795,CD,COD,Democratic Republic of the Congo,2020-03-11T00:00:00.000Z,1,1,0,0,刚果民主共和国,République démocratique du Congo,República Democrática del Congo,Демократическая Республика Конго,جمهورية الكونغو الديمقراطية 
 6796,CD,COD,Democratic Republic of the Congo,2020-03-12T00:00:00.000Z,0,1,0,0,刚果民主共和国,République démocratique du Congo,República Democrática del Congo,Демократическая Республика Конго,جمهورية الكونغو الديمقراطية 
 6797,CD,COD,Democratic Republic of the Congo,2020-03-13T00:00:00.000Z,0,1,0,0,刚果民主共和国,République démocratique du Congo,República Democrática del Congo,Демократическая Республика Конго,جمهورية الكونغو الديمقراطية 
@@ -7737,7 +7737,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 6918,CD,COD,Democratic Republic of the Congo,2020-07-12T00:00:00.000Z,66,7970,0,188,刚果民主共和国,République démocratique du Congo,República Democrática del Congo,Демократическая Республика Конго,جمهورية الكونغو الديمقراطية 
 6919,CD,COD,Democratic Republic of the Congo,2020-07-13T00:00:00.000Z,62,8032,0,188,刚果民主共和国,République démocratique du Congo,República Democrática del Congo,Демократическая Республика Конго,جمهورية الكونغو الديمقراطية 
 6920,CD,COD,Democratic Republic of the Congo,2020-07-14T00:00:00.000Z,42,8074,1,189,刚果民主共和国,République démocratique du Congo,República Democrática del Congo,Демократическая Республика Конго,جمهورية الكونغو الديمقراطية 
-6921,CD,COD,Democratic Republic of the Congo,2020-07-15T00:00:00.000Z,0,8074,0,189,刚果民主共和国,République démocratique du Congo,República Democrática del Congo,Демократическая Республика Конго,جمهورية الكونغو الديمقراطية 
+6921,CD,COD,Democratic Republic of the Congo,2020-07-15T00:00:00.000Z,60,8134,0,189,刚果民主共和国,République démocratique du Congo,República Democrática del Congo,Демократическая Республика Конго,جمهورية الكونغو الديمقراطية 
 6922,DK,DNK,Denmark,2020-02-27T00:00:00.000Z,1,1,0,0,丹麦,Danemark,Dinamarca,Дания,الدانمرك
 6923,DK,DNK,Denmark,2020-02-28T00:00:00.000Z,1,2,0,0,丹麦,Danemark,Dinamarca,Дания,الدانمرك
 6924,DK,DNK,Denmark,2020-02-29T00:00:00.000Z,1,3,0,0,丹麦,Danemark,Dinamarca,Дания,الدانمرك
@@ -7877,7 +7877,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 7058,DK,DNK,Denmark,2020-07-12T00:00:00.000Z,0,12946,0,609,丹麦,Danemark,Dinamarca,Дания,الدانمرك
 7059,DK,DNK,Denmark,2020-07-13T00:00:00.000Z,0,12946,0,609,丹麦,Danemark,Dinamarca,Дания,الدانمرك
 7060,DK,DNK,Denmark,2020-07-14T00:00:00.000Z,91,13037,1,610,丹麦,Danemark,Dinamarca,Дания,الدانمرك
-7061,DK,DNK,Denmark,2020-07-15T00:00:00.000Z,0,13037,0,610,丹麦,Danemark,Dinamarca,Дания,الدانمرك
+7061,DK,DNK,Denmark,2020-07-15T00:00:00.000Z,24,13061,0,610,丹麦,Danemark,Dinamarca,Дания,الدانمرك
 7062,DJ,DJI,Djibouti,2020-03-18T00:00:00.000Z,1,1,0,0,吉布提,Djibouti,Djibouti,Джибути,جيبوتي
 7063,DJ,DJI,Djibouti,2020-03-19T00:00:00.000Z,0,1,0,0,吉布提,Djibouti,Djibouti,Джибути,جيبوتي
 7064,DJ,DJI,Djibouti,2020-03-20T00:00:00.000Z,0,1,0,0,吉布提,Djibouti,Djibouti,Джибути,جيبوتي
@@ -7997,7 +7997,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 7178,DJ,DJI,Djibouti,2020-07-12T00:00:00.000Z,0,4968,0,56,吉布提,Djibouti,Djibouti,Джибути,جيبوتي
 7179,DJ,DJI,Djibouti,2020-07-13T00:00:00.000Z,4,4972,0,56,吉布提,Djibouti,Djibouti,Джибути,جيبوتي
 7180,DJ,DJI,Djibouti,2020-07-14T00:00:00.000Z,5,4977,0,56,吉布提,Djibouti,Djibouti,Джибути,جيبوتي
-7181,DJ,DJI,Djibouti,2020-07-15T00:00:00.000Z,0,4977,0,56,吉布提,Djibouti,Djibouti,Джибути,جيبوتي
+7181,DJ,DJI,Djibouti,2020-07-15T00:00:00.000Z,2,4979,0,56,吉布提,Djibouti,Djibouti,Джибути,جيبوتي
 7182,DM,DMA,Dominica,2020-03-24T00:00:00.000Z,2,2,0,0,多米尼克,Dominique,Dominica,Доминика,دومينيكا
 7183,DM,DMA,Dominica,2020-03-25T00:00:00.000Z,0,2,0,0,多米尼克,Dominique,Dominica,Доминика,دومينيكا
 7184,DM,DMA,Dominica,2020-03-26T00:00:00.000Z,9,11,0,0,多米尼克,Dominique,Dominica,Доминика,دومينيكا
@@ -8538,7 +8538,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 7719,EG,EGY,Egypt,2020-07-12T00:00:00.000Z,923,81158,67,3769,埃及,Égypte,Egipto,Египет,مصر
 7720,EG,EGY,Egypt,2020-07-13T00:00:00.000Z,912,82070,89,3858,埃及,Égypte,Egipto,Египет,مصر
 7721,EG,EGY,Egypt,2020-07-14T00:00:00.000Z,931,83001,77,3935,埃及,Égypte,Egipto,Египет,مصر
-7722,EG,EGY,Egypt,2020-07-15T00:00:00.000Z,0,83001,0,3935,埃及,Égypte,Egipto,Египет,مصر
+7722,EG,EGY,Egypt,2020-07-15T00:00:00.000Z,929,83930,73,4008,埃及,Égypte,Egipto,Египет,مصر
 7723,SV,SLV,El Salvador,2020-03-19T00:00:00.000Z,1,1,0,0,萨尔瓦多,El Salvador,El Salvador,Сальвадор,السلفادور
 7724,SV,SLV,El Salvador,2020-03-20T00:00:00.000Z,0,1,0,0,萨尔瓦多,El Salvador,El Salvador,Сальвадор,السلفادور
 7725,SV,SLV,El Salvador,2020-03-21T00:00:00.000Z,0,1,0,0,萨尔瓦多,El Salvador,El Salvador,Сальвадор,السلفادور
@@ -9038,7 +9038,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 8219,EE,EST,Estonia,2020-07-12T00:00:00.000Z,1,2014,0,69,爱沙尼亚,Estonie,Estonia,Эстония,إستونيا
 8220,EE,EST,Estonia,2020-07-13T00:00:00.000Z,0,2014,0,69,爱沙尼亚,Estonie,Estonia,Эстония,إستونيا
 8221,EE,EST,Estonia,2020-07-14T00:00:00.000Z,0,2014,0,69,爱沙尼亚,Estonie,Estonia,Эстония,إستونيا
-8222,EE,EST,Estonia,2020-07-15T00:00:00.000Z,0,2014,0,69,爱沙尼亚,Estonie,Estonia,Эстония,إستونيا
+8222,EE,EST,Estonia,2020-07-15T00:00:00.000Z,1,2015,0,69,爱沙尼亚,Estonie,Estonia,Эстония,إستونيا
 8223,SZ,SWZ,Eswatini,2020-03-14T00:00:00.000Z,1,1,0,0,斯威士兰,Eswatini,Eswatini,Эсватини,إسواتيني
 8224,SZ,SWZ,Eswatini,2020-03-15T00:00:00.000Z,0,1,0,0,斯威士兰,Eswatini,Eswatini,Эсватини,إسواتيني
 8225,SZ,SWZ,Eswatini,2020-03-16T00:00:00.000Z,0,1,0,0,斯威士兰,Eswatini,Eswatini,Эсватини,إسواتيني
@@ -9162,7 +9162,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 8343,SZ,SWZ,Eswatini,2020-07-12T00:00:00.000Z,54,1311,0,18,斯威士兰,Eswatini,Eswatini,Эсватини,إسواتيني
 8344,SZ,SWZ,Eswatini,2020-07-13T00:00:00.000Z,40,1351,2,20,斯威士兰,Eswatini,Eswatini,Эсватини,إسواتيني
 8345,SZ,SWZ,Eswatini,2020-07-14T00:00:00.000Z,38,1389,0,20,斯威士兰,Eswatini,Eswatini,Эсватини,إسواتيني
-8346,SZ,SWZ,Eswatini,2020-07-15T00:00:00.000Z,0,1389,0,20,斯威士兰,Eswatini,Eswatini,Эсватини,إسواتيني
+8346,SZ,SWZ,Eswatini,2020-07-15T00:00:00.000Z,45,1434,0,20,斯威士兰,Eswatini,Eswatini,Эсватини,إسواتيني
 8347,ET,ETH,Ethiopia,2020-03-14T00:00:00.000Z,1,1,0,0,埃塞俄比亚,Éthiopie,Etiopía,Эфиопия,إثيوبيا
 8348,ET,ETH,Ethiopia,2020-03-15T00:00:00.000Z,0,1,0,0,埃塞俄比亚,Éthiopie,Etiopía,Эфиопия,إثيوبيا
 8349,ET,ETH,Ethiopia,2020-03-16T00:00:00.000Z,3,4,0,0,埃塞俄比亚,Éthiopie,Etiopía,Эфиопия,إثيوبيا
@@ -9286,7 +9286,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 8467,ET,ETH,Ethiopia,2020-07-12T00:00:00.000Z,158,7560,3,127,埃塞俄比亚,Éthiopie,Etiopía,Эфиопия,إثيوبيا
 8468,ET,ETH,Ethiopia,2020-07-13T00:00:00.000Z,206,7766,1,128,埃塞俄比亚,Éthiopie,Etiopía,Эфиопия,إثيوبيا
 8469,ET,ETH,Ethiopia,2020-07-14T00:00:00.000Z,203,7969,11,139,埃塞俄比亚,Éthiopie,Etiopía,Эфиопия,إثيوبيا
-8470,ET,ETH,Ethiopia,2020-07-15T00:00:00.000Z,0,7969,0,139,埃塞俄比亚,Éthiopie,Etiopía,Эфиопия,إثيوبيا
+8470,ET,ETH,Ethiopia,2020-07-15T00:00:00.000Z,212,8181,7,146,埃塞俄比亚,Éthiopie,Etiopía,Эфиопия,إثيوبيا
 8471,FK,FLK,Falkland Islands (Malvinas),2020-04-05T00:00:00.000Z,1,1,0,0,"福克兰群岛（马尔维纳斯群岛）
 ",,,,
 8472,FK,FLK,Falkland Islands (Malvinas),2020-04-06T00:00:00.000Z,1,2,0,0,"福克兰群岛（马尔维纳斯群岛）
@@ -10042,7 +10042,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 8989,FI,FIN,Finland,2020-07-12T00:00:00.000Z,0,7279,0,329,芬兰,Finlande,Finlandia,Финляндия,فنلندا
 8990,FI,FIN,Finland,2020-07-13T00:00:00.000Z,15,7294,0,329,芬兰,Finlande,Finlandia,Финляндия,فنلندا
 8991,FI,FIN,Finland,2020-07-14T00:00:00.000Z,1,7295,0,329,芬兰,Finlande,Finlandia,Финляндия,فنلندا
-8992,FI,FIN,Finland,2020-07-15T00:00:00.000Z,0,7295,0,329,芬兰,Finlande,Finlandia,Финляндия,فنلندا
+8992,FI,FIN,Finland,2020-07-15T00:00:00.000Z,6,7301,0,329,芬兰,Finlande,Finlandia,Финляндия,فنلندا
 8993,FR,FRA,France,2020-01-24T00:00:00.000Z,3,3,0,0,法国,France,Francia,Франция,فرنسا
 8994,FR,FRA,France,2020-01-25T00:00:00.000Z,0,3,0,0,法国,France,Francia,Франция,فرنسا
 8995,FR,FRA,France,2020-01-26T00:00:00.000Z,0,3,0,0,法国,France,Francia,Франция,فرنسا
@@ -11115,7 +11115,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 9805,GE,GEO,Georgia,2020-07-12T00:00:00.000Z,5,986,0,15,格鲁吉亚,Géorgie,Georgia,Грузия,جورجيا
 9806,GE,GEO,Georgia,2020-07-13T00:00:00.000Z,9,995,0,15,格鲁吉亚,Géorgie,Georgia,Грузия,جورجيا
 9807,GE,GEO,Georgia,2020-07-14T00:00:00.000Z,4,999,0,15,格鲁吉亚,Géorgie,Georgia,Грузия,جورجيا
-9808,GE,GEO,Georgia,2020-07-15T00:00:00.000Z,0,999,0,15,格鲁吉亚,Géorgie,Georgia,Грузия,جورجيا
+9808,GE,GEO,Georgia,2020-07-15T00:00:00.000Z,4,1003,0,15,格鲁吉亚,Géorgie,Georgia,Грузия,جورجيا
 9809,DE,DEU,Germany,2020-01-28T00:00:00.000Z,4,4,0,0,德国,Allemagne,Alemania,Германия,ألمانيا
 9810,DE,DEU,Germany,2020-01-29T00:00:00.000Z,0,4,0,0,德国,Allemagne,Alemania,Германия,ألمانيا
 9811,DE,DEU,Germany,2020-01-30T00:00:00.000Z,0,4,0,0,德国,Allemagne,Alemania,Германия,ألمانيا
@@ -11285,7 +11285,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 9975,DE,DEU,Germany,2020-07-12T00:00:00.000Z,248,198804,3,9063,德国,Allemagne,Alemania,Германия,ألمانيا
 9976,DE,DEU,Germany,2020-07-13T00:00:00.000Z,159,198963,1,9064,德国,Allemagne,Alemania,Германия,ألمانيا
 9977,DE,DEU,Germany,2020-07-14T00:00:00.000Z,0,198963,0,9064,德国,Allemagne,Alemania,Германия,ألمانيا
-9978,DE,DEU,Germany,2020-07-15T00:00:00.000Z,0,198963,0,9064,德国,Allemagne,Alemania,Германия,ألمانيا
+9978,DE,DEU,Germany,2020-07-15T00:00:00.000Z,763,199726,7,9071,德国,Allemagne,Alemania,Германия,ألمانيا
 9979,GH,GHA,Ghana,2020-03-14T00:00:00.000Z,1,1,0,0,加纳,Ghana,Ghana,Гана,غانا
 9980,GH,GHA,Ghana,2020-03-15T00:00:00.000Z,1,2,0,0,加纳,Ghana,Ghana,Гана,غانا
 9981,GH,GHA,Ghana,2020-03-16T00:00:00.000Z,0,2,0,0,加纳,Ghana,Ghana,Гана,غانا
@@ -11820,7 +11820,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 10375,GR,GRC,Greece,2020-07-12T00:00:00.000Z,40,3772,0,193,希腊,Grèce,Grecia,Греция,اليونان
 10376,GR,GRC,Greece,2020-07-13T00:00:00.000Z,31,3803,0,193,希腊,Grèce,Grecia,Греция,اليونان
 10377,GR,GRC,Greece,2020-07-14T00:00:00.000Z,23,3826,0,193,希腊,Grèce,Grecia,Греция,اليونان
-10378,GR,GRC,Greece,2020-07-15T00:00:00.000Z,0,3826,0,193,希腊,Grèce,Grecia,Греция,اليونان
+10378,GR,GRC,Greece,2020-07-15T00:00:00.000Z,57,3883,0,193,希腊,Grèce,Grecia,Греция,اليونان
 10379,GL,GRL,Greenland,2020-03-18T00:00:00.000Z,2,2,0,0,"格陵兰岛
 ",,,,
 10380,GL,GRL,Greenland,2020-03-19T00:00:00.000Z,0,2,0,0,"格陵兰岛
@@ -13170,7 +13170,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 11231,GN,GIN,Guinea,2020-07-12T00:00:00.000Z,75,6044,0,37,几内亚,Guinée,Guinea,Гвинея,غينيا
 11232,GN,GIN,Guinea,2020-07-13T00:00:00.000Z,97,6141,0,37,几内亚,Guinée,Guinea,Гвинея,غينيا
 11233,GN,GIN,Guinea,2020-07-14T00:00:00.000Z,29,6170,1,38,几内亚,Guinée,Guinea,Гвинея,غينيا
-11234,GN,GIN,Guinea,2020-07-15T00:00:00.000Z,0,6170,0,38,几内亚,Guinée,Guinea,Гвинея,غينيا
+11234,GN,GIN,Guinea,2020-07-15T00:00:00.000Z,30,6200,0,38,几内亚,Guinée,Guinea,Гвинея,غينيا
 11235,GW,GNB,Guinea-Bissau,2020-03-26T00:00:00.000Z,2,2,0,0,几内亚比绍,Guinée-Bissau,Guinea-Bissau,Гвинея-Бисау,غينيا - بيساو
 11236,GW,GNB,Guinea-Bissau,2020-03-27T00:00:00.000Z,0,2,0,0,几内亚比绍,Guinée-Bissau,Guinea-Bissau,Гвинея-Бисау,غينيا - بيساو
 11237,GW,GNB,Guinea-Bissau,2020-03-28T00:00:00.000Z,0,2,0,0,几内亚比绍,Guinée-Bissau,Guinea-Bissau,Гвинея-Бисау,غينيا - بيساو
@@ -14049,7 +14049,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 11978,HU,HUN,Hungary,2020-07-12T00:00:00.000Z,6,4229,2,595,匈牙利,Hongrie,Hungría,Венгрия,هنغاريا
 11979,HU,HUN,Hungary,2020-07-13T00:00:00.000Z,5,4234,0,595,匈牙利,Hongrie,Hungría,Венгрия,هنغاريا
 11980,HU,HUN,Hungary,2020-07-14T00:00:00.000Z,13,4247,0,595,匈牙利,Hongrie,Hungría,Венгрия,هنغاريا
-11981,HU,HUN,Hungary,2020-07-15T00:00:00.000Z,0,4247,0,595,匈牙利,Hongrie,Hungría,Венгрия,هنغاريا
+11981,HU,HUN,Hungary,2020-07-15T00:00:00.000Z,16,4263,0,595,匈牙利,Hongrie,Hungría,Венгрия,هنغاريا
 11982,IS,ISL,Iceland,2020-03-01T00:00:00.000Z,2,2,0,0,冰岛,Islande,Islandia,Исландия,آيسلندا
 11983,IS,ISL,Iceland,2020-03-02T00:00:00.000Z,7,9,0,0,冰岛,Islande,Islandia,Исландия,آيسلندا
 11984,IS,ISL,Iceland,2020-03-03T00:00:00.000Z,7,16,0,0,冰岛,Islande,Islandia,Исландия,آيسلندا
@@ -14186,7 +14186,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 12115,IS,ISL,Iceland,2020-07-12T00:00:00.000Z,2,1888,0,10,冰岛,Islande,Islandia,Исландия,آيسلندا
 12116,IS,ISL,Iceland,2020-07-13T00:00:00.000Z,8,1896,0,10,冰岛,Islande,Islandia,Исландия,آيسلندا
 12117,IS,ISL,Iceland,2020-07-14T00:00:00.000Z,4,1900,0,10,冰岛,Islande,Islandia,Исландия,آيسلندا
-12118,IS,ISL,Iceland,2020-07-15T00:00:00.000Z,0,1900,0,10,冰岛,Islande,Islandia,Исландия,آيسلندا
+12118,IS,ISL,Iceland,2020-07-15T00:00:00.000Z,5,1905,0,10,冰岛,Islande,Islandia,Исландия,آيسلندا
 12119,IN,IND,India,2020-01-30T00:00:00.000Z,1,1,0,0,印度,Inde,India,Индия,الهند
 12120,IN,IND,India,2020-01-31T00:00:00.000Z,0,1,0,0,印度,Inde,India,Индия,الهند
 12121,IN,IND,India,2020-02-01T00:00:00.000Z,0,1,0,0,印度,Inde,India,Индия,الهند
@@ -14354,7 +14354,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 12283,IN,IND,India,2020-07-12T00:00:00.000Z,28637,849553,551,22674,印度,Inde,India,Индия,الهند
 12284,IN,IND,India,2020-07-13T00:00:00.000Z,28701,878254,500,23174,印度,Inde,India,Индия,الهند
 12285,IN,IND,India,2020-07-14T00:00:00.000Z,28498,906752,553,23727,印度,Inde,India,Индия,الهند
-12286,IN,IND,India,2020-07-15T00:00:00.000Z,0,906752,0,23727,印度,Inde,India,Индия,الهند
+12286,IN,IND,India,2020-07-15T00:00:00.000Z,29429,936181,582,24309,印度,Inde,India,Индия,الهند
 12287,ID,IDN,Indonesia,2020-03-02T00:00:00.000Z,2,2,0,0,印度尼西亚,Indonésie,Indonesia,Индонезия,إندونيسيا
 12288,ID,IDN,Indonesia,2020-03-03T00:00:00.000Z,0,2,0,0,印度尼西亚,Indonésie,Indonesia,Индонезия,إندونيسيا
 12289,ID,IDN,Indonesia,2020-03-04T00:00:00.000Z,0,2,0,0,印度尼西亚,Indonésie,Indonesia,Индонезия,إندونيسيا
@@ -14490,7 +14490,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 12419,ID,IDN,Indonesia,2020-07-12T00:00:00.000Z,1671,74018,66,3535,印度尼西亚,Indonésie,Indonesia,Индонезия,إندونيسيا
 12420,ID,IDN,Indonesia,2020-07-13T00:00:00.000Z,1681,75699,71,3606,印度尼西亚,Indonésie,Indonesia,Индонезия,إندونيسيا
 12421,ID,IDN,Indonesia,2020-07-14T00:00:00.000Z,1282,76981,50,3656,印度尼西亚,Indonésie,Indonesia,Индонезия,إندونيسيا
-12422,ID,IDN,Indonesia,2020-07-15T00:00:00.000Z,0,76981,0,3656,印度尼西亚,Indonésie,Indonesia,Индонезия,إندونيسيا
+12422,ID,IDN,Indonesia,2020-07-15T00:00:00.000Z,1591,78572,54,3710,印度尼西亚,Indonésie,Indonesia,Индонезия,إندونيسيا
 12423,IR,IRN,Iran (Islamic Republic of),2020-02-19T00:00:00.000Z,2,2,2,2,伊朗（伊斯兰共和国）,Iran (République islamique d'),Irán (República Islámica del),Иран (Исламская Республика),إيران (جمهورية - الإسلامية)
 12424,IR,IRN,Iran (Islamic Republic of),2020-02-20T00:00:00.000Z,3,5,0,2,伊朗（伊斯兰共和国）,Iran (République islamique d'),Irán (República Islámica del),Иран (Исламская Республика),إيران (جمهورية - الإسلامية)
 12425,IR,IRN,Iran (Islamic Republic of),2020-02-21T00:00:00.000Z,13,18,2,4,伊朗（伊斯兰共和国）,Iran (République islamique d'),Irán (República Islámica del),Иран (Исламская Республика),إيران (جمهورية - الإسلامية)
@@ -14638,7 +14638,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 12567,IR,IRN,Iran (Islamic Republic of),2020-07-12T00:00:00.000Z,2397,255117,188,12635,伊朗（伊斯兰共和国）,Iran (République islamique d'),Irán (República Islámica del),Иран (Исламская Республика),إيران (جمهورية - الإسلامية)
 12568,IR,IRN,Iran (Islamic Republic of),2020-07-13T00:00:00.000Z,2186,257303,194,12829,伊朗（伊斯兰共和国）,Iran (République islamique d'),Irán (República Islámica del),Иран (Исламская Республика),إيران (جمهورية - الإسلامية)
 12569,IR,IRN,Iran (Islamic Republic of),2020-07-14T00:00:00.000Z,2349,259652,203,13032,伊朗（伊斯兰共和国）,Iran (République islamique d'),Irán (República Islámica del),Иран (Исламская Республика),إيران (جمهورية - الإسلامية)
-12570,IR,IRN,Iran (Islamic Republic of),2020-07-15T00:00:00.000Z,0,259652,0,13032,伊朗（伊斯兰共和国）,Iran (République islamique d'),Irán (República Islámica del),Иран (Исламская Республика),إيران (جمهورية - الإسلامية)
+12570,IR,IRN,Iran (Islamic Republic of),2020-07-15T00:00:00.000Z,2521,262173,179,13211,伊朗（伊斯兰共和国）,Iran (République islamique d'),Irán (República Islámica del),Иран (Исламская Республика),إيران (جمهورية - الإسلامية)
 12571,IQ,IRQ,Iraq,2020-02-24T00:00:00.000Z,1,1,0,0,伊拉克,Iraq,Iraq,Ирак,العراق
 12572,IQ,IRQ,Iraq,2020-02-25T00:00:00.000Z,4,5,0,0,伊拉克,Iraq,Iraq,Ирак,العراق
 12573,IQ,IRQ,Iraq,2020-02-26T00:00:00.000Z,0,5,0,0,伊拉克,Iraq,Iraq,Ирак,العراق
@@ -14781,7 +14781,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 12710,IQ,IRQ,Iraq,2020-07-12T00:00:00.000Z,2734,75194,95,3055,伊拉克,Iraq,Iraq,Ирак,العراق
 12711,IQ,IRQ,Iraq,2020-07-13T00:00:00.000Z,2312,77506,95,3150,伊拉克,Iraq,Iraq,Ирак,العراق
 12712,IQ,IRQ,Iraq,2020-07-14T00:00:00.000Z,2229,79735,100,3250,伊拉克,Iraq,Iraq,Ирак,العراق
-12713,IQ,IRQ,Iraq,2020-07-15T00:00:00.000Z,0,79735,0,3250,伊拉克,Iraq,Iraq,Ирак,العراق
+12713,IQ,IRQ,Iraq,2020-07-15T00:00:00.000Z,2022,81757,95,3345,伊拉克,Iraq,Iraq,Ирак,العراق
 12714,IE,IRL,Ireland,2020-03-01T00:00:00.000Z,1,1,0,0,爱尔兰,Irlande,Irlanda,Ирландия,آيرلندا
 12715,IE,IRL,Ireland,2020-03-02T00:00:00.000Z,0,1,0,0,爱尔兰,Irlande,Irlanda,Ирландия,آيرلندا
 12716,IE,IRL,Ireland,2020-03-03T00:00:00.000Z,1,2,0,0,爱尔兰,Irlande,Irlanda,Ирландия,آيرلندا
@@ -14918,7 +14918,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 12847,IE,IRL,Ireland,2020-07-12T00:00:00.000Z,22,25611,2,1746,爱尔兰,Irlande,Irlanda,Ирландия,آيرلندا
 12848,IE,IRL,Ireland,2020-07-13T00:00:00.000Z,17,25628,0,1746,爱尔兰,Irlande,Irlanda,Ирландия,آيرلندا
 12849,IE,IRL,Ireland,2020-07-14T00:00:00.000Z,10,25638,0,1746,爱尔兰,Irlande,Irlanda,Ирландия,آيرلندا
-12850,IE,IRL,Ireland,2020-07-15T00:00:00.000Z,0,25638,0,1746,爱尔兰,Irlande,Irlanda,Ирландия,آيرلندا
+12850,IE,IRL,Ireland,2020-07-15T00:00:00.000Z,32,25670,0,1746,爱尔兰,Irlande,Irlanda,Ирландия,آيرلندا
 12851,IM,IMN,Isle of Man,2020-03-20T00:00:00.000Z,1,1,0,0,"马恩岛
 ",,,,
 12852,IM,IMN,Isle of Man,2020-03-21T00:00:00.000Z,1,2,0,0,"马恩岛
@@ -15469,7 +15469,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 13280,IT,ITA,Italy,2020-07-12T00:00:00.000Z,188,242827,7,34945,意大利,Italie,Italia,Италия,إيطاليا
 13281,IT,ITA,Italy,2020-07-13T00:00:00.000Z,234,243061,9,34954,意大利,Italie,Italia,Италия,إيطاليا
 13282,IT,ITA,Italy,2020-07-14T00:00:00.000Z,169,243230,13,34967,意大利,Italie,Italia,Италия,إيطاليا
-13283,IT,ITA,Italy,2020-07-15T00:00:00.000Z,0,243230,0,34967,意大利,Italie,Italia,Италия,إيطاليا
+13283,IT,ITA,Italy,2020-07-15T00:00:00.000Z,114,243344,17,34984,意大利,Italie,Italia,Италия,إيطاليا
 13284,JM,JAM,Jamaica,2020-03-10T00:00:00.000Z,1,1,0,0,牙买加,Jamaïque,Jamaica,Ямайка,جامايكا
 13285,JM,JAM,Jamaica,2020-03-11T00:00:00.000Z,0,1,0,0,牙买加,Jamaïque,Jamaica,Ямайка,جامايكا
 13286,JM,JAM,Jamaica,2020-03-12T00:00:00.000Z,0,1,0,0,牙买加,Jamaïque,Jamaica,Ямайка,جامايكا
@@ -16169,7 +16169,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 13854,JO,JOR,Jordan,2020-07-12T00:00:00.000Z,3,1176,0,10,约旦,Jordanie,Jordania,Иордания,الأردن
 13855,JO,JOR,Jordan,2020-07-13T00:00:00.000Z,3,1179,0,10,约旦,Jordanie,Jordania,Иордания,الأردن
 13856,JO,JOR,Jordan,2020-07-14T00:00:00.000Z,4,1183,0,10,约旦,Jordanie,Jordania,Иордания,الأردن
-13857,JO,JOR,Jordan,2020-07-15T00:00:00.000Z,0,1183,0,10,约旦,Jordanie,Jordania,Иордания,الأردن
+13857,JO,JOR,Jordan,2020-07-15T00:00:00.000Z,15,1198,0,10,约旦,Jordanie,Jordania,Иордания,الأردن
 13858,KZ,KAZ,Kazakhstan,2020-03-14T00:00:00.000Z,2,2,0,0,哈萨克斯坦,Kazakhstan,Kazajstán,Казахстан,كازاخستان
 13859,KZ,KAZ,Kazakhstan,2020-03-15T00:00:00.000Z,4,6,0,0,哈萨克斯坦,Kazakhstan,Kazajstán,Казахстан,كازاخستان
 13860,KZ,KAZ,Kazakhstan,2020-03-16T00:00:00.000Z,0,6,0,0,哈萨克斯坦,Kazakhstan,Kazajstán,Казахстан,كازاخستان
@@ -16293,7 +16293,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 13978,KZ,KAZ,Kazakhstan,2020-07-12T00:00:00.000Z,1798,58253,20,352,哈萨克斯坦,Kazakhstan,Kazajstán,Казахстан,كازاخستان
 13979,KZ,KAZ,Kazakhstan,2020-07-13T00:00:00.000Z,1646,59899,23,375,哈萨克斯坦,Kazakhstan,Kazajstán,Казахстан,كازاخستان
 13980,KZ,KAZ,Kazakhstan,2020-07-14T00:00:00.000Z,1856,61755,0,375,哈萨克斯坦,Kazakhstan,Kazajstán,Казахстан,كازاخستان
-13981,KZ,KAZ,Kazakhstan,2020-07-15T00:00:00.000Z,0,61755,0,375,哈萨克斯坦,Kazakhstan,Kazajstán,Казахстан,كازاخستان
+13981,KZ,KAZ,Kazakhstan,2020-07-15T00:00:00.000Z,1759,63514,0,375,哈萨克斯坦,Kazakhstan,Kazajstán,Казахстан,كازاخستان
 13982,KE,KEN,Kenya,2020-03-14T00:00:00.000Z,1,1,0,0,肯尼亚,Kenya,Kenya,Кения,كينيا
 13983,KE,KEN,Kenya,2020-03-15T00:00:00.000Z,0,1,0,0,肯尼亚,Kenya,Kenya,Кения,كينيا
 13984,KE,KEN,Kenya,2020-03-16T00:00:00.000Z,2,3,0,0,肯尼亚,Kenya,Kenya,Кения,كينيا
@@ -16417,7 +16417,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 14102,KE,KEN,Kenya,2020-07-12T00:00:00.000Z,278,9726,3,184,肯尼亚,Kenya,Kenya,Кения,كينيا
 14103,KE,KEN,Kenya,2020-07-13T00:00:00.000Z,379,10105,1,185,肯尼亚,Kenya,Kenya,Кения,كينيا
 14104,KE,KEN,Kenya,2020-07-14T00:00:00.000Z,189,10294,12,197,肯尼亚,Kenya,Kenya,Кения,كينيا
-14105,KE,KEN,Kenya,2020-07-15T00:00:00.000Z,0,10294,0,197,肯尼亚,Kenya,Kenya,Кения,كينيا
+14105,KE,KEN,Kenya,2020-07-15T00:00:00.000Z,497,10791,5,202,肯尼亚,Kenya,Kenya,Кения,كينيا
 14106,XK,XKX,Kosovo[1],2020-03-13T00:00:00.000Z,2,2,0,0,科索沃[1],,,,
 14107,XK,XKX,Kosovo[1],2020-03-14T00:00:00.000Z,3,5,0,0,科索沃[1],,,,
 14108,XK,XKX,Kosovo[1],2020-03-15T00:00:00.000Z,0,5,0,0,科索沃[1],,,,
@@ -16685,7 +16685,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 14370,KW,KWT,Kuwait,2020-07-12T00:00:00.000Z,478,54058,3,386,科威特,Koweït,Kuwait,Кувейт,الكويت
 14371,KW,KWT,Kuwait,2020-07-13T00:00:00.000Z,836,54894,4,390,科威特,Koweït,Kuwait,Кувейт,الكويت
 14372,KW,KWT,Kuwait,2020-07-14T00:00:00.000Z,614,55508,3,393,科威特,Koweït,Kuwait,Кувейт,الكويت
-14373,KW,KWT,Kuwait,2020-07-15T00:00:00.000Z,0,55508,0,393,科威特,Koweït,Kuwait,Кувейт,الكويت
+14373,KW,KWT,Kuwait,2020-07-15T00:00:00.000Z,666,56174,3,396,科威特,Koweït,Kuwait,Кувейт,الكويت
 14374,KG,KGZ,Kyrgyzstan,2020-03-18T00:00:00.000Z,3,3,0,0,吉尔吉斯斯坦,Kirghizistan,Kirguistán,Кыргызстан,قيرغيزستان
 14375,KG,KGZ,Kyrgyzstan,2020-03-19T00:00:00.000Z,0,3,0,0,吉尔吉斯斯坦,Kirghizistan,Kirguistán,Кыргызстан,قيرغيزستان
 14376,KG,KGZ,Kyrgyzstan,2020-03-20T00:00:00.000Z,3,6,0,0,吉尔吉斯斯坦,Kirghizistan,Kirguistán,Кыргызстан,قيرغيزستان
@@ -16805,7 +16805,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 14490,KG,KGZ,Kyrgyzstan,2020-07-12T00:00:00.000Z,719,10629,7,132,吉尔吉斯斯坦,Kirghizistan,Kirguistán,Кыргызстан,قيرغيزستان
 14491,KG,KGZ,Kyrgyzstan,2020-07-13T00:00:00.000Z,488,11117,15,147,吉尔吉斯斯坦,Kirghizistan,Kirguistán,Кыргызстан,قيرغيزستان
 14492,KG,KGZ,Kyrgyzstan,2020-07-14T00:00:00.000Z,421,11538,2,149,吉尔吉斯斯坦,Kirghizistan,Kirguistán,Кыргызстан,قيرغيزستان
-14493,KG,KGZ,Kyrgyzstan,2020-07-15T00:00:00.000Z,0,11538,0,149,吉尔吉斯斯坦,Kirghizistan,Kirguistán,Кыргызстан,قيرغيزستان
+14493,KG,KGZ,Kyrgyzstan,2020-07-15T00:00:00.000Z,439,11977,11,160,吉尔吉斯斯坦,Kirghizistan,Kirguistán,Кыргызстан,قيرغيزستان
 14494,LA,LAO,Lao People's Democratic Republic,2020-03-24T00:00:00.000Z,2,2,0,0,老挝人民民主共和国,République démocratique populaire lao,República Democrática Popular Lao,Лаосская Народно-Демократическая Республика,جمهورية لاوس الديمقراطية الشعبية
 14495,LA,LAO,Lao People's Democratic Republic,2020-03-25T00:00:00.000Z,0,2,0,0,老挝人民民主共和国,République démocratique populaire lao,República Democrática Popular Lao,Лаосская Народно-Демократическая Республика,جمهورية لاوس الديمقراطية الشعبية
 14496,LA,LAO,Lao People's Democratic Republic,2020-03-26T00:00:00.000Z,1,3,0,0,老挝人民民主共和国,République démocratique populaire lao,República Democrática Popular Lao,Лаосская Народно-Демократическая Республика,جمهورية لاوس الديمقراطية الشعبية
@@ -17055,7 +17055,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 14740,LV,LVA,Latvia,2020-07-12T00:00:00.000Z,19,1173,0,30,拉脱维亚,Lettonie,Letonia,Латвия,لاتفيا
 14741,LV,LVA,Latvia,2020-07-13T00:00:00.000Z,0,1173,0,30,拉脱维亚,Lettonie,Letonia,Латвия,لاتفيا
 14742,LV,LVA,Latvia,2020-07-14T00:00:00.000Z,1,1174,1,31,拉脱维亚,Lettonie,Letonia,Латвия,لاتفيا
-14743,LV,LVA,Latvia,2020-07-15T00:00:00.000Z,0,1174,0,31,拉脱维亚,Lettonie,Letonia,Латвия,لاتفيا
+14743,LV,LVA,Latvia,2020-07-15T00:00:00.000Z,4,1178,0,31,拉脱维亚,Lettonie,Letonia,Латвия,لاتفيا
 14744,LB,LBN,Lebanon,2020-02-21T00:00:00.000Z,1,1,0,0,黎巴嫩,Liban,Líbano,Ливан,لبنان
 14745,LB,LBN,Lebanon,2020-02-22T00:00:00.000Z,0,1,0,0,黎巴嫩,Liban,Líbano,Ливан,لبنان
 14746,LB,LBN,Lebanon,2020-02-23T00:00:00.000Z,0,1,0,0,黎巴嫩,Liban,Líbano,Ливан,لبنان
@@ -17201,7 +17201,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 14886,LB,LBN,Lebanon,2020-07-12T00:00:00.000Z,86,2168,0,36,黎巴嫩,Liban,Líbano,Ливан,لبنان
 14887,LB,LBN,Lebanon,2020-07-13T00:00:00.000Z,166,2334,0,36,黎巴嫩,Liban,Líbano,Ливан,لبنان
 14888,LB,LBN,Lebanon,2020-07-14T00:00:00.000Z,85,2419,0,36,黎巴嫩,Liban,Líbano,Ливан,لبنان
-14889,LB,LBN,Lebanon,2020-07-15T00:00:00.000Z,0,2419,0,36,黎巴嫩,Liban,Líbano,Ливан,لبنان
+14889,LB,LBN,Lebanon,2020-07-15T00:00:00.000Z,32,2451,1,37,黎巴嫩,Liban,Líbano,Ливан,لبنان
 14890,LS,LSO,Lesotho,2020-05-14T00:00:00.000Z,1,1,0,0,莱索托,Lesotho,Lesotho,Лесото,ليسوتو
 14891,LS,LSO,Lesotho,2020-05-15T00:00:00.000Z,0,1,0,0,莱索托,Lesotho,Lesotho,Лесото,ليسوتو
 14892,LS,LSO,Lesotho,2020-05-16T00:00:00.000Z,0,1,0,0,莱索托,Lesotho,Lesotho,Лесото,ليسوتو
@@ -17264,7 +17264,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 14949,LS,LSO,Lesotho,2020-07-12T00:00:00.000Z,0,184,0,1,莱索托,Lesotho,Lesotho,Лесото,ليسوتو
 14950,LS,LSO,Lesotho,2020-07-13T00:00:00.000Z,49,233,1,2,莱索托,Lesotho,Lesotho,Лесото,ليسوتو
 14951,LS,LSO,Lesotho,2020-07-14T00:00:00.000Z,12,245,1,3,莱索托,Lesotho,Lesotho,Лесото,ليسوتو
-14952,LS,LSO,Lesotho,2020-07-15T00:00:00.000Z,0,245,0,3,莱索托,Lesotho,Lesotho,Лесото,ليسوتو
+14952,LS,LSO,Lesotho,2020-07-15T00:00:00.000Z,11,256,0,3,莱索托,Lesotho,Lesotho,Лесото,ليسوتو
 14953,LR,LBR,Liberia,2020-03-17T00:00:00.000Z,1,1,0,0,利比里亚,Libéria,Liberia,Либерия,ليبريا
 14954,LR,LBR,Liberia,2020-03-18T00:00:00.000Z,1,2,0,0,利比里亚,Libéria,Liberia,Либерия,ليبريا
 14955,LR,LBR,Liberia,2020-03-19T00:00:00.000Z,0,2,0,0,利比里亚,Libéria,Liberia,Либерия,ليبريا
@@ -17385,7 +17385,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 15070,LR,LBR,Liberia,2020-07-12T00:00:00.000Z,35,998,0,47,利比里亚,Libéria,Liberia,Либерия,ليبريا
 15071,LR,LBR,Liberia,2020-07-13T00:00:00.000Z,12,1010,4,51,利比里亚,Libéria,Liberia,Либерия,ليبريا
 15072,LR,LBR,Liberia,2020-07-14T00:00:00.000Z,14,1024,0,51,利比里亚,Libéria,Liberia,Либерия,ليبريا
-15073,LR,LBR,Liberia,2020-07-15T00:00:00.000Z,0,1024,0,51,利比里亚,Libéria,Liberia,Либерия,ليبريا
+15073,LR,LBR,Liberia,2020-07-15T00:00:00.000Z,14,1038,0,51,利比里亚,Libéria,Liberia,Либерия,ليبريا
 15074,LY,LBY,Libya,2020-03-25T00:00:00.000Z,1,1,0,0,利比亚,Libye,Libia,Ливия,ليبيا
 15075,LY,LBY,Libya,2020-03-26T00:00:00.000Z,0,1,0,0,利比亚,Libye,Libia,Ливия,ليبيا
 15076,LY,LBY,Libya,2020-03-27T00:00:00.000Z,0,1,0,0,利比亚,Libye,Libia,Ливия,ليبيا
@@ -17498,7 +17498,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 15183,LY,LBY,Libya,2020-07-12T00:00:00.000Z,47,1389,0,38,利比亚,Libye,Libia,Ливия,ليبيا
 15184,LY,LBY,Libya,2020-07-13T00:00:00.000Z,44,1433,1,39,利比亚,Libye,Libia,Ливия,ليبيا
 15185,LY,LBY,Libya,2020-07-14T00:00:00.000Z,79,1512,1,40,利比亚,Libye,Libia,Ливия,ليبيا
-15186,LY,LBY,Libya,2020-07-15T00:00:00.000Z,0,1512,0,40,利比亚,Libye,Libia,Ливия,ليبيا
+15186,LY,LBY,Libya,2020-07-15T00:00:00.000Z,51,1563,2,42,利比亚,Libye,Libia,Ливия,ليبيا
 15187,LI,LIE,Liechtenstein,2020-03-05T00:00:00.000Z,1,1,0,0,"列支敦士登
 ",,,,
 15188,LI,LIE,Liechtenstein,2020-03-06T00:00:00.000Z,0,1,0,0,"列支敦士登
@@ -17903,7 +17903,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 15455,LT,LTU,Lithuania,2020-07-12T00:00:00.000Z,4,1865,0,79,立陶宛,Lituanie,Lituania,Литва,ليتوانيا
 15456,LT,LTU,Lithuania,2020-07-13T00:00:00.000Z,4,1869,0,79,立陶宛,Lituanie,Lituania,Литва,ليتوانيا
 15457,LT,LTU,Lithuania,2020-07-14T00:00:00.000Z,5,1874,0,79,立陶宛,Lituanie,Lituania,Литва,ليتوانيا
-15458,LT,LTU,Lithuania,2020-07-15T00:00:00.000Z,0,1874,0,79,立陶宛,Lituanie,Lituania,Литва,ليتوانيا
+15458,LT,LTU,Lithuania,2020-07-15T00:00:00.000Z,1,1875,0,79,立陶宛,Lituanie,Lituania,Литва,ليتوانيا
 15459,LU,LUX,Luxembourg,2020-03-01T00:00:00.000Z,1,1,0,0,卢森堡,Luxembourg,Luxemburgo,Люксембург,لكسمبرغ
 15460,LU,LUX,Luxembourg,2020-03-02T00:00:00.000Z,0,1,0,0,卢森堡,Luxembourg,Luxemburgo,Люксембург,لكسمبرغ
 15461,LU,LUX,Luxembourg,2020-03-03T00:00:00.000Z,0,1,0,0,卢森堡,Luxembourg,Luxemburgo,Люксембург,لكسمبرغ
@@ -18157,7 +18157,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 15709,MG,MDG,Madagascar,2020-07-12T00:00:00.000Z,435,4578,0,34,马达加斯加,Madagascar,Madagascar,Мадагаскар,مدغشقر
 15710,MG,MDG,Madagascar,2020-07-13T00:00:00.000Z,289,4867,1,35,马达加斯加,Madagascar,Madagascar,Мадагаскар,مدغشقر
 15711,MG,MDG,Madagascar,2020-07-14T00:00:00.000Z,213,5080,2,37,马达加斯加,Madagascar,Madagascar,Мадагаскар,مدغشقر
-15712,MG,MDG,Madagascar,2020-07-15T00:00:00.000Z,0,5080,0,37,马达加斯加,Madagascar,Madagascar,Мадагаскар,مدغشقر
+15712,MG,MDG,Madagascar,2020-07-15T00:00:00.000Z,263,5343,2,39,马达加斯加,Madagascar,Madagascar,Мадагаскар,مدغشقر
 15713,MW,MWI,Malawi,2020-04-03T00:00:00.000Z,3,3,0,0,马拉维,Malawi,Malawi,Малави,ملاوي
 15714,MW,MWI,Malawi,2020-04-04T00:00:00.000Z,0,3,0,0,马拉维,Malawi,Malawi,Малави,ملاوي
 15715,MW,MWI,Malawi,2020-04-05T00:00:00.000Z,0,3,0,0,马拉维,Malawi,Malawi,Малави,ملاوي
@@ -18261,7 +18261,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 15813,MW,MWI,Malawi,2020-07-12T00:00:00.000Z,192,2261,2,33,马拉维,Malawi,Malawi,Малави,ملاوي
 15814,MW,MWI,Malawi,2020-07-13T00:00:00.000Z,103,2364,5,38,马拉维,Malawi,Malawi,Малави,ملاوي
 15815,MW,MWI,Malawi,2020-07-14T00:00:00.000Z,66,2430,1,39,马拉维,Malawi,Malawi,Малави,ملاوي
-15816,MW,MWI,Malawi,2020-07-15T00:00:00.000Z,0,2430,0,39,马拉维,Malawi,Malawi,Малави,ملاوي
+15816,MW,MWI,Malawi,2020-07-15T00:00:00.000Z,67,2497,1,40,马拉维,Malawi,Malawi,Малави,ملاوي
 15817,MY,MYS,Malaysia,2020-01-25T00:00:00.000Z,3,3,0,0,马来西亚,Malaisie,Malasia,Малайзия,ماليزيا
 15818,MY,MYS,Malaysia,2020-01-26T00:00:00.000Z,1,4,0,0,马来西亚,Malaisie,Malasia,Малайзия,ماليزيا
 15819,MY,MYS,Malaysia,2020-01-27T00:00:00.000Z,0,4,0,0,马来西亚,Malaisie,Malasia,Малайзия,ماليزيا
@@ -18565,7 +18565,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 16117,MV,MDV,Maldives,2020-07-12T00:00:00.000Z,47,2664,0,13,马尔代夫,Maldives,Maldivas,Мальдивские Острова,ملديف
 16118,MV,MDV,Maldives,2020-07-13T00:00:00.000Z,67,2731,0,13,马尔代夫,Maldives,Maldivas,Мальдивские Острова,ملديف
 16119,MV,MDV,Maldives,2020-07-14T00:00:00.000Z,31,2762,0,13,马尔代夫,Maldives,Maldivas,Мальдивские Острова,ملديف
-16120,MV,MDV,Maldives,2020-07-15T00:00:00.000Z,0,2762,0,13,马尔代夫,Maldives,Maldivas,Мальдивские Острова,ملديف
+16120,MV,MDV,Maldives,2020-07-15T00:00:00.000Z,39,2801,1,14,马尔代夫,Maldives,Maldivas,Мальдивские Острова,ملديف
 16121,ML,MLI,Mali,2020-03-26T00:00:00.000Z,2,2,0,0,马里,Mali,Malí,Мали,مالي
 16122,ML,MLI,Mali,2020-03-27T00:00:00.000Z,0,2,0,0,马里,Mali,Malí,Мали,مالي
 16123,ML,MLI,Mali,2020-03-28T00:00:00.000Z,7,9,0,0,马里,Mali,Malí,Мали,مالي
@@ -18677,7 +18677,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 16229,ML,MLI,Mali,2020-07-12T00:00:00.000Z,2,2406,0,121,马里,Mali,Malí,Мали,مالي
 16230,ML,MLI,Mali,2020-07-13T00:00:00.000Z,5,2411,0,121,马里,Mali,Malí,Мали,مالي
 16231,ML,MLI,Mali,2020-07-14T00:00:00.000Z,1,2412,0,121,马里,Mali,Malí,Мали,مالي
-16232,ML,MLI,Mali,2020-07-15T00:00:00.000Z,0,2412,0,121,马里,Mali,Malí,Мали,مالي
+16232,ML,MLI,Mali,2020-07-15T00:00:00.000Z,11,2423,0,121,马里,Mali,Malí,Мали,مالي
 16233,MT,MLT,Malta,2020-03-07T00:00:00.000Z,3,3,0,0,马耳他,Malte,Malta,Мальта,مالطة
 16234,MT,MLT,Malta,2020-03-08T00:00:00.000Z,0,3,0,0,马耳他,Malte,Malta,Мальта,مالطة
 16235,MT,MLT,Malta,2020-03-09T00:00:00.000Z,0,3,0,0,马耳他,Malte,Malta,Мальта,مالطة
@@ -19194,7 +19194,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 16615,MR,MRT,Mauritania,2020-07-12T00:00:00.000Z,0,5126,0,144,毛里塔尼亚,Mauritanie,Mauritania,Мавритания,موريتانيا
 16616,MR,MRT,Mauritania,2020-07-13T00:00:00.000Z,149,5275,3,147,毛里塔尼亚,Mauritanie,Mauritania,Мавритания,موريتانيا
 16617,MR,MRT,Mauritania,2020-07-14T00:00:00.000Z,80,5355,0,147,毛里塔尼亚,Mauritanie,Mauritania,Мавритания,موريتانيا
-16618,MR,MRT,Mauritania,2020-07-15T00:00:00.000Z,0,5355,0,147,毛里塔尼亚,Mauritanie,Mauritania,Мавритания,موريتانيا
+16618,MR,MRT,Mauritania,2020-07-15T00:00:00.000Z,91,5446,2,149,毛里塔尼亚,Mauritanie,Mauritania,Мавритания,موريتانيا
 16619,MU,MUS,Mauritius,2020-03-18T00:00:00.000Z,3,3,0,0,毛里求斯,Maurice,Mauricio,Маврикий,موريشيوس
 16620,MU,MUS,Mauritius,2020-03-19T00:00:00.000Z,4,7,0,0,毛里求斯,Maurice,Mauricio,Маврикий,موريشيوس
 16621,MU,MUS,Mauritius,2020-03-20T00:00:00.000Z,5,12,0,0,毛里求斯,Maurice,Mauricio,Маврикий,موريشيوس
@@ -20464,7 +20464,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 17641,MA,MAR,Morocco,2020-07-12T00:00:00.000Z,99,15542,1,245,摩洛哥,Maroc,Marruecos,Марокко,المغرب
 17642,MA,MAR,Morocco,2020-07-13T00:00:00.000Z,203,15745,5,250,摩洛哥,Maroc,Marruecos,Марокко,المغرب
 17643,MA,MAR,Morocco,2020-07-14T00:00:00.000Z,191,15936,5,255,摩洛哥,Maroc,Marruecos,Марокко,المغرب
-17644,MA,MAR,Morocco,2020-07-15T00:00:00.000Z,0,15936,0,255,摩洛哥,Maroc,Marruecos,Марокко,المغرب
+17644,MA,MAR,Morocco,2020-07-15T00:00:00.000Z,161,16097,2,257,摩洛哥,Maroc,Marruecos,Марокко,المغرب
 17645,MZ,MOZ,Mozambique,2020-03-23T00:00:00.000Z,1,1,0,0,莫桑比克,Mozambique,Mozambique,Мозамбик,موزامبيق
 17646,MZ,MOZ,Mozambique,2020-03-24T00:00:00.000Z,0,1,0,0,莫桑比克,Mozambique,Mozambique,Мозамбик,موزامبيق
 17647,MZ,MOZ,Mozambique,2020-03-25T00:00:00.000Z,2,3,0,0,莫桑比克,Mozambique,Mozambique,Мозамбик,موزامبيق
@@ -20579,7 +20579,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 17756,MZ,MOZ,Mozambique,2020-07-12T00:00:00.000Z,24,1135,0,9,莫桑比克,Mozambique,Mozambique,Мозамбик,موزامبيق
 17757,MZ,MOZ,Mozambique,2020-07-13T00:00:00.000Z,22,1157,0,9,莫桑比克,Mozambique,Mozambique,Мозамбик,موزامبيق
 17758,MZ,MOZ,Mozambique,2020-07-14T00:00:00.000Z,62,1219,0,9,莫桑比克,Mozambique,Mozambique,Мозамбик,موزامبيق
-17759,MZ,MOZ,Mozambique,2020-07-15T00:00:00.000Z,0,1219,0,9,莫桑比克,Mozambique,Mozambique,Мозамбик,موزامبيق
+17759,MZ,MOZ,Mozambique,2020-07-15T00:00:00.000Z,49,1268,0,9,莫桑比克,Mozambique,Mozambique,Мозамбик,موزامبيق
 17760,MM,MMR,Myanmar,2020-03-24T00:00:00.000Z,2,2,0,0,缅甸,Myanmar,Myanmar,Мьянма,ميانمار
 17761,MM,MMR,Myanmar,2020-03-25T00:00:00.000Z,1,3,0,0,缅甸,Myanmar,Myanmar,Мьянма,ميانمار
 17762,MM,MMR,Myanmar,2020-03-26T00:00:00.000Z,0,3,0,0,缅甸,Myanmar,Myanmar,Мьянма,ميانمار
@@ -20693,7 +20693,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 17870,MM,MMR,Myanmar,2020-07-12T00:00:00.000Z,4,330,0,6,缅甸,Myanmar,Myanmar,Мьянма,ميانمار
 17871,MM,MMR,Myanmar,2020-07-13T00:00:00.000Z,1,331,0,6,缅甸,Myanmar,Myanmar,Мьянма,ميانمار
 17872,MM,MMR,Myanmar,2020-07-14T00:00:00.000Z,5,336,0,6,缅甸,Myanmar,Myanmar,Мьянма,ميانمار
-17873,MM,MMR,Myanmar,2020-07-15T00:00:00.000Z,0,336,0,6,缅甸,Myanmar,Myanmar,Мьянма,ميانمار
+17873,MM,MMR,Myanmar,2020-07-15T00:00:00.000Z,1,337,0,6,缅甸,Myanmar,Myanmar,Мьянма,ميانمار
 17874,NA,NAM,Namibia,2020-03-14T00:00:00.000Z,2,2,0,0,纳米比亚,Namibie,Namibia,Намибия,ناميبيا
 17875,NA,NAM,Namibia,2020-03-15T00:00:00.000Z,0,2,0,0,纳米比亚,Namibie,Namibia,Намибия,ناميبيا
 17876,NA,NAM,Namibia,2020-03-16T00:00:00.000Z,0,2,0,0,纳米比亚,Namibie,Namibia,Намибия,ناميبيا
@@ -20817,7 +20817,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 17994,NA,NAM,Namibia,2020-07-12T00:00:00.000Z,45,713,0,1,纳米比亚,Namibie,Namibia,Намибия,ناميبيا
 17995,NA,NAM,Namibia,2020-07-13T00:00:00.000Z,72,785,0,1,纳米比亚,Namibie,Namibia,Намибия,ناميبيا
 17996,NA,NAM,Namibia,2020-07-14T00:00:00.000Z,76,861,0,1,纳米比亚,Namibie,Namibia,Намибия,ناميبيا
-17997,NA,NAM,Namibia,2020-07-15T00:00:00.000Z,0,861,0,1,纳米比亚,Namibie,Namibia,Намибия,ناميبيا
+17997,NA,NAM,Namibia,2020-07-15T00:00:00.000Z,3,864,1,2,纳米比亚,Namibie,Namibia,Намибия,ناميبيا
 17998,NP,NPL,Nepal,2020-01-23T00:00:00.000Z,1,1,0,0,尼泊尔,Népal,Nepal,Непал,نيبال
 17999,NP,NPL,Nepal,2020-01-24T00:00:00.000Z,0,1,0,0,尼泊尔,Népal,Nepal,Непал,نيبال
 18000,NP,NPL,Nepal,2020-01-25T00:00:00.000Z,0,1,0,0,尼泊尔,Népal,Nepal,Непал,نيبال
@@ -20992,7 +20992,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 18169,NP,NPL,Nepal,2020-07-12T00:00:00.000Z,70,16719,3,38,尼泊尔,Népal,Nepal,Непал,نيبال
 18170,NP,NPL,Nepal,2020-07-13T00:00:00.000Z,82,16801,0,38,尼泊尔,Népal,Nepal,Непал,نيبال
 18171,NP,NPL,Nepal,2020-07-14T00:00:00.000Z,144,16945,0,38,尼泊尔,Népal,Nepal,Непал,نيبال
-18172,NP,NPL,Nepal,2020-07-15T00:00:00.000Z,0,16945,0,38,尼泊尔,Népal,Nepal,Непал,نيبال
+18172,NP,NPL,Nepal,2020-07-15T00:00:00.000Z,116,17061,0,38,尼泊尔,Népal,Nepal,Непал,نيبال
 18173,NL,NLD,Netherlands,2020-02-27T00:00:00.000Z,1,1,0,0,荷兰,Pays-Bas,Países Bajos,Нидерланды,هولندا
 18174,NL,NLD,Netherlands,2020-02-28T00:00:00.000Z,1,2,0,0,荷兰,Pays-Bas,Países Bajos,Нидерланды,هولندا
 18175,NL,NLD,Netherlands,2020-02-29T00:00:00.000Z,4,6,0,0,荷兰,Pays-Bas,Países Bajos,Нидерланды,هولندا
@@ -21132,7 +21132,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 18309,NL,NLD,Netherlands,2020-07-12T00:00:00.000Z,81,50866,1,6128,荷兰,Pays-Bas,Países Bajos,Нидерланды,هولندا
 18310,NL,NLD,Netherlands,2020-07-13T00:00:00.000Z,101,50967,0,6128,荷兰,Pays-Bas,Países Bajos,Нидерланды,هولندا
 18311,NL,NLD,Netherlands,2020-07-14T00:00:00.000Z,71,51038,0,6128,荷兰,Pays-Bas,Países Bajos,Нидерланды,هولندا
-18312,NL,NLD,Netherlands,2020-07-15T00:00:00.000Z,0,51038,0,6128,荷兰,Pays-Bas,Países Bajos,Нидерланды,هولندا
+18312,NL,NLD,Netherlands,2020-07-15T00:00:00.000Z,53,51091,0,6128,荷兰,Pays-Bas,Países Bajos,Нидерланды,هولندا
 18313,NC,NCL,New Caledonia,2020-03-19T00:00:00.000Z,2,2,0,0,"新喀里多尼亚
 ",,,,
 18314,NC,NCL,New Caledonia,2020-03-20T00:00:00.000Z,0,2,0,0,"新喀里多尼亚
@@ -21886,7 +21886,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 18944,NG,NGA,Nigeria,2020-07-12T00:00:00.000Z,664,31987,15,724,尼日利亚,Nigéria,Nigeria,Нигерия,نيجيريا
 18945,NG,NGA,Nigeria,2020-07-13T00:00:00.000Z,571,32558,16,740,尼日利亚,Nigéria,Nigeria,Нигерия,نيجيريا
 18946,NG,NGA,Nigeria,2020-07-14T00:00:00.000Z,595,33153,4,744,尼日利亚,Nigéria,Nigeria,Нигерия,نيجيريا
-18947,NG,NGA,Nigeria,2020-07-15T00:00:00.000Z,0,33153,0,744,尼日利亚,Nigéria,Nigeria,Нигерия,نيجيريا
+18947,NG,NGA,Nigeria,2020-07-15T00:00:00.000Z,463,33616,10,754,尼日利亚,Nigéria,Nigeria,Нигерия,نيجيريا
 18948,MK,MKD,North Macedonia,2020-02-26T00:00:00.000Z,1,1,0,0,北马其顿,Macédoine du Nord,Macedonia del Norte,Северная Македония,مقدونيا الشمالية
 18949,MK,MKD,North Macedonia,2020-02-27T00:00:00.000Z,0,1,0,0,北马其顿,Macédoine du Nord,Macedonia del Norte,Северная Македония,مقدونيا الشمالية
 18950,MK,MKD,North Macedonia,2020-02-28T00:00:00.000Z,0,1,0,0,北马其顿,Macédoine du Nord,Macedonia del Norte,Северная Македония,مقدونيا الشمالية
@@ -22027,7 +22027,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 19085,MK,MKD,North Macedonia,2020-07-12T00:00:00.000Z,197,7967,8,375,北马其顿,Macédoine du Nord,Macedonia del Norte,Северная Македония,مقدونيا الشمالية
 19086,MK,MKD,North Macedonia,2020-07-13T00:00:00.000Z,144,8111,7,382,北马其顿,Macédoine du Nord,Macedonia del Norte,Северная Македония,مقدونيا الشمالية
 19087,MK,MKD,North Macedonia,2020-07-14T00:00:00.000Z,86,8197,3,385,北马其顿,Macédoine du Nord,Macedonia del Norte,Северная Македония,مقدونيا الشمالية
-19088,MK,MKD,North Macedonia,2020-07-15T00:00:00.000Z,0,8197,0,385,北马其顿,Macédoine du Nord,Macedonia del Norte,Северная Македония,مقدونيا الشمالية
+19088,MK,MKD,North Macedonia,2020-07-15T00:00:00.000Z,134,8331,4,389,北马其顿,Macédoine du Nord,Macedonia del Norte,Северная Македония,مقدونيا الشمالية
 19089,MP,MNP,Northern Mariana Islands (Commonwealth of the),2020-03-29T00:00:00.000Z,2,2,0,0,"北马里亚纳群岛自由邦
 ",,,,
 19090,MP,MNP,Northern Mariana Islands (Commonwealth of the),2020-03-30T00:00:00.000Z,0,2,0,0,"北马里亚纳群岛自由邦
@@ -22386,7 +22386,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 19335,NO,NOR,Norway,2020-07-12T00:00:00.000Z,0,8965,0,252,挪威,Norvège,Noruega,Норвегия,النرويج
 19336,NO,NOR,Norway,2020-07-13T00:00:00.000Z,0,8965,0,252,挪威,Norvège,Noruega,Норвегия,النرويج
 19337,NO,NOR,Norway,2020-07-14T00:00:00.000Z,16,8981,1,253,挪威,Norvège,Noruega,Норвегия,النرويج
-19338,NO,NOR,Norway,2020-07-15T00:00:00.000Z,0,8981,0,253,挪威,Norvège,Noruega,Норвегия,النرويج
+19338,NO,NOR,Norway,2020-07-15T00:00:00.000Z,3,8984,0,253,挪威,Norvège,Noruega,Норвегия,النرويج
 19339,PS,PSE,occupied Palestinian territory,2020-03-05T00:00:00.000Z,7,7,0,0,"巴勒斯坦被占领土
 ",,,,
 19340,PS,PSE,occupied Palestinian territory,2020-03-06T00:00:00.000Z,9,16,0,0,"巴勒斯坦被占领土
@@ -22651,7 +22651,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 ",,,,
 19470,PS,PSE,occupied Palestinian territory,2020-07-14T00:00:00.000Z,404,7441,2,41,"巴勒斯坦被占领土
 ",,,,
-19471,PS,PSE,occupied Palestinian territory,2020-07-15T00:00:00.000Z,0,7441,0,41,"巴勒斯坦被占领土
+19471,PS,PSE,occupied Palestinian territory,2020-07-15T00:00:00.000Z,293,7734,6,47,"巴勒斯坦被占领土
 ",,,,
 19472,OM,OMN,Oman,2020-02-24T00:00:00.000Z,2,2,0,0,阿曼,Oman,Omán,Оман,عمان
 19473,OM,OMN,Oman,2020-02-25T00:00:00.000Z,2,4,0,0,阿曼,Oman,Omán,Оман,عمان
@@ -22795,7 +22795,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 19611,OM,OMN,Oman,2020-07-12T00:00:00.000Z,1083,54697,4,248,阿曼,Oman,Omán,Оман,عمان
 19612,OM,OMN,Oman,2020-07-13T00:00:00.000Z,1318,56015,9,257,阿曼,Oman,Omán,Оман,عمان
 19613,OM,OMN,Oman,2020-07-14T00:00:00.000Z,2164,58179,2,259,阿曼,Oman,Omán,Оман,عمان
-19614,OM,OMN,Oman,2020-07-15T00:00:00.000Z,0,58179,0,259,阿曼,Oman,Omán,Оман,عمان
+19614,OM,OMN,Oman,2020-07-15T00:00:00.000Z,1389,59568,14,273,阿曼,Oman,Omán,Оман,عمان
 19615,,,Other*,2020-02-05T00:00:00.000Z,10,10,0,0,,,,,
 19616,,,Other*,2020-02-06T00:00:00.000Z,10,20,0,0,,,,,
 19617,,,Other*,2020-02-07T00:00:00.000Z,41,61,0,0,,,,,
@@ -23098,7 +23098,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 19914,PK,PAK,Pakistan,2020-07-12T00:00:00.000Z,2521,248872,74,5197,巴基斯坦,Pakistan,Pakistán,Пакистан,باكستان
 19915,PK,PAK,Pakistan,2020-07-13T00:00:00.000Z,2753,251625,69,5266,巴基斯坦,Pakistan,Pakistán,Пакистан,باكستان
 19916,PK,PAK,Pakistan,2020-07-14T00:00:00.000Z,1979,253604,54,5320,巴基斯坦,Pakistan,Pakistán,Пакистан,باكستان
-19917,PK,PAK,Pakistan,2020-07-15T00:00:00.000Z,0,253604,0,5320,巴基斯坦,Pakistan,Pakistán,Пакистан,باكستان
+19917,PK,PAK,Pakistan,2020-07-15T00:00:00.000Z,2165,255769,66,5386,巴基斯坦,Pakistan,Pakistán,Пакистан,باكستان
 19918,PA,PAN,Panama,2020-03-10T00:00:00.000Z,1,1,0,0,巴拿马,Panama,Panamá,Панама,بنما
 19919,PA,PAN,Panama,2020-03-11T00:00:00.000Z,7,8,1,1,巴拿马,Panama,Panamá,Панама,بنما
 19920,PA,PAN,Panama,2020-03-12T00:00:00.000Z,2,10,0,1,巴拿马,Panama,Panamá,Панама,بنما
@@ -23906,7 +23906,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 20722,PL,POL,Poland,2020-07-12T00:00:00.000Z,305,37521,6,1568,波兰,Pologne,Polonia,Польша,بولندا
 20723,PL,POL,Poland,2020-07-13T00:00:00.000Z,370,37891,3,1571,波兰,Pologne,Polonia,Польша,بولندا
 20724,PL,POL,Poland,2020-07-14T00:00:00.000Z,299,38190,5,1576,波兰,Pologne,Polonia,Польша,بولندا
-20725,PL,POL,Poland,2020-07-15T00:00:00.000Z,0,38190,0,1576,波兰,Pologne,Polonia,Польша,بولندا
+20725,PL,POL,Poland,2020-07-15T00:00:00.000Z,267,38457,12,1588,波兰,Pologne,Polonia,Польша,بولندا
 20726,PT,PRT,Portugal,2020-03-02T00:00:00.000Z,2,2,0,0,葡萄牙,Portugal,Portugal,Португалия,البرتغال
 20727,PT,PRT,Portugal,2020-03-03T00:00:00.000Z,0,2,0,0,葡萄牙,Portugal,Portugal,Португалия,البرتغال
 20728,PT,PRT,Portugal,2020-03-04T00:00:00.000Z,4,6,0,0,葡萄牙,Portugal,Portugal,Португалия,البرتغال
@@ -24042,7 +24042,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 20858,PT,PRT,Portugal,2020-07-12T00:00:00.000Z,542,46221,8,1654,葡萄牙,Portugal,Portugal,Португалия,البرتغال
 20859,PT,PRT,Portugal,2020-07-13T00:00:00.000Z,291,46512,6,1660,葡萄牙,Portugal,Portugal,Португалия,البرتغال
 20860,PT,PRT,Portugal,2020-07-14T00:00:00.000Z,306,46818,2,1662,葡萄牙,Portugal,Portugal,Португалия,البرتغال
-20861,PT,PRT,Portugal,2020-07-15T00:00:00.000Z,0,46818,0,1662,葡萄牙,Portugal,Portugal,Португалия,البرتغال
+20861,PT,PRT,Portugal,2020-07-15T00:00:00.000Z,233,47051,6,1668,葡萄牙,Portugal,Portugal,Португалия,البرتغال
 20862,PR,PRI,Puerto Rico,2020-03-14T00:00:00.000Z,3,3,0,0,"波多黎各
 ",,,,
 20863,PR,PRI,Puerto Rico,2020-03-15T00:00:00.000Z,0,3,0,0,"波多黎各
@@ -24428,7 +24428,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 21120,QA,QAT,Qatar,2020-07-12T00:00:00.000Z,498,103128,0,146,卡塔尔,Qatar,Qatar,Катар,قطر
 21121,QA,QAT,Qatar,2020-07-13T00:00:00.000Z,470,103598,1,147,卡塔尔,Qatar,Qatar,Катар,قطر
 21122,QA,QAT,Qatar,2020-07-14T00:00:00.000Z,418,104016,2,149,卡塔尔,Qatar,Qatar,Катар,قطر
-21123,QA,QAT,Qatar,2020-07-15T00:00:00.000Z,0,104016,0,149,卡塔尔,Qatar,Qatar,Катар,قطر
+21123,QA,QAT,Qatar,2020-07-15T00:00:00.000Z,517,104533,1,150,卡塔尔,Qatar,Qatar,Катар,قطر
 21124,KR,KOR,Republic of Korea,2020-01-19T00:00:00.000Z,1,1,0,0,大韩民国,République de Corée,República de Corea,Республика Корея,جمهورية كوريا
 21125,KR,KOR,Republic of Korea,2020-01-20T00:00:00.000Z,0,1,0,0,大韩民国,République de Corée,República de Corea,Республика Корея,جمهورية كوريا
 21126,KR,KOR,Republic of Korea,2020-01-21T00:00:00.000Z,0,1,0,0,大韩民国,République de Corée,República de Corea,Республика Корея,جمهورية كوريا
@@ -24738,7 +24738,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 21430,MD,MDA,Republic of Moldova,2020-07-12T00:00:00.000Z,284,19208,5,640,摩尔多瓦共和国,République de Moldova,la República de Moldova,Республика Молдова, جمهورية مولدوفا
 21431,MD,MDA,Republic of Moldova,2020-07-13T00:00:00.000Z,174,19382,2,642,摩尔多瓦共和国,République de Moldova,la República de Moldova,Республика Молдова, جمهورية مولدوفا
 21432,MD,MDA,Republic of Moldova,2020-07-14T00:00:00.000Z,57,19439,10,652,摩尔多瓦共和国,République de Moldova,la República de Moldova,Республика Молдова, جمهورية مولدوفا
-21433,MD,MDA,Republic of Moldova,2020-07-15T00:00:00.000Z,0,19439,0,652,摩尔多瓦共和国,République de Moldova,la República de Moldova,Республика Молдова, جمهورية مولدوفا
+21433,MD,MDA,Republic of Moldova,2020-07-15T00:00:00.000Z,269,19708,6,658,摩尔多瓦共和国,République de Moldova,la República de Moldova,Республика Молдова, جمهورية مولدوفا
 21434,RE,REU,Réunion,2020-03-13T00:00:00.000Z,3,3,0,0,"留尼汪岛
 ",,,,
 21435,RE,REU,Réunion,2020-03-14T00:00:00.000Z,3,6,0,0,"留尼汪岛
@@ -24987,7 +24987,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 ",,,,
 21557,RE,REU,Réunion,2020-07-14T00:00:00.000Z,3,596,0,3,"留尼汪岛
 ",,,,
-21558,RE,REU,Réunion,2020-07-15T00:00:00.000Z,0,596,0,3,"留尼汪岛
+21558,RE,REU,Réunion,2020-07-15T00:00:00.000Z,3,599,0,3,"留尼汪岛
 ",,,,
 21559,RO,ROU,Romania,2020-02-26T00:00:00.000Z,1,1,0,0,罗马尼亚,Roumanie,Rumania,Румыния,رومانيا
 21560,RO,ROU,Romania,2020-02-27T00:00:00.000Z,0,1,0,0,罗马尼亚,Roumanie,Rumania,Румыния,رومانيا
@@ -25129,7 +25129,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 21696,RO,ROU,Romania,2020-07-12T00:00:00.000Z,698,32079,24,1871,罗马尼亚,Roumanie,Rumania,Румыния,رومانيا
 21697,RO,ROU,Romania,2020-07-13T00:00:00.000Z,456,32535,13,1884,罗马尼亚,Roumanie,Rumania,Румыния,رومانيا
 21698,RO,ROU,Romania,2020-07-14T00:00:00.000Z,413,32948,17,1901,罗马尼亚,Roumanie,Rumania,Румыния,رومانيا
-21699,RO,ROU,Romania,2020-07-15T00:00:00.000Z,0,32948,0,1901,罗马尼亚,Roumanie,Rumania,Румыния,رومانيا
+21699,RO,ROU,Romania,2020-07-15T00:00:00.000Z,637,33585,30,1931,罗马尼亚,Roumanie,Rumania,Румыния,رومانيا
 21700,RU,RUS,Russian Federation,2020-01-31T00:00:00.000Z,2,2,0,0,俄罗斯联邦,Fédération de Russie,Federación de Rusia,Российская Федерация,الاتحاد الروسي
 21701,RU,RUS,Russian Federation,2020-02-01T00:00:00.000Z,0,2,0,0,俄罗斯联邦,Fédération de Russie,Federación de Rusia,Российская Федерация,الاتحاد الروسي
 21702,RU,RUS,Russian Federation,2020-02-02T00:00:00.000Z,0,2,0,0,俄罗斯联邦,Fédération de Russie,Federación de Rusia,Российская Федерация,الاتحاد الروسي
@@ -25296,7 +25296,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 21863,RU,RUS,Russian Federation,2020-07-12T00:00:00.000Z,6615,727162,130,11335,俄罗斯联邦,Fédération de Russie,Federación de Rusia,Российская Федерация,الاتحاد الروسي
 21864,RU,RUS,Russian Federation,2020-07-13T00:00:00.000Z,6537,733699,104,11439,俄罗斯联邦,Fédération de Russie,Federación de Rusia,Российская Федерация,الاتحاد الروسي
 21865,RU,RUS,Russian Federation,2020-07-14T00:00:00.000Z,6248,739947,175,11614,俄罗斯联邦,Fédération de Russie,Federación de Rusia,Российская Федерация,الاتحاد الروسي
-21866,RU,RUS,Russian Federation,2020-07-15T00:00:00.000Z,0,739947,0,11614,俄罗斯联邦,Fédération de Russie,Federación de Rusia,Российская Федерация,الاتحاد الروسي
+21866,RU,RUS,Russian Federation,2020-07-15T00:00:00.000Z,6422,746369,156,11770,俄罗斯联邦,Fédération de Russie,Federación de Rusia,Российская Федерация,الاتحاد الروسي
 21867,RW,RWA,Rwanda,2020-03-15T00:00:00.000Z,5,5,0,0,卢旺达,Rwanda,Rwanda,Руанда,رواندا
 21868,RW,RWA,Rwanda,2020-03-16T00:00:00.000Z,0,5,0,0,卢旺达,Rwanda,Rwanda,Руанда,رواندا
 21869,RW,RWA,Rwanda,2020-03-17T00:00:00.000Z,2,7,0,0,卢旺达,Rwanda,Rwanda,Руанда,رواندا
@@ -25419,7 +25419,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 21986,RW,RWA,Rwanda,2020-07-12T00:00:00.000Z,47,1299,0,3,卢旺达,Rwanda,Rwanda,Руанда,رواندا
 21987,RW,RWA,Rwanda,2020-07-13T00:00:00.000Z,38,1337,1,4,卢旺达,Rwanda,Rwanda,Руанда,رواندا
 21988,RW,RWA,Rwanda,2020-07-14T00:00:00.000Z,41,1378,0,4,卢旺达,Rwanda,Rwanda,Руанда,رواندا
-21989,RW,RWA,Rwanda,2020-07-15T00:00:00.000Z,0,1378,0,4,卢旺达,Rwanda,Rwanda,Руанда,رواندا
+21989,RW,RWA,Rwanda,2020-07-15T00:00:00.000Z,38,1416,0,4,卢旺达,Rwanda,Rwanda,Руанда,رواندا
 21990,BL,BLM,Saint Barthélemy,2020-03-02T00:00:00.000Z,1,1,0,0,"圣巴泰勒米
 ",,,,
 21991,BL,BLM,Saint Barthélemy,2020-03-03T00:00:00.000Z,0,1,0,0,"圣巴泰勒米
@@ -26761,7 +26761,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 22957,ST,STP,Sao Tome and Principe,2020-07-12T00:00:00.000Z,0,407,0,12,圣多美和普林西比,Sao Tomé-et-Principe,Santo Tomé y Príncipe,Сан-Томе и Принсипи,سان تومي وبرينسيبي
 22958,ST,STP,Sao Tome and Principe,2020-07-13T00:00:00.000Z,2,409,0,12,圣多美和普林西比,Sao Tomé-et-Principe,Santo Tomé y Príncipe,Сан-Томе и Принсипи,سان تومي وبرينسيبي
 22959,ST,STP,Sao Tome and Principe,2020-07-14T00:00:00.000Z,3,412,0,12,圣多美和普林西比,Sao Tomé-et-Principe,Santo Tomé y Príncipe,Сан-Томе и Принсипи,سان تومي وبرينسيبي
-22960,ST,STP,Sao Tome and Principe,2020-07-15T00:00:00.000Z,0,412,0,12,圣多美和普林西比,Sao Tomé-et-Principe,Santo Tomé y Príncipe,Сан-Томе и Принсипи,سان تومي وبرينسيبي
+22960,ST,STP,Sao Tome and Principe,2020-07-15T00:00:00.000Z,4,416,0,12,圣多美和普林西比,Sao Tomé-et-Principe,Santo Tomé y Príncipe,Сан-Томе и Принсипи,سان تومي وبرينسيبي
 22961,SA,SAU,Saudi Arabia,2020-03-02T00:00:00.000Z,1,1,0,0,沙特阿拉伯,Arabie saoudite,Arabia Saudita,Саудовская Аравия,المملكة العربية السعودية
 22962,SA,SAU,Saudi Arabia,2020-03-03T00:00:00.000Z,0,1,0,0,沙特阿拉伯,Arabie saoudite,Arabia Saudita,Саудовская Аравия,المملكة العربية السعودية
 22963,SA,SAU,Saudi Arabia,2020-03-04T00:00:00.000Z,1,2,0,0,沙特阿拉伯,Arabie saoudite,Arabia Saudita,Саудовская Аравия,المملكة العربية السعودية
@@ -26897,7 +26897,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 23093,SA,SAU,Saudi Arabia,2020-07-12T00:00:00.000Z,2994,229480,30,2181,沙特阿拉伯,Arabie saoudite,Arabia Saudita,Саудовская Аравия,المملكة العربية السعودية
 23094,SA,SAU,Saudi Arabia,2020-07-13T00:00:00.000Z,2779,232259,42,2223,沙特阿拉伯,Arabie saoudite,Arabia Saudita,Саудовская Аравия,المملكة العربية السعودية
 23095,SA,SAU,Saudi Arabia,2020-07-14T00:00:00.000Z,2852,235111,20,2243,沙特阿拉伯,Arabie saoudite,Arabia Saudita,Саудовская Аравия,المملكة العربية السعودية
-23096,SA,SAU,Saudi Arabia,2020-07-15T00:00:00.000Z,0,235111,0,2243,沙特阿拉伯,Arabie saoudite,Arabia Saudita,Саудовская Аравия,المملكة العربية السعودية
+23096,SA,SAU,Saudi Arabia,2020-07-15T00:00:00.000Z,2692,237803,40,2283,沙特阿拉伯,Arabie saoudite,Arabia Saudita,Саудовская Аравия,المملكة العربية السعودية
 23097,SN,SEN,Senegal,2020-03-02T00:00:00.000Z,1,1,0,0,塞内加尔,Sénégal,Senegal,Сенегал,السنغال
 23098,SN,SEN,Senegal,2020-03-03T00:00:00.000Z,0,1,0,0,塞内加尔,Sénégal,Senegal,Сенегал,السنغال
 23099,SN,SEN,Senegal,2020-03-04T00:00:00.000Z,3,4,0,0,塞内加尔,Sénégal,Senegal,Сенегал,السنغال
@@ -27033,7 +27033,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 23229,SN,SEN,Senegal,2020-07-12T00:00:00.000Z,132,8014,0,145,塞内加尔,Sénégal,Senegal,Сенегал,السنغال
 23230,SN,SEN,Senegal,2020-07-13T00:00:00.000Z,121,8135,3,148,塞内加尔,Sénégal,Senegal,Сенегал,السنغال
 23231,SN,SEN,Senegal,2020-07-14T00:00:00.000Z,63,8198,2,150,塞内加尔,Sénégal,Senegal,Сенегал,السنغال
-23232,SN,SEN,Senegal,2020-07-15T00:00:00.000Z,0,8198,0,150,塞内加尔,Sénégal,Senegal,Сенегал,السنغال
+23232,SN,SEN,Senegal,2020-07-15T00:00:00.000Z,45,8243,0,150,塞内加尔,Sénégal,Senegal,Сенегал,السنغال
 23233,RS,SRB,Serbia,2020-03-06T00:00:00.000Z,1,1,0,0,塞尔维亚,Serbie,Serbia,Сербия,صربيا
 23234,RS,SRB,Serbia,2020-03-07T00:00:00.000Z,0,1,0,0,塞尔维亚,Serbie,Serbia,Сербия,صربيا
 23235,RS,SRB,Serbia,2020-03-08T00:00:00.000Z,0,1,0,0,塞尔维亚,Serbie,Serbia,Сербия,صربيا
@@ -27165,7 +27165,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 23361,RS,SRB,Serbia,2020-07-12T00:00:00.000Z,345,18073,12,382,塞尔维亚,Serbie,Serbia,Сербия,صربيا
 23362,RS,SRB,Serbia,2020-07-13T00:00:00.000Z,287,18360,11,393,塞尔维亚,Serbie,Serbia,Сербия,صربيا
 23363,RS,SRB,Serbia,2020-07-14T00:00:00.000Z,279,18639,12,405,塞尔维亚,Serbie,Serbia,Сербия,صربيا
-23364,RS,SRB,Serbia,2020-07-15T00:00:00.000Z,0,18639,0,405,塞尔维亚,Serbie,Serbia,Сербия,صربيا
+23364,RS,SRB,Serbia,2020-07-15T00:00:00.000Z,344,18983,13,418,塞尔维亚,Serbie,Serbia,Сербия,صربيا
 23365,SC,SYC,Seychelles,2020-03-15T00:00:00.000Z,2,2,0,0,塞舌尔,Seychelles,Seychelles,Сейшельские Острова,سيشيل
 23366,SC,SYC,Seychelles,2020-03-16T00:00:00.000Z,2,4,0,0,塞舌尔,Seychelles,Seychelles,Сейшельские Острова,سيشيل
 23367,SC,SYC,Seychelles,2020-03-17T00:00:00.000Z,0,4,0,0,塞舌尔,Seychelles,Seychelles,Сейшельские Острова,سيشيل
@@ -27394,7 +27394,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 23590,SL,SLE,Sierra Leone,2020-07-12T00:00:00.000Z,5,1618,0,63,塞拉利昂,Sierra Leone,Sierra Leona,Сьерра-Леоне,سيراليون
 23591,SL,SLE,Sierra Leone,2020-07-13T00:00:00.000Z,17,1635,0,63,塞拉利昂,Sierra Leone,Sierra Leona,Сьерра-Леоне,سيراليون
 23592,SL,SLE,Sierra Leone,2020-07-14T00:00:00.000Z,7,1642,0,63,塞拉利昂,Sierra Leone,Sierra Leona,Сьерра-Леоне,سيراليون
-23593,SL,SLE,Sierra Leone,2020-07-15T00:00:00.000Z,0,1642,0,63,塞拉利昂,Sierra Leone,Sierra Leona,Сьерра-Леоне,سيراليون
+23593,SL,SLE,Sierra Leone,2020-07-15T00:00:00.000Z,9,1651,1,64,塞拉利昂,Sierra Leone,Sierra Leona,Сьерра-Леоне,سيراليون
 23594,SG,SGP,Singapore,2020-01-23T00:00:00.000Z,1,1,0,0,新加坡,Singapour,Singapur,Сингапур,سنغافورة
 23595,SG,SGP,Singapore,2020-01-24T00:00:00.000Z,2,3,0,0,新加坡,Singapour,Singapur,Сингапур,سنغافورة
 23596,SG,SGP,Singapore,2020-01-25T00:00:00.000Z,0,3,0,0,新加坡,Singapour,Singapur,Сингапур,سنغافورة
@@ -27941,7 +27941,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 24017,SK,SVK,Slovakia,2020-07-12T00:00:00.000Z,23,1893,0,28,斯洛伐克,Slovaquie,Eslovaquia,Словакия,سلوفاكيا
 24018,SK,SVK,Slovakia,2020-07-13T00:00:00.000Z,8,1901,0,28,斯洛伐克,Slovaquie,Eslovaquia,Словакия,سلوفاكيا
 24019,SK,SVK,Slovakia,2020-07-14T00:00:00.000Z,1,1902,0,28,斯洛伐克,Slovaquie,Eslovaquia,Словакия,سلوفاكيا
-24020,SK,SVK,Slovakia,2020-07-15T00:00:00.000Z,0,1902,0,28,斯洛伐克,Slovaquie,Eslovaquia,Словакия,سلوفاكيا
+24020,SK,SVK,Slovakia,2020-07-15T00:00:00.000Z,6,1908,0,28,斯洛伐克,Slovaquie,Eslovaquia,Словакия,سلوفاكيا
 24021,SI,SVN,Slovenia,2020-03-04T00:00:00.000Z,1,1,0,0,斯洛文尼亚,Slovénie,Eslovenia,Словения,سلوفينيا
 24022,SI,SVN,Slovenia,2020-03-05T00:00:00.000Z,4,5,0,0,斯洛文尼亚,Slovénie,Eslovenia,Словения,سلوفينيا
 24023,SI,SVN,Slovenia,2020-03-06T00:00:00.000Z,4,9,0,0,斯洛文尼亚,Slovénie,Eslovenia,Словения,سلوفينيا
@@ -28075,7 +28075,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 24151,SI,SVN,Slovenia,2020-07-12T00:00:00.000Z,34,1827,0,111,斯洛文尼亚,Slovénie,Eslovenia,Словения,سلوفينيا
 24152,SI,SVN,Slovenia,2020-07-13T00:00:00.000Z,14,1841,0,111,斯洛文尼亚,Slovénie,Eslovenia,Словения,سلوفينيا
 24153,SI,SVN,Slovenia,2020-07-14T00:00:00.000Z,8,1849,0,111,斯洛文尼亚,Slovénie,Eslovenia,Словения,سلوفينيا
-24154,SI,SVN,Slovenia,2020-07-15T00:00:00.000Z,0,1849,0,111,斯洛文尼亚,Slovénie,Eslovenia,Словения,سلوفينيا
+24154,SI,SVN,Slovenia,2020-07-15T00:00:00.000Z,10,1859,0,111,斯洛文尼亚,Slovénie,Eslovenia,Словения,سلوفينيا
 24155,SO,SOM,Somalia,2020-03-16T00:00:00.000Z,1,1,0,0,索马里,Somalie,Somalia,Сомали,الصومال
 24156,SO,SOM,Somalia,2020-03-17T00:00:00.000Z,0,1,0,0,索马里,Somalie,Somalia,Сомали,الصومال
 24157,SO,SOM,Somalia,2020-03-18T00:00:00.000Z,0,1,0,0,索马里,Somalie,Somalia,Сомали,الصومال
@@ -28197,7 +28197,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 24273,SO,SOM,Somalia,2020-07-12T00:00:00.000Z,13,3051,0,92,索马里,Somalie,Somalia,Сомали,الصومال
 24274,SO,SOM,Somalia,2020-07-13T00:00:00.000Z,8,3059,1,93,索马里,Somalie,Somalia,Сомали,الصومال
 24275,SO,SOM,Somalia,2020-07-14T00:00:00.000Z,13,3072,0,93,索马里,Somalie,Somalia,Сомали,الصومال
-24276,SO,SOM,Somalia,2020-07-15T00:00:00.000Z,0,3072,0,93,索马里,Somalie,Somalia,Сомали,الصومال
+24276,SO,SOM,Somalia,2020-07-15T00:00:00.000Z,4,3076,0,93,索马里,Somalie,Somalia,Сомали,الصومال
 24277,ZA,ZAF,South Africa,2020-03-05T00:00:00.000Z,1,1,0,0,南非,Afrique du Sud,Sudáfrica,Южная Африка,جنوب أفريقيا
 24278,ZA,ZAF,South Africa,2020-03-06T00:00:00.000Z,0,1,0,0,南非,Afrique du Sud,Sudáfrica,Южная Африка,جنوب أفريقيا
 24279,ZA,ZAF,South Africa,2020-03-07T00:00:00.000Z,1,2,0,0,南非,Afrique du Sud,Sudáfrica,Южная Африка,جنوب أفريقيا
@@ -28330,7 +28330,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 24406,ZA,ZAF,South Africa,2020-07-12T00:00:00.000Z,13497,264184,111,3971,南非,Afrique du Sud,Sudáfrica,Южная Африка,جنوب أفريقيا
 24407,ZA,ZAF,South Africa,2020-07-13T00:00:00.000Z,12058,276242,108,4079,南非,Afrique du Sud,Sudáfrica,Южная Африка,جنوب أفريقيا
 24408,ZA,ZAF,South Africa,2020-07-14T00:00:00.000Z,11554,287796,93,4172,南非,Afrique du Sud,Sudáfrica,Южная Африка,جنوب أفريقيا
-24409,ZA,ZAF,South Africa,2020-07-15T00:00:00.000Z,0,287796,0,4172,南非,Afrique du Sud,Sudáfrica,Южная Африка,جنوب أفريقيا
+24409,ZA,ZAF,South Africa,2020-07-15T00:00:00.000Z,10496,298292,174,4346,南非,Afrique du Sud,Sudáfrica,Южная Африка,جنوب أفريقيا
 24410,SS,SSD,South Sudan,2020-04-06T00:00:00.000Z,1,1,0,0,南苏丹,Soudan du Sud, Sudán del Sur ,Южный Судан,جنوب السودان
 24411,SS,SSD,South Sudan,2020-04-07T00:00:00.000Z,0,1,0,0,南苏丹,Soudan du Sud, Sudán del Sur ,Южный Судан,جنوب السودان
 24412,SS,SSD,South Sudan,2020-04-08T00:00:00.000Z,0,1,0,0,南苏丹,Soudan du Sud, Sudán del Sur ,Южный Судан,جنوب السودان
@@ -28431,7 +28431,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 24507,SS,SSD,South Sudan,2020-07-12T00:00:00.000Z,10,2139,0,41,南苏丹,Soudan du Sud, Sudán del Sur ,Южный Судан,جنوب السودان
 24508,SS,SSD,South Sudan,2020-07-13T00:00:00.000Z,9,2148,0,41,南苏丹,Soudan du Sud, Sudán del Sur ,Южный Судан,جنوب السودان
 24509,SS,SSD,South Sudan,2020-07-14T00:00:00.000Z,0,2148,0,41,南苏丹,Soudan du Sud, Sudán del Sur ,Южный Судан,جنوب السودان
-24510,SS,SSD,South Sudan,2020-07-15T00:00:00.000Z,0,2148,0,41,南苏丹,Soudan du Sud, Sudán del Sur ,Южный Судан,جنوب السودان
+24510,SS,SSD,South Sudan,2020-07-15T00:00:00.000Z,5,2153,0,41,南苏丹,Soudan du Sud, Sudán del Sur ,Южный Судан,جنوب السودان
 24511,ES,ESP,Spain,2020-02-02T00:00:00.000Z,1,1,0,0,西班牙,Espagne,España,Испания,إسبانيا
 24512,ES,ESP,Spain,2020-02-03T00:00:00.000Z,0,1,0,0,西班牙,Espagne,España,Испания,إسبانيا
 24513,ES,ESP,Spain,2020-02-04T00:00:00.000Z,0,1,0,0,西班牙,Espagne,España,Испания,إسبانيا
@@ -28596,7 +28596,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 24672,ES,ESP,Spain,2020-07-12T00:00:00.000Z,0,253908,0,28403,西班牙,Espagne,España,Испания,إسبانيا
 24673,ES,ESP,Spain,2020-07-13T00:00:00.000Z,0,253908,0,28403,西班牙,Espagne,España,Испания,إسبانيا
 24674,ES,ESP,Spain,2020-07-14T00:00:00.000Z,2045,255953,3,28406,西班牙,Espagne,España,Испания,إسبانيا
-24675,ES,ESP,Spain,2020-07-15T00:00:00.000Z,0,255953,0,28406,西班牙,Espagne,España,Испания,إسبانيا
+24675,ES,ESP,Spain,2020-07-15T00:00:00.000Z,666,256619,3,28409,西班牙,Espagne,España,Испания,إسبانيا
 24676,LK,LKA,Sri Lanka,2020-01-27T00:00:00.000Z,1,1,0,0,斯里兰卡,Sri Lanka,Sri Lanka,Шри-Ланка,سري لانكا
 24677,LK,LKA,Sri Lanka,2020-01-28T00:00:00.000Z,0,1,0,0,斯里兰卡,Sri Lanka,Sri Lanka,Шри-Ланка,سري لانكا
 24678,LK,LKA,Sri Lanka,2020-01-29T00:00:00.000Z,0,1,0,0,斯里兰卡,Sri Lanka,Sri Lanka,Шри-Ланка,سري لانكا
@@ -28767,7 +28767,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 24843,LK,LKA,Sri Lanka,2020-07-12T00:00:00.000Z,57,2511,0,11,斯里兰卡,Sri Lanka,Sri Lanka,Шри-Ланка,سري لانكا
 24844,LK,LKA,Sri Lanka,2020-07-13T00:00:00.000Z,106,2617,0,11,斯里兰卡,Sri Lanka,Sri Lanka,Шри-Ланка,سري لانكا
 24845,LK,LKA,Sri Lanka,2020-07-14T00:00:00.000Z,29,2646,0,11,斯里兰卡,Sri Lanka,Sri Lanka,Шри-Ланка,سري لانكا
-24846,LK,LKA,Sri Lanka,2020-07-15T00:00:00.000Z,0,2646,0,11,斯里兰卡,Sri Lanka,Sri Lanka,Шри-Ланка,سري لانكا
+24846,LK,LKA,Sri Lanka,2020-07-15T00:00:00.000Z,19,2665,0,11,斯里兰卡,Sri Lanka,Sri Lanka,Шри-Ланка,سري لانكا
 24847,SD,SDN,Sudan,2020-03-14T00:00:00.000Z,1,1,0,0,苏丹,Soudan,Sudán,Судан,السودان
 24848,SD,SDN,Sudan,2020-03-15T00:00:00.000Z,0,1,1,1,苏丹,Soudan,Sudán,Судан,السودان
 24849,SD,SDN,Sudan,2020-03-16T00:00:00.000Z,0,1,0,1,苏丹,Soudan,Sudán,Судан,السودان
@@ -28891,7 +28891,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 24967,SD,SDN,Sudan,2020-07-12T00:00:00.000Z,46,10250,1,650,苏丹,Soudan,Sudán,Судан,السودان
 24968,SD,SDN,Sudan,2020-07-13T00:00:00.000Z,0,10250,0,650,苏丹,Soudan,Sudán,Судан,السودان
 24969,SD,SDN,Sudan,2020-07-14T00:00:00.000Z,66,10316,7,657,苏丹,Soudan,Sudán,Судан,السودان
-24970,SD,SDN,Sudan,2020-07-15T00:00:00.000Z,0,10316,0,657,苏丹,Soudan,Sudán,Судан,السودان
+24970,SD,SDN,Sudan,2020-07-15T00:00:00.000Z,101,10417,2,659,苏丹,Soudan,Sudán,Судан,السودان
 24971,SR,SUR,Suriname,2020-03-15T00:00:00.000Z,1,1,0,0,苏里南,Suriname,Suriname,Суринам,سورينام
 24972,SR,SUR,Suriname,2020-03-16T00:00:00.000Z,0,1,0,0,苏里南,Suriname,Suriname,Суринам,سورينام
 24973,SR,SUR,Suriname,2020-03-17T00:00:00.000Z,0,1,0,0,苏里南,Suriname,Suriname,Суринам,سورينام
@@ -29181,7 +29181,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 25257,SE,SWE,Sweden,2020-07-12T00:00:00.000Z,0,74898,0,5526,瑞典,Suède,Suecia,Швеция,السويد
 25258,SE,SWE,Sweden,2020-07-13T00:00:00.000Z,0,74898,0,5526,瑞典,Suède,Suecia,Швеция,السويد
 25259,SE,SWE,Sweden,2020-07-14T00:00:00.000Z,928,75826,10,5536,瑞典,Suède,Suecia,Швеция,السويد
-25260,SE,SWE,Sweden,2020-07-15T00:00:00.000Z,0,75826,0,5536,瑞典,Suède,Suecia,Швеция,السويد
+25260,SE,SWE,Sweden,2020-07-15T00:00:00.000Z,175,76001,9,5545,瑞典,Suède,Suecia,Швеция,السويد
 25261,CH,CHE,Switzerland,2020-02-24T00:00:00.000Z,1,1,0,0,瑞士,Suisse,Suiza,Швейцария,سويسرا
 25262,CH,CHE,Switzerland,2020-02-25T00:00:00.000Z,2,3,0,0,瑞士,Suisse,Suiza,Швейцария,سويسرا
 25263,CH,CHE,Switzerland,2020-02-26T00:00:00.000Z,6,9,0,0,瑞士,Suisse,Suiza,Швейцария,سويسرا
@@ -29324,7 +29324,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 25400,CH,CHE,Switzerland,2020-07-12T00:00:00.000Z,108,32713,0,1685,瑞士,Suisse,Suiza,Швейцария,سويسرا
 25401,CH,CHE,Switzerland,2020-07-13T00:00:00.000Z,0,32713,0,1685,瑞士,Suisse,Suiza,Швейцария,سويسرا
 25402,CH,CHE,Switzerland,2020-07-14T00:00:00.000Z,148,32861,0,1685,瑞士,Suisse,Suiza,Швейцария,سويسرا
-25403,CH,CHE,Switzerland,2020-07-15T00:00:00.000Z,0,32861,0,1685,瑞士,Suisse,Suiza,Швейцария,سويسرا
+25403,CH,CHE,Switzerland,2020-07-15T00:00:00.000Z,70,32931,2,1687,瑞士,Suisse,Suiza,Швейцария,سويسرا
 25404,SY,SYR,Syrian Arab Republic,2020-03-23T00:00:00.000Z,1,1,0,0,阿拉伯叙利亚共和国,République arabe syrienne,República Árabe Siria,Сирийская Арабская Республика,الجمهورية العربية السورية
 25405,SY,SYR,Syrian Arab Republic,2020-03-24T00:00:00.000Z,0,1,0,0,阿拉伯叙利亚共和国,République arabe syrienne,República Árabe Siria,Сирийская Арабская Республика,الجمهورية العربية السورية
 25406,SY,SYR,Syrian Arab Republic,2020-03-25T00:00:00.000Z,0,1,0,0,阿拉伯叙利亚共和国,République arabe syrienne,República Árabe Siria,Сирийская Арабская Республика,الجمهورية العربية السورية
@@ -29439,7 +29439,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 25515,SY,SYR,Syrian Arab Republic,2020-07-12T00:00:00.000Z,0,394,0,16,阿拉伯叙利亚共和国,République arabe syrienne,República Árabe Siria,Сирийская Арабская Республика,الجمهورية العربية السورية
 25516,SY,SYR,Syrian Arab Republic,2020-07-13T00:00:00.000Z,0,394,0,16,阿拉伯叙利亚共和国,République arabe syrienne,República Árabe Siria,Сирийская Арабская Республика,الجمهورية العربية السورية
 25517,SY,SYR,Syrian Arab Republic,2020-07-14T00:00:00.000Z,23,417,3,19,阿拉伯叙利亚共和国,République arabe syrienne,República Árabe Siria,Сирийская Арабская Республика,الجمهورية العربية السورية
-25518,SY,SYR,Syrian Arab Republic,2020-07-15T00:00:00.000Z,0,417,0,19,阿拉伯叙利亚共和国,République arabe syrienne,República Árabe Siria,Сирийская Арабская Республика,الجمهورية العربية السورية
+25518,SY,SYR,Syrian Arab Republic,2020-07-15T00:00:00.000Z,22,439,2,21,阿拉伯叙利亚共和国,République arabe syrienne,República Árabe Siria,Сирийская Арабская Республика,الجمهورية العربية السورية
 25519,TJ,TJK,Tajikistan,2020-05-01T00:00:00.000Z,15,15,0,0,塔吉克斯坦,Tadjikistan,Tayikistán,Таджикистан,طاجيكستان
 25520,TJ,TJK,Tajikistan,2020-05-02T00:00:00.000Z,17,32,0,0,塔吉克斯坦,Tadjikistan,Tayikistán,Таджикистан,طاجيكستان
 25521,TJ,TJK,Tajikistan,2020-05-03T00:00:00.000Z,44,76,2,2,塔吉克斯坦,Tadjikistan,Tayikistán,Таджикистан,طاجيكستان
@@ -29515,7 +29515,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 25591,TJ,TJK,Tajikistan,2020-07-12T00:00:00.000Z,49,6505,0,55,塔吉克斯坦,Tadjikistan,Tayikistán,Таджикистан,طاجيكستان
 25592,TJ,TJK,Tajikistan,2020-07-13T00:00:00.000Z,46,6551,0,55,塔吉克斯坦,Tadjikistan,Tayikistán,Таджикистан,طاجيكستان
 25593,TJ,TJK,Tajikistan,2020-07-14T00:00:00.000Z,44,6595,0,55,塔吉克斯坦,Tadjikistan,Tayikistán,Таджикистан,طاجيكستان
-25594,TJ,TJK,Tajikistan,2020-07-15T00:00:00.000Z,0,6595,0,55,塔吉克斯坦,Tadjikistan,Tayikistán,Таджикистан,طاجيكستان
+25594,TJ,TJK,Tajikistan,2020-07-15T00:00:00.000Z,48,6643,1,56,塔吉克斯坦,Tadjikistan,Tayikistán,Таджикистан,طاجيكستان
 25595,TH,THA,Thailand,2020-01-13T00:00:00.000Z,1,1,0,0,泰国,Thaïlande,Tailandia,Таиланд,تايلند
 25596,TH,THA,Thailand,2020-01-14T00:00:00.000Z,0,1,0,0,泰国,Thaïlande,Tailandia,Таиланд,تايلند
 25597,TH,THA,Thailand,2020-01-15T00:00:00.000Z,0,1,0,0,泰国,Thaïlande,Tailandia,Таиланд,تايلند
@@ -29700,7 +29700,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 25776,TH,THA,Thailand,2020-07-12T00:00:00.000Z,1,3217,0,58,泰国,Thaïlande,Tailandia,Таиланд,تايلند
 25777,TH,THA,Thailand,2020-07-13T00:00:00.000Z,3,3220,0,58,泰国,Thaïlande,Tailandia,Таиланд,تايلند
 25778,TH,THA,Thailand,2020-07-14T00:00:00.000Z,7,3227,0,58,泰国,Thaïlande,Tailandia,Таиланд,تايلند
-25779,TH,THA,Thailand,2020-07-15T00:00:00.000Z,0,3227,0,58,泰国,Thaïlande,Tailandia,Таиланд,تايلند
+25779,TH,THA,Thailand,2020-07-15T00:00:00.000Z,5,3232,0,58,泰国,Thaïlande,Tailandia,Таиланд,تايلند
 25780,GB,GBR,The United Kingdom,2020-01-31T00:00:00.000Z,2,2,0,0,大不列颠及北爱尔兰联合王国,Royaume-Uni de Grande-Bretagne et d'Irlande du Nord,Reino Unido de Gran Bretaña e Irlanda del Norte,Соединенное Королевство Великобритании и Северной Ирландии,المملكة المتحدة لبريطانيا العظمى وآيرلندا الشمالية 
 25781,GB,GBR,The United Kingdom,2020-02-01T00:00:00.000Z,0,2,0,0,大不列颠及北爱尔兰联合王国,Royaume-Uni de Grande-Bretagne et d'Irlande du Nord,Reino Unido de Gran Bretaña e Irlanda del Norte,Соединенное Королевство Великобритании и Северной Ирландии,المملكة المتحدة لبريطانيا العظمى وآيرلندا الشمالية 
 25782,GB,GBR,The United Kingdom,2020-02-02T00:00:00.000Z,0,2,0,0,大不列颠及北爱尔兰联合王国,Royaume-Uni de Grande-Bretagne et d'Irlande du Nord,Reino Unido de Gran Bretaña e Irlanda del Norte,Соединенное Королевство Великобритании и Северной Ирландии,المملكة المتحدة لبريطانيا العظمى وآيرلندا الشمالية 
@@ -29867,7 +29867,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 25943,GB,GBR,The United Kingdom,2020-07-12T00:00:00.000Z,820,288957,148,44798,大不列颠及北爱尔兰联合王国,Royaume-Uni de Grande-Bretagne et d'Irlande du Nord,Reino Unido de Gran Bretaña e Irlanda del Norte,Соединенное Королевство Великобритании и Северной Ирландии,المملكة المتحدة لبريطانيا العظمى وآيرلندا الشمالية 
 25944,GB,GBR,The United Kingdom,2020-07-13T00:00:00.000Z,650,289607,21,44819,大不列颠及北爱尔兰联合王国,Royaume-Uni de Grande-Bretagne et d'Irlande du Nord,Reino Unido de Gran Bretaña e Irlanda del Norte,Соединенное Королевство Великобритании и Северной Ирландии,المملكة المتحدة لبريطانيا العظمى وآيرلندا الشمالية 
 25945,GB,GBR,The United Kingdom,2020-07-14T00:00:00.000Z,530,290137,11,44830,大不列颠及北爱尔兰联合王国,Royaume-Uni de Grande-Bretagne et d'Irlande du Nord,Reino Unido de Gran Bretaña e Irlanda del Norte,Соединенное Королевство Великобритании и Северной Ирландии,المملكة المتحدة لبريطانيا العظمى وآيرلندا الشمالية 
-25946,GB,GBR,The United Kingdom,2020-07-15T00:00:00.000Z,0,290137,0,44830,大不列颠及北爱尔兰联合王国,Royaume-Uni de Grande-Bretagne et d'Irlande du Nord,Reino Unido de Gran Bretaña e Irlanda del Norte,Соединенное Королевство Великобритании и Северной Ирландии,المملكة المتحدة لبريطانيا العظمى وآيرلندا الشمالية 
+25946,GB,GBR,The United Kingdom,2020-07-15T00:00:00.000Z,1240,291377,138,44968,大不列颠及北爱尔兰联合王国,Royaume-Uni de Grande-Bretagne et d'Irlande du Nord,Reino Unido de Gran Bretaña e Irlanda del Norte,Соединенное Королевство Великобритании и Северной Ирландии,المملكة المتحدة لبريطانيا العظمى وآيرلندا الشمالية 
 25947,TL,TLS,Timor-Leste,2020-03-20T00:00:00.000Z,1,1,0,0,东帝汶,Timor-Leste,Timor-Leste,Тимор-Лешти,تيمور- ليشتي
 25948,TL,TLS,Timor-Leste,2020-03-21T00:00:00.000Z,0,1,0,0,东帝汶,Timor-Leste,Timor-Leste,Тимор-Лешти,تيمور- ليشتي
 25949,TL,TLS,Timor-Leste,2020-03-22T00:00:00.000Z,0,1,0,0,东帝汶,Timor-Leste,Timor-Leste,Тимор-Лешти,تيمور- ليشتي
@@ -30116,7 +30116,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 26192,TG,TGO,Togo,2020-07-12T00:00:00.000Z,0,710,0,15,多哥,Togo,Togo (el),Того,توغو
 26193,TG,TGO,Togo,2020-07-13T00:00:00.000Z,10,720,0,15,多哥,Togo,Togo (el),Того,توغو
 26194,TG,TGO,Togo,2020-07-14T00:00:00.000Z,0,720,0,15,多哥,Togo,Togo (el),Того,توغو
-26195,TG,TGO,Togo,2020-07-15T00:00:00.000Z,0,720,0,15,多哥,Togo,Togo (el),Того,توغو
+26195,TG,TGO,Togo,2020-07-15T00:00:00.000Z,11,731,0,15,多哥,Togo,Togo (el),Того,توغو
 26196,TT,TTO,Trinidad and Tobago,2020-03-13T00:00:00.000Z,1,1,0,0,特立尼达和多巴哥,Trinité-et-Tobago,Trinidad y Tabago,Тринидад и Тобаго ,ترينيداد وتوباغو
 26197,TT,TTO,Trinidad and Tobago,2020-03-14T00:00:00.000Z,0,1,0,0,特立尼达和多巴哥,Trinité-et-Tobago,Trinidad y Tabago,Тринидад и Тобаго ,ترينيداد وتوباغو
 26198,TT,TTO,Trinidad and Tobago,2020-03-15T00:00:00.000Z,1,2,0,0,特立尼达和多巴哥,Trinité-et-Tobago,Trinidad y Tabago,Тринидад и Тобаго ,ترينيداد وتوباغو
@@ -30377,7 +30377,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 26453,TN,TUN,Tunisia,2020-07-12T00:00:00.000Z,5,1245,0,50,突尼斯,Tunisie,Túnez,Тунис,تونس
 26454,TN,TUN,Tunisia,2020-07-13T00:00:00.000Z,18,1263,0,50,突尼斯,Tunisie,Túnez,Тунис,تونس
 26455,TN,TUN,Tunisia,2020-07-14T00:00:00.000Z,39,1302,0,50,突尼斯,Tunisie,Túnez,Тунис,تونس
-26456,TN,TUN,Tunisia,2020-07-15T00:00:00.000Z,0,1302,0,50,突尼斯,Tunisie,Túnez,Тунис,تونس
+26456,TN,TUN,Tunisia,2020-07-15T00:00:00.000Z,4,1306,0,50,突尼斯,Tunisie,Túnez,Тунис,تونس
 26457,TR,TUR,Turkey,2020-03-11T00:00:00.000Z,1,1,0,0,土耳其,Turquie,Turquía,Турция,تركيا
 26458,TR,TUR,Turkey,2020-03-12T00:00:00.000Z,0,1,0,0,土耳其,Turquie,Turquía,Турция,تركيا
 26459,TR,TUR,Turkey,2020-03-13T00:00:00.000Z,4,5,0,0,土耳其,Turquie,Turquía,Турция,تركيا
@@ -30504,7 +30504,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 26580,TR,TUR,Turkey,2020-07-12T00:00:00.000Z,1016,211981,21,5344,土耳其,Turquie,Turquía,Турция,تركيا
 26581,TR,TUR,Turkey,2020-07-13T00:00:00.000Z,1012,212993,19,5363,土耳其,Turquie,Turquía,Турция,تركيا
 26582,TR,TUR,Turkey,2020-07-14T00:00:00.000Z,1008,214001,19,5382,土耳其,Turquie,Turquía,Турция,تركيا
-26583,TR,TUR,Turkey,2020-07-15T00:00:00.000Z,0,214001,0,5382,土耳其,Turquie,Turquía,Турция,تركيا
+26583,TR,TUR,Turkey,2020-07-15T00:00:00.000Z,992,214993,20,5402,土耳其,Turquie,Turquía,Турция,تركيا
 26584,TC,TCA,Turks and Caicos Islands,2020-03-24T00:00:00.000Z,1,1,0,0,"特克斯和凯科斯群岛
 ",,,,
 26585,TC,TCA,Turks and Caicos Islands,2020-03-25T00:00:00.000Z,0,1,0,0,"特克斯和凯科斯群岛
@@ -30849,7 +30849,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 26811,UG,UGA,Uganda,2020-07-12T00:00:00.000Z,7,1013,0,0,乌干达,Ouganda,Uganda,Уганда,أوغندا
 26812,UG,UGA,Uganda,2020-07-13T00:00:00.000Z,12,1025,0,0,乌干达,Ouganda,Uganda,Уганда,أوغندا
 26813,UG,UGA,Uganda,2020-07-14T00:00:00.000Z,4,1029,0,0,乌干达,Ouganda,Uganda,Уганда,أوغندا
-26814,UG,UGA,Uganda,2020-07-15T00:00:00.000Z,0,1029,0,0,乌干达,Ouganda,Uganda,Уганда,أوغندا
+26814,UG,UGA,Uganda,2020-07-15T00:00:00.000Z,11,1040,0,0,乌干达,Ouganda,Uganda,Уганда,أوغندا
 26815,UA,UKR,Ukraine,2020-03-03T00:00:00.000Z,1,1,0,0,乌克兰,Ukraine,Ucrania,Украина,أوكرانيا
 26816,UA,UKR,Ukraine,2020-03-04T00:00:00.000Z,0,1,0,0,乌克兰,Ukraine,Ucrania,Украина,أوكرانيا
 26817,UA,UKR,Ukraine,2020-03-05T00:00:00.000Z,0,1,0,0,乌克兰,Ukraine,Ucrania,Украина,أوكرانيا
@@ -30984,7 +30984,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 26946,UA,UKR,Ukraine,2020-07-12T00:00:00.000Z,678,53521,11,1383,乌克兰,Ukraine,Ucrania,Украина,أوكرانيا
 26947,UA,UKR,Ukraine,2020-07-13T00:00:00.000Z,612,54133,15,1398,乌克兰,Ukraine,Ucrania,Украина,أوكرانيا
 26948,UA,UKR,Ukraine,2020-07-14T00:00:00.000Z,638,54771,14,1412,乌克兰,Ukraine,Ucrania,Украина,أوكرانيا
-26949,UA,UKR,Ukraine,2020-07-15T00:00:00.000Z,0,54771,0,1412,乌克兰,Ukraine,Ucrania,Украина,أوكرانيا
+26949,UA,UKR,Ukraine,2020-07-15T00:00:00.000Z,836,55607,15,1427,乌克兰,Ukraine,Ucrania,Украина,أوكرانيا
 26950,AE,ARE,United Arab Emirates,2020-01-29T00:00:00.000Z,4,4,0,0,阿拉伯联合酋长国,Émirats arabes unis,Emiratos Árabes Unidos,Объединенные Арабские Эмираты,الإمارات العربية المتحدة
 26951,AE,ARE,United Arab Emirates,2020-01-30T00:00:00.000Z,0,4,0,0,阿拉伯联合酋长国,Émirats arabes unis,Emiratos Árabes Unidos,Объединенные Арабские Эмираты,الإمارات العربية المتحدة
 26952,AE,ARE,United Arab Emirates,2020-01-31T00:00:00.000Z,0,4,0,0,阿拉伯联合酋长国,Émirats arabes unis,Emiratos Árabes Unidos,Объединенные Арабские Эмираты,الإمارات العربية المتحدة
@@ -31153,7 +31153,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 27115,AE,ARE,United Arab Emirates,2020-07-12T00:00:00.000Z,403,54453,2,331,阿拉伯联合酋长国,Émirats arabes unis,Emiratos Árabes Unidos,Объединенные Арабские Эмираты,الإمارات العربية المتحدة
 27116,AE,ARE,United Arab Emirates,2020-07-13T00:00:00.000Z,401,54854,2,333,阿拉伯联合酋长国,Émirats arabes unis,Emiratos Árabes Unidos,Объединенные Арабские Эмираты,الإمارات العربية المتحدة
 27117,AE,ARE,United Arab Emirates,2020-07-14T00:00:00.000Z,344,55198,1,334,阿拉伯联合酋长国,Émirats arabes unis,Emiratos Árabes Unidos,Объединенные Арабские Эмираты,الإمارات العربية المتحدة
-27118,AE,ARE,United Arab Emirates,2020-07-15T00:00:00.000Z,0,55198,0,334,阿拉伯联合酋长国,Émirats arabes unis,Emiratos Árabes Unidos,Объединенные Арабские Эмираты,الإمارات العربية المتحدة
+27118,AE,ARE,United Arab Emirates,2020-07-15T00:00:00.000Z,375,55573,1,335,阿拉伯联合酋长国,Émirats arabes unis,Emiratos Árabes Unidos,Объединенные Арабские Эмираты,الإمارات العربية المتحدة
 27119,TZ,TZA,United Republic of Tanzania,2020-03-17T00:00:00.000Z,1,1,0,0,坦桑尼亚联合共和国,République-Unie de Tanzanie,República Unida de Tanzanía,Объединенная Республика Танзания,جمهورية تنزانيا المتحدة
 27120,TZ,TZA,United Republic of Tanzania,2020-03-18T00:00:00.000Z,2,3,0,0,坦桑尼亚联合共和国,République-Unie de Tanzanie,República Unida de Tanzanía,Объединенная Республика Танзания,جمهورية تنزانيا المتحدة
 27121,TZ,TZA,United Republic of Tanzania,2020-03-19T00:00:00.000Z,3,6,0,0,坦桑尼亚联合共和国,République-Unie de Tanzanie,República Unida de Tanzanía,Объединенная Республика Танзания,جمهورية تنزانيا المتحدة
@@ -31947,7 +31947,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 27784,UZ,UZB,Uzbekistan,2020-07-12T00:00:00.000Z,500,12706,3,58,乌兹别克斯坦,Ouzbékistan,Uzbekistán,Узбекистан,أوزبكستان
 27785,UZ,UZB,Uzbekistan,2020-07-13T00:00:00.000Z,487,13193,3,61,乌兹别克斯坦,Ouzbékistan,Uzbekistán,Узбекистан,أوزبكستان
 27786,UZ,UZB,Uzbekistan,2020-07-14T00:00:00.000Z,679,13872,3,64,乌兹别克斯坦,Ouzbékistan,Uzbekistán,Узбекистан,أوزبكستان
-27787,UZ,UZB,Uzbekistan,2020-07-15T00:00:00.000Z,0,13872,0,64,乌兹别克斯坦,Ouzbékistan,Uzbekistán,Узбекистан,أوزبكستان
+27787,UZ,UZB,Uzbekistan,2020-07-15T00:00:00.000Z,421,14293,4,68,乌兹别克斯坦,Ouzbékistan,Uzbekistán,Узбекистан,أوزبكستان
 27788,VE,VEN,Venezuela (Bolivarian Republic of),2020-03-14T00:00:00.000Z,2,2,0,0,委内瑞拉(玻利瓦尔共和国),Venezuela (République bolivarienne du),Venezuela (República Bolivariana de),Венесуэла (Боливарианская Республика),فنزويلا
 27789,VE,VEN,Venezuela (Bolivarian Republic of),2020-03-15T00:00:00.000Z,15,17,0,0,委内瑞拉(玻利瓦尔共和国),Venezuela (République bolivarienne du),Venezuela (República Bolivariana de),Венесуэла (Боливарианская Республика),فنزويلا
 27790,VE,VEN,Venezuela (Bolivarian Republic of),2020-03-16T00:00:00.000Z,0,17,0,0,委内瑞拉(玻利瓦尔共和国),Venezuela (République bolivarienne du),Venezuela (República Bolivariana de),Венесуэла (Боливарианская Республика),فنزويلا
@@ -32342,7 +32342,7 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 28179,YE,YEM,Yemen,2020-07-12T00:00:00.000Z,37,1389,10,365,也门,Yémen,Yemen,Йемен,اليمن
 28180,YE,YEM,Yemen,2020-07-13T00:00:00.000Z,80,1469,53,418,也门,Yémen,Yemen,Йемен,اليمن
 28181,YE,YEM,Yemen,2020-07-14T00:00:00.000Z,33,1502,7,425,也门,Yémen,Yemen,Йемен,اليمن
-28182,YE,YEM,Yemen,2020-07-15T00:00:00.000Z,0,1502,0,425,也门,Yémen,Yemen,Йемен,اليمن
+28182,YE,YEM,Yemen,2020-07-15T00:00:00.000Z,18,1520,5,430,也门,Yémen,Yemen,Йемен,اليمن
 28183,ZM,ZMB,Zambia,2020-03-18T00:00:00.000Z,2,2,0,0,赞比亚,Zambie,Zambia,Замбия,زامبيا
 28184,ZM,ZMB,Zambia,2020-03-19T00:00:00.000Z,0,2,0,0,赞比亚,Zambie,Zambia,Замбия,زامبيا
 28185,ZM,ZMB,Zambia,2020-03-20T00:00:00.000Z,0,2,0,0,赞比亚,Zambie,Zambia,Замбия,زامبيا
@@ -32580,4 +32580,4 @@ OBJECTID,ISO_2_CODE,ISO_3_CODE,ADM0_NAME,date_epicrv,NewCase,CumCase,NewDeath,Cu
 28417,ZW,ZWE,Zimbabwe,2020-07-12T00:00:00.000Z,40,982,5,18,津巴布韦,Zimbabwe,Zimbabwe,Зимбабве,زمبابوي
 28418,ZW,ZWE,Zimbabwe,2020-07-13T00:00:00.000Z,3,985,0,18,津巴布韦,Zimbabwe,Zimbabwe,Зимбабве,زمبابوي
 28419,ZW,ZWE,Zimbabwe,2020-07-14T00:00:00.000Z,49,1034,1,19,津巴布韦,Zimbabwe,Zimbabwe,Зимбабве,زمبابوي
-28420,ZW,ZWE,Zimbabwe,2020-07-15T00:00:00.000Z,0,1034,0,19,津巴布韦,Zimbabwe,Zimbabwe,Зимбабве,زمبابوي
+28420,ZW,ZWE,Zimbabwe,2020-07-15T00:00:00.000Z,30,1064,1,20,津巴布韦,Zimbabwe,Zimbabwe,Зимбабве,زمبابوي
