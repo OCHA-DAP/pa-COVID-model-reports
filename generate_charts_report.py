@@ -39,9 +39,9 @@ def main(country_iso3='AFG',download_covid=False):
         get_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
     set_matlotlib(plt)
 
-    # generate_key_figures(country_iso3)
-    # generate_current_status(country_iso3,parameters)
-    # generate_daily_projections(country_iso3,parameters)
+    generate_key_figures(country_iso3)
+    generate_current_status(country_iso3,parameters)
+    generate_daily_projections(country_iso3,parameters)
     create_maps(country_iso3, parameters)
     calculate_trends(country_iso3, parameters)
     plt.show()
@@ -74,8 +74,21 @@ def generate_key_figures(country_iso3):
 
     who_covid=get_who_covid(country_iso3,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
     who_deaths_today=who_covid.loc[TODAY,'CumDeath']
-    who_cases_today=who_covid.loc[TODAY,'CumCase']
+    who_cases_today=who_covid.loc[TODAY,'CumCase']    
+    # get weekly new cases
+    who_covid.index = pd.to_datetime(who_covid.index)
+    new_WHO_w=who_covid.groupby(['ISO_3_CODE']).resample('W').sum()[['NewCase','NewDeath']]
+    ndays_w=who_covid.groupby(['ISO_3_CODE']).resample('W').count()['NewCase']
+    ndays_w=ndays_w.rename('ndays')
+    new_WHO_w=pd.merge(left=new_WHO_w,right=ndays_w,left_index=True,right_index=True,how='inner')
+    new_WHO_w=new_WHO_w[new_WHO_w['ndays']==7]
+    new_WHO_w['NewCase_PercentChange'] = new_WHO_w.groupby('ISO_3_CODE')['NewCase'].pct_change()
+    new_WHO_w['NewDeath_PercentChange'] = new_WHO_w.groupby('ISO_3_CODE')['NewDeath'].pct_change()
+    trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'NewCase_PercentChange']*100
+    trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'NewDeath_PercentChange']*100
+    
     print(f'Current situation {TODAY}: {who_cases_today:.0f} cases, {who_deaths_today:.0f} deaths')
+    print(f'Weekly new cases wrt last week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
 
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='npi')
     reporting_rate=bucky_npi['CASE_REPORT'].mean()*100
@@ -84,12 +97,18 @@ def generate_key_figures(country_iso3):
     max_cases_npi=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_cases_reported']
     min_deaths_npi=bucky_npi[bucky_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_deaths']
     max_deaths_npi=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_deaths']
+    rel_inc_min_cases_npi=(min_cases_npi-who_cases_today)/who_cases_today*100
+    rel_inc_max_cases_npi=(max_cases_npi-who_cases_today)/who_cases_today*100
+    rel_inc_min_deaths_npi=(min_deaths_npi-who_deaths_today)/who_deaths_today*100
+    rel_inc_max_deaths_npi=(max_deaths_npi-who_deaths_today)/who_deaths_today*100
     print(f'- Projection date:{FOUR_WEEKS}')
     
-    print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.2f}')
+    print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}')
     print(f'-- NPI: ESTIMATED Reff NPI {reff_npi:.2f}')
     print(f'-- NPI: Projected reported cases in 4w: {min_cases_npi:.0f} - {max_cases_npi:.0f}')
+    print(f'-- NPI: Projected trend reported cases in 4w: {rel_inc_min_cases_npi:.0f}% - {rel_inc_max_cases_npi:.0f}%')
     print(f'-- NPI: Projected reported deaths in 4w: {min_deaths_npi:.0f} - {max_deaths_npi:.0f}')
+    print(f'-- NPI: Projected trend reported deaths in 4w: {rel_inc_min_deaths_npi:.0f}% - {rel_inc_max_deaths_npi:.0f}%')
     
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='no_npi')
     reff_no_npi=bucky_no_npi['Reff'].mean()
@@ -131,7 +150,7 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
     bucky_npi_reff=bucky_npi['Reff'].mean()
-    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Keeping current NPIs ( Reff= {:.2f})'.format(bucky_npi_reff))
+    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
     axis.fill_between(bucky_npi_median.index,\
                           bucky_npi[bucky_npi['q']==0.25][bucky_var],
                           bucky_npi[bucky_npi['q']==0.75][bucky_var],
@@ -140,7 +159,7 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     # draw line NO NPI
     bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
     bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
-    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='Back to normal ( Reff= {:.2f})'.format(bucky_no_npi_reff))
+    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
     axis.fill_between(bucky_no_npi_cases_median.index,\
                           bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
                           bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
@@ -216,7 +235,7 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
     bucky_npi_reff=bucky_npi['Reff'].mean()
-    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Keeping current NPIs ( Reff= {:.2f})'.format(bucky_npi_reff))
+    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
     axis.fill_between(bucky_npi_median.index,\
                           bucky_npi[bucky_npi['q']==0.25][bucky_var],
                           bucky_npi[bucky_npi['q']==0.75][bucky_var],
@@ -225,7 +244,7 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
     # draw line NO NPI
     bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
     bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
-    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='Back to normal ( Reff= {:.2f})'.format(bucky_no_npi_reff))
+    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
     axis.fill_between(bucky_no_npi_cases_median.index,\
                           bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
                           bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
