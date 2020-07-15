@@ -22,7 +22,7 @@ HLX_TAG_DATE = "#date"
 
 FIG_SIZE=(8,6)
 
-TODAY = date.today()
+TODAY = date.today() - timedelta(days=1)
 FOUR_WEEKS = TODAY + timedelta(days=28)
 TWO_WEEKS = TODAY + timedelta(days=28)
 THREE_MONTHS = TODAY + timedelta(days=90)
@@ -273,13 +273,13 @@ def create_new_subplot(fig_title):
 
 def create_maps(country_iso3, parameters):
     # Total cases - four weeks projection
-    bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
+    bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
     bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','cases_per_100k']]
-    bucky_npi = bucky_npi.loc[FOUR_WEEKS,:]
+    bucky_npi = bucky_npi.loc[TWO_WEEKS,:]
     bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on='ADM1_PCODE', right_on='adm1', how='left')
-    fig_title=f'Ranking: number of cases per 100,000 people on {FOUR_WEEKS}'
+    fig_title=f'Ranking: number of cases per 100,000 people on {TWO_WEEKS}'
     fig,axis=create_new_subplot(fig_title)
     axis.axis('off')
     shapefile.plot(column='cases_per_100k', figsize=(10, 10),edgecolor='gray',ax=axis,
@@ -291,13 +291,13 @@ def create_maps(country_iso3, parameters):
 
 def calculate_trends(country_iso3, parameters):
     # Top 5 and bottom 5 districts - 4 weeks trend
-    bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
+    bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
     # to remove noise
     bucky_npi=bucky_npi[bucky_npi['cases_active']>100]
     bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','cases_per_100k']]
     bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
     start = bucky_npi.loc[TODAY,:]
-    end = bucky_npi.loc[FOUR_WEEKS,:]
+    end = bucky_npi.loc[TWO_WEEKS,:]
     combined = start.merge(end[['adm1', 'cases_per_100k']], how='left', on='adm1')
     combined['cases_per_100k_change'] = (combined['cases_per_100k_y']-combined['cases_per_100k_x']) / combined['cases_per_100k_x'] * 100
     shapefile = gpd.read_file(parameters['shape'])
