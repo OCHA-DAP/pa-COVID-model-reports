@@ -317,7 +317,7 @@ def calculate_trends(country_iso3, parameters):
     shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
     combined=combined.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
     combined = combined.sort_values('cases_per_100k_change', ascending=False)
-    combined['cases_per_100k_change']=combined['cases_per_100k_change'].round(decimals=1)
+    combined['cases_per_100k_change']=combined['cases_per_100k_change'].astype(int)
     combined=combined[[parameters['adm1_name'],'cases_per_100k_change']]
     combined.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
 
