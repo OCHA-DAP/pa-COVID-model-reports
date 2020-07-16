@@ -47,7 +47,8 @@ def main(country_iso3='AFG',download_covid=False):
     generate_current_status(country_iso3,parameters)
     generate_daily_projections(country_iso3,parameters)
     create_maps(country_iso3, parameters)
-    calculate_trends(country_iso3, parameters)
+    highest_adm1=calculate_trends(country_iso3, parameters)
+    print(highest_adm1)
     plt.show()
 
 def download_url(url, save_path, chunk_size=128):
@@ -307,7 +308,7 @@ def calculate_trends(country_iso3, parameters):
     bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
     # to remove noise
     bucky_npi=bucky_npi[bucky_npi['cases_active']>100]
-    bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','cases_per_100k']]
+    bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','Reff','cases_per_100k']]
     bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
     start = bucky_npi.loc[TODAY,:]
     end = bucky_npi.loc[TWO_WEEKS,:]
@@ -318,8 +319,9 @@ def calculate_trends(country_iso3, parameters):
     combined=combined.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
     combined = combined.sort_values('cases_per_100k_change', ascending=False)
     combined['cases_per_100k_change']=combined['cases_per_100k_change'].astype(int)
-    combined=combined[[parameters['adm1_name'],'cases_per_100k_change']]
+    # combined=combined[[parameters['adm1_name'],'cases_per_100k_change']]
     combined.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
+    return combined.loc[combined.index[0],'adm1']
 
 
 def parse_args():
