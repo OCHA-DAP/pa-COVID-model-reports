@@ -7,10 +7,17 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import requests
 import geopandas as gpd
-from datetime import timedelta, date
+from datetime import datetime,timedelta, date
 
 from utils import set_matlotlib
 
+ASSESSMENT_DATE='2020-07-15'
+# TODAY = date.today()
+TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
+FOUR_WEEKS = TODAY + timedelta(days=28)
+TWO_WEEKS = TODAY + timedelta(days=28)
+THREE_MONTHS = TODAY + timedelta(days=90)
+LAST_MONTH = TODAY - timedelta(days=30)
 CONFIG_FILE = 'config.yml'
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 WHO_COVID_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vSe-8lf6l_ShJHvd126J-jGti992SUbNLu-kmJfx1IRkvma_r4DHi0bwEW89opArs8ZkSY5G2-Bc1yT/pub?gid=0&single=true&output=csv'
@@ -22,11 +29,6 @@ HLX_TAG_DATE = "#date"
 
 FIG_SIZE=(8,6)
 
-TODAY = date.today()
-FOUR_WEEKS = TODAY + timedelta(days=28)
-TWO_WEEKS = TODAY + timedelta(days=28)
-THREE_MONTHS = TODAY + timedelta(days=90)
-LAST_MONTH = TODAY - timedelta(days=30)
 
 NPI_COLOR='green'
 NO_NPI_COLOR='red'
