@@ -15,7 +15,7 @@ ASSESSMENT_DATE='2020-07-15'
 # TODAY = date.today()
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
-TWO_WEEKS = TODAY + timedelta(days=28)
+TWO_WEEKS = TODAY + timedelta(days=14)
 THREE_MONTHS = TODAY + timedelta(days=90)
 LAST_MONTH = TODAY - timedelta(days=30)
 CONFIG_FILE = 'config.yml'
@@ -26,6 +26,7 @@ WHO_COVID_FILENAME=WHO_COVID_FILENAME='WHO_data/Data_ WHO Coronavirus Covid-19 C
 HLX_TAG_TOTAL_CASES = "#affected+infected+confirmed+total"
 HLX_TAG_TOTAL_DEATHS = "#affected+infected+dead+total"
 HLX_TAG_DATE = "#date"
+HLX_TAG_ADM2_PCODE='#adm2+pcode'
 
 FIG_SIZE=(8,6)
 
@@ -188,6 +189,16 @@ def get_subnational_covid(parameters,aggregate,min_date,max_date):
     subnational_covid=subnational_covid[(subnational_covid[HLX_TAG_DATE]>=min_date) &\
                                         (subnational_covid[HLX_TAG_DATE]<=max_date)]
     if aggregate:
+        # date and adm2 are the unique keys
+        dates=sorted(set(subnational_covid[HLX_TAG_DATE]))
+        adm2pcodes=set(subnational_covid[HLX_TAG_ADM2_PCODE])
+        unique_keys=[HLX_TAG_DATE,HLX_TAG_ADM2_PCODE]
+        # create a multi-index to fill missing combinations with None values
+        mind = pd.MultiIndex.from_product([dates,adm2pcodes],names=unique_keys)
+        subnational_covid=subnational_covid.set_index(unique_keys).reindex(mind,fill_value=None)
+        # forward fill missing values for each pcode
+        subnational_covid=subnational_covid.groupby(HLX_TAG_ADM2_PCODE).ffill()
+        # sum by date
         subnational_covid=subnational_covid.groupby(HLX_TAG_DATE).sum()
     return subnational_covid
 
