@@ -11,7 +11,7 @@ from datetime import datetime,timedelta, date
 
 from utils import set_matlotlib
 
-ASSESSMENT_DATE='2020-07-15'
+ASSESSMENT_DATE='2020-07-17'
 # TODAY = date.today()
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
