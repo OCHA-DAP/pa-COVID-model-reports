@@ -48,7 +48,7 @@ def main(country_iso3='AFG',download_covid=False):
     generate_daily_projections(country_iso3,parameters)
     create_maps(country_iso3, parameters)
     calculate_trends(country_iso3, parameters)
-    plt.show()
+    # plt.show()
 
 def download_url(url, save_path, chunk_size=128):
     r = requests.get(url, stream=True)
@@ -154,7 +154,8 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
     bucky_npi_reff=bucky_npi['Reff'].mean()
-    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
+    # bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
+    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained'.format())
     axis.fill_between(bucky_npi_median.index,\
                           bucky_npi[bucky_npi['q']==0.25][bucky_var],
                           bucky_npi[bucky_npi['q']==0.75][bucky_var],
@@ -163,7 +164,8 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     # draw line NO NPI
     bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
     bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
-    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
+    # bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
+    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place'.format())
     axis.fill_between(bucky_no_npi_cases_median.index,\
                           bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
                           bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
@@ -249,7 +251,8 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
     bucky_npi_reff=bucky_npi['Reff'].mean()
-    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
+    # bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
+    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained'.format(bucky_npi_reff))
     axis.fill_between(bucky_npi_median.index,\
                           bucky_npi[bucky_npi['q']==0.25][bucky_var],
                           bucky_npi[bucky_npi['q']==0.75][bucky_var],
@@ -258,7 +261,8 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
     # draw line NO NPI
     bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
     bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
-    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
+    # bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
+    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place'.format())
     axis.fill_between(bucky_no_npi_cases_median.index,\
                           bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
                           bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
