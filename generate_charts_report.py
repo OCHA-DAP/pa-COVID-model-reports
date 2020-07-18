@@ -50,6 +50,7 @@ def main(country_iso3='AFG',download_covid=False):
     generate_daily_projections(country_iso3,parameters)
     create_maps(country_iso3, parameters)
     calculate_trends(country_iso3, parameters)
+    # plt.show()
 
 def download_url(url, save_path, chunk_size=128):
     r = requests.get(url, stream=True)
@@ -68,12 +69,26 @@ def get_covid_data(url, save_path):
 
 def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     # get bucky with NPIs 
-    bucky_npi=pd.read_csv(f'Bucky_results/{country_iso3}_{npi_filter}/{admin_level}_quantiles.csv')
-    bucky_npi['date']=pd.to_datetime(bucky_npi['date']).dt.date
-    bucky_npi=bucky_npi[(bucky_npi['date']>=min_date) &\
-                        (bucky_npi['date']<=max_date)]
-    bucky_npi=bucky_npi.set_index('date')
-    return bucky_npi
+    bucky_df=pd.read_csv(f'Bucky_results/{country_iso3}_{npi_filter}/{admin_level}_quantiles.csv')
+    bucky_df['date']=pd.to_datetime(bucky_df['date']).dt.date
+    if country_iso3=='AFG':
+        # scaling afghanistan to take into account delays in reporting
+        bucky_df['date']=bucky_df['date']+timedelta(days=10)
+        bucky_df['cumulative_deaths']=bucky_df['cumulative_deaths']*1147/807
+        bucky_df['cumulative_cases_reported']=bucky_df['cumulative_cases_reported']*35229/32022
+        bucky_df['hospitalizations']=bucky_df['hospitalizations']*35229/32022
+        bucky_df['cases_per_100k']=bucky_df['cases_per_100k']*35229/32022
+    if country_iso3=='SDN':
+        # scaling afghanistan to take into account delays in reporting
+        bucky_df['date']=bucky_df['date']+timedelta(days=11)
+        bucky_df['cumulative_deaths']=bucky_df['cumulative_deaths']*668/691
+        bucky_df['cumulative_cases_reported']=bucky_df['cumulative_cases_reported']*10527/10084
+        bucky_df['hospitalizations']=bucky_df['hospitalizations']*10527/10084
+        bucky_df['cases_per_100k']=bucky_df['cases_per_100k']*10527/10084
+    bucky_df=bucky_df[(bucky_df['date']>=min_date) &\
+                        (bucky_df['date']<=max_date)]
+    bucky_df=bucky_df.set_index('date')
+    return bucky_df
 
 def extract_reff(country_iso3):
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
@@ -135,10 +150,12 @@ def generate_key_figures(country_iso3):
     max_cases_npi=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_cases_reported']
     min_deaths_npi=bucky_npi[bucky_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_deaths']
     max_deaths_npi=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_deaths']
-    rel_inc_min_cases_npi=(min_cases_npi-who_cases_today)/who_cases_today*100
-    rel_inc_max_cases_npi=(max_cases_npi-who_cases_today)/who_cases_today*100
-    rel_inc_min_deaths_npi=(min_deaths_npi-who_deaths_today)/who_deaths_today*100
-    rel_inc_max_deaths_npi=(max_deaths_npi-who_deaths_today)/who_deaths_today*100
+    bucky_npi_cases_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_cases_reported']
+    bucky_npi_deaths_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_deaths']
+    rel_inc_min_cases_npi=(min_cases_npi-who_cases_today)/bucky_npi_cases_today*100
+    rel_inc_max_cases_npi=(max_cases_npi-who_cases_today)/bucky_npi_cases_today*100
+    rel_inc_min_deaths_npi=(min_deaths_npi-who_deaths_today)/bucky_npi_deaths_today*100
+    rel_inc_max_deaths_npi=(max_deaths_npi-who_deaths_today)/bucky_npi_deaths_today*100
     print(f'- Projection date:{FOUR_WEEKS}')
     
     print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}')
@@ -186,7 +203,7 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     fig,axis=create_new_subplot(fig_title)
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
-    bucky_npi_reff=bucky_npi['Reff'].mean()
+    # bucky_npi_reff=bucky_npi['Reff'].mean()
     # bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
     bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained'.format())
     axis.fill_between(bucky_npi_median.index,\
@@ -196,7 +213,7 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
                           )
     # draw line NO NPI
     bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
-    bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
+    # bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
     # bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
     bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place'.format())
     axis.fill_between(bucky_no_npi_cases_median.index,\
@@ -330,6 +347,7 @@ def create_maps(country_iso3, parameters):
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
     fig_title=f'Ranking: number of cases per 100,000 people on {TWO_WEEKS}'
+    # fig_title=f'Ranking: number of cases per 100,000 people on {TWO_WEEKS}'
     fig,axis=create_new_subplot(fig_title)
     axis.axis('off')
     shapefile.plot(column='cases_per_100k', figsize=(10, 10),edgecolor='gray',ax=axis,
@@ -338,7 +356,7 @@ def create_maps(country_iso3, parameters):
                    scheme='Quantiles',k=len(shapefile)
                    )
     shapefile.boundary.plot(linewidth=0.1,ax=axis)
-    fig.savefig(f'Outputs/{country_iso3}/map_cases_per_100k_4w.png')
+    fig.savefig(f'Outputs/{country_iso3}/map_cases_per_100k_2w.png')
 
 def calculate_trends(country_iso3, parameters):
     # Top 5 and bottom 5 districts - 4 weeks trend
