@@ -71,20 +71,20 @@ def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     # get bucky with NPIs 
     bucky_df=pd.read_csv(f'Bucky_results/{country_iso3}_{npi_filter}/{admin_level}_quantiles.csv')
     bucky_df['date']=pd.to_datetime(bucky_df['date']).dt.date
-    if country_iso3=='AFG':
-        # scaling afghanistan to take into account delays in reporting
-        bucky_df['date']=bucky_df['date']+timedelta(days=10)
-        bucky_df['cumulative_deaths']=bucky_df['cumulative_deaths']*1147/807
-        bucky_df['cumulative_cases_reported']=bucky_df['cumulative_cases_reported']*35229/32022
-        bucky_df['hospitalizations']=bucky_df['hospitalizations']*35229/32022
-        bucky_df['cases_per_100k']=bucky_df['cases_per_100k']*35229/32022
-    if country_iso3=='SDN':
-        # scaling afghanistan to take into account delays in reporting
-        bucky_df['date']=bucky_df['date']+timedelta(days=11)
-        bucky_df['cumulative_deaths']=bucky_df['cumulative_deaths']*668/691
-        bucky_df['cumulative_cases_reported']=bucky_df['cumulative_cases_reported']*10527/10084
-        bucky_df['hospitalizations']=bucky_df['hospitalizations']*10527/10084
-        bucky_df['cases_per_100k']=bucky_df['cases_per_100k']*10527/10084
+    # if country_iso3=='AFG':
+    #     # scaling afghanistan to take into account delays in reporting
+    #     bucky_df['date']=bucky_df['date']+timedelta(days=10)
+    #     bucky_df['cumulative_deaths']=bucky_df['cumulative_deaths']*1147/807
+    #     bucky_df['cumulative_cases_reported']=bucky_df['cumulative_cases_reported']*35229/32022
+    #     bucky_df['hospitalizations']=bucky_df['hospitalizations']*35229/32022
+    #     bucky_df['cases_per_100k']=bucky_df['cases_per_100k']*35229/32022
+    # if country_iso3=='SDN':
+    #     # scaling afghanistan to take into account delays in reporting
+    #     bucky_df['date']=bucky_df['date']+timedelta(days=11)
+    #     bucky_df['cumulative_deaths']=bucky_df['cumulative_deaths']*668/691
+    #     bucky_df['cumulative_cases_reported']=bucky_df['cumulative_cases_reported']*10527/10084
+    #     bucky_df['hospitalizations']=bucky_df['hospitalizations']*10527/10084
+    #     bucky_df['cases_per_100k']=bucky_df['cases_per_100k']*10527/10084
     bucky_df=bucky_df[(bucky_df['date']>=min_date) &\
                         (bucky_df['date']<=max_date)]
     bucky_df=bucky_df.set_index('date')
@@ -111,14 +111,39 @@ def get_bucky_doubling_time(df_bucky):
     yfit = df_bucky['cumulative_cases_reported']
     initial_caseload=yfit[0]
     initial_parameters=[initial_caseload,0.03]
+    # # TODO check quality of the fit
     popt, _ = curve_fit(func,xfit,yfit,p0=initial_parameters)
-    # TODO check quality of the fit
     doubling_time_fit=np.log(2)/popt[1]
-    # https://www.acpjournals.org/doi/10.7326/M20-0504
-    infectious_period=5.2
-    # according to eq 1 in https://www.mdpi.com/2306-7381/7/1/2/htm#B17-vetsci-07-00002
-    reff=1+(np.log(2)/doubling_time_fit)*infectious_period
+    # suggested by Matt
+    Tg = 7.
+    Ts = 5.
+    n = 3
+    f = .4
+    m = 2
+    r = np.log(2)/doubling_time_fit
+    Te=calc_Te(Tg, Ts, n, f)
+    reff=calc_Reff(m, n, Tg, Te, r)
+    # old method
+    # # https://www.acpjournals.org/doi/10.7326/M20-0504
+    # infectious_period=5.2
+    # # according to eq 1 in https://www.mdpi.com/2306-7381/7/1/2/htm#B17-vetsci-07-00002
+    # reff=1+(np.log(2)/doubling_time_fit)*infectious_period
     return doubling_time_fit,reff
+
+def calc_Te(Tg, Ts, n, f):
+    num = 2.0 * n * f / (n + 1.0) * Tg - Ts
+    den = 2.0 * n * f / (n + 1.0) - 1.0
+    return num / den
+
+def calc_Reff(m, n, Tg, Te, r):
+    tdiff = Tg - Te
+    num = 2.0 * n * r / (n + 1.0) * (Tg - Te) * (1.0 + r * Te / m) ** m
+    den = 1.0 - (1.0 + 2.0 * r / (n + 1.0) * (Tg - Te)) ** (-n)
+    return num / den
+
+def calc_Ti(Te, Tg, n):
+    # not used at the moment
+    return (Tg - Te) * 2.0 * n / (n + 1.0)
 
 def func(x, p0, beta):
     return p0 * np.exp(x*beta)
