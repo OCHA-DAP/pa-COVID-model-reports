@@ -1,4 +1,3 @@
-from matplotlib.pyplot import title
 import utils
 import os
 import argparse
@@ -7,7 +6,9 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import requests
 import geopandas as gpd
-from datetime import datetime,timedelta, date
+from datetime import datetime,timedelta
+from scipy.optimize import curve_fit
+import numpy as np
 
 from utils import set_matlotlib
 
@@ -16,7 +17,6 @@ ASSESSMENT_DATE='2020-07-17'
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
 TWO_WEEKS = TODAY + timedelta(days=14)
-THREE_MONTHS = TODAY + timedelta(days=90)
 LAST_MONTH = TODAY - timedelta(days=30)
 CONFIG_FILE = 'config.yml'
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -39,16 +39,17 @@ SUBNATIONAL_DATA_COLOR='navy'
 def main(country_iso3='AFG',download_covid=False):
     parameters = utils.parse_yaml(CONFIG_FILE)[country_iso3]
     if download_covid:
-    # Download latest covid file tiles and read them in
+        # Download latest covid file tiles and read them in
         get_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
     set_matlotlib(plt)
-
+    print('\n\n\n')
+    print(f'{country_iso3}')
+    extract_reff(country_iso3)
     generate_key_figures(country_iso3)
     generate_current_status(country_iso3,parameters)
     generate_daily_projections(country_iso3,parameters)
     create_maps(country_iso3, parameters)
     calculate_trends(country_iso3, parameters)
-    # plt.show()
 
 def download_url(url, save_path, chunk_size=128):
     r = requests.get(url, stream=True)
@@ -74,6 +75,39 @@ def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     bucky_npi=bucky_npi.set_index('date')
     return bucky_npi
 
+def extract_reff(country_iso3):
+    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
+    bucky_npi=bucky_npi[bucky_npi['q']==0.5]
+    dt_npi=get_bucky_doubling_time(bucky_npi)
+    dt_npi,r_npi=get_bucky_doubling_time(bucky_npi)
+    print(f'Estimated doubling time NPI {dt_npi}, Reff {r_npi}')
+    
+    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
+    bucky_no_npi=bucky_no_npi[bucky_no_npi['q']==0.5]
+    dt_no_npi=get_bucky_doubling_time(bucky_no_npi)
+    dt_no_npi,r_no_npi=get_bucky_doubling_time(bucky_no_npi)
+    print(f'Estimated doubling time No NPI {dt_no_npi}, Reff {r_no_npi}')
+    
+
+def get_bucky_doubling_time(df_bucky):
+    # start fit
+    dates_proj = df_bucky.index
+    xfit=[(x-dates_proj[0]).days for x in dates_proj]
+    yfit = df_bucky['cumulative_cases_reported']
+    initial_caseload=yfit[0]
+    initial_parameters=[initial_caseload,0.03]
+    popt, _ = curve_fit(func,xfit,yfit,p0=initial_parameters)
+    # TODO check quality of the fit
+    doubling_time_fit=np.log(2)/popt[1]
+    # https://www.acpjournals.org/doi/10.7326/M20-0504
+    infectious_period=5.2
+    # according to eq 1 in https://www.mdpi.com/2306-7381/7/1/2/htm#B17-vetsci-07-00002
+    reff=1+(np.log(2)/doubling_time_fit)*infectious_period
+    return doubling_time_fit,reff
+
+def func(x, p0, beta):
+    return p0 * np.exp(x*beta)
+
 def generate_key_figures(country_iso3):
 
     who_covid=get_who_covid(country_iso3,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
@@ -94,7 +128,7 @@ def generate_key_figures(country_iso3):
     print(f'Current situation {TODAY}: {who_cases_today:.0f} cases, {who_deaths_today:.0f} deaths')
     print(f'Weekly new cases wrt last week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
 
-    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='npi')
+    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
     reporting_rate=bucky_npi['CASE_REPORT'].mean()*100
     reff_npi=bucky_npi['Reff'].mean()
     min_cases_npi=bucky_npi[bucky_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_cases_reported']
@@ -108,28 +142,27 @@ def generate_key_figures(country_iso3):
     print(f'- Projection date:{FOUR_WEEKS}')
     
     print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}')
-    print(f'-- NPI: ESTIMATED Reff NPI {reff_npi:.2f}')
+    # print(f'-- NPI: ESTIMATED Reff NPI {reff_npi:.2f}')
     print(f'-- NPI: Projected reported cases in 4w: {min_cases_npi:.0f} - {max_cases_npi:.0f}')
     print(f'-- NPI: Projected trend reported cases in 4w: {rel_inc_min_cases_npi:.0f}% - {rel_inc_max_cases_npi:.0f}%')
     print(f'-- NPI: Projected reported deaths in 4w: {min_deaths_npi:.0f} - {max_deaths_npi:.0f}')
     print(f'-- NPI: Projected trend reported deaths in 4w: {rel_inc_min_deaths_npi:.0f}% - {rel_inc_max_deaths_npi:.0f}%')
     
-    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='no_npi')
+    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
     reff_no_npi=bucky_no_npi['Reff'].mean()
     min_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_cases_reported']
     max_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_cases_reported']
     min_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_deaths']
     max_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_deaths']
-    # print(bucky_no_npi.loc[FOUR_WEEKS,:])
-    print(f'--- no_npi: ESTIMATED Reff no_npi {reff_no_npi:.2f}')
+    # print(f'--- no_npi: ESTIMATED Reff no_npi {reff_no_npi:.2f}')
     print(f'--- no_npi: Projected reported cases in 4w: {min_cases_no_npi:.0f} - {max_cases_no_npi:.0f}')
     print(f'--- no_npi: Projected reported deaths in 4w: {min_deaths_no_npi:.0f} - {max_deaths_no_npi:.0f}')
     
 
 def generate_daily_projections(country_iso3,parameters):
     # generate plot with long term projections of daily cases
-    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='npi')
-    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=THREE_MONTHS,npi_filter='no_npi')
+    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
+    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
 
     # draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_cases_reported')
     # draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_deaths')
