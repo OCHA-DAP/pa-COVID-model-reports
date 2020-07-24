@@ -3,6 +3,7 @@ import os
 import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
+
 import matplotlib.dates as mdates
 import requests
 import geopandas as gpd
@@ -18,6 +19,12 @@ TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
 TWO_WEEKS = TODAY + timedelta(days=14)
 LAST_MONTH = TODAY - timedelta(days=30)
+
+MIN_QUANTILE=0.25
+MAX_QUANTILE=0.75
+# MIN_QUANTILE=0.05
+# MAX_QUANTILE=0.95
+
 CONFIG_FILE = 'config.yml'
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 WHO_COVID_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vSe-8lf6l_ShJHvd126J-jGti992SUbNLu-kmJfx1IRkvma_r4DHi0bwEW89opArs8ZkSY5G2-Bc1yT/pub?gid=0&single=true&output=csv'
@@ -37,6 +44,7 @@ WHO_DATA_COLOR='dodgerblue'
 SUBNATIONAL_DATA_COLOR='navy'
 
 def main(country_iso3='AFG',download_covid=False):
+
     parameters = utils.parse_yaml(CONFIG_FILE)[country_iso3]
     if download_covid:
         # Download latest covid file tiles and read them in
@@ -171,10 +179,10 @@ def generate_key_figures(country_iso3):
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
     reporting_rate=bucky_npi['CASE_REPORT'].mean()*100
     reff_npi=bucky_npi['Reff'].mean()
-    min_cases_npi=bucky_npi[bucky_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_cases_reported']
-    max_cases_npi=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_cases_reported']
-    min_deaths_npi=bucky_npi[bucky_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_deaths']
-    max_deaths_npi=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_deaths']
+    min_cases_npi=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    max_cases_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    min_deaths_npi=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
+    max_deaths_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
     bucky_npi_cases_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_cases_reported']
     bucky_npi_deaths_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_deaths']
     rel_inc_min_cases_npi=(min_cases_npi-who_cases_today)/bucky_npi_cases_today*100
@@ -192,10 +200,10 @@ def generate_key_figures(country_iso3):
     
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
     reff_no_npi=bucky_no_npi['Reff'].mean()
-    min_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_cases_reported']
-    max_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_cases_reported']
-    min_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==0.25].loc[FOUR_WEEKS,'cumulative_deaths']
-    max_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==0.75].loc[FOUR_WEEKS,'cumulative_deaths']
+    min_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    max_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    min_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
+    max_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
     # print(f'--- no_npi: ESTIMATED Reff no_npi {reff_no_npi:.2f}')
     print(f'--- no_npi: Projected reported cases in 4w: {min_cases_no_npi:.0f} - {max_cases_no_npi:.0f}')
     print(f'--- no_npi: Projected reported deaths in 4w: {min_deaths_no_npi:.0f} - {max_deaths_no_npi:.0f}')
@@ -206,8 +214,6 @@ def generate_daily_projections(country_iso3,parameters):
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
 
-    # draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_cases_reported')
-    # draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'daily_deaths')
     draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'hospitalizations')
 
 def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric):
@@ -232,8 +238,8 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     # bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
     bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained'.format())
     axis.fill_between(bucky_npi_median.index,\
-                          bucky_npi[bucky_npi['q']==0.25][bucky_var],
-                          bucky_npi[bucky_npi['q']==0.75][bucky_var],
+                          bucky_npi[bucky_npi['q']==MIN_QUANTILE][bucky_var],
+                          bucky_npi[bucky_npi['q']==MAX_QUANTILE][bucky_var],
                           color=NPI_COLOR,alpha=0.2
                           )
     # draw line NO NPI
@@ -242,18 +248,18 @@ def draw_daily_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     # bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
     bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place'.format())
     axis.fill_between(bucky_no_npi_cases_median.index,\
-                          bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
-                          bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
+                          bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE][bucky_var],
+                          bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE][bucky_var],
                           color=NO_NPI_COLOR,alpha=0.2
                           )
     plt.legend()
     print(f'----{metric} statistics')
-    metric_today_min=bucky_no_npi[bucky_no_npi['q']==0.25].loc[TODAY,bucky_var]
-    metric_today_max=bucky_no_npi[bucky_no_npi['q']==0.75].loc[TODAY,bucky_var]
-    metric_4w_npi_min=bucky_npi[bucky_npi['q']==0.25].loc[FOUR_WEEKS,bucky_var]
-    metric_4w_npi_max=bucky_npi[bucky_npi['q']==0.75].loc[FOUR_WEEKS,bucky_var]
-    metric_4w_no_npi_min=bucky_no_npi[bucky_no_npi['q']==0.25].loc[FOUR_WEEKS,bucky_var]
-    metric_4w_no_npi_max=bucky_no_npi[bucky_no_npi['q']==0.75].loc[FOUR_WEEKS,bucky_var]
+    metric_today_min=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[TODAY,bucky_var]
+    metric_today_max=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[TODAY,bucky_var]
+    metric_4w_npi_min=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]
+    metric_4w_npi_max=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,bucky_var]
+    metric_4w_no_npi_min=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]
+    metric_4w_no_npi_max=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,bucky_var]
     print(f'----{metric} {TODAY}: {metric_today_min:.0f} - {metric_today_max:.0f}')
     print(f'----{metric} NPI {FOUR_WEEKS}: {metric_4w_npi_min:.0f} - {metric_4w_npi_max:.0f}')
     print(f'----{metric} NO NPI {FOUR_WEEKS}: {metric_4w_no_npi_min:.0f} - {metric_4w_no_npi_max:.0f}')
@@ -325,22 +331,22 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
                      alpha=0.8, s=20,c=SUBNATIONAL_DATA_COLOR,marker='o',label=subnational_source)
     # draw line NPI
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
-    bucky_npi_reff=bucky_npi['Reff'].mean()
+    # bucky_npi_reff=bucky_npi['Reff'].mean()
     # bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
-    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained'.format(bucky_npi_reff))
+    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained')
     axis.fill_between(bucky_npi_median.index,\
-                          bucky_npi[bucky_npi['q']==0.25][bucky_var],
-                          bucky_npi[bucky_npi['q']==0.75][bucky_var],
+                          bucky_npi[bucky_npi['q']==MIN_QUANTILE][bucky_var],
+                          bucky_npi[bucky_npi['q']==MAX_QUANTILE][bucky_var],
                           color=NPI_COLOR,alpha=0.2
                           )
     # draw line NO NPI
     bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
-    bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
+    # bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
     # bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
     bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place'.format())
     axis.fill_between(bucky_no_npi_cases_median.index,\
-                          bucky_no_npi[bucky_no_npi['q']==0.25][bucky_var],
-                          bucky_no_npi[bucky_no_npi['q']==0.75][bucky_var],
+                          bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE][bucky_var],
+                          bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE][bucky_var],
                           color=NO_NPI_COLOR,alpha=0.2
                           )
     plt.legend()
@@ -348,8 +354,6 @@ def draw_current_status(country_iso3,subnational_covid,who_covid,bucky_npi,bucky
 
 def create_new_subplot(fig_title):
     fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
-    # TODO debug why this is not working
-    # axis.yaxis.grid()
     
     locator = mdates.AutoDateLocator(minticks=3, maxticks=7)
     formatter = mdates.DateFormatter('%d %b')
@@ -360,6 +364,7 @@ def create_new_subplot(fig_title):
     x_axis = axis.axes.get_xaxis()
     x_label = x_axis.get_label()
     x_label.set_visible(False)
+    axis.grid(linestyle='-', linewidth='0.5', color='black',alpha=0.2)
     return fig,axis
 
 
