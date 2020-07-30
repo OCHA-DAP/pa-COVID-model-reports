@@ -13,12 +13,12 @@ import numpy as np
 
 from utils import set_matlotlib
 
-ASSESSMENT_DATE='2020-07-22'
+ASSESSMENT_DATE='2020-07-29'
 # TODAY = date.today()
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
 TWO_WEEKS = TODAY + timedelta(days=14)
-LAST_MONTH = TODAY - timedelta(days=30)
+LAST_TWO_MONTHS = TODAY - timedelta(days=60)
 
 MIN_QUANTILE=0.25
 MAX_QUANTILE=0.75
@@ -156,7 +156,7 @@ def func(x, p0, beta):
 
 def generate_key_figures(country_iso3):
 
-    who_covid=get_who_covid(country_iso3,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
+    who_covid=get_who_covid(country_iso3,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
     who_deaths_today=who_covid.loc[TODAY,'CumDeath']
     who_cases_today=who_covid.loc[TODAY,'CumCase']    
     # get weekly new cases
@@ -295,10 +295,10 @@ def get_who_covid(country_iso3,min_date,max_date):
 
 def generate_data_model_comparison(country_iso3,parameters):
     # generate plot with subnational data, WHO data and projections
-    subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
-    who_covid=get_who_covid(country_iso3,min_date=LAST_MONTH,max_date=FOUR_WEEKS)
-    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_MONTH,max_date=FOUR_WEEKS,npi_filter='npi')
-    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_MONTH,max_date=FOUR_WEEKS,npi_filter='no_npi')
+    subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
+    who_covid=get_who_covid(country_iso3,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
+    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS,npi_filter='npi')
+    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS,npi_filter='no_npi')
     
     draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_reported_cases')
     draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_deaths')
