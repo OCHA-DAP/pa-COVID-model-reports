@@ -170,8 +170,9 @@ def generate_key_figures(country_iso3):
     new_WHO_w['NewDeath_PercentChange'] = new_WHO_w.groupby('ISO_3_CODE')['NewDeath'].pct_change()
     trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'NewCase_PercentChange']*100
     trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'NewDeath_PercentChange']*100
-    
+    CFR=who_deaths_today/who_cases_today*100
     print(f'Current situation {TODAY}: {who_cases_today:.0f} cases, {who_deaths_today:.0f} deaths')
+    print(f'CFR {TODAY}: {CFR:.1f}')
     print(f'Weekly new cases wrt last week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
 
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
