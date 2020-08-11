@@ -42,6 +42,7 @@ def main(country_iso3='AFG',download_covid=False):
     generate_key_figures(country_iso3)
     generate_data_model_comparison(country_iso3,parameters)
     generate_model_projections(country_iso3,parameters)
+    generate_new_cases_comparison(country_iso3,parameters)
     create_subnational_map(country_iso3, parameters)
     calculate_subnational_trends(country_iso3, parameters)
     # plt.show()
@@ -224,6 +225,21 @@ def draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_np
                           )
     plt.legend()
     fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
+
+
+def generate_new_cases_comparison(country_iso3,parameters):
+    # TODO using the generate_data_model_comparison add the following steps
+    
+    # get WHO national data
+
+    # get bucky daily_cases_reported data
+
+    # create new plot (maybe using a different function for drawing?)
+        # add WHO data as daily histograpm using NewCase
+        # add 7day rolling averate line on WHO data (same color as WHO data)
+        # add bucky results (2 scenarions)
+
+    return False
 
 def create_subnational_map(country_iso3, parameters):
     # Total cases - four weeks projection
