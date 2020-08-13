@@ -58,14 +58,15 @@ def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     bucky_df=bucky_df.set_index('date')
     return bucky_df
     
-def get_who(filename,country_iso3,min_date,max_date):
+def get_who(filename,country_iso2,min_date,max_date):
     # Get national level data from WHO
     who_covid=pd.read_csv(filename)
-    who_covid=who_covid[who_covid['ISO_3_CODE']==country_iso3]
-    who_covid['date_epicrv']=pd.to_datetime(who_covid['date_epicrv']).dt.date
-    who_covid=who_covid[(who_covid['date_epicrv']>=min_date) &\
-                        (who_covid['date_epicrv']<=max_date)]
-    who_covid=who_covid.set_index('date_epicrv')
+    who_covid=who_covid.rename(columns=lambda x: x.strip())
+    who_covid=who_covid[who_covid['Country_code']==country_iso2]
+    who_covid['Date_reported']=pd.to_datetime(who_covid['Date_reported']).dt.date
+    who_covid=who_covid[(who_covid['Date_reported']>=min_date) &\
+                        (who_covid['Date_reported']<=max_date)]
+    who_covid=who_covid.set_index('Date_reported')
     return who_covid
 
 

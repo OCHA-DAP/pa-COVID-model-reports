@@ -21,8 +21,8 @@ MAX_QUANTILE=0.75
 
 CONFIG_FILE = 'config.yml'
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-WHO_COVID_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vSe-8lf6l_ShJHvd126J-jGti992SUbNLu-kmJfx1IRkvma_r4DHi0bwEW89opArs8ZkSY5G2-Bc1yT/pub?gid=0&single=true&output=csv'
-WHO_COVID_FILENAME='WHO_data/Data_ WHO Coronavirus Covid-19 Cases and Deaths - WHO-COVID-19-global-data.csv'
+WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
+WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
 
 NPI_COLOR='green'
 NO_NPI_COLOR='red'
@@ -39,7 +39,7 @@ def main(country_iso3='AFG',download_covid=False):
     print('\n\n\n')
     print(f'{country_iso3}')
     extract_reff(country_iso3)
-    generate_key_figures(country_iso3)
+    generate_key_figures(country_iso3,parameters)
     generate_data_model_comparison(country_iso3,parameters)
     generate_model_projections(country_iso3,parameters)
     generate_new_cases_comparison(country_iso3,parameters)
@@ -60,23 +60,23 @@ def extract_reff(country_iso3):
     
 
 
-def generate_key_figures(country_iso3):
+def generate_key_figures(country_iso3,parameters):
 
-    who_covid=get_who(WHO_COVID_FILENAME,country_iso3,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
-    who_deaths_today=who_covid.loc[TODAY,'CumDeath']
-    who_cases_today=who_covid.loc[TODAY,'CumCase']    
+    who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
+    who_deaths_today=who_covid.loc[TODAY,'Cumulative_deaths']
+    who_cases_today=who_covid.loc[TODAY,'Cumulative_cases']    
     CFR=who_deaths_today/who_cases_today*100
     # get weekly new cases
     who_covid.index = pd.to_datetime(who_covid.index)
-    new_WHO_w=who_covid.groupby(['ISO_3_CODE']).resample('W').sum()[['NewCase','NewDeath']]
-    ndays_w=who_covid.groupby(['ISO_3_CODE']).resample('W').count()['NewCase']
+    new_WHO_w=who_covid.groupby(['Country_code']).resample('W').sum()[['New_cases','New_deaths']]
+    ndays_w=who_covid.groupby(['Country_code']).resample('W').count()['New_cases']
     ndays_w=ndays_w.rename('ndays')
     new_WHO_w=pd.merge(left=new_WHO_w,right=ndays_w,left_index=True,right_index=True,how='inner')
     new_WHO_w=new_WHO_w[new_WHO_w['ndays']==7]
-    new_WHO_w['NewCase_PercentChange'] = new_WHO_w.groupby('ISO_3_CODE')['NewCase'].pct_change()
-    new_WHO_w['NewDeath_PercentChange'] = new_WHO_w.groupby('ISO_3_CODE')['NewDeath'].pct_change()
-    trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'NewCase_PercentChange']*100
-    trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'NewDeath_PercentChange']*100
+    new_WHO_w['New_cases_PercentChange'] = new_WHO_w.groupby('Country_code')['New_cases'].pct_change()
+    new_WHO_w['New_deaths_PercentChange'] = new_WHO_w.groupby('Country_code')['New_deaths'].pct_change()
+    trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'New_cases_PercentChange']*100
+    trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'New_deaths_PercentChange']*100
     print(f'Current situation {TODAY}: {who_cases_today:.0f} cases, {who_deaths_today:.0f} deaths')
     print(f'CFR {TODAY}: {CFR:.1f}')
     print(f'Weekly new cases wrt last week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
@@ -172,7 +172,7 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
 def generate_data_model_comparison(country_iso3,parameters):
     # generate plot with subnational data, WHO data and projections
     subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
-    who_covid=get_who(WHO_COVID_FILENAME,country_iso3,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
+    who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS,npi_filter='no_npi')
     
@@ -182,13 +182,13 @@ def generate_data_model_comparison(country_iso3,parameters):
 def draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
     # plot the 4 inputs and save figure
     if metric=='cumulative_reported_cases':
-        who_var='CumCase'
+        who_var='Cumulative_cases'
         bucky_var='cumulative_cases_reported'
         subnational_var=HLX_TAG_TOTAL_CASES
         subnational_source=parameters['subnational_cases_source']
         fig_title='Cumulative reported cases'
     elif metric=='cumulative_deaths':
-        who_var='CumDeath'
+        who_var='Cumulative_deaths'
         bucky_var='cumulative_deaths'
         subnational_var=HLX_TAG_TOTAL_DEATHS
         subnational_source=parameters['subnational_cases_source']
@@ -235,7 +235,7 @@ def generate_new_cases_comparison(country_iso3,parameters):
     # get bucky daily_cases_reported data
 
     # create new plot (maybe using a different function for drawing?)
-        # add WHO data as daily histograpm using NewCase
+        # add WHO data as daily histograpm using New_cases
         # add 7day rolling averate line on WHO data (same color as WHO data)
         # add bucky results (2 scenarions)
 
