@@ -7,7 +7,7 @@ from datetime import datetime,timedelta
 
 from utils import *
 
-ASSESSMENT_DATE='2020-07-29' 
+ASSESSMENT_DATE='2020-08-12' 
 # TODAY = date.today()
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
