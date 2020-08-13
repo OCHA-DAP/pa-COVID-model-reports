@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import os
 import geopandas as gpd
 from datetime import datetime,timedelta
+import matplotlib.dates as mdates
 
 from utils import *
 
@@ -42,6 +43,7 @@ def main(country_iso3='AFG',download_covid=False):
     generate_key_figures(country_iso3)
     generate_data_model_comparison(country_iso3,parameters)
     generate_model_projections(country_iso3,parameters)
+    generate_new_cases_comparison(country_iso3,parameters)
     create_subnational_map(country_iso3, parameters)
     calculate_subnational_trends(country_iso3, parameters)
     # plt.show()
@@ -225,6 +227,21 @@ def draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_np
     plt.legend()
     fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
 
+
+def generate_new_cases_comparison(country_iso3,parameters):
+    # TODO using the generate_data_model_comparison add the following steps
+    
+    # get WHO national data
+
+    # get bucky daily_cases_reported data
+
+    # create new plot (maybe using a different function for drawing?)
+        # add WHO data as daily histograpm using NewCase
+        # add 7day rolling averate line on WHO data (same color as WHO data)
+        # add bucky results (2 scenarions)
+
+    return False
+
 def create_subnational_map(country_iso3, parameters):
     # Total cases - four weeks projection
     bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
@@ -268,3 +285,76 @@ def calculate_subnational_trends(country_iso3, parameters):
 if __name__ == "__main__":
     args = parse_args()
     main(args.country_iso3.upper(),download_covid=args.download_covid)
+
+
+def generate_new_cases_graph(country_iso3):
+    # get all time cases and deaths
+    who_covid_new = get_who(WHO_COVID_FILENAME,country_iso3, min_date=pd.to_datetime('2000-01-01'),max_date=TODAY)
+    who_covid_new.reset_index(inplace=True)
+
+    # compute rolling 7-day average
+    who_covid_new['new_cases_rolling_mean'] = who_covid_new.NewCase.rolling(window=7).mean()
+
+    # Create figure and plot space
+    fig, ax = plt.subplots(figsize=(10, 10))
+
+    # Add x-axis and y-axis
+    ax.bar(who_covid_new['date_epicrv'],
+            who_covid_new['NewCase'],
+            color='cornflowerblue')
+
+    # format the ticks
+    months = mdates.MonthLocator()  
+    months_fmt = mdates.DateFormatter('%m-%Y')
+
+    ax.xaxis.set_major_locator(months)
+    ax.xaxis.set_major_formatter(months_fmt)
+
+    # Set title and labels for axes
+    ax.set(xlabel="Date",
+        ylabel="New Cases",
+        title="Daily Cases")
+
+    # add rolling average trend line
+    plt.plot(who_covid_new['date_epicrv'], who_covid_new['new_cases_rolling_mean'], label='7-day average', color='navy')
+
+    # place a label near the trendline
+    ax.text(0.05, 0.13, "Seven-day average", transform=ax.transAxes, fontsize=14,
+            verticalalignment='top', color='navy')
+
+    plt.show()
+    fig.savefig(f'Outputs/{country_iso3}/current_new_cases.png')
+
+def generate_new_deaths_graph(country_iso3):
+    # compute rolling 7-day average
+    who_covid_new['new_deaths_rolling_mean'] = who_covid_new.NewDeath.rolling(window=7).mean()
+
+    # Create figure and plot space
+    fig, ax = plt.subplots(figsize=(10, 10))
+
+    # Add x-axis and y-axis
+    ax.bar(who_covid_new['date_epicrv'],
+            who_covid_new['NewDeath'],
+            color='indianred')
+
+    # format the ticks
+    months = mdates.MonthLocator()  
+    months_fmt = mdates.DateFormatter('%m-%Y')
+
+    ax.xaxis.set_major_locator(months)
+    ax.xaxis.set_major_formatter(months_fmt)
+
+    # Set title and labels for axes
+    ax.set(xlabel="Date",
+        ylabel="New Deaths",
+        title="Daily Deaths")
+
+    # add rolling average trend line
+    plt.plot(who_covid_new['date_epicrv'], who_covid_new['new_deaths_rolling_mean'], label='7-day average', color='darkred')
+
+    # place a label near the trendline
+    ax.text(0.05, 0.13, "Seven-day average", transform=ax.transAxes, fontsize=14,
+            verticalalignment='top', color='darkred')
+
+    plt.show()
+    fig.savefig(f'Outputs/{country_iso3}/current_new_deaths.png')
