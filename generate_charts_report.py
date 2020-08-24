@@ -42,7 +42,6 @@ def main(country_iso3='AFG',download_covid=False):
     generate_key_figures(country_iso3,parameters)
     generate_data_model_comparison(country_iso3,parameters)
     generate_model_projections(country_iso3,parameters)
-    generate_new_cases_comparison(country_iso3,parameters)
     create_subnational_map(country_iso3, parameters)
     calculate_subnational_trends(country_iso3, parameters)
     # plt.show()
@@ -136,26 +135,9 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
         return
 
     fig,axis=create_new_subplot(fig_title)
-    # draw line NPI
-    bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
-    # bucky_npi_reff=bucky_npi['Reff'].mean()
-    # bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
-    bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained'.format())
-    axis.fill_between(bucky_npi_median.index,\
-                          bucky_npi[bucky_npi['q']==MIN_QUANTILE][bucky_var],
-                          bucky_npi[bucky_npi['q']==MAX_QUANTILE][bucky_var],
-                          color=NPI_COLOR,alpha=0.2
-                          )
-    # draw line NO NPI
-    bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
-    # bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
-    # bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
-    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place'.format())
-    axis.fill_between(bucky_no_npi_cases_median.index,\
-                          bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE][bucky_var],
-                          bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE][bucky_var],
-                          color=NO_NPI_COLOR,alpha=0.2
-                          )
+    # draw bucky
+    draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
+
     plt.legend()
     print(f'----{metric} statistics')
     metric_today_min=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[TODAY,bucky_var]
@@ -176,10 +158,12 @@ def generate_data_model_comparison(country_iso3,parameters):
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS,npi_filter='no_npi')
     
-    draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_reported_cases')
-    draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_deaths')
+    draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_reported_cases')
+    draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_deaths')
+    draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_cases_reported')
+    draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_deaths')
 
-def draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
+def draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
     # plot the 4 inputs and save figure
     if metric=='cumulative_reported_cases':
         who_var='Cumulative_cases'
@@ -203,10 +187,43 @@ def draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_np
                      alpha=0.8, s=20,c=WHO_DATA_COLOR,marker='*',label='WHO')
     axis.scatter(subnational_covid.index, subnational_covid[subnational_var],\
                      alpha=0.8, s=20,c=SUBNATIONAL_DATA_COLOR,marker='o',label=subnational_source)
-    # draw line NPI
+    # draw bucky
+    draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
+
+    plt.legend()
+    fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
+
+
+def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,metric):
+    print(who_covid)
+    # plot the 4 inputs and save figure
+    if metric=='daily_cases_reported':
+        who_var='New_cases'
+        bucky_var='daily_cases_reported'
+        fig_title='Daily reported cases'
+    elif metric=='daily_deaths':
+        who_var='New_deaths'
+        bucky_var='daily_deaths'
+        fig_title='Daily reported deaths'
+    else:
+        print(f'metric {metric} not implemented')
+        return False
+    fig,axis=create_new_subplot(fig_title)
+    # draw subnational reported cumulative cases
+    axis.bar(who_covid.index, who_covid[who_var],alpha=0.8,color=WHO_DATA_COLOR,label='WHO')
+    # compute rolling 7-day average
+    who_covid_rolling = who_covid[who_var].rolling(window=7).mean()
+    axis.plot(who_covid_rolling.index, who_covid_rolling,\
+        lw=3,color=lighten_color(WHO_DATA_COLOR,1.6),label='WHO - 7d rolling average')
+    # draw bucky
+    draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
+    
+    plt.legend()
+    fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
+
+def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
+    bucky_npi=bucky_npi[bucky_npi[bucky_var]>0]
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
-    # bucky_npi_reff=bucky_npi['Reff'].mean()
-    # bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained ( Reff= {:.2f})'.format(bucky_npi_reff))
     bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained')
     axis.fill_between(bucky_npi_median.index,\
                           bucky_npi[bucky_npi['q']==MIN_QUANTILE][bucky_var],
@@ -214,32 +231,15 @@ def draw_data_model_comparison(country_iso3,subnational_covid,who_covid,bucky_np
                           color=NPI_COLOR,alpha=0.2
                           )
     # draw line NO NPI
-    bucky_no_npi_cases_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
-    # bucky_no_npi_reff=bucky_no_npi['Reff'].mean()
-    # bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place ( Reff= {:.2f})'.format(bucky_no_npi_reff))
-    bucky_no_npi_cases_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place'.format())
-    axis.fill_between(bucky_no_npi_cases_median.index,\
+    bucky_no_npi=bucky_no_npi[bucky_no_npi[bucky_var]>0]
+    bucky_no_npi_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
+    bucky_no_npi_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place'.format())
+    axis.fill_between(bucky_no_npi_median.index,\
                           bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE][bucky_var],
                           bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE][bucky_var],
                           color=NO_NPI_COLOR,alpha=0.2
                           )
-    plt.legend()
-    fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
 
-
-def generate_new_cases_comparison(country_iso3,parameters):
-    # TODO using the generate_data_model_comparison add the following steps
-    
-    # get WHO national data
-
-    # get bucky daily_cases_reported data
-
-    # create new plot (maybe using a different function for drawing?)
-        # add WHO data as daily histograpm using New_cases
-        # add 7day rolling averate line on WHO data (same color as WHO data)
-        # add bucky results (2 scenarions)
-
-    return False
 
 def create_subnational_map(country_iso3, parameters):
     # Total cases - four weeks projection
