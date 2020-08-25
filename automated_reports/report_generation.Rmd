@@ -96,7 +96,7 @@ projection_date_2w <- assignment_date + 14
 
 # specify folder locations
 bucky_results_folder <- "Bucky_results"
-who_data_filename <- "WHO_data/Data_ WHO Coronavirus Covid-19 Cases and Deaths - WHO-COVID-19-global-data.csv"
+who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
 outputs_folder <- "Outputs"
 
 # functions
@@ -121,34 +121,34 @@ country_population_size <- populations %>%
 
 ```{r who_data, include = FALSE}
 who_data <- read.csv(who_data_filename)
-who_data$date_epicrv <- as.Date(who_data$date_epicrv)
+who_data$Date_reported <- as.Date(who_data$Date_reported)
 current_cum_cases <- who_data %>%
-                      filter(ADM0_NAME == country & 
-                      date_epicrv == assignment_date) %>%
-                      select(CumCase) %>%
+                      filter(Country == country & 
+                      Date_reported == assignment_date) %>%
+                      select(Cumulative_cases) %>%
                       as.numeric() %>%
                       format(., big.mark = ",")
 
 current_cum_deaths <- who_data %>%
-                      filter(ADM0_NAME == country & 
-                      date_epicrv == assignment_date) %>%
-                      select(CumDeath) %>%
+                      filter(Country == country & 
+                      Date_reported == assignment_date) %>%
+                      select(Cumulative_deaths) %>%
                       as.numeric() %>%
                       format(., big.mark = ",")  
 ```
 
 ```{r graphs, include = FALSE}
-cum_cases_graph_path <- paste0("Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
-cum_deaths_graph_path <- paste0("Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
-new_cases_graph_path <- paste0("Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
-new_deaths_graph_path <- paste0("Outputs/", country_iso_3_code, "/current_daily_deaths.png")
-hospitalizations_graph_path <- paste0("Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
-subnational_cases_per_100k_graph_path <- paste0("Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
+cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
+cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
+new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
+new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_deaths.png")
+hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
+subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
 
 ```
 
 ```{r subnational_projections_data, include = FALSE}
-subnational_projections_filename <- paste0("Outputs/", country_iso_3_code, "/ADM1_ranking.csv")
+subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/ADM1_ranking.csv")
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$cases_per_100k_change <- as.numeric(subnational_projections$cases_per_100k_change)
 
@@ -185,8 +185,8 @@ This report summarizes the COVID-19 model results for Afghanistan, developed by 
 
 ```{r section2_current_figures, echo = FALSE}
 
-# current_figures_path <- paste0("Outputs/", country_iso_3_code, "/current_figures.png")
-# current_severe_path <- paste0("Outputs/", country_iso_3_code, "/current_severe_figures.png")
+# current_figures_path <- paste0("../Outputs/", country_iso_3_code, "/current_figures.png")
+# current_severe_path <- paste0("../Outputs/", country_iso_3_code, "/current_severe_figures.png")
 
 data.frame(Cases = current_cum_cases, 
             Deaths = current_cum_deaths,
@@ -259,7 +259,7 @@ subnational_projections %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change (%)"),
                 caption = "Highest Increases") %>%
-          row_spec(0, bold=TRUE) %>%
+          row_spec(0, bold = TRUE) %>%
           kable_styling(latex_options = c('striped', 'hold_position'))
 ```
 
