@@ -250,8 +250,17 @@ data.frame(Cases = current_cum_cases,
 
 \large \textbf{Largest Increases and Decreases In Cases}
 
-```{r, echo = FALSE}
-subnational_projections %>%
+```{r subnational_increases, echo = FALSE}
+
+computeNbrIncreasingRegions <- function(subnational_projections_dataframe) {
+          subnational_projections %>%
+          filter(cases_per_100k_change > 0) %>%
+          summarise( n = n()) %>%
+          as.numeric()
+}
+
+produceIncreasesTable <- function(subnational_projections_dataframe) {
+  subnational_projections %>%
           filter(cases_per_100k_change > 0) %>% # keep regions with increases
           arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
           slice_head(n = 5) %>% # keep top 5 areas 
@@ -261,21 +270,51 @@ subnational_projections %>%
                 caption = "Highest Increases") %>%
           row_spec(0, bold = TRUE) %>%
           kable_styling(latex_options = c('striped', 'hold_position'))
+}
+
+increases_result <- if (computeNbrIncreasingRegions(subnational_projections) == 0) {
+                          "Highest Increases: No region showing an increase in cases."
+                          }else{
+                          produceIncreasesTable(subnational_projections)
+                        }
+
 ```
 
 
+`r increases_result`
+
+&nbsp;
+
 ```{r subnational_decreases, echo = FALSE, results = 'asis'}
-subnational_projections %>%
-          filter(cases_per_100k_change < 0) %>% # keep regions with decreases
+
+computeNbrDecreasingRegions <- function(subnational_projections_dataframe) {
+          subnational_projections %>%
+          filter(cases_per_100k_change < 0) %>%
+          summarise( n = n()) %>%
+          as.numeric()
+}
+
+produceDecreasesTable <- function(subnational_projections_dataframe) {
+  subnational_projections %>%
+          filter(cases_per_100k_change < 0) %>% # keep regions with increases
           arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 5) %>% # keep top 5 areas
+          slice_head(n = 5) %>% # keep top 5 areas 
           select(ADM1_EN, cases_per_100k_change) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change (%)"),
                 caption = "Highest Decreases") %>%
-          row_spec(0,bold=TRUE) %>%
+          row_spec(0, bold = TRUE) %>%
           kable_styling(latex_options = c('striped', 'hold_position'))
+}
+
+decreases_result <- if (computeNbrDecreasingRegions(subnational_projections) == 0) {
+  "Highest Decreases: No region showing a decrease in cases."
+  }else{
+  produceDecreasesTable(subnational_projections)
+}
 ```
+
+`r decreases_result`
 
 [^3]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place in Afghanistan are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
