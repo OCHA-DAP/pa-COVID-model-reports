@@ -3,3 +3,4 @@ __pycache__/*
 Bucky_results/*/maps/*
 Bucky_results/*/plots/*
 .vscode/*
+.Rproj.user
