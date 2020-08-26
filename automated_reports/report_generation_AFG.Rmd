@@ -250,6 +250,9 @@ data.frame(Cases = current_cum_cases,
 \includegraphics[width=0.5\textwidth]{`r subnational_cases_per_100k_graph_path`}
 \end{center}
 
+![](visual_assets/cases_per_100k_manual_legend.png){width=200px}
+
+
 \large \textbf{Largest Increases and Decreases In Cases}
 
 ```{r subnational_increases, echo = FALSE}
