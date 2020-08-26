@@ -250,7 +250,7 @@ def create_subnational_map(country_iso3, parameters):
     bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
-    fig_title=f'Ranking: number of cases per 100,000 people on {TWO_WEEKS}'
+    fig_title=f'Projected number of cases per 100,000 people'
     # fig_title=f'Ranking: number of cases per 100,000 people on {TWO_WEEKS}'
     fig,axis=create_new_subplot(fig_title)
     axis.axis('off')
