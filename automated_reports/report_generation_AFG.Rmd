@@ -5,7 +5,6 @@ output:
    latex_engine: xelatex
   classoption: twocolumn
   extra_dependencies: xcolor
-  html_notebook: default
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreGreen
@@ -18,7 +17,9 @@ header-includes:
     - \setmainfont{Source Sans Pro}
     - \usepackage{fancyhdr}
     - \pagestyle{fancy}
-    
+    - \usepackage{float}
+params:
+  assignment_date: !r as.Date("2020-01-01")    
 ---
 \arrayrulecolor{white}
 \definecolor{centreGreen}{HTML}{1bb580}
@@ -37,12 +38,13 @@ header-includes:
 \renewcommand{\footrulewidth}{0.4pt}
 \captionsetup[table]{labelformat=empty}
 
-![](visual_assets/double_logo_header_old.png){width=600px}
+![](visual_assets/double_logo_header.png){width=600px}
 
 ```{r updated_inputs, echo = FALSE}
 country <- 'Afghanistan'
 country_iso_3_code <- 'AFG'
-assignment_date <- as.Date('2020-07-29')
+assignment_date <- params$assignment_date
+
 cfr <- as.numeric('3.5')
 npi_projected_cases_4w_LOW <- format(38346, big.mark = ",")
 npi_projected_cases_4w_HI <- format(38886, big.mark = ",")
