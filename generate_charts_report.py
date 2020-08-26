@@ -8,7 +8,7 @@ import matplotlib.dates as mdates
 
 from utils import *
 
-ASSESSMENT_DATE='2020-08-12' 
+ASSESSMENT_DATE='2020-08-26' 
 # TODAY = date.today()
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
@@ -196,7 +196,6 @@ def draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_cov
 
 
 def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,metric):
-    print(who_covid)
     # plot the 4 inputs and save figure
     if metric=='daily_cases_reported':
         who_var='New_cases'
