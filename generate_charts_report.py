@@ -272,7 +272,8 @@ def calculate_subnational_trends(country_iso3, parameters):
     start = bucky_npi.loc[TODAY,:]
     end = bucky_npi.loc[TWO_WEEKS,:]
     combined = start.merge(end[['adm1', 'cases_per_100k']], how='left', on='adm1')
-    combined['cases_per_100k_change'] = (combined['cases_per_100k_y']-combined['cases_per_100k_x']) / combined['cases_per_100k_x'] * 100
+    combined.rename(columns = {'cases_per_100k_x':'cases_per_100k_today', 'cases_per_100k_y':'cases_per_100k_inTWOweeks'}, inplace = True) 
+    combined['cases_per_100k_change'] = (combined['cases_per_100k_inTWOweeks']-combined['cases_per_100k_today']) / combined['cases_per_100k_today'] * 100
     shapefile = gpd.read_file(parameters['shape'])
     shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
     combined=combined.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
