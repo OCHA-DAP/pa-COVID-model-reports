@@ -90,10 +90,10 @@ def generate_key_figures(country_iso3,parameters):
     max_deaths_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
     bucky_npi_cases_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_cases_reported']
     bucky_npi_deaths_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_deaths']
-    rel_inc_min_cases_npi=(min_cases_npi-who_cases_today)/bucky_npi_cases_today*100
-    rel_inc_max_cases_npi=(max_cases_npi-who_cases_today)/bucky_npi_cases_today*100
-    rel_inc_min_deaths_npi=(min_deaths_npi-who_deaths_today)/bucky_npi_deaths_today*100
-    rel_inc_max_deaths_npi=(max_deaths_npi-who_deaths_today)/bucky_npi_deaths_today*100
+    rel_inc_min_cases_npi=(min_cases_npi-bucky_npi_cases_today)/bucky_npi_cases_today*100
+    rel_inc_max_cases_npi=(max_cases_npi-bucky_npi_cases_today)/bucky_npi_cases_today*100
+    rel_inc_min_deaths_npi=(min_deaths_npi-bucky_npi_deaths_today)/bucky_npi_deaths_today*100
+    rel_inc_max_deaths_npi=(max_deaths_npi-bucky_npi_deaths_today)/bucky_npi_deaths_today*100
     print(f'- Projection date:{FOUR_WEEKS}')
     
     print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}')
