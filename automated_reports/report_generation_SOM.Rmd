@@ -38,7 +38,7 @@ params:
 \renewcommand{\footrulewidth}{0.4pt}
 \captionsetup[table]{labelformat=empty}
 
-![](visual_assets/double_logo_header.png){width=600px}
+![](visual_assets/double_logo_header.jpg)
 
 ```{r updated_inputs, echo = FALSE}
 country <- 'Somalia'
