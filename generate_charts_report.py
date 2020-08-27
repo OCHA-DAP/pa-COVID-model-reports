@@ -8,7 +8,7 @@ import matplotlib.dates as mdates
 
 from utils import *
 
-ASSESSMENT_DATE='2020-08-12' 
+ASSESSMENT_DATE='2020-08-26' 
 # TODAY = date.today()
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
@@ -90,10 +90,10 @@ def generate_key_figures(country_iso3,parameters):
     max_deaths_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
     bucky_npi_cases_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_cases_reported']
     bucky_npi_deaths_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_deaths']
-    rel_inc_min_cases_npi=(min_cases_npi-who_cases_today)/bucky_npi_cases_today*100
-    rel_inc_max_cases_npi=(max_cases_npi-who_cases_today)/bucky_npi_cases_today*100
-    rel_inc_min_deaths_npi=(min_deaths_npi-who_deaths_today)/bucky_npi_deaths_today*100
-    rel_inc_max_deaths_npi=(max_deaths_npi-who_deaths_today)/bucky_npi_deaths_today*100
+    rel_inc_min_cases_npi=(min_cases_npi-bucky_npi_cases_today)/bucky_npi_cases_today*100
+    rel_inc_max_cases_npi=(max_cases_npi-bucky_npi_cases_today)/bucky_npi_cases_today*100
+    rel_inc_min_deaths_npi=(min_deaths_npi-bucky_npi_deaths_today)/bucky_npi_deaths_today*100
+    rel_inc_max_deaths_npi=(max_deaths_npi-bucky_npi_deaths_today)/bucky_npi_deaths_today*100
     print(f'- Projection date:{FOUR_WEEKS}')
     
     print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}')
@@ -196,7 +196,6 @@ def draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_cov
 
 
 def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,metric):
-    print(who_covid)
     # plot the 4 inputs and save figure
     if metric=='daily_cases_reported':
         who_var='New_cases'
