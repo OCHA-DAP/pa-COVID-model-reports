@@ -41,27 +41,27 @@ params:
 ![](visual_assets/double_logo_header.png){width=600px}
 
 ```{r updated_inputs, echo = FALSE}
-country <- 'Afghanistan'
-country_iso_3_code <- 'AFG'
+country <- 'Sudan'
+country_iso_3_code <- 'SDN'
 assignment_date <- params$assignment_date
 
-cfr <- as.numeric('3.7')
-npi_projected_cases_4w_LOW <- format(39063, big.mark = ",")
-npi_projected_cases_4w_HI <- format(39560, big.mark = ",")
-npi_projected_deaths_4w_LOW <-format(1454, big.mark = ",")
-npi_projected_deaths_4w_HI <- format(1490, big.mark = ",")
+cfr <- as.numeric('6.3')
+npi_projected_cases_4w_LOW <- format(14615, big.mark = ",")
+npi_projected_cases_4w_HI <- format(15257, big.mark = ",")
+npi_projected_deaths_4w_LOW <-format(966, big.mark = ",")
+npi_projected_deaths_4w_HI <- format(1037, big.mark = ",")
 
-no_npi_projected_cases_4w_LOW <- format(40107, big.mark = ",")
-no_npi_projected_cases_4w_HI <- format(41222, big.mark = ",")
-no_npi_projected_deaths_4w_LOW <-format(1475, big.mark = ",")
-no_npi_projected_deaths_4w_HI <- format(1526, big.mark = ",")
+no_npi_projected_cases_4w_LOW <- format(14833, big.mark = ",")
+no_npi_projected_cases_4w_HI <- format(15505, big.mark = ",")
+no_npi_projected_deaths_4w_LOW <-format(975, big.mark = ",")
+no_npi_projected_deaths_4w_HI <- format(1051, big.mark = ",")
 
-hospitalizations_current_LOW <- format(120, big.mark = ",")
-hospitalizations_current_HI <- format(232, big.mark = ",")
-npi_hospitalizations_LOW <- format(152, big.mark = ",")
-npi_hospitalizations_HI <- format(270, big.mark = ",")
-no_npi_hospitalizations_LOW <- format(384, big.mark = ",")
-no_npi_hospitalizations_HI <- format(681, big.mark = ",")
+hospitalizations_current_LOW <- format(285, big.mark = ",")
+hospitalizations_current_HI <- format(442, big.mark = ",")
+npi_hospitalizations_LOW <- format(429, big.mark = ",")
+npi_hospitalizations_HI <- format(670, big.mark = ",")
+no_npi_hospitalizations_LOW <- format(492, big.mark = ",")
+no_npi_hospitalizations_HI <- format(776, big.mark = ",")
 ```
 
 ```{r key_messages, echo = FALSE}
@@ -69,17 +69,21 @@ no_npi_hospitalizations_HI <- format(681, big.mark = ",")
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 38,071 cases and 1,397 deaths have been reported. 
-* New reported cases and deaths have declined by 26% and 81% respectively with respect to last week."   
+* A total of 12,974 cases and 819 deaths have been reported. 
+* New reported cases and deaths have declined by 12% and 32% respectively with respect to last week.
+"   
+
 key_messages_national_projections <- "
-* According to the data reported by the MOPH, after a decreasing trend in July the number of new cases has been stable since the beginning of August. 
-* Lifting NPIs currently in place would lead to a sharp increase of new cases.
-* Our projections suggest an increase in the cumulative number of cases between 3% and 4% and an increase in the cumulative number of deaths up to 7% in the next four weeks, assuming all current NPIs are maintained. Lifting of NPIs would lead to a larger increase (see sections 2 and 3 for details).
-* The disease is spreading at a similar rate compared to our previous update, with the number of severe cases still expected to grow in the coming 2 weeks (see section 3).
+* After a decrease in the number of new reported cases in early August, recent trends suggest that new cases are growing, making the situation in Sudan very concerning still.
+* The case fatality rate is still significantly higher than expected (6.3%), suggesting a severe underreporting of COVID-19 cases. We estimate that only around 3% of the daily COVID-19 cases are reported by the authorities.
+* Our projections suggest an increase in the cumulative number of cases between 13% and 18% and an increase in the cumulative number of deaths up to 24% in the next four weeks, assuming all current NPIs are maintained. 
+* Lifting of NPIs would lead to a larger increase (see sections 2 and 3 for details).
+* The number of severe cases is expected to grow in the coming two weeks (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* Assuming all current NPIs are maintained, the number of active cases is expected to decrease in all provinces (see section 4).
+* The number of active cases is expected to grow in all the States. 
+* Aj Jazirah, Khartoum, Gedaref, North Kordofan and Kassala are projected to have the highest increase in two weeks time, assuming all current NPIs are maintained.
 "
 ```
 
@@ -95,8 +99,10 @@ options(scipen = 999) # effectively remove scientific notation
 projection_date_4w <- assignment_date + 28
 projection_date_2w <- assignment_date + 14
 
-# specify file locations
+# specify folder locations
+#bucky_results_folder <- "Bucky_results"
 who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
+#outputs_folder <- "Outputs"
 
 # functions
 colorize <- function(x, color) {
@@ -318,7 +324,7 @@ decreases_result <- if (computeNbrDecreasingRegions(subnational_projections) == 
 
 `r decreases_result`
 
-[^3]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place in Afghanistan are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
+[^3]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
 \clearpage
 

@@ -41,27 +41,27 @@ params:
 ![](visual_assets/double_logo_header.png){width=600px}
 
 ```{r updated_inputs, echo = FALSE}
-country <- 'Afghanistan'
-country_iso_3_code <- 'AFG'
+country <- 'South Sudan'
+country_iso_3_code <- 'SSD'
 assignment_date <- params$assignment_date
 
-cfr <- as.numeric('3.7')
-npi_projected_cases_4w_LOW <- format(39063, big.mark = ",")
-npi_projected_cases_4w_HI <- format(39560, big.mark = ",")
-npi_projected_deaths_4w_LOW <-format(1454, big.mark = ",")
-npi_projected_deaths_4w_HI <- format(1490, big.mark = ",")
+cfr <- as.numeric('1.9')
+npi_projected_cases_4w_LOW <- format(2497, big.mark = ",")
+npi_projected_cases_4w_HI <- format(2505, big.mark = ",")
+npi_projected_deaths_4w_LOW <-format(47, big.mark = ",")
+npi_projected_deaths_4w_HI <- format(47, big.mark = ",")
 
-no_npi_projected_cases_4w_LOW <- format(40107, big.mark = ",")
-no_npi_projected_cases_4w_HI <- format(41222, big.mark = ",")
-no_npi_projected_deaths_4w_LOW <-format(1475, big.mark = ",")
-no_npi_projected_deaths_4w_HI <- format(1526, big.mark = ",")
+no_npi_projected_cases_4w_LOW <- format(2561, big.mark = ",")
+no_npi_projected_cases_4w_HI <- format(2580, big.mark = ",")
+no_npi_projected_deaths_4w_LOW <-format(48, big.mark = ",")
+no_npi_projected_deaths_4w_HI <- format(49, big.mark = ",")
 
-hospitalizations_current_LOW <- format(120, big.mark = ",")
-hospitalizations_current_HI <- format(232, big.mark = ",")
-npi_hospitalizations_LOW <- format(152, big.mark = ",")
-npi_hospitalizations_HI <- format(270, big.mark = ",")
-no_npi_hospitalizations_LOW <- format(384, big.mark = ",")
-no_npi_hospitalizations_HI <- format(681, big.mark = ",")
+hospitalizations_current_LOW <- format(2, big.mark = ",")
+hospitalizations_current_HI <- format(3, big.mark = ",")
+npi_hospitalizations_LOW <- format(2, big.mark = ",")
+npi_hospitalizations_HI <- format(3, big.mark = ",")
+no_npi_hospitalizations_LOW <- format(9, big.mark = ",")
+no_npi_hospitalizations_HI <- format(14, big.mark = ",")
 ```
 
 ```{r key_messages, echo = FALSE}
@@ -69,18 +69,21 @@ no_npi_hospitalizations_HI <- format(681, big.mark = ",")
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 38,071 cases and 1,397 deaths have been reported. 
-* New reported cases and deaths have declined by 26% and 81% respectively with respect to last week."   
+* A total of 2,510 cases have been reported and 47 deaths reported. 
+* New reported cases have declined by 47% and 54% respectively with respect to last week.
+* The last COVID-related death was reported on 4 August. This is partially due to the limited testing and low reporting rate in the country.
+* Based on the recent trends in the data reported by the MOPH, cases are growing at a slower rate compared to our previous update.
+"   
+
 key_messages_national_projections <- "
-* According to the data reported by the MOPH, after a decreasing trend in July the number of new cases has been stable since the beginning of August. 
-* Lifting NPIs currently in place would lead to a sharp increase of new cases.
-* Our projections suggest an increase in the cumulative number of cases between 3% and 4% and an increase in the cumulative number of deaths up to 7% in the next four weeks, assuming all current NPIs are maintained. Lifting of NPIs would lead to a larger increase (see sections 2 and 3 for details).
-* The disease is spreading at a similar rate compared to our previous update, with the number of severe cases still expected to grow in the coming 2 weeks (see section 3).
+* Around a 1% projected increase in total cases assuming all current NPIs are maintained. 
+* An up to 2% projected increase in total deaths assuming all current NPIs are maintained. 
+* Lifting of NPIs would lead to a larger increase in cases and deaths (see sections 2 and 3 for details).
+* Stable number of severe cases assuming all current NPIs are maintained. 
+* There is a discrepancy in the number of cases reported by WHO at the national level and the subnational data provided by the MOPH.
 "
 
-key_messages_subnational_projections <- "
-* Assuming all current NPIs are maintained, the number of active cases is expected to decrease in all provinces (see section 4).
-"
+# In the main body there is a note about why we do not have subnational projections.
 ```
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
@@ -95,8 +98,10 @@ options(scipen = 999) # effectively remove scientific notation
 projection_date_4w <- assignment_date + 28
 projection_date_2w <- assignment_date + 14
 
-# specify file locations
+# specify folder locations
+#bucky_results_folder <- "Bucky_results"
 who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
+#outputs_folder <- "Outputs"
 
 # functions
 colorize <- function(x, color) {
@@ -174,7 +179,8 @@ This report summarizes the COVID-19 model results for Afghanistan, developed by 
 
 \large \textbf{Subnational Projections} (in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
 \normalsize
-`r key_messages_subnational_projections`
+
+* **Data gaps and inconsistencies in the reported number of cases and deaths in South Sudan represent major challenges.** For this reason the team hasn’t been able to produce subnational results yet.
 
 \newpage
 
@@ -236,89 +242,6 @@ data.frame(Cases = current_cum_cases,
 \end{center}
 
 \newpage
-
-\Large \textbf{4. Subnational Projections}
-
-\large \textbf{Projected situation in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`} \footnotesize With current NPIs[^3] maintained
-
-\large \textbf{Cases per 100,000 people}
-
-\begin{center}
-\includegraphics[width=0.5\textwidth]{`r subnational_cases_per_100k_graph_path`}
-\end{center}
-
-![](visual_assets/cases_per_100k_manual_legend.png){width=200px}
-
-
-\large \textbf{Largest Increases and Decreases In Cases}
-
-```{r subnational_increases, echo = FALSE}
-
-computeNbrIncreasingRegions <- function(subnational_projections_dataframe) {
-          subnational_projections %>%
-          filter(cases_per_100k_change > 0) %>%
-          summarise( n = n()) %>%
-          as.numeric()
-}
-
-produceIncreasesTable <- function(subnational_projections_dataframe) {
-  subnational_projections %>%
-          filter(cases_per_100k_change > 0) %>% # keep regions with increases
-          arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 5) %>% # keep top 5 areas 
-          select(ADM1_EN, cases_per_100k_change) %>%
-          kable(format = 'latex',
-                col.names = c("Region", "Change (%)"),
-                caption = "Highest Increases") %>%
-          row_spec(0, bold = TRUE) %>%
-          kable_styling(latex_options = c('striped', 'hold_position'))
-}
-
-increases_result <- if (computeNbrIncreasingRegions(subnational_projections) == 0) {
-                          "Highest Increases: No region showing an increase in cases."
-                          }else{
-                          produceIncreasesTable(subnational_projections)
-                        }
-
-```
-
-
-`r increases_result`
-
-&nbsp;
-
-```{r subnational_decreases, echo = FALSE, results = 'asis'}
-
-computeNbrDecreasingRegions <- function(subnational_projections_dataframe) {
-          subnational_projections %>%
-          filter(cases_per_100k_change < 0) %>%
-          summarise( n = n()) %>%
-          as.numeric()
-}
-
-produceDecreasesTable <- function(subnational_projections_dataframe) {
-  subnational_projections %>%
-          filter(cases_per_100k_change < 0) %>% # keep regions with increases
-          arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 5) %>% # keep top 5 areas 
-          select(ADM1_EN, cases_per_100k_change) %>%
-          kable(format = 'latex',
-                col.names = c("Region", "Change (%)"),
-                caption = "Highest Decreases") %>%
-          row_spec(0, bold = TRUE) %>%
-          kable_styling(latex_options = c('striped', 'hold_position'))
-}
-
-decreases_result <- if (computeNbrDecreasingRegions(subnational_projections) == 0) {
-  "Highest Decreases: No region showing a decrease in cases."
-  }else{
-  produceDecreasesTable(subnational_projections)
-}
-```
-
-`r decreases_result`
-
-[^3]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place in Afghanistan are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
 \clearpage
 
