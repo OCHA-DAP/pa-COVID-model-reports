@@ -164,7 +164,7 @@ subnational_projections$cases_per_100k_change <- as.numeric(subnational_projecti
 
 &nbsp;
 
-This report summarizes the COVID-19 model results for Afghanistan, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r assignment_date`. The data is sourced from WHO and the MOPH. For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
+This report summarizes the COVID-19 model results for `r country`, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r assignment_date`. The data is sourced from WHO and the MOPH. For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
 
 ![](visual_assets/green_horizontal_line.png){height=30px}
 

@@ -78,8 +78,8 @@ key_messages_current_situation <- "
 key_messages_national_projections <- "
 * Around a 1% projected increase in total cases assuming all current NPIs are maintained. 
 * An up to 2% projected increase in total deaths assuming all current NPIs are maintained. 
-* Lifting of NPIs would lead to a larger increase in cases and deaths (see sections 2 and 3 for details).
-* Stable number of severe cases assuming all current NPIs are maintained. 
+* Stable number of severe cases assuming all current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in severe cases (see section 3 for details).
 * There is a discrepancy in the number of cases reported by WHO at the national level and the subnational data provided by the MOPH.
 "
 
@@ -163,7 +163,7 @@ subnational_projections$cases_per_100k_change <- as.numeric(subnational_projecti
 
 &nbsp;
 
-This report summarizes the COVID-19 model results for Afghanistan, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r assignment_date`. The data is sourced from WHO and the MOPH. For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
+This report summarizes the COVID-19 model results for `r country`, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r assignment_date`. The data is sourced from WHO and the MOPH. For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
 
 ![](visual_assets/green_horizontal_line.png){height=30px}
 
