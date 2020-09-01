@@ -8,7 +8,7 @@ import matplotlib.dates as mdates
 
 from utils import *
 
-ASSESSMENT_DATE='2020-08-26' 
+ASSESSMENT_DATE='2020-09-01' 
 # TODAY = date.today()
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)

@@ -34,4 +34,10 @@ SOM:
   adm1_name: 'admin1RefN'
   adm1_pcode: 'admin1Pcod'
   shape: 'Shapes/som_adm_undp_shp/Som_Admbnda_Adm1_UNDP.shp'
-  
+IRQ:
+  subnational_cases_url: 'https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-parameterization/master/Outputs/IRQ/COVID/IRQ_COVID.csv'
+  subnational_cases_source: 'Ministry of Public Health (subnational)'
+  iso2_code: 'IQ'
+  adm1_name: 'ADM1_EN'
+  adm1_pcode: 'ADM1_PCODE'
+  shape: 'Shapes/irq_admbnda_adm2_cso_20190603/irq_admbnda_adm2_cso_20190603.shp'
