@@ -246,7 +246,10 @@ def create_subnational_map(country_iso3, parameters):
     bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
     bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','cases_per_100k']]
     bucky_npi = bucky_npi.loc[TWO_WEEKS,:]
-    bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
+    adm1_pcode_prefix=parameters['iso2_code']
+    if country_iso3 == 'IRQ':
+        adm1_pcode_prefix='IQG'
+    bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
     fig_title=f'Projected number of cases per 100,000 people'
@@ -267,7 +270,10 @@ def calculate_subnational_trends(country_iso3, parameters):
     # to remove noise
     bucky_npi=bucky_npi[bucky_npi['cases_active']>10]
     bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','Reff','cases_per_100k']]
-    bucky_npi['adm1']=parameters['iso2_code'] + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
+    adm1_pcode_prefix=parameters['iso2_code']
+    if country_iso3 == 'IRQ':
+        adm1_pcode_prefix='IQG'
+    bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
     start = bucky_npi.loc[TODAY,:]
     end = bucky_npi.loc[TWO_WEEKS,:]
     combined = start.merge(end[['adm1', 'cases_per_100k']], how='left', on='adm1')
