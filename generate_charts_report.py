@@ -5,8 +5,12 @@ import os
 import geopandas as gpd
 from datetime import datetime,timedelta
 import matplotlib.dates as mdates
+import sys 
+import csv
 
 from utils import *
+
+country_iso_3 = sys.argv[1]
 
 ASSESSMENT_DATE='2020-09-01' 
 # TODAY = date.today()
@@ -24,13 +28,16 @@ CONFIG_FILE = 'config.yml'
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
+RESULTS_FILENAME=f'report_metrics/{country_iso3}_results.csv'
 
 NPI_COLOR='green'
 NO_NPI_COLOR='red'
 WHO_DATA_COLOR='dodgerblue'
 SUBNATIONAL_DATA_COLOR='navy'
 
-def main(country_iso3='AFG',download_covid=False):
+todays_country_metrics = pd.DataFrame()
+
+def main(country_iso3='AFG', todays_country_metrics = todays_country_metrics, download_covid=False):
 
     parameters = utils.parse_yaml(CONFIG_FILE)[country_iso3]
     if download_covid:
@@ -39,13 +46,80 @@ def main(country_iso3='AFG',download_covid=False):
     set_matlotlib(plt)
     print('\n\n\n')
     print(f'{country_iso3}')
-    extract_reff(country_iso3)
+    dt_npi, r_npi, dt_no_npi, r_no_npi = extract_reff(country_iso3)
     generate_key_figures(country_iso3,parameters)
     generate_data_model_comparison(country_iso3,parameters)
     generate_model_projections(country_iso3,parameters)
     create_subnational_map(country_iso3, parameters)
     calculate_subnational_trends(country_iso3, parameters)
+
+    results_df = pd.DataFrame({"metric_name": ["Estimated doubling time NPI", 
+                                                "NPI Reff", 
+                                                "Estimated doubling time No NPI", 
+                                                "No NPI Reff",
+                                                "Current situation - WHO cases today",
+                                                "Current situation - WHO deaths today",
+                                                "CFR",
+                                                "Weekly new cases wrt last week - trend",
+                                                "Weekly new deaths wrt last week - trend",
+                                                "Estimated case reporting rate",
+                                                "NPI - projected reported cases in 4w - MIN",
+                                                "NPI - projected reported cases in 4w - MAX",
+                                                "NPI - projected TREND reported cases in 4w - MIN",
+                                                "NPI - projected TREND reported cases in 4w - MAX",
+                                                "NPI - projected reported deaths in 4w - MIN",
+                                                "NPI - projected reported deaths in 4w - MAX",
+                                                "NPI - projected TREND reported deaths in 4w - MIN",
+                                                "NPI - projected TREND reported deaths in 4w - MAX",
+                                                "NO NPI - projected reported cases in 4w - MIN",
+                                                "NO NPI - projected reported cases in 4w - MAX",
+                                                "NO NPI - projected reported deaths in 4w - MIN",
+                                                "NO NPI - projected reported deaths in 4w - MAX",
+                                                "Hospitalizations current situation - MIN",
+                                                "Hospitalizations current situation - MAX",
+                                                "NPI Hospitalizations projections 4w - MIN",
+                                                "NPI Hospitalizations projections 4w - MAX",
+                                                "NO NPI Hospitalizations projections 4w - MIN",
+                                                "NO NPI Hospitalizations projections 4w - MAX"
+                                                ],
+                               "metric_value": [dt_npi, 
+                                                r_npi, 
+                                                dt_no_npi, 
+                                                r_no_npi,
+                                                who_cases_today, 
+                                                who_deaths_today, 
+                                                CFR, 
+                                                trend_w_cases, 
+                                                trend_w_deaths, 
+                                                reporting_rate, 
+                                                min_cases_npi, 
+                                                max_cases_npi, 
+                                                rel_inc_min_cases_npi, 
+                                                rel_inc_max_cases_npi, 
+                                                min_deaths_npi, 
+                                                max_deaths_npi, 
+                                                rel_inc_min_deaths_npi, 
+                                                rel_inc_max_deaths_npi, 
+                                                min_cases_no_npi, 
+                                                max_cases_no_npi,
+                                                min_deaths_no_npi, 
+                                                max_deaths_no_npi,
+                                                metric_today_min, 
+                                                metric_today_max, 
+                                                metric_4w_npi_min, 
+                                                metric_4w_npi_max, 
+                                                metric_4w_no_npi_min, 
+                                                metric_4w_no_npi_max
+                                                ]
+                               })
+
+
+    results_df['assessment_date'] = ASSESSMENT_DATE
+    results_df['country'] = f'{country_iso_3}'
+    
+    todays_country_metrics.to_csv(file=RESULTS_FILENAME, index=False)
     # plt.show()
+
 
 def extract_reff(country_iso3):
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
@@ -57,8 +131,8 @@ def extract_reff(country_iso3):
     bucky_no_npi=bucky_no_npi[bucky_no_npi['q']==0.5]
     dt_no_npi,r_no_npi=get_bucky_dt_reff(bucky_no_npi)
     print(f'Estimated doubling time No NPI {dt_no_npi}, Reff {r_no_npi}')
-    
 
+    return dt_npi, r_npi, dt_no_npi, r_no_npi
 
 def generate_key_figures(country_iso3,parameters):
 
@@ -113,6 +187,7 @@ def generate_key_figures(country_iso3,parameters):
     print(f'--- no_npi: Projected reported cases in 4w: {min_cases_no_npi:.0f} - {max_cases_no_npi:.0f}')
     print(f'--- no_npi: Projected reported deaths in 4w: {min_deaths_no_npi:.0f} - {max_deaths_no_npi:.0f}')
     
+    return who_cases_today, who_deaths_today, CFR, trend_w_cases, trend_w_deaths, reporting_rate, min_cases_npi, max_cases_npi, rel_inc_min_cases_npi, rel_inc_max_cases_npi, min_deaths_npi, max_deaths_npi, rel_inc_min_deaths_npi, rel_inc_max_deaths_npi, min_cases_no_npi, max_cases_no_npi, min_deaths_no_npi, max_deaths_no_npi
 
 def generate_model_projections(country_iso3,parameters):
     # generate plot with long term projections of daily cases
@@ -151,6 +226,8 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     print(f'----{metric} NPI {FOUR_WEEKS}: {metric_4w_npi_min:.0f} - {metric_4w_npi_max:.0f}')
     print(f'----{metric} NO NPI {FOUR_WEEKS}: {metric_4w_no_npi_min:.0f} - {metric_4w_no_npi_max:.0f}')
     fig.savefig(f'Outputs/{country_iso3}/projection_{metric}.png')
+
+    return metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max
 
 def generate_data_model_comparison(country_iso3,parameters):
     # generate plot with subnational data, WHO data and projections
