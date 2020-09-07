@@ -19,7 +19,7 @@ header-includes:
     - \pagestyle{fancy}
     - \usepackage{float}
 params:
-  assignment_date: !r as.Date("2020-01-01")    
+  assignment_date: !r as.Date("2020-09-01")    
 ---
 \arrayrulecolor{white}
 \definecolor{centreGreen}{HTML}{1bb580}
@@ -41,8 +41,8 @@ params:
 ![](visual_assets/double_logo_header.jpg)
 
 ```{r updated_inputs, echo = FALSE}
-country <- 'Afghanistan'
-country_iso_3_code <- 'AFG'
+country <- 'Iraq'
+country_iso_3_code <- 'IRQ'
 assignment_date <- params$assignment_date
 
 cfr <- as.numeric('3.5')
