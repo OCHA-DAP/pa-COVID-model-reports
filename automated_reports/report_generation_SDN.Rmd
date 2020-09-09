@@ -18,8 +18,8 @@ header-includes:
     - \usepackage{fancyhdr}
     - \pagestyle{fancy}
     - \usepackage{float}
-params:
-  assignment_date: !r as.Date("2020-08-26")    
+#params:
+#  assignment_date: !r as.Date("2020-08-26")    
 ---
 \arrayrulecolor{white}
 \definecolor{centreGreen}{HTML}{1bb580}
@@ -40,28 +40,94 @@ params:
 
 ![](visual_assets/double_logo_header.jpg)
 
-```{r updated_inputs, echo = FALSE}
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(pander)
+
+options(scipen = 999) # effectively remove scientific notation
+
+# country specs
 country <- 'Sudan'
 country_iso_3_code <- 'SDN'
-assignment_date <- params$assignment_date
 
-cfr <- as.numeric('6.3')
-npi_projected_cases_4w_LOW <- format(14615, big.mark = ",")
-npi_projected_cases_4w_HI <- format(15257, big.mark = ",")
-npi_projected_deaths_4w_LOW <-format(966, big.mark = ",")
-npi_projected_deaths_4w_HI <- format(1037, big.mark = ",")
+# report specs
+#assignment_date <- params$assignment_date
+assignment_date <- as.Date("2020-09-01")
 
-no_npi_projected_cases_4w_LOW <- format(14833, big.mark = ",")
-no_npi_projected_cases_4w_HI <- format(15505, big.mark = ",")
-no_npi_projected_deaths_4w_LOW <-format(975, big.mark = ",")
-no_npi_projected_deaths_4w_HI <- format(1051, big.mark = ",")
+# compute projection dates
+projection_date_4w <- assignment_date + 28
+projection_date_2w <- assignment_date + 14
 
-hospitalizations_current_LOW <- format(285, big.mark = ",")
-hospitalizations_current_HI <- format(442, big.mark = ",")
-npi_hospitalizations_LOW <- format(429, big.mark = ",")
-npi_hospitalizations_HI <- format(670, big.mark = ",")
-no_npi_hospitalizations_LOW <- format(492, big.mark = ",")
-no_npi_hospitalizations_HI <- format(776, big.mark = ",")
+# specify file location
+who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
+
+# functions
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_latex_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+```
+
+```{r updated_inputs, echo = FALSE}
+
+report_metrics_filename <- paste0("report_metrics/", country_iso_3_code, "_results.csv")
+report_metrics_all_dates <- read.csv(report_metrics_filename)
+
+# keep latest metrics
+report_metrics <- report_metrics_all_dates %>% filter(assessment_date == assignment_date)
+
+# assign values to variables
+cfr <- report_metrics %>% filter(metric_name == 'CFR') %>% select(metric_value)
+cfr <- round(cfr, 1)
+
+npi_projected_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
+npi_projected_cases_4w_LOW <- format(round(npi_projected_cases_4w_LOW, 0), big.mark = ",")
+
+npi_projected_cases_4w_HI <- report_metrics %>% filter(metric_name == "NPI - projected reported cases in 4w - MAX") %>% select(metric_value) %>% as.numeric()
+npi_projected_cases_4w_HI <- format(round(npi_projected_cases_4w_HI, 0), big.mark = ",")
+
+npi_projected_deaths_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected reported deaths in 4w - MIN") %>% select(metric_value) %>% as.numeric()
+npi_projected_deaths_4w_LOW <- format(round(npi_projected_deaths_4w_LOW, 0), big.mark = ",")
+
+npi_projected_deaths_4w_HI <- report_metrics %>% filter(metric_name == "NPI - projected reported deaths in 4w - MAX") %>% select(metric_value) %>% as.numeric()
+npi_projected_deaths_4w_HI <- format(round(npi_projected_deaths_4w_HI, 0), big.mark = ",")
+
+no_npi_projected_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NO NPI - projected reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
+no_npi_projected_cases_4w_LOW <- format(round(no_npi_projected_cases_4w_LOW, 0), big.mark = ",")
+
+no_npi_projected_cases_4w_HI <- report_metrics %>% filter(metric_name == "NO NPI - projected reported cases in 4w - MAX") %>% select(metric_value) %>% as.numeric()
+no_npi_projected_cases_4w_HI <- format(round(no_npi_projected_cases_4w_HI, 0), big.mark = ",")
+
+no_npi_projected_deaths_4w_LOW <- report_metrics %>% filter(metric_name == "NO NPI - projected reported deaths in 4w - MIN") %>% select(metric_value) %>% as.numeric()
+no_npi_projected_deaths_4w_LOW <- format(round(no_npi_projected_deaths_4w_LOW, 0), big.mark = ",")
+
+no_npi_projected_deaths_4w_HI <- report_metrics %>% filter(metric_name == "NO NPI - projected reported deaths in 4w - MAX") %>% select(metric_value) %>% as.numeric()
+no_npi_projected_deaths_4w_HI <- format(round(no_npi_projected_deaths_4w_HI, 0), big.mark = ",")
+
+hospitalizations_current_LOW <- report_metrics %>% filter(metric_name == "Hospitalizations current situation - MIN") %>% select(metric_value) %>% as.numeric()
+hospitalizations_current_LOW <- format(round(hospitalizations_current_LOW, 0), big.mark = ",")
+
+hospitalizations_current_HI <- report_metrics %>% filter(metric_name == "Hospitalizations current situation - MAX") %>% select(metric_value) %>% as.numeric()
+hospitalizations_current_HI <- format(round(hospitalizations_current_HI, 0), big.mark = ",")
+
+npi_hospitalizations_LOW <- report_metrics %>% filter(metric_name == "NPI Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
+npi_hospitalizations_LOW <- format(round(npi_hospitalizations_LOW, 0), big.mark = ",")
+
+npi_hospitalizations_HI <- report_metrics %>% filter(metric_name == "NPI Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
+npi_hospitalizations_HI <- format(round(npi_hospitalizations_HI, 0), big.mark = ",")
+
+no_npi_hospitalizations_LOW <- report_metrics %>% filter(metric_name == "NO NPI Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
+no_npi_hospitalizations_LOW <- format(round(no_npi_hospitalizations_LOW, 0), big.mark = ",")
+
+no_npi_hospitalizations_HI <- report_metrics %>% filter(metric_name == "NO NPI Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
+no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.mark = ",")
+
 ```
 
 ```{r key_messages, echo = FALSE}
@@ -85,34 +151,6 @@ key_messages_subnational_projections <- "
 * The number of active cases is expected to grow in all the States. 
 * Aj Jazirah, Khartoum, Gedaref, North Kordofan and Kassala are projected to have the highest increase in two weeks time, assuming all current NPIs are maintained.
 "
-```
-
-```{r setup, include = FALSE, message = FALSE, warning = FALSE}
-library(tidyverse)
-library(knitr)
-library(kableExtra)
-library(pander)
-
-options(scipen = 999) # effectively remove scientific notation
-
-# compute projection dates
-projection_date_4w <- assignment_date + 28
-projection_date_2w <- assignment_date + 14
-
-# specify folder locations
-#bucky_results_folder <- "Bucky_results"
-who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
-#outputs_folder <- "Outputs"
-
-# functions
-colorize <- function(x, color) {
-  if (knitr::is_latex_output()) {
-    sprintf("\\textcolor{%s}{%s}", color, x)
-  } else if (knitr::is_latex_output()) {
-    sprintf("<span style='color: %s;'>%s</span>", color, 
-      x)
-  } else x
-}
 ```
 
 ```{r population_data, include = FALSE}
