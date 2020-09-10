@@ -28,7 +28,7 @@ CONFIG_FILE = 'config.yml'
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
-RESULTS_FILENAME=f'report_metrics/{country_iso_3}_results.csv'
+RESULTS_FILENAME=f'automated_reports/report_metrics/{country_iso_3}_results.csv'
 
 NPI_COLOR='green'
 NO_NPI_COLOR='red'
@@ -114,10 +114,10 @@ def main(country_iso3='AFG', download_covid=False):
                                })
 
 
-    results_df['assessment_date'] = ASSESSMENT_DATE
+    results_df['assessment_date'] = TODAY
     results_df['country'] = f'{country_iso_3}'
     
-    results_df.to_csv(RESULTS_FILENAME, index=False)
+    results_df.to_csv(RESULTS_FILENAME, mode="a", index=False)
     # plt.show()
 
 
