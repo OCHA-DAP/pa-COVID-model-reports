@@ -54,7 +54,7 @@ country_iso_3_code <- 'AFG'
 
 # report specs
 #assignment_date <- params$assignment_date
-assignment_date <- as.Date("2020-09-01")
+assignment_date <- as.Date("2020-09-09")
 
 # compute projection dates
 projection_date_4w <- assignment_date + 28
