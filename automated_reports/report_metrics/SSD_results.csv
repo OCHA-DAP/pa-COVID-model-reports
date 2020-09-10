@@ -1,0 +1,29 @@
+metric_name,metric_value,assessment_date,country
+Estimated doubling time NPI,1460.9200934680769,2020-09-09,SSD
+NPI Reff,1.0033246304279178,2020-09-09,SSD
+Estimated doubling time No NPI,239.88145699683244,2020-09-09,SSD
+No NPI Reff,1.0203536124934893,2020-09-09,SSD
+Current situation - WHO cases today,2555.0,2020-09-09,SSD
+Current situation - WHO deaths today,49.0,2020-09-09,SSD
+CFR,1.9178082191780823,2020-09-09,SSD
+Weekly new cases wrt last week - trend,25.0,2020-09-09,SSD
+Weekly new deaths wrt last week - trend,inf,2020-09-09,SSD
+Estimated case reporting rate,12.580793103199628,2020-09-09,SSD
+NPI - projected reported cases in 4w - MIN,2512.411000000001,2020-09-09,SSD
+NPI - projected reported cases in 4w - MAX,2522.8615,2020-09-09,SSD
+NPI - projected TREND reported cases in 4w - MIN,1.0979525983698153,2020-09-09,SSD
+NPI - projected TREND reported cases in 4w - MAX,1.518474620295831,2020-09-09,SSD
+NPI - projected reported deaths in 4w - MIN,47.17875,2020-09-09,SSD
+NPI - projected reported deaths in 4w - MAX,47.703,2020-09-09,SSD
+NPI - projected TREND reported deaths in 4w - MIN,1.6980664352999406,2020-09-09,SSD
+NPI - projected TREND reported deaths in 4w - MAX,2.8281347675195563,2020-09-09,SSD
+NO NPI - projected reported cases in 4w - MIN,2689.445,2020-09-09,SSD
+NO NPI - projected reported cases in 4w - MAX,2743.65225,2020-09-09,SSD
+NO NPI - projected reported deaths in 4w - MIN,49.76049999999999,2020-09-09,SSD
+NO NPI - projected reported deaths in 4w - MAX,51.53224999999999,2020-09-09,SSD
+Hospitalizations current situation - MIN,3.97375,2020-09-09,SSD
+Hospitalizations current situation - MAX,6.347249999999999,2020-09-09,SSD
+NPI Hospitalizations projections 4w - MIN,2.191499999999999,2020-09-09,SSD
+NPI Hospitalizations projections 4w - MAX,3.5267499999999994,2020-09-09,SSD
+NO NPI Hospitalizations projections 4w - MIN,18.310250000000003,2020-09-09,SSD
+NO NPI Hospitalizations projections 4w - MAX,30.234250000000007,2020-09-09,SSD

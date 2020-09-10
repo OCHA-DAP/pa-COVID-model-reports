@@ -135,21 +135,21 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 12,974 cases and 819 deaths have been reported. 
-* New reported cases and deaths have declined by 12% and 32% respectively with respect to last week.
+* A total of 13,437 cases and 833 deaths have been reported. 
+* New reported cases have declined by 57% while new reported deaths increased by 12% with respect to last week.
+* The current number of severe cases requiring healthcare support is estimated at 290 - 456.
+* The data reported by the WHO suffers from severe gaps in the last two weeks and displays significant variation from day-to-day. For these reasons it is difficult to assess the stability of trends or whether the country has passed the peak of the crisis.
+* The case fatality rate remains still significantly higher than expected (6.2%), suggesting a severe underreporting of COVID-19 cases. We estimate that only around 3% of the daily COVID-19 cases are reported by the authorities.
 "   
 
 key_messages_national_projections <- "
-* After a decrease in the number of new reported cases in early August, recent trends suggest that new cases are growing, making the situation in Sudan very concerning still.
-* The case fatality rate is still significantly higher than expected (6.3%), suggesting a severe underreporting of COVID-19 cases. We estimate that only around 3% of the daily COVID-19 cases are reported by the authorities.
-* Our projections suggest an increase in the cumulative number of cases between 13% and 18% and an increase in the cumulative number of deaths up to 24% in the next four weeks, assuming all current NPIs are maintained. 
-* Lifting of NPIs would lead to a larger increase (see sections 2 and 3 for details).
-* The number of severe cases is expected to grow in the coming two weeks (see section 3).
+* The situation is increasingly concerning. With consideration for the data limitations discussed above, the total number of cases is projected to reach in the next 4 weeks 15,254 - 15,996 (a 11-16% increase) and the total number of deaths is projected to reach 988 - 1068 (a 13-22% increase) if current NPIs are maintained. 
+* Lifting of NPIs would lead to a slightly larger increase (see sections 2 and 3 for details).
+* The number of severe cases requiring healthcare support is expected to grow, and to increase more sharply if NPIs are lifted  (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* The number of active cases is expected to grow in all the States. 
-* Aj Jazirah, Khartoum, Gedaref, North Kordofan and Kassala are projected to have the highest increase in two weeks time, assuming all current NPIs are maintained.
+* Assuming all current NPIs are maintained, the number of cases is expected to grow in all regions with Red Sea, Sennar, White Nile, River Nile and Khartoum showing the largest increases (see section 4).
 "
 ```
 
