@@ -1,0 +1,29 @@
+metric_name,metric_value,assessment_date,country
+Estimated doubling time NPI,71.34201805405876,2020-09-09,IRQ
+NPI Reff,1.0694499650182303,2020-09-09,IRQ
+Estimated doubling time No NPI,42.82981730508365,2020-09-09,IRQ
+No NPI Reff,1.117292943177279,2020-09-09,IRQ
+Current situation - WHO cases today,269578.0,2020-09-09,IRQ
+Current situation - WHO deaths today,7657.0,2020-09-09,IRQ
+CFR,2.8403653117094123,2020-09-09,IRQ
+Weekly new cases wrt last week - trend,10.899378693741468,2020-09-09,IRQ
+Weekly new deaths wrt last week - trend,-1.3011152416356864,2020-09-09,IRQ
+Estimated case reporting rate,4.9553278383998265,2020-09-09,IRQ
+NPI - projected reported cases in 4w - MIN,333897.4752499998,2020-09-09,IRQ
+NPI - projected reported cases in 4w - MAX,378693.299,2020-09-09,IRQ
+NPI - projected TREND reported cases in 4w - MIN,24.165841923501826,2020-09-09,IRQ
+NPI - projected TREND reported cases in 4w - MAX,40.823982768715,2020-09-09,IRQ
+NPI - projected reported deaths in 4w - MIN,10480.279249999994,2020-09-09,IRQ
+NPI - projected reported deaths in 4w - MAX,11443.36425,2020-09-09,IRQ
+NPI - projected TREND reported deaths in 4w - MIN,33.62456145249588,2020-09-09,IRQ
+NPI - projected TREND reported deaths in 4w - MAX,45.90398719074402,2020-09-09,IRQ
+NO NPI - projected reported cases in 4w - MIN,384054.8019999999,2020-09-09,IRQ
+NO NPI - projected reported cases in 4w - MAX,465725.0572499998,2020-09-09,IRQ
+NO NPI - projected reported deaths in 4w - MIN,11140.164750000002,2020-09-09,IRQ
+NO NPI - projected reported deaths in 4w - MAX,12287.122999999996,2020-09-09,IRQ
+Hospitalizations current situation - MIN,8001.224500000002,2020-09-09,IRQ
+Hospitalizations current situation - MAX,13499.975000000004,2020-09-09,IRQ
+NPI Hospitalizations projections 4w - MIN,6064.92175,2020-09-09,IRQ
+NPI Hospitalizations projections 4w - MAX,10670.603749999998,2020-09-09,IRQ
+NO NPI Hospitalizations projections 4w - MIN,12384.97225,2020-09-09,IRQ
+NO NPI Hospitalizations projections 4w - MAX,21597.784500000005,2020-09-09,IRQ
