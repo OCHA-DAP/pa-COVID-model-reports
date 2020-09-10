@@ -1,58 +1,29 @@
 metric_name,metric_value,assessment_date,country
-Estimated doubling time NPI,579.9195596735802,2020-09-01,AFG
-NPI Reff,1.0083884110116603,2020-09-01,AFG
-Estimated doubling time No NPI,231.80891135323296,2020-09-01,AFG
-No NPI Reff,1.0210669873382665,2020-09-01,AFG
-Current situation - WHO cases today,38196.0,2020-09-01,AFG
-Current situation - WHO deaths today,1406.0,2020-09-01,AFG
-CFR,3.6810137187140013,2020-09-01,AFG
-Weekly new cases wrt last week - trend,-64.26799007444168,2020-09-01,AFG
-Weekly new deaths wrt last week - trend,25.0,2020-09-01,AFG
-Estimated case reporting rate,5.0372458523994466,2020-09-01,AFG
-NPI - projected reported cases in 4w - MIN,39291.12149999995,2020-09-01,AFG
-NPI - projected reported cases in 4w - MAX,39913.583500000015,2020-09-01,AFG
-NPI - projected TREND reported cases in 4w - MIN,2.572975789304657,2020-09-01,AFG
-NPI - projected TREND reported cases in 4w - MAX,4.1979683377044,2020-09-01,AFG
-NPI - projected reported deaths in 4w - MIN,1466.0365000000004,2020-09-01,AFG
-NPI - projected reported deaths in 4w - MAX,1509.5910000000006,2020-09-01,AFG
-NPI - projected TREND reported deaths in 4w - MIN,3.476578243214755,2020-09-01,AFG
-NPI - projected TREND reported deaths in 4w - MAX,6.550765432342799,2020-09-01,AFG
-NO NPI - projected reported cases in 4w - MIN,40990.47925,2020-09-01,AFG
-NO NPI - projected reported cases in 4w - MAX,42599.455000000016,2020-09-01,AFG
-NO NPI - projected reported deaths in 4w - MIN,1504.4405000000006,2020-09-01,AFG
-NO NPI - projected reported deaths in 4w - MAX,1575.7202500000005,2020-09-01,AFG
-Hospitalizations current situation - MIN,139.51450000000006,2020-09-01,AFG
-Hospitalizations current situation - MAX,248.60775000000007,2020-09-01,AFG
-NPI Hospitalizations projections 4w - MIN,154.3222499999999,2020-09-01,AFG
-NPI Hospitalizations projections 4w - MAX,277.09125000000006,2020-09-01,AFG
-NO NPI Hospitalizations projections 4w - MIN,500.02725,2020-09-01,AFG
-NO NPI Hospitalizations projections 4w - MAX,886.02675,2020-09-01,AFG
-metric_name,metric_value,assessment_date,country
-Estimated doubling time NPI,579.9195596735802,2020-09-01,AFG
-NPI Reff,1.0083884110116603,2020-09-01,AFG
-Estimated doubling time No NPI,231.80891135323296,2020-09-01,AFG
-No NPI Reff,1.0210669873382665,2020-09-01,AFG
-Current situation - WHO cases today,38196.0,2020-09-01,AFG
-Current situation - WHO deaths today,1406.0,2020-09-01,AFG
-CFR,3.6810137187140013,2020-09-01,AFG
-Weekly new cases wrt last week - trend,-64.26799007444168,2020-09-01,AFG
-Weekly new deaths wrt last week - trend,25.0,2020-09-01,AFG
-Estimated case reporting rate,5.0372458523994466,2020-09-01,AFG
-NPI - projected reported cases in 4w - MIN,39291.12149999995,2020-09-01,AFG
-NPI - projected reported cases in 4w - MAX,39913.583500000015,2020-09-01,AFG
-NPI - projected TREND reported cases in 4w - MIN,2.572975789304657,2020-09-01,AFG
-NPI - projected TREND reported cases in 4w - MAX,4.1979683377044,2020-09-01,AFG
-NPI - projected reported deaths in 4w - MIN,1466.0365000000004,2020-09-01,AFG
-NPI - projected reported deaths in 4w - MAX,1509.5910000000006,2020-09-01,AFG
-NPI - projected TREND reported deaths in 4w - MIN,3.476578243214755,2020-09-01,AFG
-NPI - projected TREND reported deaths in 4w - MAX,6.550765432342799,2020-09-01,AFG
-NO NPI - projected reported cases in 4w - MIN,40990.47925,2020-09-01,AFG
-NO NPI - projected reported cases in 4w - MAX,42599.455000000016,2020-09-01,AFG
-NO NPI - projected reported deaths in 4w - MIN,1504.4405000000006,2020-09-01,AFG
-NO NPI - projected reported deaths in 4w - MAX,1575.7202500000005,2020-09-01,AFG
-Hospitalizations current situation - MIN,139.51450000000006,2020-09-01,AFG
-Hospitalizations current situation - MAX,248.60775000000007,2020-09-01,AFG
-NPI Hospitalizations projections 4w - MIN,154.3222499999999,2020-09-01,AFG
-NPI Hospitalizations projections 4w - MAX,277.09125000000006,2020-09-01,AFG
-NO NPI Hospitalizations projections 4w - MIN,500.02725,2020-09-01,AFG
-NO NPI Hospitalizations projections 4w - MAX,886.02675,2020-09-01,AFG
+Estimated doubling time NPI,783.3663631318561,2020-09-09,AFG
+NPI Reff,1.006205700036472,2020-09-09,AFG
+Estimated doubling time No NPI,418.9892424089463,2020-09-09,AFG
+No NPI Reff,1.01162186692252,2020-09-09,AFG
+Current situation - WHO cases today,38544.0,2020-09-09,AFG
+Current situation - WHO deaths today,1420.0,2020-09-09,AFG
+CFR,3.684101286841013,2020-09-09,AFG
+Weekly new cases wrt last week - trend,77.08333333333333,2020-09-09,AFG
+Weekly new deaths wrt last week - trend,-33.333333333333336,2020-09-09,AFG
+Estimated case reporting rate,4.984143326350914,2020-09-09,AFG
+NPI - projected reported cases in 4w - MIN,39341.22925000005,2020-09-09,AFG
+NPI - projected reported cases in 4w - MAX,39581.69424999997,2020-09-09,AFG
+NPI - projected TREND reported cases in 4w - MIN,2.172767556802059,2020-09-09,AFG
+NPI - projected TREND reported cases in 4w - MAX,2.797277136673374,2020-09-09,AFG
+NPI - projected reported deaths in 4w - MIN,1466.0374999999995,2020-09-09,AFG
+NPI - projected reported deaths in 4w - MAX,1485.9227500000004,2020-09-09,AFG
+NPI - projected TREND reported deaths in 4w - MIN,3.241495822558754,2020-09-09,AFG
+NPI - projected TREND reported deaths in 4w - MAX,4.641857651506265,2020-09-09,AFG
+NO NPI - projected reported cases in 4w - MIN,40104.97775000001,2020-09-09,AFG
+NO NPI - projected reported cases in 4w - MAX,40560.33525000003,2020-09-09,AFG
+NO NPI - projected reported deaths in 4w - MIN,1482.7082499999995,2020-09-09,AFG
+NO NPI - projected reported deaths in 4w - MAX,1509.885999999998,2020-09-09,AFG
+Hospitalizations current situation - MIN,101.2605,2020-09-09,AFG
+Hospitalizations current situation - MAX,166.74724999999995,2020-09-09,AFG
+NPI Hospitalizations projections 4w - MIN,126.8,2020-09-09,AFG
+NPI Hospitalizations projections 4w - MAX,202.2785,2020-09-09,AFG
+NO NPI Hospitalizations projections 4w - MIN,295.9602499999998,2020-09-09,AFG
+NO NPI Hospitalizations projections 4w - MAX,467.69724999999977,2020-09-09,AFG
