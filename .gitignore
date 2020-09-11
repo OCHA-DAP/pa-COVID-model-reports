@@ -4,3 +4,13 @@ Bucky_results/*/maps/*
 Bucky_results/*/plots/*
 .vscode/*
 .Rproj.user
+
+
+# ignore R history
+.Rhistory
+
+# pycharm
+.idea
+
+#Mac DSStore
+.DS_Store

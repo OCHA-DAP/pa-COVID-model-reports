@@ -12,7 +12,7 @@ from utils import *
 
 country_iso_3 = sys.argv[1]
 
-ASSESSMENT_DATE='2020-09-09' 
+ASSESSMENT_DATE='2020-09-09'
 # TODAY = date.today()
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
@@ -52,7 +52,13 @@ def main(country_iso3='AFG', download_covid=False):
     metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max = generate_model_projections(country_iso3,parameters)
     create_subnational_map(country_iso3, parameters)
     calculate_subnational_trends(country_iso3, parameters)
-
+    if os.path.exists(RESULTS_FILENAME):
+        df_all=pd.read_csv(RESULTS_FILENAME)
+        #remove the rows that have same assessment date as current run
+        #-->make sure not duplicate results for the same date
+        df_all=df_all[df_all["assessment_date"]!=str(TODAY)]
+    else:
+        df_all=pd.DataFrame()
     results_df = pd.DataFrame({"metric_name": ["Estimated doubling time NPI", 
                                                 "NPI Reff", 
                                                 "Estimated doubling time No NPI", 
@@ -116,8 +122,10 @@ def main(country_iso3='AFG', download_covid=False):
 
     results_df['assessment_date'] = TODAY
     results_df['country'] = f'{country_iso_3}'
-    
-    results_df.to_csv(RESULTS_FILENAME, mode="a", index=False)
+
+    df_all=df_all.append(results_df)
+    df_all.to_csv(RESULTS_FILENAME,index=False)
+    # results_df.to_csv(RESULTS_FILENAME, mode="a", index=False,header=(not os.path.exists(RESULTS_FILENAME)))
     # plt.show()
 
 

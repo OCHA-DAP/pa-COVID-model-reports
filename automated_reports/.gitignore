@@ -1,2 +1,8 @@
 # ignore R history
 .Rhistory
+
+# pycharm
+.idea
+
+#Mac DSStore
+.DS_Store
