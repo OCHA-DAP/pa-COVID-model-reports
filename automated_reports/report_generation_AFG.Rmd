@@ -135,13 +135,17 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 38,071 cases and 1,397 deaths have been reported. 
-* New reported cases and deaths have declined by 26% and 81% respectively with respect to last week."   
+* A total of 38,544 cases and 1,420 deaths have been reported. 
+* New reported cases have increased by 77% and new reported deaths have declined by 33% with respect to last week.
+* The current number of severe cases requiring healthcare support is estimated at 101 - 167.
+* According to the data reported by the MOPH and the WHO, the number of new reported cases decreased sharply in late August but have been rapidly increasing since our last update. Reported deaths have been declining for several weeks.
+* The highest numbers of new cases, severe cases and deaths were reported at least 4 weeks ago.
+"   
+
 key_messages_national_projections <- "
-* According to the data reported by the MOPH, after a decreasing trend in July the number of new cases has been stable since the beginning of August. 
-* Lifting NPIs currently in place would lead to a sharp increase of new cases.
-* Our projections suggest an increase in the cumulative number of cases between 3% and 4% and an increase in the cumulative number of deaths up to 7% in the next four weeks, assuming all current NPIs are maintained. Lifting of NPIs would lead to a larger increase (see sections 2 and 3 for details).
-* The disease is spreading at a similar rate compared to our previous update, with the number of severe cases still expected to grow in the coming 2 weeks (see section 3).
+* In the next 4 weeks, the total number of cases is projected to reach 39,341 - 39,582 (a 2-3% increase) and the total number of deaths is projected to reach 1,466 - 1,486 (a 3-5% increase) if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 1,219 more cases and up to 44 more deaths; see sections 2 and 3 for details).
+* The number of severe cases requiring health care support is projected to increase, and to increase sharply if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "

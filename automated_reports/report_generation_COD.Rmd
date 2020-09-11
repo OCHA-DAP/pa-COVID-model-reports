@@ -135,17 +135,20 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 9,890 cases and 251 deaths have been reported. 
-* New reported cases and deaths have declined by 14% and 43% respectively with respect to last week.
+* A total of 10,291 cases and 260 deaths have been reported. 
+* New reported cases have declined by 15% with respect to last week. No new deaths have been reported.
+* The current number of severe cases requiring healthcare support is estimated at 45 - 73.
+* According to the data reported by the MOPH and the WHO, the number of new reported cases and deaths declined overall in August despite an increase in the last days of the month.  
+* The highest numbers of new cases were reported at least 4 weeks ago.
 "   
 key_messages_national_projections <- "
-* Although the number of new cases shows a decreasing trend, the situation in DRC remains concerning as the number of severe cases is expected to grow in the coming 2 weeks (see section 3).
-* Our projections suggest an increase in the cumulative number of cases between 5% and 7% and an increase in the cumulative number of deaths up to 12% in the next four weeks, assuming all current NPIs are maintained. 
-* Lifting of NPIs would lead to a larger increase (see sections 2 and 3 for details).
+* In the next 4 weeks, the total number of cases is projected to reach 10,540 - 10,673 (a 4-5% increase) and the total number of deaths is projected to reach 276 - 289 (a 6-11% increase) if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 531 more cases and up to 23 more deaths; see sections 2 and 3 for details).
+* The number of severe cases requiring health care support is projected to increase, and to increase more sharply if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* The number of active cases is expected to be stable or slightly decrease in the coming two weeks, with Kinshasa showing a decrease of about 8% (see section 4).
+* Assuming all current NPIs are maintained, the number of cases is expected to increase in Haut-Uele, Sud-Kivu, Nord-Kivu, Ituri while it is expected to decrease in Kinshasa (see section 4).
 "
 
 ```

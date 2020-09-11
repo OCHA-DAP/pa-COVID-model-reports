@@ -135,23 +135,22 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 3,269 cases and 93 deaths have been reported. 
-* New reported cases have declined by 55% with respect to last week.
-* No new deaths have been reported by WHO since 14 July.
+* A total of 3,362 cases and 97 deaths have been reported. 
+* New reported cases have declined by 46% with respect to last week. Since our last update 4 new deaths were reported after an absence of deaths reported by the WHO since 14 July 2020.
+* The current number of severe cases requiring healthcare support is estimated at 13 - 21.
+* The data reported by the WHO suffers from severe gaps and displays significant variation from day-to-day. For these reasons it is difficult to assess the stability of trends or whether the country has passed the peak of the crisis.
 "   
 
 key_messages_national_projections <- "
-* According to the data reported by the MOPH, after a decreasing trend the number of new cases is expected to remain constant in the next four weeks. 
-* A 1-2% projected increase in total cases assuming all current NPIs are maintained. 
-* An up to 3% projected increase in total deaths assuming all current NPIs are maintained. 
-* Lifting of NPIs would lead to a larger increase in cases and deaths (see sections 2 and 3 for details).
-* Despite the lower relative predicted increase, the number of severe cases is expected to grow in the coming 4 weeks (see section 3).
+* In the next 4 weeks, the total number of cases is projected to reach 3,521 - 3,554 (a 5-6% increase) and the total number of deaths is projected to reach 105 - 109 (a 7-10% increase) if current NPIs are maintained.
+* Lifting of NPIs would lead to a sharper increase in cases and deaths (up to 395 more cases and up to 13 more deaths; see sections 2 and 3 for details).
+* The number of severe cases requiring health care support is projected to increase, and to increase more if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* Our subnational projections show that in all regions the number of active cases is expected to decrease slightly (see section 4).
-* Bari, Nugaal and Middle Juba are projected to show the largest decrease.
+* Assuming all current NPIs are maintained, subnational projections suggest that Nugaal, Bari, Middle Juba, Lower Juba and Gedo will show the largest decreases (see section 4).
 "
+```
 ```
 
 ```{r population_data, include = FALSE}
@@ -217,9 +216,6 @@ This report summarizes the COVID-19 model results for `r country`, developed by 
 \normalsize
 `r key_messages_national_projections`
 
-\large \textbf{Subnational Projections} (in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
-\normalsize
-`r key_messages_subnational_projections`
 
 \newpage
 
@@ -295,8 +291,6 @@ data.frame(Cases = current_cum_cases,
 ![](visual_assets/cases_per_100k_manual_legend.png){width=200px}
 
 
-\large \textbf{Largest Increases and Decreases In Cases}
-
 ```{r subnational_increases, echo = FALSE}
 
 computeNbrIncreasingRegions <- function(subnational_projections_dataframe) {
@@ -324,11 +318,10 @@ increases_result <- if (computeNbrIncreasingRegions(subnational_projections) == 
                           }else{
                           produceIncreasesTable(subnational_projections)
                         }
-
+# `r increases_result` should be on line 330
 ```
 
 
-`r increases_result`
 
 &nbsp;
 
@@ -359,9 +352,10 @@ decreases_result <- if (computeNbrDecreasingRegions(subnational_projections) == 
   }else{
   produceDecreasesTable(subnational_projections)
 }
+# should be below `r decreases_result`
 ```
 
-`r decreases_result`
+
 
 [^3]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 

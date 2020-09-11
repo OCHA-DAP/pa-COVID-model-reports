@@ -135,21 +135,21 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 36,471 cases have been reported and 1,271 deaths reported. 
-* New reported cases and deaths have declined by 33% and 54% respectively with respect to last week.
+* A total of 269,578 cases and 7,657 deaths have been reported. 
+* New reported cases have increased by 11% and new reported deaths have declined by 1% with respect to last week.
+* The current number of severe cases requiring healthcare support is estimated at 8,001 - 13,500.
+* According to the data reported by the MOPH and the WHO, the number of new reported cases has steadily increased in the past two weeks and reported deaths have been stable in recent weeks.
+* The country may be peaking or is still moving towards its peak in cases.
 "   
 
 key_messages_national_projections <- "
-* A 5-7% projected increase in total cases assuming all current NPIs are maintained. 
-* An up to 10% projected increase in total deaths assuming all current NPIs are maintained. 
-* Lifting of NPIs would lead to a larger increase in cases and deaths (see sections 2 and 3 for details).
-* Cases are expected to grow at a lower rate than projected in the last update. 
-* However, this is partially due to delays and gaps in reporting. The number of severe cases is expected to grow despite the predicted lower rate of increase in cases (see section 4).
+* The situation in Iraq is very concerning. In the next 4 weeks, the total number of cases is projected to reach 333,897 - 378,693 (a 24-41% increase) and the total number of deaths is projected to reach 10,480 - 11,443 (a 34-46% increase) if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 131,828 more cases and up to 1,807 more deaths; see sections 2 and 3 for details).
+* The number of severe cases requiring health care support is projected to increase, and to do so more significantly if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* A projected decrease in new cases in all the provinces apart from Parwan Province, assuming all current NPIs are maintained. 
-* A projected 4% increase in new cases in Parwan Province, assuming all current NPIs are maintained.
+* Assuming all current NPIs are maintained, the number of active cases is expected to increase significantly in Ninewa (by 21%) and to decrease significantly in Thi Qar (see section 4).
 "
 ```
 
