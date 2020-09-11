@@ -135,21 +135,24 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 2,510 cases have been reported and 47 deaths reported. 
-* New reported cases have declined by 47% and 54% respectively with respect to last week.
-* The last COVID-related death was reported on 4 August. This is partially due to the limited testing and low reporting rate in the country.
-* Based on the recent trends in the data reported by the MOPH, cases are growing at a slower rate compared to our previous update.
+* A total of 2,555 cases and 49 deaths have been reported. 
+* New reported cases have declined by 25% and new reported deaths have been stable with respect to last week.
+* The current number of severe cases requiring healthcare support is estimated at 4 - 6.
+* According to the data reported by the MOPH and the WHO, the number of new reported cases had been decreasing in August but show a slight uptick since our last update. 
+* Few COVID-related deaths have been documented, which is likely attributable to limitations in reporting. 
+* Concerning data gaps limit visibility into the current situation.
+* The highest numbers of new cases, severe cases and deaths were reported at least 4 weeks ago.
+* The number of cases reported provided by the MOPH at the subnational level is systematically lower than that provided by the WHO at the national level.
 "   
 
 key_messages_national_projections <- "
-* Around a 1% projected increase in total cases assuming all current NPIs are maintained. 
-* An up to 2% projected increase in total deaths assuming all current NPIs are maintained. 
-* Stable number of severe cases assuming all current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in severe cases (see section 3 for details).
-* There is a discrepancy in the number of cases reported by WHO at the national level and the subnational data provided by the MOPH.
+* In the next 4 weeks, the total number of cases is projected to reach 2,512 - 2,522 (a 1-2% increase) and the total number of deaths is projected to reach 47 - 48 (a 2-3% increase) if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 228 more cases and up to 4 more deaths; see sections 2 and 3 for details).
+* The number of severe cases requiring health care support is projected to stay constant unless NPIs are lifted, in which case they are projected to increase sharply (see section 3).
 "
 
 # In the main body there is a note about why we do not have subnational projections.
+
 ```
 
 ```{r population_data, include = FALSE}

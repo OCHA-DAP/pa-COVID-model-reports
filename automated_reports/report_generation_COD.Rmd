@@ -138,7 +138,7 @@ key_messages_current_situation <- "
 * A total of 10,291 cases and 260 deaths have been reported. 
 * New reported cases have declined by 15% with respect to last week. No new deaths have been reported.
 * The current number of severe cases requiring healthcare support is estimated at 45 - 73.
-* According to the data reported by the MOPH and the WHO, the number of new reported cases and deaths declined overall in August despite an increase in the last days of the month.  
+* According to the data reported by the MOPH and the WHO, the number of new reported cases and deaths declined overall in August despite an increase in the last days of the month.
 * The highest numbers of new cases were reported at least 4 weeks ago.
 "   
 key_messages_national_projections <- "
