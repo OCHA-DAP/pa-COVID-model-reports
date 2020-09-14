@@ -151,9 +151,9 @@ key_messages_subnational_projections <- "
 * Assuming all current NPIs are maintained, subnational projections suggest that Nugaal, Bari, Middle Juba, Lower Juba and Gedo will show the largest decreases (see section 4).
 "
 ```
-```
 
 ```{r population_data, include = FALSE}
+
 #populations <- read.csv("population_sizes.csv")
 #country_population_size <- populations %>%
 #                            filter(ADM0_NAME == country) %>%
@@ -163,6 +163,7 @@ key_messages_subnational_projections <- "
 ```
 
 ```{r who_data, include = FALSE}
+
 who_data <- read.csv(who_data_filename)
 who_data$Date_reported <- as.Date(who_data$Date_reported)
 current_cum_cases <- who_data %>%
@@ -181,6 +182,7 @@ current_cum_deaths <- who_data %>%
 ```
 
 ```{r graphs, include = FALSE}
+
 cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
@@ -191,6 +193,7 @@ subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_cod
 ```
 
 ```{r subnational_projections_data, include = FALSE}
+
 subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/ADM1_ranking.csv")
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$cases_per_100k_change <- as.numeric(subnational_projections$cases_per_100k_change)
@@ -224,7 +227,6 @@ This report summarizes the COVID-19 model results for `r country`, developed by 
 \large \textbf{Current situation}
 
 ```{r section2_current_figures, echo = FALSE}
-
 # current_figures_path <- paste0("../Outputs/", country_iso_3_code, "/current_figures.png")
 # current_severe_path <- paste0("../Outputs/", country_iso_3_code, "/current_severe_figures.png")
 
@@ -292,7 +294,6 @@ data.frame(Cases = current_cum_cases,
 
 
 ```{r subnational_increases, echo = FALSE}
-
 computeNbrIncreasingRegions <- function(subnational_projections_dataframe) {
           subnational_projections %>%
           filter(cases_per_100k_change > 0) %>%
@@ -326,7 +327,6 @@ increases_result <- if (computeNbrIncreasingRegions(subnational_projections) == 
 &nbsp;
 
 ```{r subnational_decreases, echo = FALSE, results = 'asis'}
-
 computeNbrDecreasingRegions <- function(subnational_projections_dataframe) {
           subnational_projections %>%
           filter(cases_per_100k_change < 0) %>%
