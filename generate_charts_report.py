@@ -18,6 +18,7 @@ TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
 TWO_WEEKS = TODAY + timedelta(days=14)
 LAST_TWO_MONTHS = TODAY - timedelta(days=60)
+EARLIEST_DATE = datetime.strptime('2020-02-24', '%Y-%m-%d').date()
 
 MIN_QUANTILE=0.25
 MAX_QUANTILE=0.75
@@ -49,6 +50,7 @@ def main(country_iso3='AFG', download_covid=False):
     dt_npi, r_npi, dt_no_npi, r_no_npi = extract_reff(country_iso3)
     who_cases_today, who_deaths_today, CFR, trend_w_cases, trend_w_deaths, reporting_rate, min_cases_npi, max_cases_npi, rel_inc_min_cases_npi, rel_inc_max_cases_npi, min_deaths_npi, max_deaths_npi, rel_inc_min_deaths_npi, rel_inc_max_deaths_npi, min_cases_no_npi, max_cases_no_npi, min_deaths_no_npi, max_deaths_no_npi = generate_key_figures(country_iso3,parameters)
     generate_data_model_comparison(country_iso3,parameters)
+    generate_data_model_comparison_lifetime(country_iso3,parameters)
     metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max = generate_model_projections(country_iso3,parameters)
     create_subnational_map(country_iso3, parameters)
     calculate_subnational_trends(country_iso3, parameters)
@@ -250,6 +252,18 @@ def generate_data_model_comparison(country_iso3,parameters):
     draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_cases_reported')
     draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_deaths')
 
+def generate_data_model_comparison_lifetime(country_iso3,parameters):
+    # generate plot with subnational data, WHO data and projections
+    subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=EARLIEST_DATE,max_date=FOUR_WEEKS)
+    who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=EARLIEST_DATE,max_date=FOUR_WEEKS)
+    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=EARLIEST_DATE,max_date=FOUR_WEEKS,npi_filter='npi')
+    bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=EARLIEST_DATE,max_date=FOUR_WEEKS,npi_filter='no_npi')
+    
+    draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_reported_cases')
+    draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_deaths')
+    draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_cases_reported')
+    draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_deaths')
+
 def draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
     # plot the 4 inputs and save figure
     if metric=='cumulative_reported_cases':
@@ -280,6 +294,35 @@ def draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_cov
     plt.legend()
     fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
 
+def draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
+    # plot the 4 inputs and save figure
+    if metric=='cumulative_reported_cases':
+        who_var='Cumulative_cases'
+        bucky_var='cumulative_cases_reported'
+        subnational_var=HLX_TAG_TOTAL_CASES
+        subnational_source=parameters['subnational_cases_source']
+        fig_title='Cumulative reported cases'
+    elif metric=='cumulative_deaths':
+        who_var='Cumulative_deaths'
+        bucky_var='cumulative_deaths'
+        subnational_var=HLX_TAG_TOTAL_DEATHS
+        subnational_source=parameters['subnational_cases_source']
+        fig_title='Cumulative reported deaths'
+    else:
+        print(f'metric {metric} not implemented')
+        return False
+    fig,axis=create_new_subplot(fig_title)
+
+    # draw subnational reported cumulative cases
+    axis.scatter(who_covid.index, who_covid[who_var],\
+                     alpha=0.8, s=20,c=WHO_DATA_COLOR,marker='*',label='WHO')
+    axis.scatter(subnational_covid.index, subnational_covid[subnational_var],\
+                     alpha=0.8, s=20,c=SUBNATIONAL_DATA_COLOR,marker='o',label=subnational_source)
+    # draw bucky
+    draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
+
+    plt.legend()
+    fig.savefig(f'Outputs/{country_iso3}/lifetime_{metric}.png')
 
 def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,metric):
     # plot the 4 inputs and save figure
@@ -306,6 +349,32 @@ def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi
     
     plt.legend()
     fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
+
+    def draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,bucky_no_npi,metric):
+    # plot the 4 inputs and save figure
+    if metric=='daily_cases_reported':
+        who_var='New_cases'
+        bucky_var='daily_cases_reported'
+        fig_title='Daily reported cases'
+    elif metric=='daily_deaths':
+        who_var='New_deaths'
+        bucky_var='daily_deaths'
+        fig_title='Daily reported deaths'
+    else:
+        print(f'metric {metric} not implemented')
+        return False
+    fig,axis=create_new_subplot(fig_title)
+    # draw subnational reported cumulative cases
+    axis.bar(who_covid.index, who_covid[who_var],alpha=0.8,color=WHO_DATA_COLOR,label='WHO')
+    # compute rolling 7-day average
+    who_covid_rolling = who_covid[who_var].rolling(window=7).mean()
+    axis.plot(who_covid_rolling.index, who_covid_rolling,\
+        lw=3,color=lighten_color(WHO_DATA_COLOR,1.6),label='WHO - 7d rolling average')
+    # draw bucky
+    draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
+    
+    plt.legend()
+    fig.savefig(f'Outputs/{country_iso3}/lifetime_{metric}.png')
 
 def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
     bucky_npi=bucky_npi[bucky_npi[bucky_var]>0]
