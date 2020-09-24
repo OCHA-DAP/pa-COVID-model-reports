@@ -14,3 +14,6 @@ Bucky_results/*/plots/*
 
 #Mac DSStore
 .DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
