@@ -321,7 +321,7 @@ def draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covi
     # draw bucky
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
 
-    plt.legend(loc="lower right")
+    plt.legend(loc="lower right", prop={'size': 8})
     fig.savefig(f'Outputs/{country_iso3}/lifetime_{metric}.png')
 
 def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,metric):
@@ -373,7 +373,7 @@ def draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,buc
     # draw bucky
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
     
-    plt.legend(loc="upper right")
+    plt.legend(loc="upper right", prop={'size': 8})
     fig.savefig(f'Outputs/{country_iso3}/lifetime_{metric}.png')
 
 def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
