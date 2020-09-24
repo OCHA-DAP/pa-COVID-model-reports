@@ -12,7 +12,7 @@ from utils import *
 
 country_iso_3 = sys.argv[1]
 
-ASSESSMENT_DATE='2020-09-09'
+ASSESSMENT_DATE='2020-09-23'
 # TODAY = date.today()
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)

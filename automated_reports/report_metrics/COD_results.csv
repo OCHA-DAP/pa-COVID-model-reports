@@ -1,29 +1,57 @@
 metric_name,metric_value,assessment_date,country
-Estimated doubling time NPI,418.7778623217263,2020-09-09,COD
-NPI Reff,1.0116277541135363,2020-09-09,COD
-Estimated doubling time No NPI,254.33531791708813,2020-09-09,COD
-No NPI Reff,1.019190109935669,2020-09-09,COD
+Estimated doubling time NPI,427.4447246693955,2020-09-09,COD
+NPI Reff,1.011391163120278,2020-09-09,COD
+Estimated doubling time No NPI,259.88152213870706,2020-09-09,COD
+No NPI Reff,1.0187782088741697,2020-09-09,COD
 Current situation - WHO cases today,10291.0,2020-09-09,COD
 Current situation - WHO deaths today,260.0,2020-09-09,COD
 CFR,2.526479448061413,2020-09-09,COD
-Weekly new cases wrt last week - trend,-15.300546448087427,2020-09-09,COD
-Weekly new deaths wrt last week - trend,0.0,2020-09-09,COD
-Estimated case reporting rate,8.74956682189137,2020-09-09,COD
-NPI - projected reported cases in 4w - MIN,10539.7365,2020-09-09,COD
-NPI - projected reported cases in 4w - MAX,10672.754999999996,2020-09-09,COD
-NPI - projected TREND reported cases in 4w - MIN,4.118688591344166,2020-09-09,COD
-NPI - projected TREND reported cases in 4w - MAX,5.432735842751937,2020-09-09,COD
-NPI - projected reported deaths in 4w - MIN,276.19825000000003,2020-09-09,COD
-NPI - projected reported deaths in 4w - MAX,288.73825000000005,2020-09-09,COD
-NPI - projected TREND reported deaths in 4w - MIN,6.07037864139189,2020-09-09,COD
-NPI - projected TREND reported deaths in 4w - MAX,10.886204042758683,2020-09-09,COD
-NO NPI - projected reported cases in 4w - MIN,10860.25849999999,2020-09-09,COD
-NO NPI - projected reported cases in 4w - MAX,11071.32625,2020-09-09,COD
-NO NPI - projected reported deaths in 4w - MIN,282.825,2020-09-09,COD
-NO NPI - projected reported deaths in 4w - MAX,298.60375,2020-09-09,COD
-Hospitalizations current situation - MIN,45.01675,2020-09-09,COD
-Hospitalizations current situation - MAX,73.06400000000005,2020-09-09,COD
-NPI Hospitalizations projections 4w - MIN,44.33825,2020-09-09,COD
-NPI Hospitalizations projections 4w - MAX,72.98200000000003,2020-09-09,COD
-NO NPI Hospitalizations projections 4w - MIN,81.53399999999999,2020-09-09,COD
-NO NPI Hospitalizations projections 4w - MAX,129.0455,2020-09-09,COD
+Weekly new cases wrt last week - trend,-56.35593220338985,2020-09-09,COD
+Weekly new deaths wrt last week - trend,100.0,2020-09-09,COD
+Estimated case reporting rate,8.639851737584245,2020-09-09,COD
+NPI - projected reported cases in 4w - MIN,10527.772249999996,2020-09-09,COD
+NPI - projected reported cases in 4w - MAX,10659.85475,2020-09-09,COD
+NPI - projected TREND reported cases in 4w - MIN,4.018690669999389,2020-09-09,COD
+NPI - projected TREND reported cases in 4w - MAX,5.3237197287749165,2020-09-09,COD
+NPI - projected reported deaths in 4w - MIN,279.7779999999999,2020-09-09,COD
+NPI - projected reported deaths in 4w - MAX,292.3589999999998,2020-09-09,COD
+NPI - projected TREND reported deaths in 4w - MIN,5.975110178463542,2020-09-09,COD
+NPI - projected TREND reported deaths in 4w - MAX,10.740577302952383,2020-09-09,COD
+NO NPI - projected reported cases in 4w - MIN,10842.420249999996,2020-09-09,COD
+NO NPI - projected reported cases in 4w - MAX,11045.559999999996,2020-09-09,COD
+NO NPI - projected reported deaths in 4w - MIN,286.36325,2020-09-09,COD
+NO NPI - projected reported deaths in 4w - MAX,302.1472499999999,2020-09-09,COD
+Hospitalizations current situation - MIN,45.25475,2020-09-09,COD
+Hospitalizations current situation - MAX,73.30375000000002,2020-09-09,COD
+NPI Hospitalizations projections 4w - MIN,43.57249999999999,2020-09-09,COD
+NPI Hospitalizations projections 4w - MAX,72.04050000000002,2020-09-09,COD
+NO NPI Hospitalizations projections 4w - MIN,80.4915,2020-09-09,COD
+NO NPI Hospitalizations projections 4w - MAX,127.30875,2020-09-09,COD
+Estimated doubling time NPI,429.3613813998877,2020-09-23,COD
+NPI Reff,1.0113401357529541,2020-09-23,COD
+Estimated doubling time No NPI,201.13692278182458,2020-09-23,COD
+No NPI Reff,1.0243034716578874,2020-09-23,COD
+Current situation - WHO cases today,10522.0,2020-09-23,COD
+Current situation - WHO deaths today,271.0,2020-09-23,COD
+CFR,2.57555597795096,2020-09-23,COD
+Weekly new cases wrt last week - trend,-56.355932203389834,2020-09-23,COD
+Weekly new deaths wrt last week - trend,100.0,2020-09-23,COD
+Estimated case reporting rate,8.64024801280907,2020-09-23,COD
+NPI - projected reported cases in 4w - MIN,10750.726249999996,2020-09-23,COD
+NPI - projected reported cases in 4w - MAX,10926.83474999999,2020-09-23,COD
+NPI - projected TREND reported cases in 4w - MIN,3.8258220747469185,2020-09-23,COD
+NPI - projected TREND reported cases in 4w - MAX,5.526601106940212,2020-09-23,COD
+NPI - projected reported deaths in 4w - MIN,289.1084999999999,2020-09-23,COD
+NPI - projected reported deaths in 4w - MAX,306.2519999999999,2020-09-23,COD
+NPI - projected TREND reported deaths in 4w - MIN,5.357744805607719,2020-09-23,COD
+NPI - projected TREND reported deaths in 4w - MAX,11.605228010269423,2020-09-23,COD
+NO NPI - projected reported cases in 4w - MIN,11395.061749999995,2020-09-23,COD
+NO NPI - projected reported cases in 4w - MAX,11725.216249999996,2020-09-23,COD
+NO NPI - projected reported deaths in 4w - MIN,304.4624999999998,2020-09-23,COD
+NO NPI - projected reported deaths in 4w - MAX,329.1827499999997,2020-09-23,COD
+Hospitalizations current situation - MIN,60.93125000000001,2020-09-23,COD
+Hospitalizations current situation - MAX,98.15225,2020-09-23,COD
+NPI Hospitalizations projections 4w - MIN,44.59575,2020-09-23,COD
+NPI Hospitalizations projections 4w - MAX,72.92100000000002,2020-09-23,COD
+NO NPI Hospitalizations projections 4w - MIN,109.02950000000006,2020-09-23,COD
+NO NPI Hospitalizations projections 4w - MAX,173.5055,2020-09-23,COD

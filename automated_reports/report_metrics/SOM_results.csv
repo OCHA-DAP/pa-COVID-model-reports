@@ -10,13 +10,13 @@ Weekly new cases wrt last week - trend,-46.34146341463414,2020-09-09,SOM
 Weekly new deaths wrt last week - trend,-75.0,2020-09-09,SOM
 Estimated case reporting rate,7.320999999963387,2020-09-09,SOM
 NPI - projected reported cases in 4w - MIN,3520.6835,2020-09-09,SOM
-NPI - projected reported cases in 4w - MAX,3553.831,2020-09-09,SOM
+NPI - projected reported cases in 4w - MAX,3553.8309999999997,2020-09-09,SOM
 NPI - projected TREND reported cases in 4w - MIN,4.599804418513492,2020-09-09,SOM
-NPI - projected TREND reported cases in 4w - MAX,5.584619445755413,2020-09-09,SOM
+NPI - projected TREND reported cases in 4w - MAX,5.584619445755412,2020-09-09,SOM
 NPI - projected reported deaths in 4w - MIN,105.4265,2020-09-09,SOM
 NPI - projected reported deaths in 4w - MAX,108.90025,2020-09-09,SOM
-NPI - projected TREND reported deaths in 4w - MIN,6.9565129172816835,2020-09-09,SOM
-NPI - projected TREND reported deaths in 4w - MAX,10.480676071198456,2020-09-09,SOM
+NPI - projected TREND reported deaths in 4w - MIN,6.956512917281684,2020-09-09,SOM
+NPI - projected TREND reported deaths in 4w - MAX,10.480676071198458,2020-09-09,SOM
 NO NPI - projected reported cases in 4w - MIN,3825.779749999999,2020-09-09,SOM
 NO NPI - projected reported cases in 4w - MAX,3915.733749999999,2020-09-09,SOM
 NO NPI - projected reported deaths in 4w - MIN,111.25825,2020-09-09,SOM
@@ -27,3 +27,31 @@ NPI Hospitalizations projections 4w - MIN,19.187,2020-09-09,SOM
 NPI Hospitalizations projections 4w - MAX,31.02875,2020-09-09,SOM
 NO NPI Hospitalizations projections 4w - MIN,74.37475000000003,2020-09-09,SOM
 NO NPI Hospitalizations projections 4w - MAX,119.33700000000002,2020-09-09,SOM
+Estimated doubling time NPI,305.1454181233707,2020-09-23,SOM
+NPI Reff,1.0159790677234264,2020-09-23,SOM
+Estimated doubling time No NPI,116.51942163548718,2020-09-23,SOM
+No NPI Reff,1.0421798103539448,2020-09-23,SOM
+Current situation - WHO cases today,3465.0,2020-09-23,SOM
+Current situation - WHO deaths today,98.0,2020-09-23,SOM
+CFR,2.8282828282828283,2020-09-23,SOM
+Weekly new cases wrt last week - trend,-43.18181818181818,2020-09-23,SOM
+Weekly new deaths wrt last week - trend,,2020-09-23,SOM
+Estimated case reporting rate,7.319999998434744,2020-09-23,SOM
+NPI - projected reported cases in 4w - MIN,3665.7715,2020-09-23,SOM
+NPI - projected reported cases in 4w - MAX,3707.36275,2020-09-23,SOM
+NPI - projected TREND reported cases in 4w - MIN,5.854790285586075,2020-09-23,SOM
+NPI - projected TREND reported cases in 4w - MAX,7.055801599702456,2020-09-23,SOM
+NPI - projected reported deaths in 4w - MIN,108.341,2020-09-23,SOM
+NPI - projected reported deaths in 4w - MAX,112.7315,2020-09-23,SOM
+NPI - projected TREND reported deaths in 4w - MIN,9.016904809820888,2020-09-23,SOM
+NPI - projected TREND reported deaths in 4w - MAX,13.434795733548,2020-09-23,SOM
+NO NPI - projected reported cases in 4w - MIN,4037.3535,2020-09-23,SOM
+NO NPI - projected reported cases in 4w - MAX,4150.9395,2020-09-23,SOM
+NO NPI - projected reported deaths in 4w - MIN,115.32425,2020-09-23,SOM
+NO NPI - projected reported deaths in 4w - MAX,123.67200000000004,2020-09-23,SOM
+Hospitalizations current situation - MIN,15.86125,2020-09-23,SOM
+Hospitalizations current situation - MAX,27.143,2020-09-23,SOM
+NPI Hospitalizations projections 4w - MIN,25.36175,2020-09-23,SOM
+NPI Hospitalizations projections 4w - MAX,41.27725,2020-09-23,SOM
+NO NPI Hospitalizations projections 4w - MIN,94.59125,2020-09-23,SOM
+NO NPI Hospitalizations projections 4w - MAX,152.63574999999997,2020-09-23,SOM
