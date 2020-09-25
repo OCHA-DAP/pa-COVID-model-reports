@@ -40,4 +40,4 @@ IRQ:
   iso2_code: 'IQ'
   adm1_name: 'ADM1_EN'
   adm1_pcode: 'ADM1_PCODE'
-  shape: 'Shapes/irq_admbnda_adm2_cso_20190603/irq_admbnda_adm2_cso_20190603.shp'
+  shape: 'Shapes/irq_admbnda_adm1_cso_20190603/irq_admbnda_adm1_cso_20190603.shp'
