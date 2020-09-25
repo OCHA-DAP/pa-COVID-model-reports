@@ -54,7 +54,7 @@ country_iso_3_code <- 'SOM'
 
 # report specs
 #assignment_date <- params$assignment_date
-assignment_date <- as.Date("2020-09-09")
+assignment_date <- as.Date("2020-09-23")
 
 # compute projection dates
 projection_date_4w <- assignment_date + 28
@@ -135,20 +135,21 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 3,362 cases and 97 deaths have been reported. 
-* New reported cases have declined by 46% with respect to last week. Since our last update 4 new deaths were reported after an absence of deaths reported by the WHO since 14 July 2020.
-* The current number of severe cases requiring healthcare support is estimated at 13 - 21.
-* The data reported by the WHO suffers from severe gaps and displays significant variation from day-to-day. For these reasons it is difficult to assess the stability of trends or whether the country has passed the peak of the crisis.
+* A total of 3,465 cases and 98 deaths have been reported. 
+* New daily reported cases have slowed down since our last update. A single death has been reported.
+* The current number of severe cases requiring healthcare support is estimated at 16 - 27.
+* The country saw a peak in new cases earlier (May and June). 
+* The data reported by the WHO suffers from severe gaps and displays significant variation from day-to-day. For these reasons it is difficult to assess the stability of trends.
 "   
 
 key_messages_national_projections <- "
-* In the next 4 weeks, the total number of cases is projected to reach 3,521 - 3,554 (a 5-6% increase) and the total number of deaths is projected to reach 105 - 109 (a 7-10% increase) if current NPIs are maintained.
-* Lifting of NPIs would lead to a sharper increase in cases and deaths (up to 395 more cases and up to 13 more deaths; see sections 2 and 3 for details).
-* The number of severe cases requiring health care support is projected to increase, and to increase more if NPIs are lifted (see section 3).
+* In the next 4 weeks, the total number of cases is projected to reach 3,666 - 3,707 (a 6-7% increase) and the total number of deaths is projected to reach 108 - 113 (a 9-13% increase) if current NPIs are maintained.
+* Lifting of NPIs would lead to a sharp increase in cases and deaths (up to 485 more cases and up to 16 more deaths; see sections 2 and 3 for details).
+* The number of severe cases requiring health care support is projected to increase rapidly if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* Assuming all current NPIs are maintained, subnational projections suggest that Nugaal, Bari, Middle Juba, Lower Juba and Gedo will show the largest decreases (see section 4).
+* Assuming all current NPIs are maintained, subnational projections suggest that Nugaal, Bari, Awdal, Sanaag and Sool will show the largest local decreases (see section 4).
 "
 ```
 
@@ -187,6 +188,11 @@ cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumu
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
 new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_deaths.png")
+lifetime_cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_cumulative_reported_cases.png")
+lifetime_cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_cumulative_deaths.png")
+lifetime_new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_cases_reported.png")
+lifetime_new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_deaths.png")
+hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
 hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
 subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
 
@@ -260,14 +266,18 @@ data.frame(Cases = current_cum_cases,
 
 \Large \textbf{3. National Projections}
 
-\large \textbf{Projected situation in the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`}
+\large \textbf{Cases and deaths projections for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`}
 
-![](`r new_cases_graph_path`){width=300px} ![](`r new_deaths_graph_path`){width=300px}
+Note that deaths typically lag reported cases by 2-8 weeks.
 
-![](`r cum_cases_graph_path`){width=300px} ![](`r cum_deaths_graph_path`){width=300px}
+![](`r lifetime_new_cases_graph_path`){width=300px} ![](`r lifetime_new_deaths_graph_path`){width=300px}
+
+![](`r lifetime_cum_cases_graph_path`){width=300px} ![](`r lifetime_cum_deaths_graph_path`){width=300px}
 
 \normalsize The figures above show the comparison between the reported cases and data from two different sources (national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue) together with the projected trends. The two lines presented correspond to ‘Current NPIs maintained’ and ‘No NPIs in place’ scenarios. 
 \newpage
+
+\large \textbf{Severe cases projections for the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
 
 | | Severe Cases (Estimated) |
 |------------:|:-----|
@@ -284,14 +294,14 @@ data.frame(Cases = current_cum_cases,
 
 \large \textbf{Projected situation in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`} \footnotesize With current NPIs[^3] maintained
 
-\large \textbf{Cases per 100,000 people}
+\large \textbf{Active cases per 100,000 people}
 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{`r subnational_cases_per_100k_graph_path`}
 \end{center}
 
 ![](visual_assets/cases_per_100k_manual_legend.png){width=200px}
-
+\large \textbf{Largest Increases and Decreases In Active Cases}
 
 ```{r subnational_increases, echo = FALSE}
 computeNbrIncreasingRegions <- function(subnational_projections_dataframe) {
@@ -321,8 +331,6 @@ increases_result <- if (computeNbrIncreasingRegions(subnational_projections) == 
                         }
 # `r increases_result` should be on line 330
 ```
-
-
 
 &nbsp;
 
@@ -355,7 +363,7 @@ decreases_result <- if (computeNbrDecreasingRegions(subnational_projections) == 
 # should be below `r decreases_result`
 ```
 
-
+`r decreases_result`
 
 [^3]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 

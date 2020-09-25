@@ -54,7 +54,7 @@ country_iso_3_code <- 'SSD'
 
 # report specs
 #assignment_date <- params$assignment_date
-assignment_date <- as.Date("2020-09-09")
+assignment_date <- as.Date("2020-09-23")
 
 # compute projection dates
 projection_date_4w <- assignment_date + 28
@@ -84,49 +84,49 @@ report_metrics <- report_metrics_all_dates %>% filter(assessment_date == assignm
 
 # assign values to variables
 cfr <- report_metrics %>% filter(metric_name == 'CFR') %>% select(metric_value)
-cfr <- round(cfr, 1)
+cfr <- round(1.8, 1)
 
 npi_projected_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
-npi_projected_cases_4w_LOW <- format(round(npi_projected_cases_4w_LOW, 0), big.mark = ",")
+npi_projected_cases_4w_LOW <- format(round(2568, 0), big.mark = ",")
 
 npi_projected_cases_4w_HI <- report_metrics %>% filter(metric_name == "NPI - projected reported cases in 4w - MAX") %>% select(metric_value) %>% as.numeric()
-npi_projected_cases_4w_HI <- format(round(npi_projected_cases_4w_HI, 0), big.mark = ",")
+npi_projected_cases_4w_HI <- format(round(2583, 0), big.mark = ",")
 
 npi_projected_deaths_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected reported deaths in 4w - MIN") %>% select(metric_value) %>% as.numeric()
-npi_projected_deaths_4w_LOW <- format(round(npi_projected_deaths_4w_LOW, 0), big.mark = ",")
+npi_projected_deaths_4w_LOW <- format(round(49, 0), big.mark = ",")
 
 npi_projected_deaths_4w_HI <- report_metrics %>% filter(metric_name == "NPI - projected reported deaths in 4w - MAX") %>% select(metric_value) %>% as.numeric()
-npi_projected_deaths_4w_HI <- format(round(npi_projected_deaths_4w_HI, 0), big.mark = ",")
+npi_projected_deaths_4w_HI <- format(round(49, 0), big.mark = ",")
 
 no_npi_projected_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NO NPI - projected reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
-no_npi_projected_cases_4w_LOW <- format(round(no_npi_projected_cases_4w_LOW, 0), big.mark = ",")
+no_npi_projected_cases_4w_LOW <- format(round(2666, 0), big.mark = ",")
 
 no_npi_projected_cases_4w_HI <- report_metrics %>% filter(metric_name == "NO NPI - projected reported cases in 4w - MAX") %>% select(metric_value) %>% as.numeric()
-no_npi_projected_cases_4w_HI <- format(round(no_npi_projected_cases_4w_HI, 0), big.mark = ",")
+no_npi_projected_cases_4w_HI <- format(round(2714, 0), big.mark = ",")
 
 no_npi_projected_deaths_4w_LOW <- report_metrics %>% filter(metric_name == "NO NPI - projected reported deaths in 4w - MIN") %>% select(metric_value) %>% as.numeric()
-no_npi_projected_deaths_4w_LOW <- format(round(no_npi_projected_deaths_4w_LOW, 0), big.mark = ",")
+no_npi_projected_deaths_4w_LOW <- format(round(49, 0), big.mark = ",")
 
 no_npi_projected_deaths_4w_HI <- report_metrics %>% filter(metric_name == "NO NPI - projected reported deaths in 4w - MAX") %>% select(metric_value) %>% as.numeric()
-no_npi_projected_deaths_4w_HI <- format(round(no_npi_projected_deaths_4w_HI, 0), big.mark = ",")
+no_npi_projected_deaths_4w_HI <- format(round(50, 0), big.mark = ",")
 
 hospitalizations_current_LOW <- report_metrics %>% filter(metric_name == "Hospitalizations current situation - MIN") %>% select(metric_value) %>% as.numeric()
-hospitalizations_current_LOW <- format(round(hospitalizations_current_LOW, 0), big.mark = ",")
+hospitalizations_current_LOW <- format(round(3, 0), big.mark = ",")
 
 hospitalizations_current_HI <- report_metrics %>% filter(metric_name == "Hospitalizations current situation - MAX") %>% select(metric_value) %>% as.numeric()
-hospitalizations_current_HI <- format(round(hospitalizations_current_HI, 0), big.mark = ",")
+hospitalizations_current_HI <- format(round(4, 0), big.mark = ",")
 
 npi_hospitalizations_LOW <- report_metrics %>% filter(metric_name == "NPI Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
-npi_hospitalizations_LOW <- format(round(npi_hospitalizations_LOW, 0), big.mark = ",")
+npi_hospitalizations_LOW <- format(round(3, 0), big.mark = ",")
 
 npi_hospitalizations_HI <- report_metrics %>% filter(metric_name == "NPI Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
-npi_hospitalizations_HI <- format(round(npi_hospitalizations_HI, 0), big.mark = ",")
+npi_hospitalizations_HI <- format(round(4, 0), big.mark = ",")
 
 no_npi_hospitalizations_LOW <- report_metrics %>% filter(metric_name == "NO NPI Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
-no_npi_hospitalizations_LOW <- format(round(no_npi_hospitalizations_LOW, 0), big.mark = ",")
+no_npi_hospitalizations_LOW <- format(round(12, 0), big.mark = ",")
 
 no_npi_hospitalizations_HI <- report_metrics %>% filter(metric_name == "NO NPI Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
-no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.mark = ",")
+no_npi_hospitalizations_HI <- format(round(19, 0), big.mark = ",")
 
 ```
 
@@ -135,20 +135,19 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 2,555 cases and 49 deaths have been reported. 
-* New reported cases have declined by 25% and new reported deaths have been stable with respect to last week.
-* The current number of severe cases requiring healthcare support is estimated at 4 - 6.
-* According to the data reported by the MOPH and the WHO, the number of new reported cases had been decreasing in August but show a slight uptick since our last update. 
-* Few COVID-related deaths have been documented, which is likely attributable to limitations in reporting. 
-* Concerning data gaps limit visibility into the current situation.
-* The highest numbers of new cases, severe cases and deaths were reported at least 4 weeks ago.
-* The number of cases reported provided by the MOPH at the subnational level is systematically lower than that provided by the WHO at the national level.
+* A total of 2,664 cases and 49 deaths have been reported. 
+* New daily reported cases have been increasing while and no new reported deaths have been reeported since our last update.
+* The current number of severe cases requiring healthcare support is estimated around 4.
+* The country saw a peak of cases around June.
+
+* We observe concerning data gaps and data quality issues that limit visibility into the current situation and affect the ability to make projections.
+* Few COVID-related deaths have been documented (close to none in August in particular), which likely reflect limitations in reporting. 
+* The number of cases reported provided by the MOPH at the subnational level is currently systematically higher than that provided by the WHO at the national level.
 "   
 
 key_messages_national_projections <- "
-* In the next 4 weeks, the total number of cases is projected to reach 2,512 - 2,522 (a 1-2% increase) and the total number of deaths is projected to reach 47 - 48 (a 2-3% increase) if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 228 more cases and up to 4 more deaths; see sections 2 and 3 for details).
-* The number of severe cases requiring health care support is projected to stay constant unless NPIs are lifted, in which case they are projected to increase sharply (see section 3).
+* In the next 4 weeks, the total number of cases is projected to reach 2,568 - 2,583 (a 2% increase) and the total number of deaths is projected to stay constant if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and hospitalizations (see sections 2 and 3 for details).
 "
 
 # In the main body there is a note about why we do not have subnational projections.
@@ -187,6 +186,11 @@ cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumu
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
 new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_deaths.png")
+lifetime_cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_cumulative_reported_cases.png")
+lifetime_cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_cumulative_deaths.png")
+lifetime_new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_cases_reported.png")
+lifetime_new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_deaths.png")
+hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
 hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
 subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
 
@@ -264,14 +268,18 @@ data.frame(Cases = current_cum_cases,
 
 \Large \textbf{3. National Projections}
 
-\large \textbf{Projected situation in the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`}
+\large \textbf{Cases and deaths projections for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`}
 
-![](`r new_cases_graph_path`){width=300px} ![](`r new_deaths_graph_path`){width=300px}
+Note that deaths typically lag reported cases by 2-8 weeks.
 
-![](`r cum_cases_graph_path`){width=300px} ![](`r cum_deaths_graph_path`){width=300px}
+![](`r lifetime_new_cases_graph_path`){width=300px} ![](`r lifetime_new_deaths_graph_path`){width=300px}
+
+![](`r lifetime_cum_cases_graph_path`){width=300px} ![](`r lifetime_cum_deaths_graph_path`){width=300px}
 
 \normalsize The figures above show the comparison between the reported cases and data from two different sources (national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue) together with the projected trends. The two lines presented correspond to ‘Current NPIs maintained’ and ‘No NPIs in place’ scenarios. 
 \newpage
+
+\large \textbf{Severe cases projections for the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
 
 | | Severe Cases (Estimated) |
 |------------:|:-----|

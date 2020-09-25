@@ -54,7 +54,7 @@ country_iso_3_code <- 'IRQ'
 
 # report specs
 #assignment_date <- params$assignment_date
-assignment_date <- as.Date("2020-09-09")
+assignment_date <- as.Date("2020-09-23")
 
 # compute projection dates
 projection_date_4w <- assignment_date + 28
@@ -135,21 +135,22 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 269,578 cases and 7,657 deaths have been reported. 
-* New reported cases have increased by 11% and new reported deaths have declined by 1% with respect to last week.
-* The current number of severe cases requiring healthcare support is estimated at 8,001 - 13,500.
-* According to the data reported by the MOPH and the WHO, the number of new reported cases has steadily increased in the past two weeks and reported deaths have been stable in recent weeks.
-* The country may be peaking or is still moving towards its peak in cases.
+* A total of 327,580 cases and 8,682 deaths have been reported. 
+* New reported cases have significantly increased since our last update.
+* The current number of severe cases requiring healthcare support is estimated at 6,666 - 11,315.
+* The situation in Iraq is very concerning. New reported cases have been on a steady climb since early June. 
+* The implemented NPIs do not appear sufficient to reduce the spread of the virus.
+* The country is still moving towards its peak. 
 "   
 
 key_messages_national_projections <- "
-* The situation in Iraq is very concerning. In the next 4 weeks, the total number of cases is projected to reach 333,897 - 378,693 (a 24-41% increase) and the total number of deaths is projected to reach 10,480 - 11,443 (a 34-46% increase) if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 131,828 more cases and up to 1,807 more deaths; see sections 2 and 3 for details).
-* The number of severe cases requiring health care support is projected to increase, and to do so more significantly if NPIs are lifted (see section 3).
+* In the next 4 weeks, the total number of cases is projected to reach 379,502 - 422,376 (a 17-30% increase) and the total number of deaths is projected to reach 10,962 - 11,804 (a 23-32% increase) if current NPIs are maintained.
+* Lifting of NPIs would lead to a sharply larger increase in cases and deaths (up to 126,729 more cases and up to 1,547 more deaths; see sections 2 and 3 for details). We strongly advise maintaining the current NPIs and considering additional measures.
+* The increase in number of severe cases requiring health care support is projected to slow down unless NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* Assuming all current NPIs are maintained, the number of active cases is expected to increase significantly in Ninewa (by 21%) and to decrease significantly in Thi Qar (see section 4).
+* Assuming all current NPIs are maintained, the number of active cases is expected to decrease significantly in Thi Qar while Baghdad governorate will see the highest incidence (see section 4).
 "
 ```
 
@@ -185,6 +186,11 @@ cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumu
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
 new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_deaths.png")
+lifetime_cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_cumulative_reported_cases.png")
+lifetime_cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_cumulative_deaths.png")
+lifetime_new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_cases_reported.png")
+lifetime_new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_deaths.png")
+hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
 hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
 subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
 
@@ -261,14 +267,18 @@ data.frame(Cases = current_cum_cases,
 
 \Large \textbf{3. National Projections}
 
-\large \textbf{Projected situation in the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`}
+\large \textbf{Case and deaths projections for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`}
 
-![](`r new_cases_graph_path`){width=300px} ![](`r new_deaths_graph_path`){width=300px}
+Note that deaths typically lag reported cases by 2-8 weeks.
 
-![](`r cum_cases_graph_path`){width=300px} ![](`r cum_deaths_graph_path`){width=300px}
+![](`r lifetime_new_cases_graph_path`){width=300px} ![](`r lifetime_new_deaths_graph_path`){width=300px}
+
+![](`r lifetime_cum_cases_graph_path`){width=300px} ![](`r lifetime_cum_deaths_graph_path`){width=300px}
 
 \normalsize The figures above show the comparison between the reported cases and data from two different sources (national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue) together with the projected trends. The two lines presented correspond to ‘Current NPIs maintained’ and ‘No NPIs in place’ scenarios. 
 \newpage
+
+\large \textbf{Severe cases projections for the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
 
 | | Severe Cases (Estimated) |
 |------------:|:-----|
@@ -285,7 +295,7 @@ data.frame(Cases = current_cum_cases,
 
 \large \textbf{Projected situation in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`} \footnotesize With current NPIs[^3] maintained
 
-\large \textbf{Cases per 100,000 people}
+\large \textbf{Active cases per 100,000 people}
 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{`r subnational_cases_per_100k_graph_path`}
@@ -294,7 +304,7 @@ data.frame(Cases = current_cum_cases,
 ![](visual_assets/cases_per_100k_manual_legend.png){width=200px}
 
 
-\large \textbf{Largest Increases and Decreases In Cases}
+\large \textbf{Largest Increases and Decreases In Active Cases}
 
 ```{r subnational_increases, echo = FALSE}
 
@@ -309,7 +319,7 @@ produceIncreasesTable <- function(subnational_projections_dataframe) {
   subnational_projections %>%
           filter(cases_per_100k_change > 0) %>% # keep regions with increases
           arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 5) %>% # keep top 5 areas 
+          slice_head(n = 1) %>% # keep top 5 areas 
           select(ADM1_EN, cases_per_100k_change) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change (%)"),
@@ -344,7 +354,7 @@ produceDecreasesTable <- function(subnational_projections_dataframe) {
   subnational_projections %>%
           filter(cases_per_100k_change < 0) %>% # keep regions with increases
           arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 5) %>% # keep top 5 areas 
+          slice_head(n = 1) %>% # keep top 5 areas 
           select(ADM1_EN, cases_per_100k_change) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change (%)"),
