@@ -1,6 +1,8 @@
 import utils
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+import matplotlib.colors as mcolors
 import os
 import geopandas as gpd
 from datetime import datetime,timedelta
@@ -52,7 +54,9 @@ def main(country_iso3='AFG', download_covid=False):
     generate_data_model_comparison(country_iso3,parameters)
     generate_data_model_comparison_lifetime(country_iso3,parameters)
     metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max = generate_model_projections(country_iso3,parameters)
-    create_subnational_map(country_iso3, parameters)
+    create_subnational_map_projected(country_iso3, parameters)
+    create_subnational_map_current(country_iso3, parameters)
+    create_binary_change_map(country_iso3, parameters)
     calculate_subnational_trends(country_iso3, parameters)
     if os.path.exists(RESULTS_FILENAME):
         df_all=pd.read_csv(RESULTS_FILENAME)
@@ -61,9 +65,9 @@ def main(country_iso3='AFG', download_covid=False):
         df_all=df_all[df_all["assessment_date"]!=str(TODAY)]
     else:
         df_all=pd.DataFrame()
-    results_df = pd.DataFrame({"metric_name": ["Estimated doubling time NPI", 
-                                                "NPI Reff", 
-                                                "Estimated doubling time No NPI", 
+    results_df = pd.DataFrame({"metric_name": ["Estimated doubling time NPI",
+                                                "NPI Reff",
+                                                "Estimated doubling time No NPI",
                                                 "No NPI Reff",
                                                 "Current situation - WHO cases today",
                                                 "Current situation - WHO deaths today",
@@ -90,33 +94,33 @@ def main(country_iso3='AFG', download_covid=False):
                                                 "NO NPI Hospitalizations projections 4w - MIN",
                                                 "NO NPI Hospitalizations projections 4w - MAX"
                                                 ],
-                               "metric_value": [dt_npi, 
-                                                r_npi, 
-                                                dt_no_npi, 
+                               "metric_value": [dt_npi,
+                                                r_npi,
+                                                dt_no_npi,
                                                 r_no_npi,
-                                                who_cases_today, 
-                                                who_deaths_today, 
-                                                CFR, 
-                                                trend_w_cases, 
-                                                trend_w_deaths, 
-                                                reporting_rate, 
-                                                min_cases_npi, 
-                                                max_cases_npi, 
-                                                rel_inc_min_cases_npi, 
-                                                rel_inc_max_cases_npi, 
-                                                min_deaths_npi, 
-                                                max_deaths_npi, 
-                                                rel_inc_min_deaths_npi, 
-                                                rel_inc_max_deaths_npi, 
-                                                min_cases_no_npi, 
+                                                who_cases_today,
+                                                who_deaths_today,
+                                                CFR,
+                                                trend_w_cases,
+                                                trend_w_deaths,
+                                                reporting_rate,
+                                                min_cases_npi,
+                                                max_cases_npi,
+                                                rel_inc_min_cases_npi,
+                                                rel_inc_max_cases_npi,
+                                                min_deaths_npi,
+                                                max_deaths_npi,
+                                                rel_inc_min_deaths_npi,
+                                                rel_inc_max_deaths_npi,
+                                                min_cases_no_npi,
                                                 max_cases_no_npi,
-                                                min_deaths_no_npi, 
+                                                min_deaths_no_npi,
                                                 max_deaths_no_npi,
-                                                metric_today_min, 
-                                                metric_today_max, 
-                                                metric_4w_npi_min, 
-                                                metric_4w_npi_max, 
-                                                metric_4w_no_npi_min, 
+                                                metric_today_min,
+                                                metric_today_max,
+                                                metric_4w_npi_min,
+                                                metric_4w_npi_max,
+                                                metric_4w_no_npi_min,
                                                 metric_4w_no_npi_max
                                                 ]
                                })
@@ -396,41 +400,112 @@ def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
                           )
 
 
-def create_subnational_map(country_iso3, parameters):
-    # Total cases - four weeks projection
-    bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
-    bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','cases_per_100k']]
-    bucky_npi = bucky_npi.loc[TWO_WEEKS,:]
-    adm1_pcode_prefix=parameters['iso2_code']
+def create_subnational_map_projected(country_iso3, parameters):
+    bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=TODAY, max_date=TWO_WEEKS, npi_filter='npi')
+    bucky_npi = bucky_npi[bucky_npi['q'] == 0.5][['adm1', 'cases_per_100k']]
+    bucky_npi = bucky_npi.loc[TWO_WEEKS, :]
+    adm1_pcode_prefix = parameters['iso2_code']
     if country_iso3 == 'IRQ':
-        adm1_pcode_prefix='IQG'
-    bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
+        adm1_pcode_prefix = 'IQG'
+    bucky_npi['adm1'] = adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
+    bucky_npi["cases_per_100k"] = bucky_npi["cases_per_100k"].astype(int)
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
-    fig_title=f'Projected number of cases per 100,000 people'
-    # fig_title=f'Ranking: number of cases per 100,000 people on {TWO_WEEKS}'
-    fig,axis=create_new_subplot(fig_title)
+
+    fig_title = f'Projected number of cases per 100,000 people on {TWO_WEEKS}'
+    fig, axis = create_new_subplot(fig_title)
     axis.axis('off')
-    shapefile.plot(column='cases_per_100k', figsize=(10, 10),edgecolor='gray',ax=axis,
-                #    legend=True,
-                #    legend_kwds={'label': "Cases per 100,000 people",'orientation': "horizontal"},
-                   scheme='Quantiles',k=len(shapefile)
-                   )
-    shapefile.boundary.plot(linewidth=0.1,ax=axis)
-    fig.savefig(f'Outputs/{country_iso3}/map_cases_per_100k_2w.png')
+
+    # get historical max value. Using this instead of current to keep bins over the weeks more equal
+    # if patterns change heavily, could also choose to set min_date to a more current date
+    hist_bucky = get_bucky(country_iso3, admin_level='adm1', min_date=TODAY - timedelta(days=90), max_date=FOUR_WEEKS,
+                           npi_filter='npi')
+    hist_buckys = hist_bucky[hist_bucky['q'] == 0.5]
+    cases_max = hist_buckys["cases_per_100k"].astype(int).max()
+    num_bins = 5
+    cmap = "YlOrRd"
+    bins_list = np.linspace(0, cases_max * 1.2, num_bins + 1, dtype=int)
+
+    # set bins
+    norm2 = mcolors.BoundaryNorm(boundaries=bins_list, ncolors=256)
+    shapefile.plot(column='cases_per_100k', cmap=cmap, norm=norm2, ax=axis)
+    fig.colorbar(axis.collections[0], cax=fig.add_axes([0.9, 0.2, 0.03, 0.60]))
+    shapefile.boundary.plot(linewidth=0.1, ax=axis)
+    # fig.tight_layout(pad=3.0)
+    fig.savefig(f'Outputs/{country_iso3}/map_cases_per_100k_2w.png',bbox_inches="tight")
+
+def create_subnational_map_current(country_iso3, parameters):
+    bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=TODAY, max_date=TODAY, npi_filter='npi')
+    bucky_npi = bucky_npi[bucky_npi['q'] == 0.5][['adm1', 'cases_per_100k']]
+    adm1_pcode_prefix = parameters['iso2_code']
+    if country_iso3 == 'IRQ':
+        adm1_pcode_prefix = 'IQG'
+    bucky_npi['adm1'] = adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
+    bucky_npi["cases_per_100k"] = bucky_npi["cases_per_100k"].astype(int)
+    shapefile = gpd.read_file(parameters['shape'])
+    shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
+
+    fig_title = f'Number of cases per 100,000 people on {TODAY}'
+    fig, axis = create_new_subplot(fig_title)
+    axis.axis('off')
+
+    # get historical max value. Using this instead of current to keep bins over the weeks more equal
+    # if patterns change heavily, could also choose to set min_date to a more current date
+    hist_bucky = get_bucky(country_iso3, admin_level='adm1', min_date=TODAY - timedelta(days=90), max_date=FOUR_WEEKS,
+                           npi_filter='npi')
+    hist_buckys = hist_bucky[hist_bucky['q'] == 0.5]
+    cases_max = hist_buckys["cases_per_100k"].astype(int).max()
+    num_bins = 5
+    cmap = "YlOrRd"
+    bins_list = np.linspace(0, cases_max * 1.2, num_bins + 1, dtype=int)
+
+    # set bins
+    norm2 = mcolors.BoundaryNorm(boundaries=bins_list, ncolors=256)
+    shapefile.plot(column='cases_per_100k', cmap=cmap, norm=norm2, ax=axis)
+    fig.colorbar(axis.collections[0], cax=fig.add_axes([0.9, 0.2, 0.03, 0.60]))
+    shapefile.boundary.plot(linewidth=0.1, ax=axis)
+    # fig.tight_layout(pad=3.0)
+    fig.savefig(f'Outputs/{country_iso3}/map_cases_per_100k_current.png',bbox_inches="tight")
+
+def create_binary_change_map(country_iso3, parameters):
+    """
+    Generate a subnational map that indicates which areas are expected to have an increase and decrease in cases per 100k in two weeks
+    """
+    color_dict={"Increase":"red","Stable":"grey","Decrease":"green"}
+    fig_title = f'Projected trend in number of cases per 100,000 people'
+    df_change=calculate_subnational_trends(country_iso3,parameters)
+    shapefile = gpd.read_file(parameters['shape'])
+    shapefile = shapefile.merge(df_change, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
+    #Classify as "increase" if cases per 100k is projected to increase by 5 or more percent in two weeks
+    #decrease if this is more than -5, else stable.
+    # Also stable for regions with less than 1 active cases (=nans from calculate_subnational_trends)
+    shapefile.loc[:,"change_name"]=shapefile["cases_per_100k_change"].apply(lambda x: "Increase" if x>=5 else ("Decrease" if x<=-5 else "Stable"))
+
+    fig, ax = plt.subplots(figsize=(10, 10))
+    for k in shapefile["change_name"].unique():
+        shapefile[shapefile["change_name"]==k].plot(color=color_dict[k], ax=ax,edgecolor='gray')
+    legend_elements= [Line2D([0], [0], marker='o',markersize=15,label=k,color=color_dict[k],linestyle='None') for k in color_dict.keys()]
+    leg=plt.legend(title="Legend",frameon=False,handles=legend_elements,bbox_to_anchor=(1.3,0.8))
+    leg._legend_box.align = "left"
+
+    shapefile.boundary.plot(linewidth=0.1,ax=ax,color="white")
+    ax.set_axis_off()
+    ax.set_title(fig_title)
+    fig.savefig(f'Outputs/{country_iso3}/map_binary_change_cases_per_100k_2w.png',bbox_inches="tight")
 
 def calculate_subnational_trends(country_iso3, parameters):
     # Top 5 and bottom 5 districts - 4 weeks trend
     bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
     # to remove noise
-    bucky_npi=bucky_npi[bucky_npi['cases_active']>10]
+    bucky_npi=bucky_npi[bucky_npi['cases_active']>1]
     bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','Reff','cases_per_100k']]
     adm1_pcode_prefix=parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix='IQG'
     bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
-    start = bucky_npi.loc[TODAY,:]
-    end = bucky_npi.loc[TWO_WEEKS,:]
+    # make the col selector a list to ensure always a dataframe is returned (and not a series)
+    start = bucky_npi.loc[[TODAY], :]
+    end = bucky_npi.loc[[TWO_WEEKS], :]
     combined = start.merge(end[['adm1', 'cases_per_100k']], how='left', on='adm1')
     combined.rename(columns = {'cases_per_100k_x':'cases_per_100k_today', 'cases_per_100k_y':'cases_per_100k_inTWOweeks'}, inplace = True) 
     combined['cases_per_100k_change'] = (combined['cases_per_100k_inTWOweeks']-combined['cases_per_100k_today']) / combined['cases_per_100k_today'] * 100
@@ -442,6 +517,11 @@ def calculate_subnational_trends(country_iso3, parameters):
     combined['cases_per_100k_change']=combined['cases_per_100k_change'].astype(int)
     # combined=combined[[parameters['adm1_name'],'cases_per_100k_change']]
     combined.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
+    return combined
+
+
+
+
 
 if __name__ == "__main__":
     args = parse_args()
