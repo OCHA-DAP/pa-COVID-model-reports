@@ -429,8 +429,9 @@ def calculate_subnational_trends(country_iso3, parameters):
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix='IQG'
     bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
-    start = bucky_npi.loc[TODAY,:]
-    end = bucky_npi.loc[TWO_WEEKS,:]
+    # make the col selector a list to ensure always a dataframe is returned (and not a series)
+    start = bucky_npi.loc[[TODAY], :]
+    end = bucky_npi.loc[[TWO_WEEKS], :]
     combined = start.merge(end[['adm1', 'cases_per_100k']], how='left', on='adm1')
     combined.rename(columns = {'cases_per_100k_x':'cases_per_100k_today', 'cases_per_100k_y':'cases_per_100k_inTWOweeks'}, inplace = True) 
     combined['cases_per_100k_change'] = (combined['cases_per_100k_inTWOweeks']-combined['cases_per_100k_today']) / combined['cases_per_100k_today'] * 100
