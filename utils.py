@@ -69,6 +69,12 @@ def get_who(filename,country_iso2,min_date,max_date):
     who_covid=who_covid[(who_covid['Date_reported']>=min_date) &\
                         (who_covid['Date_reported']<=max_date)]
     who_covid=who_covid.set_index('Date_reported')
+    #set negative numbers to 0. Explanation for negative numbers from WHO data documentation (found on https://data.humdata.org/dataset/coronavirus-covid-19-cases-and-deaths):
+    # Due to the recent trend of countries conducting data reconciliation exercises which remove large numbers of cases or deaths from their total counts,
+    # such data may reflect as negative numbers in the new cases / new deaths counts as appropriate.
+    # This will aid users in identifying when such adjustments occur.
+    # When additional details become available that allow the subtractions to be suitably apportioned to previous days, data will be updated accordingly.
+    who_covid._get_numeric_data()[who_covid._get_numeric_data() < 0] = 0
     return who_covid
 
 
