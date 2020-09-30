@@ -1,11 +1,11 @@
 metric_name,metric_value,assessment_date,country
 Estimated doubling time NPI,783.3663631318561,2020-09-09,AFG
-NPI Reff,1.006205700036472,2020-09-09,AFG
+NPI Reff,1.0062057000364721,2020-09-09,AFG
 Estimated doubling time No NPI,418.9892424089463,2020-09-09,AFG
-No NPI Reff,1.01162186692252,2020-09-09,AFG
+No NPI Reff,1.0116218669225199,2020-09-09,AFG
 Current situation - WHO cases today,38544.0,2020-09-09,AFG
 Current situation - WHO deaths today,1420.0,2020-09-09,AFG
-CFR,3.684101286841013,2020-09-09,AFG
+CFR,3.6841012868410132,2020-09-09,AFG
 Weekly new cases wrt last week - trend,77.08333333333333,2020-09-09,AFG
 Weekly new deaths wrt last week - trend,-33.333333333333336,2020-09-09,AFG
 Estimated case reporting rate,4.984143326350914,2020-09-09,AFG
