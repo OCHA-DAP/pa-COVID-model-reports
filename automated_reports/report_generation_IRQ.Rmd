@@ -319,7 +319,7 @@ produceIncreasesTable <- function(subnational_projections_dataframe) {
   subnational_projections %>%
           filter(cases_per_100k_change > 0) %>% # keep regions with increases
           arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 1) %>% # keep top 5 areas 
+          slice_head(n = 5) %>% # keep top 5 areas 
           select(ADM1_EN, cases_per_100k_change) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change (%)"),
@@ -354,7 +354,7 @@ produceDecreasesTable <- function(subnational_projections_dataframe) {
   subnational_projections %>%
           filter(cases_per_100k_change < 0) %>% # keep regions with increases
           arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 1) %>% # keep top 5 areas 
+          slice_head(n = 5) %>% # keep top 5 areas 
           select(ADM1_EN, cases_per_100k_change) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change (%)"),
