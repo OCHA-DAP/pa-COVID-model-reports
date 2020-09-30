@@ -54,8 +54,8 @@ def main(country_iso3='AFG', download_covid=False):
     generate_data_model_comparison(country_iso3,parameters)
     generate_data_model_comparison_lifetime(country_iso3,parameters)
     metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max = generate_model_projections(country_iso3,parameters)
-    create_subnational_map_projected(country_iso3, parameters)
-    create_subnational_map_current(country_iso3, parameters)
+    create_subnational_map_cases100k(country_iso3, parameters, TODAY,"map_cases_per_100k_current.png")
+    create_subnational_map_cases100k(country_iso3, parameters, TWO_WEEKS, "map_cases_per_100k_2w.png")
     create_binary_change_map(country_iso3, parameters)
     calculate_subnational_trends(country_iso3, parameters)
     if os.path.exists(RESULTS_FILENAME):
@@ -399,11 +399,10 @@ def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
                           color=NO_NPI_COLOR,alpha=0.2
                           )
 
-
-def create_subnational_map_projected(country_iso3, parameters):
-    bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=TODAY, max_date=TWO_WEEKS, npi_filter='npi')
+def create_subnational_map_cases100k(country_iso3, parameters,date,output_file):
+    bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=date, max_date=date, npi_filter='npi')
     bucky_npi = bucky_npi[bucky_npi['q'] == 0.5][['adm1', 'cases_per_100k']]
-    bucky_npi = bucky_npi.loc[TWO_WEEKS, :]
+    bucky_npi = bucky_npi.loc[date, :]
     adm1_pcode_prefix = parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix = 'IQG'
@@ -412,13 +411,13 @@ def create_subnational_map_projected(country_iso3, parameters):
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
 
-    fig_title = f'Projected number of cases per 100,000 people on {TWO_WEEKS}'
+    fig_title = f'Projected number of cases per 100,000 people on {date}'
     fig, axis = create_new_subplot(fig_title)
     axis.axis('off')
 
     # get historical max value. Using this instead of current to keep bins over the weeks more equal
     # if patterns change heavily, could also choose to set min_date to a more current date
-    hist_bucky = get_bucky(country_iso3, admin_level='adm1', min_date=TODAY - timedelta(days=90), max_date=FOUR_WEEKS,
+    hist_bucky = get_bucky(country_iso3, admin_level='adm1', min_date=date - timedelta(days=90), max_date=date+timedelta(days=14),
                            npi_filter='npi')
     hist_buckys = hist_bucky[hist_bucky['q'] == 0.5]
     cases_max = hist_buckys["cases_per_100k"].astype(int).max()
@@ -431,41 +430,7 @@ def create_subnational_map_projected(country_iso3, parameters):
     shapefile.plot(column='cases_per_100k', cmap=cmap, norm=norm2, ax=axis)
     fig.colorbar(axis.collections[0], cax=fig.add_axes([0.9, 0.2, 0.03, 0.60]))
     shapefile.boundary.plot(linewidth=0.1, ax=axis)
-    # fig.tight_layout(pad=3.0)
-    fig.savefig(f'Outputs/{country_iso3}/map_cases_per_100k_2w.png',bbox_inches="tight")
-
-def create_subnational_map_current(country_iso3, parameters):
-    bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=TODAY, max_date=TODAY, npi_filter='npi')
-    bucky_npi = bucky_npi[bucky_npi['q'] == 0.5][['adm1', 'cases_per_100k']]
-    adm1_pcode_prefix = parameters['iso2_code']
-    if country_iso3 == 'IRQ':
-        adm1_pcode_prefix = 'IQG'
-    bucky_npi['adm1'] = adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
-    bucky_npi["cases_per_100k"] = bucky_npi["cases_per_100k"].astype(int)
-    shapefile = gpd.read_file(parameters['shape'])
-    shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
-
-    fig_title = f'Number of cases per 100,000 people on {TODAY}'
-    fig, axis = create_new_subplot(fig_title)
-    axis.axis('off')
-
-    # get historical max value. Using this instead of current to keep bins over the weeks more equal
-    # if patterns change heavily, could also choose to set min_date to a more current date
-    hist_bucky = get_bucky(country_iso3, admin_level='adm1', min_date=TODAY - timedelta(days=90), max_date=FOUR_WEEKS,
-                           npi_filter='npi')
-    hist_buckys = hist_bucky[hist_bucky['q'] == 0.5]
-    cases_max = hist_buckys["cases_per_100k"].astype(int).max()
-    num_bins = 5
-    cmap = "YlOrRd"
-    bins_list = np.linspace(0, cases_max * 1.2, num_bins + 1, dtype=int)
-
-    # set bins
-    norm2 = mcolors.BoundaryNorm(boundaries=bins_list, ncolors=256)
-    shapefile.plot(column='cases_per_100k', cmap=cmap, norm=norm2, ax=axis)
-    fig.colorbar(axis.collections[0], cax=fig.add_axes([0.9, 0.2, 0.03, 0.60]))
-    shapefile.boundary.plot(linewidth=0.1, ax=axis)
-    # fig.tight_layout(pad=3.0)
-    fig.savefig(f'Outputs/{country_iso3}/map_cases_per_100k_current.png',bbox_inches="tight")
+    fig.savefig(f'Outputs/{country_iso3}/{output_file}',bbox_inches="tight")
 
 def create_binary_change_map(country_iso3, parameters):
     """
