@@ -1,7 +1,7 @@
 metric_name,metric_value,assessment_date,country
 Estimated doubling time NPI,1475.1229329159562,2020-09-09,SSD
 NPI Reff,1.0032925875115448,2020-09-09,SSD
-Estimated doubling time No NPI,242.76983831845277,2020-09-09,SSD
+Estimated doubling time No NPI,242.7698383184528,2020-09-09,SSD
 No NPI Reff,1.0201099598262442,2020-09-09,SSD
 Current situation - WHO cases today,2555.0,2020-09-09,SSD
 Current situation - WHO deaths today,49.0,2020-09-09,SSD
