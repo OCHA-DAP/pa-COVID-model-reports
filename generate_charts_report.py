@@ -153,6 +153,7 @@ def generate_key_figures(country_iso3,parameters):
     CFR=who_deaths_today/who_cases_today*100
     # get weekly new cases
     # resample('W') is from Mon-Sun
+    who_covid.groupby(['Country_code']).resample('W')
     new_WHO_w=who_covid.groupby(['Country_code']).resample('W').sum()[['New_cases','New_deaths']]
     # the number of days present of each week in the data
     # max 7, first and last week can contain less days
@@ -164,12 +165,12 @@ def generate_key_figures(country_iso3,parameters):
     # percentual change=((cases week n)-(cases week n-1))/(cases week n-1)
     new_WHO_w['New_cases_PercentChange'] = new_WHO_w.groupby('Country_code')['New_cases'].pct_change()
     new_WHO_w['New_deaths_PercentChange'] = new_WHO_w.groupby('Country_code')['New_deaths'].pct_change()
-    # get percentual change of most recent full week
+    # get percentual change of latest full week (who_covid contains data for up to four weeks ahead compared to current date)
     trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'New_cases_PercentChange']*100
     trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'New_deaths_PercentChange']*100
     print(f'Current situation {TODAY}: {who_cases_today:.0f} cases, {who_deaths_today:.0f} deaths')
     print(f'CFR {TODAY}: {CFR:.1f}')
-    print(f'Weekly new cases wrt last week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
+    print(f'Weekly new cases last week wrt previous week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
 
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
     reporting_rate=bucky_npi['CASE_REPORT'].mean()*100
