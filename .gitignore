@@ -17,3 +17,6 @@ Bucky_results/*/plots/*
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+#Personal folders
+Experiments/
