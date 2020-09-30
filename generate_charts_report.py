@@ -423,8 +423,7 @@ def create_subnational_map_cases100k(country_iso3, parameters,date,output_file):
     cases_max = hist_buckys["cases_per_100k"].astype(int).max()
     num_bins = 5
     cmap = "YlOrRd"
-    bins_list = np.linspace(0, cases_max * 1.2, num_bins + 1, dtype=int)
-
+    bins_list = np.concatenate(([0], np.linspace(1, cases_max * 1.2, num_bins + 1, dtype=int)))
     # set bins
     norm2 = mcolors.BoundaryNorm(boundaries=bins_list, ncolors=256)
     shapefile.plot(column='cases_per_100k', cmap=cmap, norm=norm2, ax=axis)
