@@ -34,8 +34,8 @@ No NPI Reff,1.0421798103539448,2020-09-23,SOM
 Current situation - WHO cases today,3465.0,2020-09-23,SOM
 Current situation - WHO deaths today,98.0,2020-09-23,SOM
 CFR,2.8282828282828283,2020-09-23,SOM
-Weekly new cases wrt last week - trend,-43.18181818181818,2020-09-23,SOM
-Weekly new deaths wrt last week - trend,,2020-09-23,SOM
+Weekly new cases wrt last week - trend,648.0,2020-09-23,SOM
+Weekly new deaths wrt last week - trend,inf,2020-09-23,SOM
 Estimated case reporting rate,7.319999998434744,2020-09-23,SOM
 NPI - projected reported cases in 4w - MIN,3665.7715,2020-09-23,SOM
 NPI - projected reported cases in 4w - MAX,3707.36275,2020-09-23,SOM
