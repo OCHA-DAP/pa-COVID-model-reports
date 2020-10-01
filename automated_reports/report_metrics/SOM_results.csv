@@ -37,18 +37,20 @@ CFR,2.8282828282828283,2020-09-23,SOM
 Weekly new cases wrt last week - trend,648.0,2020-09-23,SOM
 Weekly new deaths wrt last week - trend,inf,2020-09-23,SOM
 Estimated case reporting rate,7.319999998434744,2020-09-23,SOM
-NPI - projected reported cases in 4w - MIN,3665.7715,2020-09-23,SOM
-NPI - projected reported cases in 4w - MAX,3707.36275,2020-09-23,SOM
-NPI - projected TREND reported cases in 4w - MIN,5.854790285586075,2020-09-23,SOM
-NPI - projected TREND reported cases in 4w - MAX,7.055801599702456,2020-09-23,SOM
-NPI - projected reported deaths in 4w - MIN,108.341,2020-09-23,SOM
-NPI - projected reported deaths in 4w - MAX,112.7315,2020-09-23,SOM
-NPI - projected TREND reported deaths in 4w - MIN,9.016904809820888,2020-09-23,SOM
-NPI - projected TREND reported deaths in 4w - MAX,13.434795733548,2020-09-23,SOM
-NO NPI - projected reported cases in 4w - MIN,4037.3535,2020-09-23,SOM
-NO NPI - projected reported cases in 4w - MAX,4150.9395,2020-09-23,SOM
-NO NPI - projected reported deaths in 4w - MIN,115.32425,2020-09-23,SOM
-NO NPI - projected reported deaths in 4w - MAX,123.67200000000004,2020-09-23,SOM
+NPI - projected reported cases in 4w - MIN,3665.0,2020-09-23,SOM
+NPI - projected reported cases in 4w - MAX,3707.0,2020-09-23,SOM
+NPI - projected TREND reported cases in 4w - MIN,5.833092694195784,2020-09-23,SOM
+NPI - projected TREND reported cases in 4w - MAX,7.045913947444412,2020-09-23,SOM
+NPI - projected reported deaths in 4w - MIN,108.0,2020-09-23,SOM
+NPI - projected reported deaths in 4w - MAX,112.0,2020-09-23,SOM
+NPI - projected TREND reported deaths in 4w - MIN,9.090909090909092,2020-09-23,SOM
+NPI - projected TREND reported deaths in 4w - MAX,13.131313131313133,2020-09-23,SOM
+NO NPI - projected reported cases in 4w - MIN,4037.0,2020-09-23,SOM
+NO NPI - projected reported cases in 4w - MAX,4150.0,2020-09-23,SOM
+NO NPI - projected reported deaths in 4w - MIN,115.0,2020-09-23,SOM
+NO NPI - projected reported deaths in 4w - MAX,123.0,2020-09-23,SOM
+Maximum number of extra cases if NPIs are lifted,485.0,2020-09-23,SOM
+Maximum number of extra deaths if NPIs are lifted,15.0,2020-09-23,SOM
 Hospitalizations current situation - MIN,15.86125,2020-09-23,SOM
 Hospitalizations current situation - MAX,27.143,2020-09-23,SOM
 NPI Hospitalizations projections 4w - MIN,25.36175,2020-09-23,SOM

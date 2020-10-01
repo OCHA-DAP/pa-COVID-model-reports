@@ -34,21 +34,23 @@ No NPI Reff,1.0188007103686976,2020-09-23,SDN
 Current situation - WHO cases today,13578.0,2020-09-23,SDN
 Current situation - WHO deaths today,836.0,2020-09-23,SDN
 CFR,6.157018706731478,2020-09-23,SDN
-Weekly new cases wrt last week - trend,9.23076923076922,2020-09-23,SDN
+Weekly new cases wrt last week - trend,15.384615384615374,2020-09-23,SDN
 Weekly new deaths wrt last week - trend,-100.0,2020-09-23,SDN
 Estimated case reporting rate,3.3962369561351387,2020-09-23,SDN
-NPI - projected reported cases in 4w - MIN,14729.90175,2020-09-23,SDN
-NPI - projected reported cases in 4w - MAX,15184.9585,2020-09-23,SDN
-NPI - projected TREND reported cases in 4w - MIN,5.6934548622435335,2020-09-23,SDN
-NPI - projected TREND reported cases in 4w - MAX,8.958685064195437,2020-09-23,SDN
-NPI - projected reported deaths in 4w - MIN,933.6930000000003,2020-09-23,SDN
-NPI - projected reported deaths in 4w - MAX,982.99825,2020-09-23,SDN
-NPI - projected TREND reported deaths in 4w - MIN,7.190250056970796,2020-09-23,SDN
-NPI - projected TREND reported deaths in 4w - MAX,12.850613877435787,2020-09-23,SDN
-NO NPI - projected reported cases in 4w - MIN,14792.9215,2020-09-23,SDN
-NO NPI - projected reported cases in 4w - MAX,15252.51725,2020-09-23,SDN
-NO NPI - projected reported deaths in 4w - MIN,936.717,2020-09-23,SDN
-NO NPI - projected reported deaths in 4w - MAX,986.76125,2020-09-23,SDN
+NPI - projected reported cases in 4w - MIN,14729.0,2020-09-23,SDN
+NPI - projected reported cases in 4w - MAX,15184.0,2020-09-23,SDN
+NPI - projected TREND reported cases in 4w - MIN,5.690298507462686,2020-09-23,SDN
+NPI - projected TREND reported cases in 4w - MAX,8.955223880597014,2020-09-23,SDN
+NPI - projected reported deaths in 4w - MIN,933.0,2020-09-23,SDN
+NPI - projected reported deaths in 4w - MAX,982.0,2020-09-23,SDN
+NPI - projected TREND reported deaths in 4w - MIN,7.1182548794489096,2020-09-23,SDN
+NPI - projected TREND reported deaths in 4w - MAX,12.743972445464982,2020-09-23,SDN
+NO NPI - projected reported cases in 4w - MIN,14792.0,2020-09-23,SDN
+NO NPI - projected reported cases in 4w - MAX,15252.0,2020-09-23,SDN
+NO NPI - projected reported deaths in 4w - MIN,936.0,2020-09-23,SDN
+NO NPI - projected reported deaths in 4w - MAX,986.0,2020-09-23,SDN
+Maximum number of extra cases if NPIs are lifted,523.0,2020-09-23,SDN
+Maximum number of extra deaths if NPIs are lifted,53.0,2020-09-23,SDN
 Hospitalizations current situation - MIN,167.84775,2020-09-23,SDN
 Hospitalizations current situation - MAX,260.3884999999999,2020-09-23,SDN
 NPI Hospitalizations projections 4w - MIN,210.623,2020-09-23,SDN

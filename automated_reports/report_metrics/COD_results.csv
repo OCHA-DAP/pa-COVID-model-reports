@@ -37,18 +37,20 @@ CFR,2.57555597795096,2020-09-23,COD
 Weekly new cases wrt last week - trend,1.9417475728155331,2020-09-23,COD
 Weekly new deaths wrt last week - trend,-50.0,2020-09-23,COD
 Estimated case reporting rate,8.64024801280907,2020-09-23,COD
-NPI - projected reported cases in 4w - MIN,10750.726249999996,2020-09-23,COD
-NPI - projected reported cases in 4w - MAX,10926.83474999999,2020-09-23,COD
-NPI - projected TREND reported cases in 4w - MIN,3.8258220747469185,2020-09-23,COD
-NPI - projected TREND reported cases in 4w - MAX,5.526601106940212,2020-09-23,COD
-NPI - projected reported deaths in 4w - MIN,289.1084999999999,2020-09-23,COD
-NPI - projected reported deaths in 4w - MAX,306.2519999999999,2020-09-23,COD
-NPI - projected TREND reported deaths in 4w - MIN,5.357744805607719,2020-09-23,COD
-NPI - projected TREND reported deaths in 4w - MAX,11.605228010269423,2020-09-23,COD
-NO NPI - projected reported cases in 4w - MIN,11395.061749999995,2020-09-23,COD
-NO NPI - projected reported cases in 4w - MAX,11725.216249999996,2020-09-23,COD
-NO NPI - projected reported deaths in 4w - MIN,304.4624999999998,2020-09-23,COD
-NO NPI - projected reported deaths in 4w - MAX,329.1827499999997,2020-09-23,COD
+NPI - projected reported cases in 4w - MIN,10750.0,2020-09-23,COD
+NPI - projected reported cases in 4w - MAX,10926.0,2020-09-23,COD
+NPI - projected TREND reported cases in 4w - MIN,3.8246088468224837,2020-09-23,COD
+NPI - projected TREND reported cases in 4w - MAX,5.524435000965811,2020-09-23,COD
+NPI - projected reported deaths in 4w - MIN,289.0,2020-09-23,COD
+NPI - projected reported deaths in 4w - MAX,306.0,2020-09-23,COD
+NPI - projected TREND reported deaths in 4w - MIN,5.474452554744526,2020-09-23,COD
+NPI - projected TREND reported deaths in 4w - MAX,11.678832116788321,2020-09-23,COD
+NO NPI - projected reported cases in 4w - MIN,11395.0,2020-09-23,COD
+NO NPI - projected reported cases in 4w - MAX,11725.0,2020-09-23,COD
+NO NPI - projected reported deaths in 4w - MIN,304.0,2020-09-23,COD
+NO NPI - projected reported deaths in 4w - MAX,329.0,2020-09-23,COD
+Maximum number of extra cases if NPIs are lifted,975.0,2020-09-23,COD
+Maximum number of extra deaths if NPIs are lifted,40.0,2020-09-23,COD
 Hospitalizations current situation - MIN,60.93125000000001,2020-09-23,COD
 Hospitalizations current situation - MAX,98.15225,2020-09-23,COD
 NPI Hospitalizations projections 4w - MIN,44.59575,2020-09-23,COD

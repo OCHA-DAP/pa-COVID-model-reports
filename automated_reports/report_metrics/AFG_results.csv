@@ -37,18 +37,20 @@ CFR,3.6960302844280744,2020-09-23,AFG
 Weekly new cases wrt last week - trend,-54.59057071960298,2020-09-23,AFG
 Weekly new deaths wrt last week - trend,-42.85714285714286,2020-09-23,AFG
 Estimated case reporting rate,4.965864506126487,2020-09-23,AFG
-NPI - projected reported cases in 4w - MIN,39914.23824999998,2020-09-23,AFG
-NPI - projected reported cases in 4w - MAX,40132.12824999996,2020-09-23,AFG
-NPI - projected TREND reported cases in 4w - MIN,2.06577567327353,2020-09-23,AFG
-NPI - projected TREND reported cases in 4w - MAX,2.622948071808464,2020-09-23,AFG
-NPI - projected reported deaths in 4w - MIN,1490.4050000000007,2020-09-23,AFG
-NPI - projected reported deaths in 4w - MAX,1509.079249999999,2020-09-23,AFG
-NPI - projected TREND reported deaths in 4w - MIN,3.0703149636794067,2020-09-23,AFG
-NPI - projected TREND reported deaths in 4w - MAX,4.361749727525696,2020-09-23,AFG
-NO NPI - projected reported cases in 4w - MIN,40623.67549999996,2020-09-23,AFG
-NO NPI - projected reported cases in 4w - MAX,41043.8605,2020-09-23,AFG
-NO NPI - projected reported deaths in 4w - MIN,1505.9287499999994,2020-09-23,AFG
-NO NPI - projected reported deaths in 4w - MAX,1531.2347500000005,2020-09-23,AFG
+NPI - projected reported cases in 4w - MIN,39914.0,2020-09-23,AFG
+NPI - projected reported cases in 4w - MAX,40132.0,2020-09-23,AFG
+NPI - projected TREND reported cases in 4w - MIN,2.066179102950954,2020-09-23,AFG
+NPI - projected TREND reported cases in 4w - MAX,2.623638316370889,2020-09-23,AFG
+NPI - projected reported deaths in 4w - MIN,1490.0,2020-09-23,AFG
+NPI - projected reported deaths in 4w - MAX,1509.0,2020-09-23,AFG
+NPI - projected TREND reported deaths in 4w - MIN,3.0428769017980635,2020-09-23,AFG
+NPI - projected TREND reported deaths in 4w - MAX,4.356846473029045,2020-09-23,AFG
+NO NPI - projected reported cases in 4w - MIN,40623.0,2020-09-23,AFG
+NO NPI - projected reported cases in 4w - MAX,41043.0,2020-09-23,AFG
+NO NPI - projected reported deaths in 4w - MIN,1505.0,2020-09-23,AFG
+NO NPI - projected reported deaths in 4w - MAX,1531.0,2020-09-23,AFG
+Maximum number of extra cases if NPIs are lifted,1129.0,2020-09-23,AFG
+Maximum number of extra deaths if NPIs are lifted,41.0,2020-09-23,AFG
 Hospitalizations current situation - MIN,100.90374999999996,2020-09-23,AFG
 Hospitalizations current situation - MAX,165.9872500000001,2020-09-23,AFG
 NPI Hospitalizations projections 4w - MIN,121.3165,2020-09-23,AFG

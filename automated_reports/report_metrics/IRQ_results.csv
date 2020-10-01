@@ -37,18 +37,20 @@ CFR,2.6503449539043897,2020-09-23,IRQ
 Weekly new cases wrt last week - trend,5.388805996044277,2020-09-23,IRQ
 Weekly new deaths wrt last week - trend,-19.272727272727273,2020-09-23,IRQ
 Estimated case reporting rate,5.405804812472118,2020-09-23,IRQ
-NPI - projected reported cases in 4w - MIN,379501.662,2020-09-23,IRQ
-NPI - projected reported cases in 4w - MAX,422375.52549999976,2020-09-23,IRQ
-NPI - projected TREND reported cases in 4w - MIN,16.768759140538428,2020-09-23,IRQ
-NPI - projected TREND reported cases in 4w - MAX,29.960606085482222,2020-09-23,IRQ
-NPI - projected reported deaths in 4w - MIN,10962.081000000002,2020-09-23,IRQ
-NPI - projected reported deaths in 4w - MAX,11804.288250000005,2020-09-23,IRQ
-NPI - projected TREND reported deaths in 4w - MIN,22.726812436426638,2020-09-23,IRQ
-NPI - projected TREND reported deaths in 4w - MAX,32.155807825472664,2020-09-23,IRQ
-NO NPI - projected reported cases in 4w - MIN,425572.62175000005,2020-09-23,IRQ
-NO NPI - projected reported cases in 4w - MAX,506230.5745,2020-09-23,IRQ
-NO NPI - projected reported deaths in 4w - MIN,11509.871249999995,2020-09-23,IRQ
-NO NPI - projected reported deaths in 4w - MAX,12508.599999999995,2020-09-23,IRQ
+NPI - projected reported cases in 4w - MIN,379501.0,2020-09-23,IRQ
+NPI - projected reported cases in 4w - MAX,422375.0,2020-09-23,IRQ
+NPI - projected TREND reported cases in 4w - MIN,16.76881988418533,2020-09-23,IRQ
+NPI - projected TREND reported cases in 4w - MAX,29.960738703146443,2020-09-23,IRQ
+NPI - projected reported deaths in 4w - MIN,10962.0,2020-09-23,IRQ
+NPI - projected reported deaths in 4w - MAX,11804.0,2020-09-23,IRQ
+NPI - projected TREND reported deaths in 4w - MIN,22.727272727272727,2020-09-23,IRQ
+NPI - projected TREND reported deaths in 4w - MAX,32.154052843708016,2020-09-23,IRQ
+NO NPI - projected reported cases in 4w - MIN,425572.0,2020-09-23,IRQ
+NO NPI - projected reported cases in 4w - MAX,506230.0,2020-09-23,IRQ
+NO NPI - projected reported deaths in 4w - MIN,11509.0,2020-09-23,IRQ
+NO NPI - projected reported deaths in 4w - MAX,12508.0,2020-09-23,IRQ
+Maximum number of extra cases if NPIs are lifted,126729.0,2020-09-23,IRQ
+Maximum number of extra deaths if NPIs are lifted,1546.0,2020-09-23,IRQ
 Hospitalizations current situation - MIN,6659.619999999999,2020-09-23,IRQ
 Hospitalizations current situation - MAX,11315.056750000005,2020-09-23,IRQ
 NPI Hospitalizations projections 4w - MIN,4546.58575,2020-09-23,IRQ
