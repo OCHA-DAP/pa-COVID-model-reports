@@ -1,13 +1,14 @@
 ---
 output:  
-  pdf_document:
-   md_extensions: +raw_attribute
-   latex_engine: xelatex
+  pdf_document: 
+    md_extensions: +raw_attribute
+    latex_engine: xelatex
+    fig_caption: yes
   classoption: twocolumn
   extra_dependencies: xcolor
 fontsize: 11pt
 geometry: margin=0.6in
-urlcolor: centreGreen
+urlcolor: centreBlue
 header-includes:
     - \usepackage{setspace}\singlespacing
     - \usepackage{colortbl}
@@ -23,6 +24,7 @@ header-includes:
 ---
 \arrayrulecolor{white}
 \definecolor{centreGreen}{HTML}{1bb580}
+\definecolor{centreBlue}{HTML}{1f69b3}
 \definecolor{withNPIColor}{HTML}{d9ead3}
 \definecolor{noNPIColor}{HTML}{f4cccc}
 \definecolor{withNPIFontColor}{HTML}{20aa6c}
@@ -39,6 +41,28 @@ header-includes:
 \captionsetup[table]{labelformat=empty}
 
 ![](visual_assets/double_logo_header.jpg)
+
+
+```{r key_messages, echo = FALSE}
+
+# NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
+
+key_messages_current_situation <- "
+* A total of 39,096 cases and 1,445 deaths have been reported. 
+* The current number of severe cases requiring healthcare support is estimated at 101 - 166 and is stable with respect to our last update.
+* Cases had a first peak in early June and deaths had a first peak in early July. 
+"   
+
+key_messages_national_projections <- "
+* In the next 4 weeks, the total number of cases is projected to reach 39,914 - 40,132 (a 2-3% increase) and the total number of deaths is projected to reach 1,490 - 1,509 (a 3-4% increase) if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 1,130 more cases and up to 41 more deaths; see sections 2 and 3 for details).
+* The number of severe cases requiring healthcare is projected to increase, and to increase at least 3 times more if NPIs are lifted (see section 3).
+"
+
+key_messages_subnational_projections <- "
+* Assuming all current NPIs are maintained, the number of active cases is expected to decrease in all regions (see section 4).
+"
+```
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
 library(tidyverse)
@@ -130,35 +154,17 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 
 ```
 
-```{r key_messages, echo = FALSE}
+```{r risk_levels, echo = FALSE}
 
-# NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
-
-key_messages_current_situation <- "
-* A total of 39,096 cases and 1,445 deaths have been reported. 
-* The current number of severe cases requiring healthcare support is estimated at 101 - 166 and is stable with respect to our last update.
-* Cases had a first peak in early June and deaths had a first peak in early July. 
-"   
-
-key_messages_national_projections <- "
-* In the next 4 weeks, the total number of cases is projected to reach 39,914 - 40,132 (a 2-3% increase) and the total number of deaths is projected to reach 1,490 - 1,509 (a 3-4% increase) if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 1,130 more cases and up to 41 more deaths; see sections 2 and 3 for details).
-* The number of severe cases requiring healthcare is projected to increase, and to increase at least 3 times more if NPIs are lifted (see section 3).
-"
-
-key_messages_subnational_projections <- "
-* Assuming all current NPIs are maintained, the number of active cases is expected to decrease in all regions (see section 4).
-"
+effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'), 
+                                  'incidence' = c('25+', '10-25', '1-10', '<1'), 
+                                  'effort' = c('Stay-at-home orders necessary', 
+                                               'Strategic choices must be made about which package of non-pharmaceutical interventions to use for control. Stay-at-home orders are advised, unless viral testing and contact tracing capacity are implementable                                                    at levels meeting surge indicator standards.',
+                                               'Strategic choices must be made about which package of non-pharmaceutical interventions to use for control',
+                                               'On track for containment, conditional on continuing use of viral testing and contact tracing for surveillance and to contain spikes and outbreaks.')
+                                  )
 ```
 
-```{r population_data, include = FALSE}
-#populations <- read.csv("population_sizes.csv")
-#country_population_size <- populations %>%
-#                            filter(ADM0_NAME == country) %>%
-#                            select(POPULATION) %>%
-#                            as.numeric()
-  
-```
 
 ```{r who_data, include = FALSE}
 who_data <- read.csv(who_data_filename)
@@ -179,6 +185,7 @@ current_cum_deaths <- who_data %>%
 ```
 
 ```{r graphs, include = FALSE}
+current_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_incidence_risk_graph.png")
 cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
@@ -204,11 +211,11 @@ subnational_projections$cases_per_100k_change <- as.numeric(subnational_projecti
 
 &nbsp;
 
-This report summarizes the COVID-19 model results for Afghanistan, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r assignment_date`. The data is sourced from WHO and the MOPH. For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
+This report summarizes the COVID-19 model results for Afghanistan, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r format(assignment_date, format="%d %B %Y")`. The data is sourced from World Health Organization (WHO) and the country's Ministry of Public Health (MOPH). For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
 
 ![](visual_assets/green_horizontal_line.png){height=30px}
 
-\Large \textbf{1. Key Messages}[^1][^2]
+\Large \textbf{`r colorize('1. Key Messages', 'centreGreen')`}[^1][^2]
 
 \large \textbf{Current Situation} (as of `r format(assignment_date, "%d %b %Y")`)
 \normalsize
@@ -224,14 +231,43 @@ This report summarizes the COVID-19 model results for Afghanistan, developed by 
 
 \newpage
 
-\Large \textbf{2. Key Figures} (as of `r format(assignment_date, "%d %b %Y")`)
+\Large \textbf{`r colorize('2. Current Situation', 'centreGreen')`} \normalsize (as of `r format(assignment_date, "%d %b %Y")`)
 
-\large \textbf{Current situation}
+&nbsp;
+
+\large \textbf{`r colorize('Containment Progress', 'centreBlue')`}
+
+![](`r current_incidence_risk_graph_path`){width=450px} 
+
+.center[Current Daily New Cases Per 100k People (7-day average)]
+
+```{r containment_progress, echo = FALSE}
+kbl(effort_needed_table, 
+    col.names = c("Risk Level", "Case Incidence*", "Intensity of Control Effort Needed")) %>%
+  row_spec(0,bold=TRUE) %>% 
+  kable_styling(latex_options=c("scale_down", "hold_position")) %>%
+  column_spec(3, width = "16cm") %>%
+  column_spec(2, width = "2cm") %>%
+  column_spec(1, width = "2cm") %>%
+  row_spec(1, background = "#df431d") %>%
+  row_spec(2, background = "#f88c29") %>%
+  row_spec(3, background = "#f8b931") %>%
+  row_spec(4, background = "#00a67e") %>%
+  footnote(general_title = "", 
+           symbol = c("Daily new cases per 100,000 people"),
+           "Source: Harvard Global Health Institute, Edmond J. Safra Center for Ethics and partners",
+           footnote_order = c('symbol', 'general')
+           )
+```
+
+
+For additional guidance on control effort needed, please see [Key Metrics for COVID Suppression](https://globalepidemics.org/wp-content/uploads/2020/09/key_metrics_and_indicators_v5-1.pdf) by the Harvard Global Health Institute and Edmond J Safra Center for Ethics.
+
+&nbsp;
+
+\large \textbf{`r colorize('Key Figures', 'centreBlue')`}
 
 ```{r section2_current_figures, echo = FALSE}
-
-# current_figures_path <- paste0("../Outputs/", country_iso_3_code, "/current_figures.png")
-# current_severe_path <- paste0("../Outputs/", country_iso_3_code, "/current_severe_figures.png")
 
 data.frame(Cases = current_cum_cases, 
             Deaths = current_cum_deaths,
@@ -248,6 +284,13 @@ data.frame(Cases = current_cum_cases,
                      title_format = "italic")
 
 ```
+\newpage
+
+\Large \textbf{`r colorize('3. Subnational Projections', 'centreGreen')`}
+
+{`r colorize('Key Figures', 'centreBlue')`}
+
+\large \textbf{Cases and deaths projections for the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
 
 \large \textbf{Projected situation in the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
 
@@ -261,9 +304,6 @@ data.frame(Cases = current_cum_cases,
 
 [^2]: \textbf{Severe cases} refers to the number of people which will have severe symptoms and may require healthcare support. It is calculated as a proportion of the reported cases, and is based on planning parameters for case severity and the vulnerability of a given region.
 
-\Large \textbf{3. National Projections}
-
-\large \textbf{Cases and deaths projections for the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
 
 Note that deaths typically lag reported cases by 2-8 weeks.
 
@@ -287,7 +327,7 @@ Note that deaths typically lag reported cases by 2-8 weeks.
 
 \newpage
 
-\Large \textbf{4. Subnational Projections}
+\Large \textbf{`r colorize('4. National Summary', 'centreGreen')`}
 
 \large \textbf{Projected situation in the next 2 weeks (by `r format(projection_date_2w, "%d %b %Y")`)} \footnotesize With current NPIs[^3] maintained
 
