@@ -134,6 +134,10 @@ def generate_key_figures(country_iso3,parameters):
 
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today:.0f} cases reported (cumulative), {bucky_npi_deaths_today:.0f} deaths (cumulative)')
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today_notrep:.0f} cases (cumulative)')
+    subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
+    print(subnational_covid)
+    print(subnational_covid.loc[TODAY,HLX_TAG_TOTAL_CASES])
+
 
     #this are the expected percentual change in CUMULATIVE cases/deaths
     rel_inc_min_cases_npi=(min_cases_npi-bucky_npi_cases_today)/bucky_npi_cases_today*100
