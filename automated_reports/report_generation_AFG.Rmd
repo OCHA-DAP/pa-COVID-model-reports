@@ -111,6 +111,7 @@ report_metrics <- report_metrics_all_dates %>% filter(assessment_date == assignm
 # assign values to variables
 cfr <- report_metrics %>% filter(metric_name == 'CFR') %>% select(metric_value)
 cfr <- round(cfr, 1)
+cfr_text <- paste0(cfr, '%')
 
 npi_projected_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
 npi_projected_cases_4w_LOW <- format(round(npi_projected_cases_4w_LOW, 0), big.mark = ",")
@@ -187,7 +188,7 @@ current_cum_deaths <- who_data %>%
 ```
 
 ```{r graphs, include = FALSE}
-current_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_incidence_risk_graph.png")
+current_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_current.png")
 cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
@@ -221,15 +222,15 @@ This report summarizes the COVID-19 model results for Afghanistan, developed by 
 
 \Large \textbf{`r colorize('1. Key Messages', 'centreGreen')`}[^1][^2]
 
-\large \textbf{Current Situation} (as of `r format(assignment_date, "%d %b %Y")`)
+\large \textbf{Current Situation} \normalsize (as of `r format(assignment_date, "%d %b %Y")`)
 \normalsize
 `r key_messages_current_situation`
 
-\large \textbf{National Projections} (in the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
+\large \textbf{National Projections} \normalsize (in the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
 \normalsize
 `r key_messages_national_projections`
 
-\large \textbf{Subnational Projections} (in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
+\large \textbf{Subnational Projections} \normalsize (in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
 \normalsize
 `r key_messages_subnational_projections`
 
@@ -264,33 +265,56 @@ kbl(effort_needed_table,
     row_spec(4, background = "#00a67e")
 ```
 
-\large \textbf{`r colorize('Key Figures', 'centreBlue')`}
+\large \textbf{`r colorize('Key Figures: Cumulative Cases and Deaths', 'centreBlue')`}
 
-```{r section2_current_figures, echo = FALSE}
+```{r section2_cumulative_figures, echo = FALSE}
 
 x <- data.frame(Cases = current_cum_cases, 
-            Deaths = current_cum_deaths,
-            Severe = paste0(hospitalizations_current_LOW, " - ", hospitalizations_current_HI)) 
-row.names(x) <- "Cumulative Counts"
+            Deaths = current_cum_deaths) 
+row.names(x) <- "Reported Counts"
 
 x %>% 
             kable(align = 'c',
-                  col.names = c('Reported Cases', 'Reported Deaths', 'Severe Cases Estimate'),
+                  col.names = c('Cumulative Cases', 'Cumulative Deaths'),
                   row.names = TRUE) %>%
-            kableExtra::kable_styling(position = 'center',
+            kableExtra::kable_styling(row_label_position = 'r',
+                                      position = 'center',
                                       font_size = 11) %>%
             row_spec(0, bold = FALSE, font_size = 12) 
 
+
+          
 ```
-Case Fatality Rate: `r paste0(cfr, '%')`
+
+\footnotesize
+
+\begin{center}
+Case Fatality Rate: `r cfr`\%
+\end{center}
+
+\large \textbf{`r colorize('Key Figures: Current Severe Cases', 'centreBlue')`}
+
+```{r section2_hospitalization_estimate, echo = FALSE}
+
+x <- data.frame(Hospitalizations = paste0(hospitalizations_current_LOW, " - ", hospitalizations_current_HI))
+row.names(x) <- "Estimate"
+
+x %>% 
+            kable(format = "latex", 
+                  align = 'c',
+                  col.names = c('Current Hospitalizations'),
+                  row.names = TRUE) %>%
+            kableExtra::kable_styling(row_label_position = 'r',
+                                      position = 'center',
+                                      font_size = 11) %>%
+            row_spec(0, bold = FALSE, font_size = 12, hline_after = T) 
+```
 
 \newpage
 
-\Large \textbf{`r colorize('3. Subnational Projections', 'centreGreen')`}
+\Large \textbf{`r colorize('3. National Projections', 'centreGreen')`} \normalsize (for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
 
-\large \textbf{`r colorize('Key Figures', 'centreBlue')`}
-
-\large \textbf{Projected cases and deaths for the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
+\large \textbf{`r colorize('Projected Cases and Deaths', 'centreBlue')`}
 
 |  | Projected Cases | | Projected Deaths | 
 |------------:|:-----|:---------|:------|
@@ -312,7 +336,9 @@ Case Fatality Rate: `r paste0(cfr, '%')`
 
 \newpage
 
-\large \textbf{Severe cases projections for the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
+\large \textbf{`r colorize('Projected Severe Cases', 'centreBlue')`}
+
+\large \textbf{Severe cases projections} 
 
 \normalsize The figures below show the projected trends for severe cases requiring hospitalizations. In green are the projections under the "Current NPIs maintained" scenario while in red are the projections under "No NPIs in place" scenario. 
 
@@ -327,20 +353,15 @@ Case Fatality Rate: `r paste0(cfr, '%')`
 
 \newpage
 
-\Large \textbf{`r colorize('4. National Summary', 'centreGreen')`}
+\Large \textbf{`r colorize('4. Subnational Projections', 'centreGreen')`} \normalsize (for the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`, if current NPIs[^3] maintained)
 
-\large \textbf{Projected situation in the next 2 weeks (by `r format(projection_date_2w, "%d %b %Y")`)} \footnotesize With current NPIs[^3] maintained
-
-\large \textbf{Active cases per 100,000 people}
+\large \textbf{`r colorize('Projected Cases', 'centreBlue')`}
 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{`r subnational_cases_per_100k_graph_path`}
 \end{center}
 
-![](visual_assets/cases_per_100k_manual_legend.png){width=200px}
-
-
-\large \textbf{Largest Increases and Decreases In Active Cases}
+\large \textbf{`r colorize('Largest Increases and Decreases In New Cases', 'centreBlue')`}
 
 ```{r subnational_increases, echo = FALSE}
 
