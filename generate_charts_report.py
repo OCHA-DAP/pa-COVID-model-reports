@@ -23,6 +23,7 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
 RESULTS_FILENAME=f'automated_reports/report_metrics/{country_iso_3}_results.csv'
+NPISHEET_PATH=f"Outputs/{country_iso_3}/npis_googlesheet.csv"
 
 NPI_COLOR='green'
 NO_NPI_COLOR='red'
@@ -64,11 +65,20 @@ def main(country_iso3='AFG', download_covid=False):
     df_all = df_all.append(results_df)
     df_all.to_csv(RESULTS_FILENAME, index=False)
 
+    retrieve_current_npis(parameters["npis_url"],NPISHEET_PATH)
+
     #create graphs
     generate_data_model_comparison(country_iso3,parameters)
     generate_data_model_comparison_lifetime(country_iso3,parameters)
     create_subnational_map(country_iso3, parameters)
     calculate_subnational_trends(country_iso3, parameters)
+
+def retrieve_current_npis(npis_url,output_path):
+    download_url(npis_url, output_path)
+    df_npis_sheet = pd.read_csv(output_path)
+    df_npis_model = df_npis_sheet[df_npis_sheet["final_input"] == "Yes"]
+    print("Currently in place NPIs")
+    print(df_npis_model[["acaps_category", "acaps_measure", "bucky_measure", "affected_pcodes", "compliance_level", "start_date","end_date"]])
 
 def extract_reff(country_iso3):
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
@@ -135,8 +145,9 @@ def generate_key_figures(country_iso3,parameters):
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today:.0f} cases reported (cumulative), {bucky_npi_deaths_today:.0f} deaths (cumulative)')
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today_notrep:.0f} cases (cumulative)')
     subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
-    print(subnational_covid)
-    print(subnational_covid.loc[TODAY,HLX_TAG_TOTAL_CASES])
+    # print(subnational_covid)
+    # print("Latest number of cases reported subnational",subnational_covid.iloc[-1])
+    # print(subnational_covid.loc[TODAY,HLX_TAG_TOTAL_CASES])
 
 
     #this are the expected percentual change in CUMULATIVE cases/deaths
