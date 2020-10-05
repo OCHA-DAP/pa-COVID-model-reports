@@ -199,7 +199,7 @@ lifetime_new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lif
 lifetime_new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_deaths.png")
 hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
 subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
-
+risk_levels_quadrants_path <- paste0("visual_assets/risk_levels_quadrants.png")
 ```
 
 ```{r subnational_projections_data, include = FALSE}
@@ -329,9 +329,13 @@ x %>%
 
 \normalsize The figures below show the comparison between the reported data from two different sources: national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue. Projected trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
 
-![](`r lifetime_new_cases_graph_path`){width=300px} ![](`r lifetime_new_deaths_graph_path`){width=300px}
+&nbsp;
 
-![](`r lifetime_cum_cases_graph_path`){width=300px} ![](`r lifetime_cum_deaths_graph_path`){width=300px}
+![](`r lifetime_new_cases_graph_path`){width=350px} ![](`r lifetime_new_deaths_graph_path`){width=350px}
+
+&nbsp;
+
+![](`r lifetime_cum_cases_graph_path`){width=350px} ![](`r lifetime_cum_deaths_graph_path`){width=350px}
 
 
 \newpage
@@ -353,15 +357,17 @@ x %>%
 
 \newpage
 
-\Large \textbf{`r colorize('4. Subnational Projections', 'centreGreen')`} \normalsize (for the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`, if current NPIs[^3] maintained)
+\Large \textbf{`r colorize('4. Subnational Projections', 'centreGreen')`} \normalsize (for the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
+
+\footnotesize Assuming current NPIs[^3] are maintained.
 
 \large \textbf{`r colorize('Projected Cases', 'centreBlue')`}
 
-\begin{center}
-\includegraphics[width=0.5\textwidth]{`r subnational_cases_per_100k_graph_path`}
-\end{center}
+![](`r subnational_cases_per_100k_graph_path`){width=375px} ![](`r risk_levels_quadrants_path`){width=350px}
 
-\large \textbf{`r colorize('Largest Increases and Decreases In New Cases', 'centreBlue')`}
+&nbsp;
+
+\large \textbf{`r colorize('Projected Changes In Daily New Cases', 'centreBlue')`}
 
 ```{r subnational_increases, echo = FALSE}
 
@@ -393,11 +399,6 @@ increases_result <- if (computeNbrIncreasingRegions(subnational_projections) == 
 
 ```
 
-
-`r increases_result`
-
-&nbsp;
-
 ```{r subnational_decreases, echo = FALSE, results = 'asis'}
 
 computeNbrDecreasingRegions <- function(subnational_projections_dataframe) {
@@ -424,10 +425,33 @@ decreases_result <- if (computeNbrDecreasingRegions(subnational_projections) == 
   "Highest Decreases: No region showing a decrease in cases."
   }else{
   produceDecreasesTable(subnational_projections)
-}
+  }
+
 ```
 
-`r decreases_result`
+```{r subnational_deltas, echo = FALSE}
+increases_nrow <- subnational_projections %>%
+                          arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
+                          filter(cases_per_100k_change >= 0) %>%
+                          nrow()
+
+decreases_nrow <- subnational_projections %>%
+                          arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
+                          filter(cases_per_100k_change < 0) %>%
+                          nrow()
+
+subnational_projections %>%
+          arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
+          select(ADM1_EN, cases_per_100k_change) %>%
+          kable(format = 'latex',
+                col.names = c("Region", "Change (%)")) %>%
+          pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow)) %>%
+          row_spec(0, bold = TRUE) %>%
+          kable_styling(latex_options = c('striped', 'hold_position'))
+
+```
+
+
 
 [^3]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place in Afghanistan are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
