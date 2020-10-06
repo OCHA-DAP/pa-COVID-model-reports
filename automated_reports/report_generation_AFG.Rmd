@@ -19,6 +19,7 @@ header-includes:
     - \usepackage{fancyhdr}
     - \pagestyle{fancy}
     - \usepackage{float}
+    - \captionsetup[figure]{labelformat=empty}
 #params:
 #  assignment_date: !r as.Date('2020-09-01')    
 editor_options: 
@@ -200,6 +201,8 @@ lifetime_new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/li
 hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
 subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
 risk_levels_quadrants_path <- paste0("visual_assets/risk_levels_quadrants.png")
+
+### ADD ME: total cases and total deaths and most recent date from MOPH
 ```
 
 ```{r subnational_projections_data, include = FALSE}
@@ -253,15 +256,13 @@ This report summarizes the COVID-19 model results for Afghanistan, developed by 
 
 The key performance indicators below can be used to evaluate how effective the response has been in containing the spread of the virus. The map on the left illustrates risk levels to help decision-makers and community members know where they are. The levels communicate whether a region is on track for containment and what intensity of effort is needed to control COVID at varying levels of community spread. The map on the right represents the current need for healthcare support.
 
-&nbsp;
-
 ![Current incidence per 100k people](`r current_incidence_risk_graph_path`){width=400px}
 
 ```{r containment_progress_table, echo = FALSE}
 kbl(effort_needed_table, 
     align = 'l',
     col.names = c("Risk Level", "Case Incidence*", "Intensity of Control Effort Needed")) %>%
-    add_footnote(c("*Daily new cases per 100,000 people", "See \\href{https://globalepidemics.org/wp-content/uploads/2020/09/key_metrics_and_indicators_v5-1.pdf}{Key Metrics for COVID Suppression} for additional guidance on control effort needed."),
+    add_footnote(c("*Daily new cases per 100,000 people as reported by WHO", "See \\href{https://globalepidemics.org/wp-content/uploads/2020/09/key_metrics_and_indicators_v5-1.pdf}{Key Metrics for COVID Suppression} for additional guidance on control effort needed."),
                 notation = "none", 
                 escape = F) %>%
     row_spec(0, bold = TRUE, font_size = 11) %>% 
@@ -281,7 +282,10 @@ kbl(effort_needed_table,
 
 x <- data.frame(Cases = current_cum_cases, 
             Deaths = current_cum_deaths) 
+### ADD ME: MOPH TOTALS FOR COMPARISON: data.frame(Cases = c(10, 100), Deaths = c(3, 30)) 
+
 row.names(x) <- "Reported by WHO"
+### ADD ME: ROWNAME FOR MOPH: row.names(x) <- c("Reported by WHO", "Reported by MOPH")
 
 x %>% 
             kable(align = 'c',
@@ -341,13 +345,11 @@ The regional data provided by the Ministry of Public Health was used to generate
 
 \normalsize The figures below present the historical data on daily counts of cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
 
-&nbsp;
-
 ![](`r lifetime_new_cases_graph_path`){width=350px} ![](`r lifetime_new_deaths_graph_path`){width=350px}
 
-The figures below furthermore show the comparison between the reported data from two different sources: national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue. 
-
 &nbsp;
+
+The figures below furthermore show the comparison between the reported data from two different sources: national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue. 
 
 ![](`r lifetime_cum_cases_graph_path`){width=350px} ![](`r lifetime_cum_deaths_graph_path`){width=350px}
 
@@ -356,11 +358,9 @@ The figures below furthermore show the comparison between the reported data from
 
 \large \textbf{`r colorize('Projected Severe Cases', 'centreBlue')`}
 
-\large \textbf{Severe cases projections} 
-
 \normalsize The figures below show the projected trends for severe cases requiring hospitalizations. In green are the projections under the "Current NPIs maintained" scenario while in red are the projections under "No NPIs in place" scenario. 
 
-| | Severe Cases (Estimated) |
+| | Severe Cases |
 |------------:|:-----|
 | \colorbox{withNPIColor}{With current NPIs maintained} | \textcolor{withNPIFontColor}{`r paste(npi_hospitalizations_LOW, " - ", npi_hospitalizations_HI)`}|
 | \colorbox{noNPIColor}{With no NPIs} | \textcolor{noNPIFontColor}{`r paste(no_npi_hospitalizations_LOW , " - ", no_npi_hospitalizations_HI)`} | 
@@ -373,9 +373,9 @@ The figures below furthermore show the comparison between the reported data from
 
 \Large \textbf{`r colorize('4. Subnational Projections', 'centreGreen')`} \normalsize (for the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
 
-\footnotesize Assuming current NPIs[^3] are maintained.
+\large \textbf{`r colorize('Projected Incidence', 'centreBlue')`}
 
-\large \textbf{`r colorize('Projected Cases', 'centreBlue')`}
+\footnotesize Assuming current NPIs[^3] are maintained.
 
 ![](`r subnational_cases_per_100k_graph_path`){width=375px} ![](`r risk_levels_quadrants_path`){width=350px}
 
@@ -395,6 +395,7 @@ decreases_nrow <- subnational_projections %>%
                           nrow()
 
 #### ADD ME: "Suppression achieved" section with full list of regions
+#### ADD ME: Projected cases per 100k or daily new cases for every region
   
 subnational_projections %>%
           arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
