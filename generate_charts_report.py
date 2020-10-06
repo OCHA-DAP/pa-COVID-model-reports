@@ -110,20 +110,6 @@ def generate_key_figures(country_iso3,parameters):
     who_covid[["New_cases_rolling","New_deaths_rolling"]]=who_covid[["New_cases","New_deaths"]].rolling(window=window).mean()
     trend_w_cases=(who_covid.loc[TODAY,"New_cases_rolling"]-who_covid.loc[TODAY-timedelta(days=window),"New_cases_rolling"])/who_covid.loc[TODAY-timedelta(days=window),"New_cases_rolling"]*100
     trend_w_deaths=(who_covid.loc[TODAY,"New_deaths_rolling"]-who_covid.loc[TODAY-timedelta(days=window),"New_deaths_rolling"])/who_covid.loc[TODAY-timedelta(days=window),"New_deaths_rolling"]*100
-    # new_WHO_w=who_covid.groupby(['Country_code']).resample('W').sum()[['New_cases','New_deaths']]
-    # # the number of days present of each week in the data
-    # # max 7, first and last week can contain less days
-    # ndays_w=who_covid.groupby(['Country_code']).resample('W').count()['New_cases']
-    # new_WHO_w["ndays"] = ndays_w
-    # # select only the weeks of which all days are present
-    # new_WHO_w=new_WHO_w[new_WHO_w['ndays']==7]
-    # # get percentual change of cases and deaths compared to previous week
-    # # percentual change=((cases week n)-(cases week n-1))/(cases week n-1)
-    # new_WHO_w['New_cases_PercentChange'] = new_WHO_w.groupby('Country_code')['New_cases'].pct_change()
-    # new_WHO_w['New_deaths_PercentChange'] = new_WHO_w.groupby('Country_code')['New_deaths'].pct_change()
-    # # get percentual change of latest full week (who_covid contains data for up to four weeks ahead compared to current date)
-    # trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'New_cases_PercentChange']*100
-    # trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'New_deaths_PercentChange']*100
     print(f'Current situation {TODAY}: {who_cases_today:.0f} cases (cumulative), {who_deaths_today:.0f} deaths (cumulative)')
     print(f'CFR {TODAY}: {CFR:.1f}')
     print(f'Trend of new cases over the last {window} days wrt to cases during {window}-{window*2} days ago: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
@@ -145,8 +131,9 @@ def generate_key_figures(country_iso3,parameters):
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today:.0f} cases reported (cumulative), {bucky_npi_deaths_today:.0f} deaths (cumulative)')
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today_notrep:.0f} cases (cumulative)')
     subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
-    # print(subnational_covid)
-    # print("Latest number of cases reported subnational",subnational_covid.iloc[-1])
+    subnational_lastdate=subnational_covid.iloc[-1].name.strftime("%Y-%m-%d")
+    print(f"Latest number of cases reported subnational on {subnational_lastdate}: {subnational_covid.iloc[-1][HLX_TAG_TOTAL_CASES]:.0f} cases (cumulative)")
+    print(f"Latest number of deaths reported subnational on {subnational_lastdate}: {subnational_covid.iloc[-1][HLX_TAG_TOTAL_DEATHS]:.0f} cases (cumulative)")
     # print(subnational_covid.loc[TODAY,HLX_TAG_TOTAL_CASES])
 
 
@@ -231,9 +218,10 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     fig,axis=create_new_subplot(fig_title)
     # draw bucky
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
-
+    print(bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE][bucky_var])
     plt.legend()
     print(f'----{metric} statistics')
+    #bucky_no_npi and bucky_npi are initialized with the same numbers, so doesn't matter which is being used for displaying the current situation
     metric_today_min=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[TODAY,bucky_var]
     metric_today_max=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[TODAY,bucky_var]
     metric_4w_npi_min=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]
