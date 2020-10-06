@@ -218,7 +218,6 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     fig,axis=create_new_subplot(fig_title)
     # draw bucky
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
-    print(bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE][bucky_var])
     plt.legend()
     print(f'----{metric} statistics')
     #bucky_no_npi and bucky_npi are initialized with the same numbers, so doesn't matter which is being used for displaying the current situation
