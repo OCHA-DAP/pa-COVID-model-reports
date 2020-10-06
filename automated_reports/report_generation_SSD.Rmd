@@ -5,6 +5,8 @@ output:
    latex_engine: xelatex
   classoption: twocolumn
   extra_dependencies: xcolor
+params:
+  assignment_date: "2020-01-01"    
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreGreen
@@ -18,8 +20,6 @@ header-includes:
     - \usepackage{fancyhdr}
     - \pagestyle{fancy}
     - \usepackage{float}
-#params:
-#  assignment_date: !r as.Date("2020-08-26")    
 ---
 \arrayrulecolor{white}
 \definecolor{centreGreen}{HTML}{1bb580}
@@ -53,8 +53,7 @@ country <- 'South Sudan'
 country_iso_3_code <- 'SSD'
 
 # report specs
-#assignment_date <- params$assignment_date
-assignment_date <- as.Date("2020-09-23")
+assignment_date <- as.Date(params$assignment_date)
 
 # compute projection dates
 projection_date_4w <- assignment_date + 28
