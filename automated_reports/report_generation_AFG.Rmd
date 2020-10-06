@@ -208,6 +208,16 @@ subnational_full_projections <- read.csv(subnational_full_projections_filename)
 subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/ADM1_ranking.csv")
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$cases_per_100k_change <- as.numeric(subnational_projections$cases_per_100k_change)
+subnational_raw_yaml <- yaml::read_yaml(file = "../config.yml")
+subnational_yaml_df <- data.frame(reshape2::melt(subnational_raw_yaml)) 
+country_subnational_data_url <- subnational_yaml_df %>% filter(L1 == country_iso_3_code & L2 == 'subnational_cases_url') %>% select(value) %>% as.character() 
+country_subnational_data <- read.csv(country_subnational_data_url)
+country_subnational_data <- country_subnational_data %>% 
+                                rename(adm1_pcode = 'X.adm1.pcode', 
+                                       adm2_pcode = 'X.adm2.pcode', 
+                                       date = 'X.date', 
+                                       affected_infected_confirmed_total = "X.affected.infected.confirmed.total", 
+                                       affected_infected_dead_total = "X.affected.infected.dead.total")
 
 ```
 
@@ -271,7 +281,7 @@ kbl(effort_needed_table,
 
 x <- data.frame(Cases = current_cum_cases, 
             Deaths = current_cum_deaths) 
-row.names(x) <- "Reported Counts"
+row.names(x) <- "Reported by WHO"
 
 x %>% 
             kable(align = 'c',
@@ -314,6 +324,8 @@ x %>%
 
 \Large \textbf{`r colorize('3. National Projections', 'centreGreen')`} \normalsize (for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
 
+The regional data provided by the Ministry of Public Health was used to generate projections at the subnational level, which were then aggregated to the national level. 
+
 \large \textbf{`r colorize('Projected Cases and Deaths', 'centreBlue')`}
 
 |  | Projected Cases | | Projected Deaths | 
@@ -327,11 +339,13 @@ x %>%
 [^2]: \textbf{Severe cases} refers to the number of people which will have severe symptoms and may require healthcare support. It is calculated as a proportion of the reported cases, and is based on planning parameters for case severity and the vulnerability of a given region.
 
 
-\normalsize The figures below show the comparison between the reported data from two different sources: national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue. Projected trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
+\normalsize The figures below present the historical data on daily counts of cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
 
 &nbsp;
 
 ![](`r lifetime_new_cases_graph_path`){width=350px} ![](`r lifetime_new_deaths_graph_path`){width=350px}
+
+The figures below furthermore show the comparison between the reported data from two different sources: national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue. 
 
 &nbsp;
 
@@ -369,66 +383,6 @@ x %>%
 
 \large \textbf{`r colorize('Projected Changes In Daily New Cases', 'centreBlue')`}
 
-```{r subnational_increases, echo = FALSE}
-
-computeNbrIncreasingRegions <- function(subnational_projections_dataframe) {
-          subnational_projections %>%
-          filter(cases_per_100k_change > 0) %>%
-          summarise( n = n()) %>%
-          as.numeric()
-}
-
-produceIncreasesTable <- function(subnational_projections_dataframe) {
-  subnational_projections %>%
-          filter(cases_per_100k_change > 0) %>% # keep regions with increases
-          arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 5) %>% # keep top 5 areas 
-          select(ADM1_EN, cases_per_100k_change) %>%
-          kable(format = 'latex',
-                col.names = c("Region", "Change (%)"),
-                caption = "Highest Increases") %>%
-          row_spec(0, bold = TRUE) %>%
-          kable_styling(latex_options = c('striped', 'hold_position'))
-}
-
-increases_result <- if (computeNbrIncreasingRegions(subnational_projections) == 0) {
-                          "Highest Increases: No region showing an increase in cases."
-                          }else{
-                          produceIncreasesTable(subnational_projections)
-                        }
-
-```
-
-```{r subnational_decreases, echo = FALSE, results = 'asis'}
-
-computeNbrDecreasingRegions <- function(subnational_projections_dataframe) {
-          subnational_projections %>%
-          filter(cases_per_100k_change < 0) %>%
-          summarise( n = n()) %>%
-          as.numeric()
-}
-
-produceDecreasesTable <- function(subnational_projections_dataframe) {
-  subnational_projections %>%
-          filter(cases_per_100k_change < 0) %>% # keep regions with increases
-          arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 5) %>% # keep top 5 areas 
-          select(ADM1_EN, cases_per_100k_change) %>%
-          kable(format = 'latex',
-                col.names = c("Region", "Change (%)"),
-                caption = "Highest Decreases") %>%
-          row_spec(0, bold = TRUE) %>%
-          kable_styling(latex_options = c('striped', 'hold_position'))
-}
-
-decreases_result <- if (computeNbrDecreasingRegions(subnational_projections) == 0) {
-  "Highest Decreases: No region showing a decrease in cases."
-  }else{
-  produceDecreasesTable(subnational_projections)
-  }
-
-```
-
 ```{r subnational_deltas, echo = FALSE}
 increases_nrow <- subnational_projections %>%
                           arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
@@ -440,6 +394,8 @@ decreases_nrow <- subnational_projections %>%
                           filter(cases_per_100k_change < 0) %>%
                           nrow()
 
+#### ADD ME: "Suppression achieved" section with full list of regions
+  
 subnational_projections %>%
           arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
           select(ADM1_EN, cases_per_100k_change) %>%
