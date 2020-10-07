@@ -400,36 +400,80 @@ def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
                           color=NO_NPI_COLOR,alpha=0.2
                           )
 
-
-def create_subnational_map(country_iso3, parameters):
-    # Total cases - four weeks projection
-    bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
-    bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','cases_per_100k']]
-    bucky_npi = bucky_npi.loc[TWO_WEEKS,:]
-    adm1_pcode_prefix=parameters['iso2_code']
+def create_subnational_map_cases100k(country_iso3, parameters,date,output_file):
+    bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=date, max_date=date, npi_filter='npi')
+    bucky_npi = bucky_npi[bucky_npi['q'] == 0.5][['adm1', 'cases_per_100k']]
+    bucky_npi = bucky_npi.loc[date, :]
+    adm1_pcode_prefix = parameters['iso2_code']
     if country_iso3 == 'IRQ':
-        adm1_pcode_prefix='IQG'
-    bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
+        adm1_pcode_prefix = 'IQG'
+    bucky_npi['adm1'] = adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
+    bucky_npi["cases_per_100k"] = bucky_npi["cases_per_100k"].astype(int)
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
-    fig_title=f'Projected number of cases per 100,000 people'
-    # fig_title=f'Ranking: number of cases per 100,000 people on {TWO_WEEKS}'
-    fig,axis=create_new_subplot(fig_title)
+
+    if date==TODAY:
+        fig_title = f'Number of cases per 100,000 people'
+    else:
+        fig_title = f'Projected number of cases per 100,000 people'
+    fig, axis = create_new_subplot(fig_title)
     axis.axis('off')
-    shapefile.plot(column='cases_per_100k', figsize=(10, 10),edgecolor='gray',ax=axis,
-                #    legend=True,
-                #    legend_kwds={'label': "Cases per 100,000 people",'orientation': "horizontal"},
-                   scheme='Quantiles',k=len(shapefile)
-                   )
-    shapefile.boundary.plot(linewidth=0.1,ax=axis)
-    fig.savefig(f'Outputs/{country_iso3}/map_cases_per_100k_2w.png')
+
+    # get historical max value. Using this instead of current to keep bins over the weeks more equal
+    # if patterns change heavily, could also choose to set min_date to a more current date
+    # hist_bucky = get_bucky(country_iso3, admin_level='adm1', min_date=date - timedelta(days=90), max_date=date+timedelta(days=14),
+    #                        npi_filter='npi')
+    # hist_buckys = hist_bucky[hist_bucky['q'] == 0.5]
+    # cases_max = hist_buckys["cases_per_100k"].astype(int).max()
+    # num_bins = 5
+    # cmap = "YlOrRd"
+    # bins_list = np.concatenate(([0], np.linspace(1, cases_max * 1.2, num_bins + 1, dtype=int)))
+    #bins according to recommendations from https://globalhealth.harvard.edu/key-metrics-for-covid-suppression-researchers-and-public-health-experts-unite-to-bring-clarity-to-key-metrics-guiding-coronavirus-response/
+    bins_list=np.array([0,1,10,25,10000])
+    cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["#00a67e","#f8b931","#f88c29","#df431d"])
+    # set bins
+    norm2 = mcolors.BoundaryNorm(boundaries=bins_list, ncolors=256)
+    shapefile.plot(column='cases_per_100k', cmap=cmap, norm=norm2, ax=axis)
+    cbar=fig.colorbar(axis.collections[0], cax=fig.add_axes([0.9, 0.2, 0.03, 0.60]))
+    cbar.ax.set_yticklabels(["0", "1", "10","25+",""])
+    shapefile.boundary.plot(linewidth=0.1, ax=axis,color="lightgrey")
+    fig.savefig(f'Outputs/{country_iso3}/{output_file}',bbox_inches="tight")
+
+def create_binary_change_map(country_iso3, parameters):
+    """
+    Generate a subnational map that indicates which areas are expected to have an increase and decrease in cases per 100k in two weeks
+    """
+    fig_title = f'Projected trend in number of cases per 100,000 people'
+    df_change=calculate_subnational_trends(country_iso3,parameters)
+
+    df_change.rename(columns={"cases_per_100k_change":"cases_per_100k_perc_change"},inplace=True)
+    df_change["cases_per_100k_abs_change"]=df_change['cases_per_100k_inTWOweeks'] - df_change['cases_per_100k_today']
+
+    shapefile = gpd.read_file(parameters['shape'])
+    shapefile = shapefile.merge(df_change, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
+    #Classify as "increase" if cases per 100k is projected to increase by 5 or more percent in two weeks
+    #decrease if this is more than -5, else stable.
+    # Also stable for regions with less than 1 active cases (=nans from calculate_subnational_trends)
+    change_threshold=10
+    shapefile.loc[:,"change_name"]=shapefile["cases_per_100k_abs_change"].apply(lambda x: f"Increase of {change_threshold}+" if x>=change_threshold else (f"Decrease of {change_threshold}+" if x<=-change_threshold else f"Less than {change_threshold} change"))
+    color_dict={f"Increase of {change_threshold}+" :"red",f"Less than {change_threshold} change":"grey",f"Decrease of {change_threshold}+":"green"}
+
+    fig, ax = plt.subplots(figsize=(10, 10))
+    for k in shapefile["change_name"].unique():
+        shapefile[shapefile["change_name"]==k].plot(color=color_dict[k], ax=ax,edgecolor='gray')
+    legend_elements= [Line2D([0], [0], marker='o',markersize=15,label=k,color=color_dict[k],linestyle='None') for k in color_dict.keys()]
+    leg=plt.legend(title="Legend",frameon=False,handles=legend_elements,bbox_to_anchor=(1.5,0.8))
+    leg._legend_box.align = "left"
+
+    shapefile.boundary.plot(linewidth=0.1,ax=ax,color="white")
+    ax.set_axis_off()
+    ax.set_title(fig_title)
+    fig.savefig(f'Outputs/{country_iso3}/map_binary_change_cases_per_100k_2w.png',bbox_inches="tight")
+
 
 def calculate_subnational_trends(country_iso3, parameters):
-    # Top 5 and bottom 5 districts - 4 weeks trend
     bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
-    # to remove noise
-    bucky_npi=bucky_npi[bucky_npi['cases_active']>10]
-    bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','Reff','cases_per_100k']]
+    bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','Reff','cases_per_100k',"cases_active"]]
     adm1_pcode_prefix=parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix='IQG'
@@ -437,17 +481,25 @@ def calculate_subnational_trends(country_iso3, parameters):
     # make the col selector a list to ensure always a dataframe is returned (and not a series)
     start = bucky_npi.loc[[TODAY], :]
     end = bucky_npi.loc[[TWO_WEEKS], :]
-    combined = start.merge(end[['adm1', 'cases_per_100k']], how='left', on='adm1')
-    combined.rename(columns = {'cases_per_100k_x':'cases_per_100k_today', 'cases_per_100k_y':'cases_per_100k_inTWOweeks'}, inplace = True) 
+    combined = start.merge(end[['adm1', 'cases_per_100k',"cases_active"]], how='outer', on='adm1',suffixes=("_today","_inTWOweeks"))
+
+    #Select the row if current OR projected have at least one active case
+    # to remove noise
+    combined=combined[(combined['cases_active_today']>=1) | (combined['cases_active_inTWOweeks']>=1)]
     combined['cases_per_100k_change'] = (combined['cases_per_100k_inTWOweeks']-combined['cases_per_100k_today']) / combined['cases_per_100k_today'] * 100
     shapefile = gpd.read_file(parameters['shape'])
     shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
     combined=combined.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
     combined = combined.sort_values('cases_per_100k_change', ascending=False)
     combined=combined.dropna()
-    combined['cases_per_100k_change']=combined['cases_per_100k_change'].astype(int)
-    # combined=combined[[parameters['adm1_name'],'cases_per_100k_change']]
+    combined=combined.replace(np.inf,np.nan)
+    combined['cases_per_100k_change']=combined['cases_per_100k_change'].astype('float')
     combined.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
+    return combined
+
+
+
+
 
 if __name__ == "__main__":
     args = parse_args()
