@@ -2,6 +2,9 @@ import os
 import geopandas as gpd
 from datetime import datetime,timedelta
 import sys
+import matplotlib
+import matplotlib.colors as mcolors
+from matplotlib.lines import Line2D
 
 import utils
 from utils import *
@@ -65,13 +68,25 @@ def main(country_iso3='AFG', download_covid=False):
     df_all = df_all.append(results_df)
     df_all.to_csv(RESULTS_FILENAME, index=False)
 
+    #calculate trends (being saved to separate csv within function)
+    calculate_subnational_trends(country_iso3, parameters)
+
+    #currently not used in report so not added to results_df
     retrieve_current_npis(parameters["npis_url"],NPISHEET_PATH)
 
     #create graphs
     generate_data_model_comparison(country_iso3,parameters)
     generate_data_model_comparison_lifetime(country_iso3,parameters)
-    create_subnational_map(country_iso3, parameters)
-    calculate_subnational_trends(country_iso3, parameters)
+    create_subnational_map(country_iso3, parameters, TODAY, "Current Reported Daily New Cases Per 100,000 People",
+                           "map_cases_per_100k_reported_current.png")
+    create_subnational_map(country_iso3, parameters, TODAY, "Current Estimated Daily New Cases Per 100,000 People",
+                           "map_cases_per_100k_total_current.png", metric="cases_per_100k_total")
+    create_subnational_map(country_iso3, parameters, TWO_WEEKS, "Projected Reported Daily New Cases Per 100,000 People",
+                           "map_cases_per_100k_2w.png")
+    create_subnational_map(country_iso3, parameters, TODAY, "Current Reported Hospitalizations Per 100,000 People",
+                           "map_hospitalizations_per_100k_current.png", metric="hospitalizations_per_100k_active")
+    create_binary_change_map(country_iso3, parameters)
+
 
 def retrieve_current_npis(npis_url,output_path):
     download_url(npis_url, output_path)
@@ -131,11 +146,12 @@ def generate_key_figures(country_iso3,parameters):
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today:.0f} cases reported (cumulative), {bucky_npi_deaths_today:.0f} deaths (cumulative)')
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today_notrep:.0f} cases (cumulative)')
     subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
+    subnational_covid.sort_index(inplace=True)
     subnational_lastdate=subnational_covid.iloc[-1].name.strftime("%Y-%m-%d")
-    print(f"Latest number of cases reported subnational on {subnational_lastdate}: {subnational_covid.iloc[-1][HLX_TAG_TOTAL_CASES]:.0f} cases (cumulative)")
-    print(f"Latest number of deaths reported subnational on {subnational_lastdate}: {subnational_covid.iloc[-1][HLX_TAG_TOTAL_DEATHS]:.0f} cases (cumulative)")
-    # print(subnational_covid.loc[TODAY,HLX_TAG_TOTAL_CASES])
-
+    subnational_cases_latest=subnational_covid.iloc[-1][HLX_TAG_TOTAL_CASES].astype(int)
+    subnational_deaths_latest=subnational_covid.iloc[-1][HLX_TAG_TOTAL_DEATHS].astype(int)
+    print(f"Latest number of cases reported by MPHO (subnational) was on {subnational_lastdate} and equalled {subnational_cases_latest} cases (cumulative)")
+    print(f"Latest number of deaths reported by MPHO (subnational) was on {subnational_lastdate} and equalled {subnational_deaths_latest} cases (cumulative)")
 
     #this are the expected percentual change in CUMULATIVE cases/deaths
     rel_inc_min_cases_npi=(min_cases_npi-bucky_npi_cases_today)/bucky_npi_cases_today*100
@@ -179,7 +195,10 @@ def generate_key_figures(country_iso3,parameters):
                     "NO NPI - projected reported deaths in 4w - MIN": min_deaths_no_npi,
                     "NO NPI - projected reported deaths in 4w - MAX": max_deaths_no_npi,
                     "Maximum number of extra cases if NPIs are lifted": no_npi_max_increase_cases,
-                    "Maximum number of extra deaths if NPIs are lifted": no_npi_max_increase_deaths
+                    "Maximum number of extra deaths if NPIs are lifted": no_npi_max_increase_deaths,
+                    "Current situation - latest date MPHO reported numbers": subnational_lastdate,
+                    "Current situation - latest MPHO cases": subnational_cases_latest,
+                    "Current situation - latest MPHO deaths": subnational_deaths_latest,
                 }
 
     return pd.DataFrame.from_dict(dict_metrics,orient="index")
@@ -198,7 +217,6 @@ def generate_model_projections(country_iso3,parameters):
     f"NO NPI {metric.capitalize()} projections 4w - MAX": metric_4w_no_npi_max}
 
     return pd.DataFrame.from_dict(dict_metric,orient="index")
-    # return metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max
 
 def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric):
     # draw NPI vs non NPIs projections
@@ -402,7 +420,7 @@ def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
 def create_subnational_map(country_iso3, parameters, date,fig_title,output_file,metric="cases_per_100k",avg_days=14):
     bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=LAST_TWO_MONTHS, max_date=date, npi_filter='npi')
 
-    bucky_npi = bucky_npi[bucky_npi['q'] == 0.5]#[['adm1', 'cases_per_100k',"CASE_REPORT"]]
+    bucky_npi = bucky_npi[bucky_npi['q'] == 0.5]
     adm1_pcode_prefix = parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix = 'IQG'
@@ -444,29 +462,6 @@ def create_subnational_map(country_iso3, parameters, date,fig_title,output_file,
     shapefile.boundary.plot(linewidth=0.1, ax=axis,color="lightgrey")
     fig.savefig(f'Outputs/{country_iso3}/{output_file}',bbox_inches="tight")
 
-    #test with subnational covid data, should probably be removed once agreed on plots
-    # subnational_covid=get_subnational_covid_data(parameters,aggregate=False,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
-    # # date and adm2 are the unique keys
-    # HLX_TAG_DATE = "#date"
-    # HLX_TAG_ADM1_PCODE="#adm1+pcode"
-    # dates = sorted(set(subnational_covid[HLX_TAG_DATE]))
-    # adm2pcodes = set(subnational_covid[HLX_TAG_ADM2_PCODE])
-    # unique_keys = [HLX_TAG_DATE, HLX_TAG_ADM2_PCODE]
-    # # create a multi-index to fill missing combinations with None values
-    # mind = pd.MultiIndex.from_product([dates, adm2pcodes], names=unique_keys)
-    # subnational_covid = subnational_covid.set_index(unique_keys).reindex(mind, fill_value=None)
-    # # forward fill missing values for each pcode
-    # subnational_covid = subnational_covid.groupby(HLX_TAG_ADM2_PCODE).ffill()
-    # # sum by date
-    # subnational_covid = subnational_covid.groupby([HLX_TAG_DATE,HLX_TAG_ADM1_PCODE]).sum().reset_index()
-    # print("bla")
-    # print(subnational_covid)
-    # # subnational_covid=subnational_covid.set_index(HLX_TAG_DATE)
-    # print(subnational_covid)
-    # # print(len(subnational_covid.loc[TODAY-timedelta(days=14):,:]))
-    # who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
-    # print(len(who_covid.loc[TODAY-timedelta(days=14):TODAY,:]))
-
 def create_binary_change_map(country_iso3, parameters):
     """
     Generate a subnational map that indicates which areas are expected to have an increase and decrease in cases per 100k in two weeks
@@ -501,7 +496,7 @@ def create_binary_change_map(country_iso3, parameters):
 
 def calculate_subnational_trends(country_iso3, parameters):
     bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
-    bucky_npi = bucky_npi[bucky_npi['q']==0.5][['adm1','Reff','cases_per_100k',"cases_active"]]
+    bucky_npi = bucky_npi.loc[bucky_npi['q']==0.5,['adm1','Reff','cases_per_100k',"cases_active"]]
     adm1_pcode_prefix=parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix='IQG'
@@ -510,20 +505,20 @@ def calculate_subnational_trends(country_iso3, parameters):
     start = bucky_npi.loc[[TODAY], :]
     end = bucky_npi.loc[[TWO_WEEKS], :]
     combined = start.merge(end[['adm1', 'cases_per_100k',"cases_active"]], how='outer', on='adm1',suffixes=("_today","_inTWOweeks"))
-
     #Select the row if current OR projected have at least one active case
     # to remove noise
-    combined=combined[(combined['cases_active_today']>=1) | (combined['cases_active_inTWOweeks']>=1)]
-    combined['cases_per_100k_change'] = (combined['cases_per_100k_inTWOweeks']-combined['cases_per_100k_today']) / combined['cases_per_100k_today'] * 100
+    combined_cases=combined.loc[(combined['cases_active_today']>=1) | (combined['cases_active_inTWOweeks']>=1),:].copy()
+    combined_cases['cases_per_100k_change'] = (combined_cases['cases_per_100k_inTWOweeks'] -combined_cases['cases_per_100k_today'])/ combined_cases['cases_per_100k_today'] * 100
+    combined_change=combined.merge(combined_cases[["adm1","cases_per_100k_change"]],on="adm1",how="left")
     shapefile = gpd.read_file(parameters['shape'])
     shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
-    combined=combined.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
-    combined = combined.sort_values('cases_per_100k_change', ascending=False)
-    combined=combined.dropna()
-    combined=combined.replace(np.inf,np.nan)
-    combined['cases_per_100k_change']=combined['cases_per_100k_change'].astype('float')
-    combined.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
-    return combined
+    combined_change=combined_change.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
+    #inf values are given when cases_per100k TODAY was 0 and in two weeks this is larger than 0
+    combined_change=combined_change.replace(np.inf,np.nan)
+    combined_change.loc[:,'cases_per_100k_change']=combined_change.loc[:,'cases_per_100k_change'].astype('float')
+    combined_change = combined_change.sort_values('cases_per_100k_change', ascending=False)
+    combined_change.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
+    return combined_change
 
 
 
