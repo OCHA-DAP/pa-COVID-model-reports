@@ -1,6 +1,6 @@
 metric_name,metric_value,assessment_date,country
 Estimated doubling time NPI,427.4447246693955,2020-09-09,COD
-NPI Reff,1.011391163120278,2020-09-09,COD
+NPI Reff,1.0113911631202779,2020-09-09,COD
 Estimated doubling time No NPI,259.88152213870706,2020-09-09,COD
 No NPI Reff,1.0187782088741697,2020-09-09,COD
 Current situation - WHO cases today,10291.0,2020-09-09,COD
@@ -15,7 +15,7 @@ NPI - projected TREND reported cases in 4w - MIN,4.018690669999389,2020-09-09,CO
 NPI - projected TREND reported cases in 4w - MAX,5.3237197287749165,2020-09-09,COD
 NPI - projected reported deaths in 4w - MIN,279.7779999999999,2020-09-09,COD
 NPI - projected reported deaths in 4w - MAX,292.3589999999998,2020-09-09,COD
-NPI - projected TREND reported deaths in 4w - MIN,5.975110178463543,2020-09-09,COD
+NPI - projected TREND reported deaths in 4w - MIN,5.9751101784635425,2020-09-09,COD
 NPI - projected TREND reported deaths in 4w - MAX,10.740577302952383,2020-09-09,COD
 NO NPI - projected reported cases in 4w - MIN,10842.420249999996,2020-09-09,COD
 NO NPI - projected reported cases in 4w - MAX,11045.559999999996,2020-09-09,COD
@@ -31,26 +31,29 @@ Estimated doubling time NPI,429.3613813998877,2020-09-23,COD
 NPI Reff,1.0113401357529541,2020-09-23,COD
 Estimated doubling time No NPI,201.13692278182458,2020-09-23,COD
 No NPI Reff,1.0243034716578874,2020-09-23,COD
-Current situation - WHO cases today,10522.0,2020-09-23,COD
-Current situation - WHO deaths today,271.0,2020-09-23,COD
+Current situation - WHO cases today,10522,2020-09-23,COD
+Current situation - WHO deaths today,271,2020-09-23,COD
 CFR,2.57555597795096,2020-09-23,COD
 Weekly new cases wrt last week - trend,-42.39401496259351,2020-09-23,COD
 Weekly new deaths wrt last week - trend,22.22222222222221,2020-09-23,COD
 Estimated case reporting rate,8.64024801280907,2020-09-23,COD
-NPI - projected reported cases in 4w - MIN,10750.0,2020-09-23,COD
-NPI - projected reported cases in 4w - MAX,10926.0,2020-09-23,COD
+NPI - projected reported cases in 4w - MIN,10750,2020-09-23,COD
+NPI - projected reported cases in 4w - MAX,10926,2020-09-23,COD
 NPI - projected TREND reported cases in 4w - MIN,3.8246088468224837,2020-09-23,COD
 NPI - projected TREND reported cases in 4w - MAX,5.524435000965811,2020-09-23,COD
-NPI - projected reported deaths in 4w - MIN,289.0,2020-09-23,COD
-NPI - projected reported deaths in 4w - MAX,306.0,2020-09-23,COD
+NPI - projected reported deaths in 4w - MIN,289,2020-09-23,COD
+NPI - projected reported deaths in 4w - MAX,306,2020-09-23,COD
 NPI - projected TREND reported deaths in 4w - MIN,5.474452554744526,2020-09-23,COD
 NPI - projected TREND reported deaths in 4w - MAX,11.678832116788321,2020-09-23,COD
-NO NPI - projected reported cases in 4w - MIN,11395.0,2020-09-23,COD
-NO NPI - projected reported cases in 4w - MAX,11725.0,2020-09-23,COD
-NO NPI - projected reported deaths in 4w - MIN,304.0,2020-09-23,COD
-NO NPI - projected reported deaths in 4w - MAX,329.0,2020-09-23,COD
-Maximum number of extra cases if NPIs are lifted,975.0,2020-09-23,COD
-Maximum number of extra deaths if NPIs are lifted,40.0,2020-09-23,COD
+NO NPI - projected reported cases in 4w - MIN,11395,2020-09-23,COD
+NO NPI - projected reported cases in 4w - MAX,11725,2020-09-23,COD
+NO NPI - projected reported deaths in 4w - MIN,304,2020-09-23,COD
+NO NPI - projected reported deaths in 4w - MAX,329,2020-09-23,COD
+Maximum number of extra cases if NPIs are lifted,975,2020-09-23,COD
+Maximum number of extra deaths if NPIs are lifted,40,2020-09-23,COD
+Current situation - latest date MPHO reported numbers,2020-08-26,2020-09-23,COD
+Current situation - latest MPHO cases,9913,2020-09-23,COD
+Current situation - latest MPHO deaths,255,2020-09-23,COD
 Hospitalizations current situation - MIN,60.93125000000001,2020-09-23,COD
 Hospitalizations current situation - MAX,98.15225,2020-09-23,COD
 NPI Hospitalizations projections 4w - MIN,44.59575,2020-09-23,COD
