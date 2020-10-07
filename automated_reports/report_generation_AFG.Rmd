@@ -1,13 +1,16 @@
 ---
 output:  
-  pdf_document:
-   md_extensions: +raw_attribute
-   latex_engine: xelatex
+  pdf_document: 
+    md_extensions: +raw_attribute
+    latex_engine: xelatex
+    fig_caption: yes
   classoption: twocolumn
   extra_dependencies: xcolor
+params:
+  assignment_date: '2020-01-01'      
 fontsize: 11pt
 geometry: margin=0.6in
-urlcolor: centreGreen
+urlcolor: centreBlue
 header-includes:
     - \usepackage{setspace}\singlespacing
     - \usepackage{colortbl}
@@ -18,11 +21,13 @@ header-includes:
     - \usepackage{fancyhdr}
     - \pagestyle{fancy}
     - \usepackage{float}
-#params:
-#  assignment_date: !r as.Date('2020-09-01')    
+    - \captionsetup[figure]{labelformat=empty}
+editor_options: 
+  chunk_output_type: inline
 ---
 \arrayrulecolor{white}
 \definecolor{centreGreen}{HTML}{1bb580}
+\definecolor{centreBlue}{HTML}{1f69b3}
 \definecolor{withNPIColor}{HTML}{d9ead3}
 \definecolor{noNPIColor}{HTML}{f4cccc}
 \definecolor{withNPIFontColor}{HTML}{20aa6c}
@@ -40,6 +45,28 @@ header-includes:
 
 ![](visual_assets/double_logo_header.jpg)
 
+
+```{r key_messages, echo = FALSE}
+
+# NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
+
+key_messages_current_situation <- "
+* A total of 39,096 cases and 1,445 deaths have been reported. 
+* The current number of severe cases requiring healthcare support is estimated at 101 - 166 and is stable with respect to our last update.
+* Cases had a first peak in early June and deaths had a first peak in early July. 
+"   
+
+key_messages_national_projections <- "
+* In the next 4 weeks, the total number of cases is projected to reach 39,914 - 40,132 (a 2-3% increase) and the total number of deaths is projected to reach 1,490 - 1,509 (a 3-4% increase) if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 1,130 more cases and up to 41 more deaths; see sections 2 and 3 for details).
+* The number of severe cases requiring healthcare is projected to increase, and to increase at least 3 times more if NPIs are lifted (see section 3).
+"
+
+key_messages_subnational_projections <- "
+* Assuming all current NPIs are maintained, the number of active cases is expected to decrease in all regions (see section 4).
+"
+```
+
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
 library(tidyverse)
 library(knitr)
@@ -53,8 +80,7 @@ country <- 'Afghanistan'
 country_iso_3_code <- 'AFG'
 
 # report specs
-#assignment_date <- params$assignment_date
-assignment_date <- as.Date("2020-09-23")
+assignment_date <- as.Date(params$assignment_date)
 
 # compute projection dates
 projection_date_4w <- assignment_date + 28
@@ -85,6 +111,7 @@ report_metrics <- report_metrics_all_dates %>% filter(assessment_date == assignm
 # assign values to variables
 cfr <- report_metrics %>% filter(metric_name == 'CFR') %>% select(metric_value)
 cfr <- round(cfr, 1)
+cfr_text <- paste0(cfr, '%')
 
 npi_projected_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
 npi_projected_cases_4w_LOW <- format(round(npi_projected_cases_4w_LOW, 0), big.mark = ",")
@@ -130,35 +157,17 @@ no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.m
 
 ```
 
-```{r key_messages, echo = FALSE}
+```{r risk_levels, echo = FALSE}
 
-# NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
-
-key_messages_current_situation <- "
-* A total of 39,096 cases and 1,445 deaths have been reported. 
-* The current number of severe cases requiring healthcare support is estimated at 101 - 166 and is stable with respect to our last update.
-* Cases had a first peak in early June and deaths had a first peak in early July. 
-"   
-
-key_messages_national_projections <- "
-* In the next 4 weeks, the total number of cases is projected to reach 39,914 - 40,132 (a 2-3% increase) and the total number of deaths is projected to reach 1,490 - 1,509 (a 3-4% increase) if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 1,130 more cases and up to 41 more deaths; see sections 2 and 3 for details).
-* The number of severe cases requiring healthcare is projected to increase, and to increase at least 3 times more if NPIs are lifted (see section 3).
-"
-
-key_messages_subnational_projections <- "
-* Assuming all current NPIs are maintained, the number of active cases is expected to decrease in all regions (see section 4).
-"
+effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'), 
+                                  'incidence' = c('25+', '10-25', '1-10', '<1'), 
+                                  'effort' = c('Stay-at-home orders necessary', 
+                                               'Strategic choices must be made about which package of non-pharmaceutical interventions to use for control. Stay-at-home orders are advised, unless viral testing and contact tracing capacity are implementable                                                    at levels meeting surge indicator standards.',
+                                               'Strategic choices must be made about which package of non-pharmaceutical interventions to use for control',
+                                               'On track for containment, conditional on continuing use of viral testing and contact tracing for surveillance and to contain spikes and outbreaks.')
+                                  )
 ```
 
-```{r population_data, include = FALSE}
-#populations <- read.csv("population_sizes.csv")
-#country_population_size <- populations %>%
-#                            filter(ADM0_NAME == country) %>%
-#                            select(POPULATION) %>%
-#                            as.numeric()
-  
-```
 
 ```{r who_data, include = FALSE}
 who_data <- read.csv(who_data_filename)
@@ -179,6 +188,7 @@ current_cum_deaths <- who_data %>%
 ```
 
 ```{r graphs, include = FALSE}
+current_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_current.png")
 cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
@@ -189,13 +199,27 @@ lifetime_new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lif
 lifetime_new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_deaths.png")
 hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
 subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
+risk_levels_quadrants_path <- paste0("visual_assets/risk_levels_quadrants.png")
 
+### ADD ME: total cases and total deaths and most recent date from MOPH
 ```
 
 ```{r subnational_projections_data, include = FALSE}
+subnational_full_projections_filename <- paste0("../Bucky_results/", paste0(country_iso_3_code, "_npi"), "/adm1_quantiles.csv")
+subnational_full_projections <- read.csv(subnational_full_projections_filename)
 subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/ADM1_ranking.csv")
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$cases_per_100k_change <- as.numeric(subnational_projections$cases_per_100k_change)
+subnational_raw_yaml <- yaml::read_yaml(file = "../config.yml")
+subnational_yaml_df <- data.frame(reshape2::melt(subnational_raw_yaml)) 
+country_subnational_data_url <- subnational_yaml_df %>% filter(L1 == country_iso_3_code & L2 == 'subnational_cases_url') %>% select(value) %>% as.character() 
+country_subnational_data <- read.csv(country_subnational_data_url)
+country_subnational_data <- country_subnational_data %>% 
+                                rename(adm1_pcode = 'X.adm1.pcode', 
+                                       adm2_pcode = 'X.adm2.pcode', 
+                                       date = 'X.date', 
+                                       affected_infected_confirmed_total = "X.affected.infected.confirmed.total", 
+                                       affected_infected_dead_total = "X.affected.infected.dead.total")
 
 ```
 
@@ -204,52 +228,108 @@ subnational_projections$cases_per_100k_change <- as.numeric(subnational_projecti
 
 &nbsp;
 
-This report summarizes the COVID-19 model results for Afghanistan, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r assignment_date`. The data is sourced from WHO and the MOPH. For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
+This report summarizes the COVID-19 model results for Afghanistan, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r format(assignment_date, format="%d %B %Y")`. The data is sourced from World Health Organization (WHO) and the country's Ministry of Public Health (MOPH). For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
 
 ![](visual_assets/green_horizontal_line.png){height=30px}
 
-\Large \textbf{1. Key Messages}[^1][^2]
+\Large \textbf{`r colorize('1. Key Messages', 'centreGreen')`}[^1][^2]
 
-\large \textbf{Current Situation} (as of `r format(assignment_date, "%d %b %Y")`)
+\large \textbf{Current Situation} \normalsize (as of `r format(assignment_date, "%d %b %Y")`)
 \normalsize
 `r key_messages_current_situation`
 
-\large \textbf{National Projections} (in the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
+\large \textbf{National Projections} \normalsize (in the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
 \normalsize
 `r key_messages_national_projections`
 
-\large \textbf{Subnational Projections} (in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
+\large \textbf{Subnational Projections} \normalsize (in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
 \normalsize
 `r key_messages_subnational_projections`
 
 \newpage
 
-\Large \textbf{2. Key Figures} (as of `r format(assignment_date, "%d %b %Y")`)
+\Large \textbf{`r colorize('2. Current Situation', 'centreGreen')`} \normalsize (as of `r format(assignment_date, "%d %b %Y")`)
 
-\large \textbf{Current situation}
+\large \textbf{`r colorize('Containment Progress', 'centreBlue')`}
+\normalsize 
 
-```{r section2_current_figures, echo = FALSE}
+The key performance indicators below can be used to evaluate how effective the response has been in containing the spread of the virus. The map on the left illustrates risk levels to help decision-makers and community members know where they are. The levels communicate whether a region is on track for containment and what intensity of effort is needed to control COVID at varying levels of community spread. The map on the right represents the current need for healthcare support.
 
-# current_figures_path <- paste0("../Outputs/", country_iso_3_code, "/current_figures.png")
-# current_severe_path <- paste0("../Outputs/", country_iso_3_code, "/current_severe_figures.png")
+![Current incidence per 100k people](`r current_incidence_risk_graph_path`){width=400px}
 
-data.frame(Cases = current_cum_cases, 
-            Deaths = current_cum_deaths,
-            Severe = paste0(hospitalizations_current_LOW, " - ", hospitalizations_current_HI)) %>% 
-            kable(align = 'c',
-                  col.names = c('Reported Cases', 'Reported Deaths', 'Severe Cases Estimate')) %>%
-            kableExtra::kable_styling(position = 'center',
-                                      font_size = 11) %>%
-            row_spec(0, 
-                     bold = FALSE,
-                     font_size = 12) %>%
-            footnote(general_title = paste0("Case Fatality Rate: ", cfr, '%'), 
-                     "",
-                     title_format = "italic")
-
+```{r containment_progress_table, echo = FALSE}
+kbl(effort_needed_table, 
+    align = 'l',
+    col.names = c("Risk Level", "Case Incidence*", "Intensity of Control Effort Needed")) %>%
+    add_footnote(c("*Daily new cases per 100,000 people as reported by WHO", "See \\href{https://globalepidemics.org/wp-content/uploads/2020/09/key_metrics_and_indicators_v5-1.pdf}{Key Metrics for COVID Suppression} for additional guidance on control effort needed."),
+                notation = "none", 
+                escape = F) %>%
+    row_spec(0, bold = TRUE, font_size = 11) %>% 
+    kableExtra::kable_styling(latex_options=c("scale_down", "hold_position")) %>%
+    column_spec(3, width = "16cm") %>%
+    column_spec(2, width = "2cm") %>%
+    column_spec(1, width = "2cm") %>%
+    row_spec(1, background = "#df431d") %>%
+    row_spec(2, background = "#f88c29") %>%
+    row_spec(3, background = "#f8b931") %>%
+    row_spec(4, background = "#00a67e")
 ```
 
-\large \textbf{Projected situation in the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
+\large \textbf{`r colorize('Key Figures: Cumulative Cases and Deaths', 'centreBlue')`}
+
+```{r section2_cumulative_figures, echo = FALSE}
+
+x <- data.frame(Cases = current_cum_cases, 
+            Deaths = current_cum_deaths) 
+### ADD ME: MOPH TOTALS FOR COMPARISON: data.frame(Cases = c(10, 100), Deaths = c(3, 30)) 
+
+row.names(x) <- "Reported by WHO"
+### ADD ME: ROWNAME FOR MOPH: row.names(x) <- c("Reported by WHO", "Reported by MOPH")
+
+x %>% 
+            kable(align = 'c',
+                  col.names = c('Cumulative Cases', 'Cumulative Deaths'),
+                  row.names = TRUE) %>%
+            kableExtra::kable_styling(row_label_position = 'r',
+                                      position = 'center',
+                                      font_size = 11) %>%
+            row_spec(0, bold = FALSE, font_size = 12) 
+
+
+          
+```
+
+\footnotesize
+
+\begin{center}
+Case Fatality Rate: `r cfr`\%
+\end{center}
+
+\large \textbf{`r colorize('Key Figures: Current Severe Cases', 'centreBlue')`}
+
+```{r section2_hospitalization_estimate, echo = FALSE}
+
+x <- data.frame(Hospitalizations = paste0(hospitalizations_current_LOW, " - ", hospitalizations_current_HI))
+row.names(x) <- "Estimate"
+
+x %>% 
+            kable(format = "latex", 
+                  align = 'c',
+                  col.names = c('Current Hospitalizations'),
+                  row.names = TRUE) %>%
+            kableExtra::kable_styling(row_label_position = 'r',
+                                      position = 'center',
+                                      font_size = 11) %>%
+            row_spec(0, bold = FALSE, font_size = 12, hline_after = T) 
+```
+
+\newpage
+
+\Large \textbf{`r colorize('3. National Projections', 'centreGreen')`} \normalsize (for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
+
+The regional data provided by the Ministry of Public Health was used to generate projections at the subnational level, which were then aggregated to the national level. 
+
+\large \textbf{`r colorize('Projected Cases and Deaths', 'centreBlue')`}
 
 |  | Projected Cases | | Projected Deaths | 
 |------------:|:-----|:---------|:------|
@@ -261,22 +341,25 @@ data.frame(Cases = current_cum_cases,
 
 [^2]: \textbf{Severe cases} refers to the number of people which will have severe symptoms and may require healthcare support. It is calculated as a proportion of the reported cases, and is based on planning parameters for case severity and the vulnerability of a given region.
 
-\Large \textbf{3. National Projections}
 
-\large \textbf{Cases and deaths projections for the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
+\normalsize The figures below present the historical data on daily counts of cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
 
-Note that deaths typically lag reported cases by 2-8 weeks.
+![](`r lifetime_new_cases_graph_path`){width=350px} ![](`r lifetime_new_deaths_graph_path`){width=350px}
 
-![](`r lifetime_new_cases_graph_path`){width=300px} ![](`r lifetime_new_deaths_graph_path`){width=300px}
+&nbsp;
 
-![](`r lifetime_cum_cases_graph_path`){width=300px} ![](`r lifetime_cum_deaths_graph_path`){width=300px}
+The figures below furthermore show the comparison between the reported data from two different sources: national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue. 
 
-\normalsize The figures above show the comparison between the reported cases and data from two different sources (national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue) together with the projected trends. The two lines presented correspond to ‘Current NPIs maintained’ and ‘No NPIs in place’ scenarios. 
+![](`r lifetime_cum_cases_graph_path`){width=350px} ![](`r lifetime_cum_deaths_graph_path`){width=350px}
+
+
 \newpage
 
-\large \textbf{Severe cases projections for the next 4 weeks (by `r format(projection_date_4w, "%d %b %Y")`)}
+\large \textbf{`r colorize('Projected Severe Cases', 'centreBlue')`}
 
-| | Severe Cases (Estimated) |
+\normalsize The figures below show the projected trends for severe cases requiring hospitalizations. In green are the projections under the "Current NPIs maintained" scenario while in red are the projections under "No NPIs in place" scenario. 
+
+| | Severe Cases |
 |------------:|:-----|
 | \colorbox{withNPIColor}{With current NPIs maintained} | \textcolor{withNPIFontColor}{`r paste(npi_hospitalizations_LOW, " - ", npi_hospitalizations_HI)`}|
 | \colorbox{noNPIColor}{With no NPIs} | \textcolor{noNPIFontColor}{`r paste(no_npi_hospitalizations_LOW , " - ", no_npi_hospitalizations_HI)`} | 
@@ -287,86 +370,44 @@ Note that deaths typically lag reported cases by 2-8 weeks.
 
 \newpage
 
-\Large \textbf{4. Subnational Projections}
+\Large \textbf{`r colorize('4. Subnational Projections', 'centreGreen')`} \normalsize (for the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
 
-\large \textbf{Projected situation in the next 2 weeks (by `r format(projection_date_2w, "%d %b %Y")`)} \footnotesize With current NPIs[^3] maintained
+\large \textbf{`r colorize('Projected Incidence', 'centreBlue')`}
 
-\large \textbf{Active cases per 100,000 people}
+\footnotesize Assuming current NPIs[^3] are maintained.
 
-\begin{center}
-\includegraphics[width=0.5\textwidth]{`r subnational_cases_per_100k_graph_path`}
-\end{center}
-
-![](visual_assets/cases_per_100k_manual_legend.png){width=200px}
-
-
-\large \textbf{Largest Increases and Decreases In Active Cases}
-
-```{r subnational_increases, echo = FALSE}
-
-computeNbrIncreasingRegions <- function(subnational_projections_dataframe) {
-          subnational_projections %>%
-          filter(cases_per_100k_change > 0) %>%
-          summarise( n = n()) %>%
-          as.numeric()
-}
-
-produceIncreasesTable <- function(subnational_projections_dataframe) {
-  subnational_projections %>%
-          filter(cases_per_100k_change > 0) %>% # keep regions with increases
-          arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 5) %>% # keep top 5 areas 
-          select(ADM1_EN, cases_per_100k_change) %>%
-          kable(format = 'latex',
-                col.names = c("Region", "Change (%)"),
-                caption = "Highest Increases") %>%
-          row_spec(0, bold = TRUE) %>%
-          kable_styling(latex_options = c('striped', 'hold_position'))
-}
-
-increases_result <- if (computeNbrIncreasingRegions(subnational_projections) == 0) {
-                          "Highest Increases: No region showing an increase in cases."
-                          }else{
-                          produceIncreasesTable(subnational_projections)
-                        }
-
-```
-
-
-`r increases_result`
+![](`r subnational_cases_per_100k_graph_path`){width=375px} ![](`r risk_levels_quadrants_path`){width=350px}
 
 &nbsp;
 
-```{r subnational_decreases, echo = FALSE, results = 'asis'}
+\large \textbf{`r colorize('Projected Changes In Daily New Cases', 'centreBlue')`}
 
-computeNbrDecreasingRegions <- function(subnational_projections_dataframe) {
-          subnational_projections %>%
-          filter(cases_per_100k_change < 0) %>%
-          summarise( n = n()) %>%
-          as.numeric()
-}
+```{r subnational_deltas, echo = FALSE}
+increases_nrow <- subnational_projections %>%
+                          arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
+                          filter(cases_per_100k_change >= 0) %>%
+                          nrow()
 
-produceDecreasesTable <- function(subnational_projections_dataframe) {
-  subnational_projections %>%
-          filter(cases_per_100k_change < 0) %>% # keep regions with increases
-          arrange(cases_per_100k_change) %>% # orders regions from largest to smallest absolute change 
-          slice_head(n = 5) %>% # keep top 5 areas 
+decreases_nrow <- subnational_projections %>%
+                          arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
+                          filter(cases_per_100k_change < 0) %>%
+                          nrow()
+
+#### ADD ME: "Suppression achieved" section with full list of regions
+#### ADD ME: Projected cases per 100k or daily new cases for every region
+  
+subnational_projections %>%
+          arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
           select(ADM1_EN, cases_per_100k_change) %>%
           kable(format = 'latex',
-                col.names = c("Region", "Change (%)"),
-                caption = "Highest Decreases") %>%
+                col.names = c("Region", "Change (%)")) %>%
+          pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow)) %>%
           row_spec(0, bold = TRUE) %>%
           kable_styling(latex_options = c('striped', 'hold_position'))
-}
 
-decreases_result <- if (computeNbrDecreasingRegions(subnational_projections) == 0) {
-  "Highest Decreases: No region showing a decrease in cases."
-  }else{
-  produceDecreasesTable(subnational_projections)
-}
 ```
 
-`r decreases_result`
+
 
 [^3]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place in Afghanistan are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
