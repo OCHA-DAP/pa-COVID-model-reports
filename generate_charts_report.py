@@ -11,7 +11,7 @@ from utils import *
 
 country_iso_3 = sys.argv[1]
 
-ASSESSMENT_DATE='2020-09-23'
+ASSESSMENT_DATE='2020-10-07'
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
 TWO_WEEKS = TODAY + timedelta(days=14)
@@ -499,33 +499,33 @@ def create_binary_change_map(country_iso3, parameters):
 
 def calculate_subnational_trends(country_iso3, parameters):
     bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
-    bucky_npi = bucky_npi.loc[bucky_npi['q']==0.5,['adm1','Reff','cases_per_100k',"cases_active","N"]]
+    bucky_npi = bucky_npi.loc[bucky_npi['q']==0.5,['adm1','Reff','cases_per_100k',"cases_active"]]
     adm1_pcode_prefix=parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix='IQG'
     bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
-    #the model can give float numbers as active cases. For the calculation of trends later on, we want to use integer cases
-    #use round so values get rounded up if more than 0.5 decimal and down if less than 0.5
-    bucky_npi["cases_activeint"]=round(bucky_npi["cases_active"])
-    bucky_npi.rename(columns={"cases_per_100k":"cases_per_100kfloat"},inplace=True)
-    #recompute the cases per 100k based on the integer active cases. "N" contains the population of the admin
-    bucky_npi["cases_per_100k"]=bucky_npi["cases_activeint"]/(round(bucky_npi["N"])/100000)
-    bucky_npi=bucky_npi[["adm1","Reff","cases_active","cases_activeint","cases_per_100k"]]
+    
     # make the col selector a list to ensure always a dataframe is returned (and not a series)
     start = bucky_npi.loc[[TODAY], :]
     end = bucky_npi.loc[[TWO_WEEKS], :]
-    combined = start.merge(end[['adm1', 'cases_per_100k',"cases_active","cases_activeint"]], how='outer', on='adm1',suffixes=("_today","_inTWOweeks"))
+    combined = start.merge(end[['adm1', 'cases_per_100k',"cases_active"]], how='outer', on='adm1',suffixes=("_today","_inTWOweeks"))
 
-    #calculate the absolute change in incidence (=cases/100k)
     combined["cases_per_100k_abs_change"]=combined['cases_per_100k_inTWOweeks'] - combined['cases_per_100k_today']
-    #calculate the percentual change in incidence
-    # inf values are given when cases_per100k TODAY was 0 and in two weeks this is larger than 0
-    # nan values are given if cases_per100k TODAY and in two weeks equal zero
-    combined['cases_per_100k_perc_change'] = (combined['cases_per_100k_inTWOweeks'] -combined['cases_per_100k_today'])/ combined['cases_per_100k_today'] * 100
+    
+    # Select the row if current OR projected have at least one active case
+    # to remove noise
+    combined_cases=combined.loc[(combined['cases_active_today']>=1) | (combined['cases_active_inTWOweeks']>=1),:].copy()
+    combined_cases['cases_per_100k_perc_change'] = (combined_cases['cases_per_100k_inTWOweeks'] -combined_cases['cases_per_100k_today'])/ combined_cases['cases_per_100k_today'] * 100
+    combined_change=combined.merge(combined_cases[["adm1","cases_per_100k_perc_change"]],on="adm1",how="left")
+
     shapefile = gpd.read_file(parameters['shape'])
     shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
-    combined_shp=combined.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
-    combined_change = combined_shp.sort_values('cases_per_100k_perc_change', ascending=False)
+    
+    combined_change=combined_change.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
+    #inf values are given when cases_per100k TODAY was 0 and in two weeks this is larger than 0
+    # combined_change=combined_change.replace(np.inf,np.nan)
+    combined_change.loc[:,'cases_per_100k_perc_change']=combined_change.loc[:,'cases_per_100k_perc_change'].astype('float')
+    combined_change = combined_change.sort_values('cases_per_100k_perc_change', ascending=False)
     combined_change.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
     return combined_change
 
