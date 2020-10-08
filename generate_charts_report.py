@@ -146,9 +146,11 @@ def generate_key_figures(country_iso3,parameters):
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today_notrep:.0f} cases (cumulative)')
     subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
     subnational_covid.sort_index(inplace=True)
-    subnational_lastdate=subnational_covid.iloc[-1].name.strftime("%Y-%m-%d")
-    subnational_cases_latest=subnational_covid.iloc[-1][HLX_TAG_TOTAL_CASES].astype(int)
-    subnational_deaths_latest=subnational_covid.iloc[-1][HLX_TAG_TOTAL_DEATHS].astype(int)
+    #want to only retrieve the data up to TODAY, in case analysis is re-run after TODAY and thus might include data in the "future"
+    subnational_covid_maxtoday=subnational_covid[subnational_covid.index.date <= TODAY]
+    subnational_lastdate=subnational_covid_maxtoday.iloc[-1].name.strftime("%Y-%m-%d")
+    subnational_cases_latest=subnational_covid_maxtoday.iloc[-1][HLX_TAG_TOTAL_CASES].astype(int)
+    subnational_deaths_latest=subnational_covid_maxtoday.iloc[-1][HLX_TAG_TOTAL_DEATHS].astype(int)
     print(f"Latest number of cases reported by MPHO (subnational) was on {subnational_lastdate} and equalled {subnational_cases_latest} cases (cumulative)")
     print(f"Latest number of deaths reported by MPHO (subnational) was on {subnational_lastdate} and equalled {subnational_deaths_latest} cases (cumulative)")
 
