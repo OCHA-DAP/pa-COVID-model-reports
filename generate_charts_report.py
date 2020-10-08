@@ -113,20 +113,36 @@ def extract_reff(country_iso3):
 
 def generate_key_figures(country_iso3,parameters):
 
-    who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
+    who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=LAST_TWO_MONTHS,max_date=TODAY)
     who_covid.index = pd.to_datetime(who_covid.index)
     who_deaths_today=who_covid.loc[TODAY,'Cumulative_deaths']
     who_cases_today=who_covid.loc[TODAY,'Cumulative_cases']    
     #CFR= Case Fatality Rate
     CFR=who_deaths_today/who_cases_today*100
-    # get average new daily cases over the last x days as defined by "window"
-    window=7
-    who_covid[["New_cases_rolling","New_deaths_rolling"]]=who_covid[["New_cases","New_deaths"]].rolling(window=window).mean()
-    trend_w_cases=(who_covid.loc[TODAY,"New_cases_rolling"]-who_covid.loc[TODAY-timedelta(days=window),"New_cases_rolling"])/who_covid.loc[TODAY-timedelta(days=window),"New_cases_rolling"]*100
-    trend_w_deaths=(who_covid.loc[TODAY,"New_deaths_rolling"]-who_covid.loc[TODAY-timedelta(days=window),"New_deaths_rolling"])/who_covid.loc[TODAY-timedelta(days=window),"New_deaths_rolling"]*100
-    print(f'Current situation {TODAY}: {who_cases_today:.0f} cases (cumulative), {who_deaths_today:.0f} deaths (cumulative)')
+    #calculate the trend of the cases and deaths of last week compared to the previous week
+    #a week is defined being from Mon-Sun and thus last week is the last complete week
+    #this is done to avoid biases due to delays in reporting.
+    #some countries report cases only after a few days (and not reporting over the weekend).
+    # resample('W') is from Mon-Sun
+    who_covid.groupby(['Country_code']).resample('W')
+    # get the sum of weekly new cases
+    new_WHO_w=who_covid.groupby(['Country_code']).resample('W').sum()[['New_cases','New_deaths']]
+    # ndays_w is the number of days present of each week in the data
+    # this is max 7, first and last week can contain less days
+    ndays_w=who_covid.groupby(['Country_code']).resample('W').count()['New_cases']
+    new_WHO_w["ndays"] = ndays_w
+    # select only the weeks of which all days are present
+    new_WHO_w=new_WHO_w[new_WHO_w['ndays']==7]
+    # get percentual change of cases and deaths compared to previous week
+    # percentual change=((cases week n)-(cases week n-1))/(cases week n-1)
+    new_WHO_w['New_cases_PercentChange'] = new_WHO_w.groupby('Country_code')['New_cases'].pct_change()
+    new_WHO_w['New_deaths_PercentChange'] = new_WHO_w.groupby('Country_code')['New_deaths'].pct_change()
+    # get percentual change of last full week (Mon-Sun)
+    trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'New_cases_PercentChange']*100
+    trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'New_deaths_PercentChange']*100
+    print(f'Current situation {TODAY}: {who_cases_today:.0f} cases, {who_deaths_today:.0f} deaths')
     print(f'CFR {TODAY}: {CFR:.1f}')
-    print(f'Trend of new cases over the last {window} days wrt to cases during {window}-{window*2} days ago: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
+    print(f'Percentual change in new cases and deaths during last week (Mon-Sun) wrt previous week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
 
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
     reporting_rate=bucky_npi['CASE_REPORT'].mean()*100
