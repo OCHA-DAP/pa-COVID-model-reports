@@ -77,14 +77,14 @@ def main(country_iso3='AFG', download_covid=False):
     #create graphs
     generate_data_model_comparison(country_iso3,parameters)
     generate_data_model_comparison_lifetime(country_iso3,parameters)
-    create_subnational_map(country_iso3, parameters, TODAY, "Current Reported Daily New Cases Per 100,000 People",
+    create_subnational_map_metric_100k("cases_per_100k", country_iso3, parameters, TODAY, "Current Reported Daily New Cases Per 100,000 People",
                            "map_cases_per_100k_reported_current.png")
-    create_subnational_map(country_iso3, parameters, TODAY, "Current Estimated Daily New Cases Per 100,000 People",
-                           "map_cases_per_100k_total_current.png", metric="cases_per_100k_total")
-    create_subnational_map(country_iso3, parameters, TWO_WEEKS, "Projected Reported Daily New Cases Per 100,000 People",
+    create_subnational_map_metric_100k("cases_per_100k_total", country_iso3, parameters, TODAY, "Current Estimated Daily New Cases Per 100,000 People",
+                           "map_cases_per_100k_total_current.png")
+    create_subnational_map_metric_100k("cases_per_100k",country_iso3, parameters, TWO_WEEKS, "Projected Reported Daily New Cases Per 100,000 People",
                            "map_cases_per_100k_2w.png")
-    create_subnational_map(country_iso3, parameters, TODAY, "Current Reported Hospitalizations Per 100,000 People",
-                           "map_hospitalizations_per_100k_current.png", metric="hospitalizations_per_100k_active")
+    create_subnational_map_metric_100k("hospitalizations_per_100k_active", country_iso3, parameters, TODAY, "Current Reported Hospitalizations Per 100,000 People",
+                           "map_hospitalizations_per_100k_current.png")
     create_binary_change_map(country_iso3, parameters)
 
 
@@ -119,9 +119,8 @@ def generate_key_figures(country_iso3,parameters):
     who_cases_today=who_covid.loc[TODAY,'Cumulative_cases']    
     #CFR= Case Fatality Rate
     CFR=who_deaths_today/who_cases_today*100
-    # get sum of weekly new cases
-    # resample('W') is from Mon-Sun
-    window=14
+    # get average new daily cases over the last x days as defined by "window"
+    window=7
     who_covid[["New_cases_rolling","New_deaths_rolling"]]=who_covid[["New_cases","New_deaths"]].rolling(window=window).mean()
     trend_w_cases=(who_covid.loc[TODAY,"New_cases_rolling"]-who_covid.loc[TODAY-timedelta(days=window),"New_cases_rolling"])/who_covid.loc[TODAY-timedelta(days=window),"New_cases_rolling"]*100
     trend_w_deaths=(who_covid.loc[TODAY,"New_deaths_rolling"]-who_covid.loc[TODAY-timedelta(days=window),"New_deaths_rolling"])/who_covid.loc[TODAY-timedelta(days=window),"New_deaths_rolling"]*100
@@ -417,7 +416,7 @@ def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
                           color=NO_NPI_COLOR,alpha=0.2
                           )
 
-def create_subnational_map(country_iso3, parameters, date,fig_title,output_file,metric="cases_per_100k",avg_days=14):
+def create_subnational_map_metric_100k(metric, country_iso3, parameters, date,fig_title,output_file,avg_days=14):
     bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=LAST_TWO_MONTHS, max_date=date, npi_filter='npi')
 
     bucky_npi = bucky_npi[bucky_npi['q'] == 0.5]
