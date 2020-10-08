@@ -486,9 +486,6 @@ def create_binary_change_map(country_iso3, parameters):
     fig_title = f'Projected trend in number of cases per 100,000 people'
     df_change=calculate_subnational_trends(country_iso3,parameters)
 
-    df_change.rename(columns={"cases_per_100k_change":"cases_per_100k_perc_change"},inplace=True)
-    df_change["cases_per_100k_abs_change"]=df_change['cases_per_100k_inTWOweeks'] - df_change['cases_per_100k_today']
-
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(df_change, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
     #Classify as "increase" if cases per 100k is projected to increase by 5 or more percent in two weeks
@@ -522,18 +519,20 @@ def calculate_subnational_trends(country_iso3, parameters):
     start = bucky_npi.loc[[TODAY], :]
     end = bucky_npi.loc[[TWO_WEEKS], :]
     combined = start.merge(end[['adm1', 'cases_per_100k',"cases_active"]], how='outer', on='adm1',suffixes=("_today","_inTWOweeks"))
-    #Select the row if current OR projected have at least one active case
+
+    combined["cases_per_100k_abs_change"]=combined['cases_per_100k_inTWOweeks'] - combined['cases_per_100k_today']
+    # Select the row if current OR projected have at least one active case
     # to remove noise
     combined_cases=combined.loc[(combined['cases_active_today']>=1) | (combined['cases_active_inTWOweeks']>=1),:].copy()
-    combined_cases['cases_per_100k_change'] = (combined_cases['cases_per_100k_inTWOweeks'] -combined_cases['cases_per_100k_today'])/ combined_cases['cases_per_100k_today'] * 100
-    combined_change=combined.merge(combined_cases[["adm1","cases_per_100k_change"]],on="adm1",how="left")
+    combined_cases['cases_per_100k_perc_change'] = (combined_cases['cases_per_100k_inTWOweeks'] -combined_cases['cases_per_100k_today'])/ combined_cases['cases_per_100k_today'] * 100
+    combined_change=combined.merge(combined_cases[["adm1","cases_per_100k_perc_change"]],on="adm1",how="left")
     shapefile = gpd.read_file(parameters['shape'])
     shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
     combined_change=combined_change.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
     #inf values are given when cases_per100k TODAY was 0 and in two weeks this is larger than 0
-    combined_change=combined_change.replace(np.inf,np.nan)
-    combined_change.loc[:,'cases_per_100k_change']=combined_change.loc[:,'cases_per_100k_change'].astype('float')
-    combined_change = combined_change.sort_values('cases_per_100k_change', ascending=False)
+    # combined_change=combined_change.replace(np.inf,np.nan)
+    combined_change.loc[:,'cases_per_100k_perc_change']=combined_change.loc[:,'cases_per_100k_perc_change'].astype('float')
+    combined_change = combined_change.sort_values('cases_per_100k_perc_change', ascending=False)
     combined_change.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
     return combined_change
 
