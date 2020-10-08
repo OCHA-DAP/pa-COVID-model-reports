@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-09-23'      
+  assignment_date: '2020-10-07'      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -51,19 +51,22 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 39,096 cases and 1,445 deaths have been reported. 
-* The current number of severe cases requiring healthcare support is estimated at 101 - 166 and is stable with respect to our last update.
+* A total of 39,486 cases and 1,467 deaths have been reported by the WHO. 
+* The current number of severe cases requiring healthcare support is estimated at 91 - 147.
+* Progress towards containment is insufficient in multiple regions. Regions vary in the intensity of control effort needed to achieve containment (see section 2).
 * Cases had a first peak in early June and deaths had a first peak in early July. 
+* The data from the WHO and the Ministry of Public health concord well.
 "   
 
 key_messages_national_projections <- "
-* In the next 4 weeks, the total number of cases is projected to reach 39,914 - 40,132 (a 2-3% increase) and the total number of deaths is projected to reach 1,490 - 1,509 (a 3-4% increase) if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 1,130 more cases and up to 41 more deaths; see sections 2 and 3 for details).
-* The number of severe cases requiring healthcare is projected to increase, and to increase at least 3 times more if NPIs are lifted (see section 3).
+* In the next 4 weeks, the total number of cases is projected to reach 40,194 - 40,432 and the total number of deaths is projected to reach 1,506 - 1,520 if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 942 more cases and up to 29 more deaths; see sections 2 and 3 for details).
+* The number of severe cases requiring healthcare is projected to increase, and to increase by least twice as much if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* Assuming all current NPIs are maintained, the number of active cases is expected to decrease in all regions (see section 4).
+* Fewer regions are expected to be at a Tipping Point in 2 weeks however many regions will still be battling community spread even if current NPIs are maintained (see section 4).
+* The ratio of active cases per 100,000 people is expected to increase the most in Ghor, Badghis, Ghazni and to decrease the most in Hirat, Daykundi, Farah assuming all current NPIs are maintained. Note that the 3 regions with the sharpest declines in cases are still projected to be in a red state (= highest risk level) (see section 4).
 "
 ```
 
@@ -199,7 +202,7 @@ current_cum_deaths <- who_data %>%
 ```
 
 ```{r graphs, include = FALSE}
-current_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_total_current.png")
+current_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_total_current.png") # use reported_current instead?
 cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
@@ -220,7 +223,7 @@ subnational_full_projections <- read.csv(subnational_full_projections_filename)
 subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/ADM1_ranking.csv")
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$cases_per_100k_abs_change <- round(as.numeric(subnational_projections$cases_per_100k_abs_change), 2)
-subnational_projections$cases_per_100k_inTWOweeks <- round(subnational_projections$cases_per_100k_inTWOweeks, 2)
+subnational_projections$cases_per_100k_inTWOweeks <- round(subnational_projections$cases_per_100k_inTWOweeks, 3)
 
 #subnational_raw_yaml <- yaml::read_yaml(file = "../config.yml")
 #subnational_yaml_df <- data.frame(reshape2::melt(subnational_raw_yaml)) 
