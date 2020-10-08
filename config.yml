@@ -6,6 +6,8 @@ AFG:
   adm1_name: 'ADM1_EN'
   adm1_pcode: 'ADM1_PCODE'
   shape: 'Shapes/afg_admbnda_adm1_agcho_20180522/afg_admbnda_adm1_agcho_20180522.shp'
+  npis_url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQcZaUnsrDX5hVTfoGfbRZZRsuQetgotXjo4f7BdzNtWlMyq9b7Stg3XmLwfI69Q5nQ_Nj217qbTPx3/pub?gid=1114937196&single=true&output=csv'
+
 COD:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/COD/COVID/COD_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
@@ -13,6 +15,7 @@ COD:
   adm1_name: 'ADM1_FR'
   adm1_pcode: 'ADM1_PCODE'
   shape: 'Shapes/cod_admbnda_rgc_itos_20190911_shp/cod_admbnda_adm1_rgc_itos_20190911.shp'
+  npis_url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSommoUZUX9Spyg3JzC2n9oKQ9SB2jO4XoeI0T3rgFlND6rMh3MvX_Ysiq-rWKJVKujwj1XyFjVquub/pub?gid=1686966978&single=true&output=csv'
 SDN:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/SDN/COVID/SDN_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
@@ -20,6 +23,7 @@ SDN:
   adm1_name: 'ADM1_EN'
   adm1_pcode: 'ADM1_PCODE'
   shape: 'Shapes/sdn_adm_cbs_nic_ssa_20200317_shp/sdn_admbnda_adm1_cbs_nic_ssa_20200317.shp'
+  npis_url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQe2N9oGZLd-oICiX2k1B2lfIdyBhZc32QmVu8q8XGVURPw8EpcnsS-XE2bqoAuoxWkcSMZ8Y-L5OGL/pub?gid=585810411&single=true&output=csv'
 SSD:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/SSD/COVID/SSD_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
@@ -27,6 +31,7 @@ SSD:
   adm1_name: 'ADM1_EN'
   adm1_pcode: 'ADM1_PCODE'
   shape: 'Shapes/ssd_admbnda_imwg_nbs_shp/ssd_admbnda_adm1_imwg_nbs_20180817.shp'
+  npis_url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQSj3APyX0xsQhVLhlt3nV7SOAZPO5umf2mjrYZRHHQUgJiQ0y74jHIKy0esbAxqRjncd59wzX6hLdD/pub?gid=863998455&single=true&output=csv'
 SOM:
   subnational_cases_url: 'https://github.com/OCHA-DAP/pa-COVID-model-parameterization/raw/master/Outputs/SOM/COVID/SOM_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
@@ -34,6 +39,7 @@ SOM:
   adm1_name: 'admin1RefN'
   adm1_pcode: 'admin1Pcod'
   shape: 'Shapes/som_adm_undp_shp/Som_Admbnda_Adm1_UNDP.shp'
+  npis_url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQSwkx2eOoeQXEiyp_QjcP71mbIiMTg0Bnyd0pU113XyTP8VoQVxWQjefhM-u8Rsm2uuXZNW2w3dDeH/pub?gid=1334301503&single=true&output=csv'
 IRQ:
   subnational_cases_url: 'https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-parameterization/master/Outputs/IRQ/COVID/IRQ_COVID.csv'
   subnational_cases_source: 'Ministry of Public Health (subnational)'
@@ -41,3 +47,4 @@ IRQ:
   adm1_name: 'ADM1_EN'
   adm1_pcode: 'ADM1_PCODE'
   shape: 'Shapes/irq_admbnda_adm1_cso_20190603/irq_admbnda_adm1_cso_20190603.shp'
+  npis_url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWn8YQT-FBlEC2dcvKMK3ZJ5DE9EBd-_Gmw5vh78aqRLDhLtoZhJbQbwepLaCRNfz_avnKbnU_Kz_L/pub?gid=1114937196&single=true&output=csv'

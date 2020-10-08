@@ -10,7 +10,7 @@ Weekly new cases wrt last week - trend,25.0,2020-09-09,SSD
 Weekly new deaths wrt last week - trend,inf,2020-09-09,SSD
 Estimated case reporting rate,12.58079310299439,2020-09-09,SSD
 NPI - projected reported cases in 4w - MIN,2512.1062500000007,2020-09-09,SSD
-NPI - projected reported cases in 4w - MAX,2522.398,2020-09-09,SSD
+NPI - projected reported cases in 4w - MAX,2522.3979999999997,2020-09-09,SSD
 NPI - projected TREND reported cases in 4w - MIN,1.0882523075375845,2020-09-09,SSD
 NPI - projected TREND reported cases in 4w - MAX,1.5023968210055136,2020-09-09,SSD
 NPI - projected reported deaths in 4w - MIN,47.17475,2020-09-09,SSD
@@ -31,24 +31,29 @@ Estimated doubling time NPI,1049.1580003222728,2020-09-23,SSD
 NPI Reff,1.0046313121252597,2020-09-23,SSD
 Estimated doubling time No NPI,323.1472631584176,2020-09-23,SSD
 No NPI Reff,1.0150847814877075,2020-09-23,SSD
-Current situation - WHO cases today,2664.0,2020-09-23,SSD
-Current situation - WHO deaths today,49.0,2020-09-23,SSD
+Current situation - WHO cases today,2664,2020-09-23,SSD
+Current situation - WHO deaths today,49,2020-09-23,SSD
 CFR,1.8393393393393391,2020-09-23,SSD
-Weekly new cases wrt last week - trend,-31.25,2020-09-23,SSD
-Weekly new deaths wrt last week - trend,,2020-09-23,SSD
+Weekly new cases wrt last week - trend,88.23529411764706,2020-09-23,SSD
+Weekly new deaths wrt last week - trend,-100.0,2020-09-23,SSD
 Estimated case reporting rate,12.819241377641902,2020-09-23,SSD
-NPI - projected reported cases in 4w - MIN,2567.907000000001,2020-09-23,SSD
-NPI - projected reported cases in 4w - MAX,2583.053000000001,2020-09-23,SSD
-NPI - projected TREND reported cases in 4w - MIN,1.554596965313787,2020-09-23,SSD
-NPI - projected TREND reported cases in 4w - MAX,2.1535851395882504,2020-09-23,SSD
-NPI - projected reported deaths in 4w - MIN,47.73399999999999,2020-09-23,SSD
-NPI - projected reported deaths in 4w - MAX,48.19875,2020-09-23,SSD
-NPI - projected TREND reported deaths in 4w - MIN,2.2185104287121384,2020-09-23,SSD
-NPI - projected TREND reported deaths in 4w - MAX,3.2137350636001623,2020-09-23,SSD
-NO NPI - projected reported cases in 4w - MIN,2665.9790000000003,2020-09-23,SSD
-NO NPI - projected reported cases in 4w - MAX,2713.995250000001,2020-09-23,SSD
-NO NPI - projected reported deaths in 4w - MIN,48.79499999999999,2020-09-23,SSD
-NO NPI - projected reported deaths in 4w - MAX,49.80224999999998,2020-09-23,SSD
+NPI - projected reported cases in 4w - MIN,2567,2020-09-23,SSD
+NPI - projected reported cases in 4w - MAX,2583,2020-09-23,SSD
+NPI - projected TREND reported cases in 4w - MIN,1.5427215189873418,2020-09-23,SSD
+NPI - projected TREND reported cases in 4w - MAX,2.1756329113924053,2020-09-23,SSD
+NPI - projected reported deaths in 4w - MIN,47,2020-09-23,SSD
+NPI - projected reported deaths in 4w - MAX,48,2020-09-23,SSD
+NPI - projected TREND reported deaths in 4w - MIN,2.1739130434782608,2020-09-23,SSD
+NPI - projected TREND reported deaths in 4w - MAX,4.3478260869565215,2020-09-23,SSD
+NO NPI - projected reported cases in 4w - MIN,2665,2020-09-23,SSD
+NO NPI - projected reported cases in 4w - MAX,2713,2020-09-23,SSD
+NO NPI - projected reported deaths in 4w - MIN,48,2020-09-23,SSD
+NO NPI - projected reported deaths in 4w - MAX,49,2020-09-23,SSD
+Maximum number of extra cases if NPIs are lifted,146,2020-09-23,SSD
+Maximum number of extra deaths if NPIs are lifted,2,2020-09-23,SSD
+Current situation - latest date MPHO reported numbers,2020-09-23,2020-09-23,SSD
+Current situation - latest MPHO cases,2498,2020-09-23,SSD
+Current situation - latest MPHO deaths,45,2020-09-23,SSD
 Hospitalizations current situation - MIN,2.747,2020-09-23,SSD
 Hospitalizations current situation - MAX,4.30175,2020-09-23,SSD
 NPI Hospitalizations projections 4w - MIN,2.682499999999999,2020-09-23,SSD
