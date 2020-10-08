@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-01-01'      
+  assignment_date: '2020-09-23'      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -101,6 +101,7 @@ colorize <- function(x, color) {
 ```
 
 ```{r updated_inputs, echo = FALSE}
+
 # import metrics for the country
 report_metrics_filename <- paste0("report_metrics/", country_iso_3_code, "_results.csv")
 report_metrics_all_dates <- read.csv(report_metrics_filename)
@@ -108,11 +109,21 @@ report_metrics_all_dates <- read.csv(report_metrics_filename)
 # keep latest metrics
 report_metrics <- report_metrics_all_dates %>% filter(assessment_date == assignment_date)
 
-# assign values to variables
-cfr <- report_metrics %>% filter(metric_name == 'CFR') %>% select(metric_value)
+# cfr
+cfr <- report_metrics %>% filter(metric_name == 'CFR') %>% select(metric_value) %>% as.numeric()
 cfr <- round(cfr, 1)
 cfr_text <- paste0(cfr, '%')
 
+# Current Situation MOPH data counts
+latest_moph_datapoint_date <- report_metrics %>% filter(metric_name == "Current situation - latest date MPHO reported numbers") %>% select(metric_value) %>% as.character() %>% as.Date("%Y-%m-%d")
+
+mpho_current_cum_cases <- report_metrics %>% filter(metric_name == "Current situation - latest MPHO cases") %>% select(metric_value) %>% as.numeric()
+mpho_current_cum_cases <- format(round(mpho_current_cum_cases, 0), big.mark = ",")
+
+mpho_current_cum_deaths <- report_metrics %>% filter(metric_name == "Current situation - latest MPHO deaths") %>% select(metric_value) %>% as.numeric()
+mpho_current_cum_deaths <- format(round(mpho_current_cum_deaths, 0), big.mark = ",")
+
+# bucky projections and estimates
 npi_projected_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
 npi_projected_cases_4w_LOW <- format(round(npi_projected_cases_4w_LOW, 0), big.mark = ",")
 
@@ -188,7 +199,7 @@ current_cum_deaths <- who_data %>%
 ```
 
 ```{r graphs, include = FALSE}
-current_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_current.png")
+current_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_total_current.png")
 cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
@@ -201,7 +212,6 @@ hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/proje
 subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
 risk_levels_quadrants_path <- paste0("visual_assets/risk_levels_quadrants.png")
 
-### ADD ME: total cases and total deaths and most recent date from MOPH
 ```
 
 ```{r subnational_projections_data, include = FALSE}
@@ -209,17 +219,19 @@ subnational_full_projections_filename <- paste0("../Bucky_results/", paste0(coun
 subnational_full_projections <- read.csv(subnational_full_projections_filename)
 subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/ADM1_ranking.csv")
 subnational_projections <- read.csv(subnational_projections_filename)
-subnational_projections$cases_per_100k_change <- as.numeric(subnational_projections$cases_per_100k_change)
-subnational_raw_yaml <- yaml::read_yaml(file = "../config.yml")
-subnational_yaml_df <- data.frame(reshape2::melt(subnational_raw_yaml)) 
-country_subnational_data_url <- subnational_yaml_df %>% filter(L1 == country_iso_3_code & L2 == 'subnational_cases_url') %>% select(value) %>% as.character() 
-country_subnational_data <- read.csv(country_subnational_data_url)
-country_subnational_data <- country_subnational_data %>% 
-                                rename(adm1_pcode = 'X.adm1.pcode', 
-                                       adm2_pcode = 'X.adm2.pcode', 
-                                       date = 'X.date', 
-                                       affected_infected_confirmed_total = "X.affected.infected.confirmed.total", 
-                                       affected_infected_dead_total = "X.affected.infected.dead.total")
+subnational_projections$cases_per_100k_abs_change <- round(as.numeric(subnational_projections$cases_per_100k_abs_change), 2)
+subnational_projections$cases_per_100k_inTWOweeks <- round(subnational_projections$cases_per_100k_inTWOweeks, 2)
+
+#subnational_raw_yaml <- yaml::read_yaml(file = "../config.yml")
+#subnational_yaml_df <- data.frame(reshape2::melt(subnational_raw_yaml)) 
+#country_subnational_data_url <- subnational_yaml_df %>% filter(L1 == country_iso_3_code & L2 == 'subnational_cases_url') %>% select(value) %>% as.character() 
+#country_subnational_data <- read.csv(country_subnational_data_url)
+#country_subnational_data <- country_subnational_data %>% 
+#                                rename(adm1_pcode = 'X.adm1.pcode', 
+#                                       adm2_pcode = 'X.adm2.pcode', 
+#                                       date = 'X.date', 
+#                                       affected_infected_confirmed_total = "X.affected.infected.confirmed.total", 
+#                                       affected_infected_dead_total = "X.affected.infected.dead.total")
 
 ```
 
@@ -255,7 +267,9 @@ This report summarizes the COVID-19 model results for Afghanistan, developed by 
 
 The key performance indicators below can be used to evaluate how effective the response has been in containing the spread of the virus. The map on the left illustrates risk levels to help decision-makers and community members know where they are. The levels communicate whether a region is on track for containment and what intensity of effort is needed to control COVID at varying levels of community spread. The map on the right represents the current need for healthcare support.
 
-![Current incidence per 100k people](`r current_incidence_risk_graph_path`){width=400px}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{`r current_incidence_risk_graph_path`}
+\end{center}
 
 ```{r containment_progress_table, echo = FALSE}
 kbl(effort_needed_table, 
@@ -279,12 +293,10 @@ kbl(effort_needed_table,
 
 ```{r section2_cumulative_figures, echo = FALSE}
 
-x <- data.frame(Cases = current_cum_cases, 
-            Deaths = current_cum_deaths) 
-### ADD ME: MOPH TOTALS FOR COMPARISON: data.frame(Cases = c(10, 100), Deaths = c(3, 30)) 
+x <- data.frame(Cases = c(current_cum_cases, mpho_current_cum_cases),
+                Deaths = c(current_cum_deaths, mpho_current_cum_deaths)) 
 
-row.names(x) <- "Reported by WHO"
-### ADD ME: ROWNAME FOR MOPH: row.names(x) <- c("Reported by WHO", "Reported by MOPH")
+row.names(x) <- c("Based on WHO reports", "Based on MOPH data")
 
 x %>% 
             kable(align = 'c',
@@ -293,16 +305,16 @@ x %>%
             kableExtra::kable_styling(row_label_position = 'r',
                                       position = 'center',
                                       font_size = 11) %>%
-            row_spec(0, bold = FALSE, font_size = 12) 
+            row_spec(0, bold = FALSE, font_size = 12)
 
-
-          
 ```
 
 \footnotesize
 
 \begin{center}
 Case Fatality Rate: `r cfr`\%
+
+Most recent data from MOPH dated: `r latest_moph_datapoint_date`
 \end{center}
 
 \large \textbf{`r colorize('Key Figures: Current Severe Cases', 'centreBlue')`}
@@ -328,6 +340,7 @@ x %>%
 \Large \textbf{`r colorize('3. National Projections', 'centreGreen')`} \normalsize (for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
 
 The regional data provided by the Ministry of Public Health was used to generate projections at the subnational level, which were then aggregated to the national level. 
+
 
 \large \textbf{`r colorize('Projected Cases and Deaths', 'centreBlue')`}
 
@@ -380,27 +393,26 @@ The figures below furthermore show the comparison between the reported data from
 
 &nbsp;
 
-\large \textbf{`r colorize('Projected Changes In Daily New Cases', 'centreBlue')`}
+\large \textbf{`r colorize('Projected Changes In Incidence', 'centreBlue')`}
+
+Regions ordered in decreasing order of change magnitude, from largest increase (more concerning) to largest decrease (less concerning). While the magnitude of change may signal how successful mitigation strategies are projected to be, it should be evaluated in conjunction with regional incidence (cases per 100k people) when considering adding or lifting containment measures. 
 
 ```{r subnational_deltas, echo = FALSE}
 increases_nrow <- subnational_projections %>%
-                          arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
-                          filter(cases_per_100k_change >= 0) %>%
+                          filter(cases_per_100k_abs_change >= 0) %>%
                           nrow()
 
 decreases_nrow <- subnational_projections %>%
-                          arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
-                          filter(cases_per_100k_change < 0) %>%
+                          filter(cases_per_100k_abs_change < 0) %>%
                           nrow()
 
-#### ADD ME: "Suppression achieved" section with full list of regions
-#### ADD ME: Projected cases per 100k or daily new cases for every region
+#### ADD ME: daily new cases for every region?
   
 subnational_projections %>%
-          arrange(desc(cases_per_100k_change)) %>% # orders regions from largest to smallest absolute change 
-          select(ADM1_EN, cases_per_100k_change) %>%
+          arrange(desc(cases_per_100k_abs_change)) %>% # orders regions from largest to smallest change 
+          select(ADM1_EN, cases_per_100k_abs_change, cases_per_100k_inTWOweeks) %>%
           kable(format = 'latex',
-                col.names = c("Region", "Change (%)")) %>%
+                col.names = c("Region", "Change (%)", "Projected Cases per 100k People")) %>%
           pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow)) %>%
           row_spec(0, bold = TRUE) %>%
           kable_styling(latex_options = c('striped', 'hold_position'))
