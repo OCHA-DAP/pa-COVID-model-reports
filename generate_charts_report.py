@@ -434,7 +434,7 @@ def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
                           color=NO_NPI_COLOR,alpha=0.2
                           )
 
-def create_subnational_map_metric_100k(metric, country_iso3, parameters, date,fig_title,output_file,avg_days=14):
+def create_subnational_map_metric_100k(metric, country_iso3, parameters, date,fig_title,output_file):
     bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=LAST_TWO_MONTHS, max_date=date, npi_filter='npi')
 
     bucky_npi = bucky_npi[bucky_npi['q'] == 0.5]
@@ -449,29 +449,18 @@ def create_subnational_map_metric_100k(metric, country_iso3, parameters, date,fi
     if metric=="hospitalizations_per_100k_active":
         bucky_npi["hospitalizations_per_100k_active"] = bucky_npi["hospitalizations"] /(bucky_npi["N"]/100000)
 
-    if date==TODAY:
-        metric_plot=metric
-        subtitle=None
-    elif date > TODAY:
-        bucky_npi[f"{metric}_rolling{avg_days}"] = bucky_npi[metric].rolling(window=avg_days).mean()
-        metric_plot=f"{metric}_rolling{avg_days}"
-        subtitle=f"{avg_days}-day average"
-
-    bucky_npi = bucky_npi.loc[date, ["adm1",metric_plot]]
+    bucky_npi = bucky_npi.loc[date, ["adm1",metric]]
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
 
-    fig, axis = create_new_subplot("")
-    plt.suptitle(fig_title,  fontsize=18)
-    if subtitle:
-        plt.title(subtitle, fontsize=10)
+    fig, axis = create_new_subplot(fig_title)
     axis.axis('off')
     #bins according to recommendations from https://globalhealth.harvard.edu/key-metrics-for-covid-suppression-researchers-and-public-health-experts-unite-to-bring-clarity-to-key-metrics-guiding-coronavirus-response/
     bins_list=np.array([0,1,10,25,100000])
     cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["#00a67e","#f8b931","#f88c29","#df431d"])
     # set bins
     norm2 = mcolors.BoundaryNorm(boundaries=bins_list, ncolors=256)
-    shapefile.plot(column=metric_plot, cmap=cmap, norm=norm2, ax=axis)
+    shapefile.plot(column=metric, cmap=cmap, norm=norm2, ax=axis)
     #plot legend
     # cbar=fig.colorbar(axis.collections[0], cax=fig.add_axes([0.9, 0.2, 0.03, 0.60]))
     # cbar.ax.set_yticklabels(["0", "1", "10","25+",""])
