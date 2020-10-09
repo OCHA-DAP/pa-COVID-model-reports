@@ -77,14 +77,20 @@ def main(country_iso3='AFG', download_covid=False):
     #create graphs
     generate_data_model_comparison(country_iso3,parameters)
     generate_data_model_comparison_lifetime(country_iso3,parameters)
-    create_subnational_map_metric_100k("cases_per_100k", country_iso3, parameters, TODAY, "Current Reported Daily New Cases Per 100,000 People",
-                           "map_cases_per_100k_reported_current.png")
-    create_subnational_map_metric_100k("cases_per_100k_total", country_iso3, parameters, TODAY, "Current Estimated Daily New Cases Per 100,000 People",
-                           "map_cases_per_100k_total_current.png")
-    create_subnational_map_metric_100k("cases_per_100k",country_iso3, parameters, TWO_WEEKS, "Projected Reported Daily New Cases Per 100,000 People",
-                           "map_cases_per_100k_2w.png")
+    # create_subnational_map_metric_100k("cases_per_100k", country_iso3, parameters, TODAY, "Current Reported Active Cases Per 100,000 People",
+    #                        "map_active_cases_per_100k_reported_current.png")
+    # create_subnational_map_metric_100k("cases_per_100k_total", country_iso3, parameters, TODAY, "Current Estimated Active Cases Per 100,000 People",
+    #                        "map_active_cases_per_100k_total_current.png")
+    # create_subnational_map_metric_100k("cases_per_100k",country_iso3, parameters, TWO_WEEKS, "Projected Reported Active Cases Per 100,000 People",
+    #                        "map_active_cases_per_100k_2w.png")
     create_subnational_map_metric_100k("hospitalizations_per_100k_active", country_iso3, parameters, TODAY, "Current Reported Hospitalizations Per 100,000 People",
                            "map_hospitalizations_per_100k_current.png")
+    create_subnational_map_metric_100k("daily_cases_reported_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Reported New Daily Cases Per 100,000 People",
+                           "map_dailycasesreported_per_100k_current.png")
+    create_subnational_map_metric_100k("daily_cases_total_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Estimated New Daily Cases Per 100,000 People",
+                           "map_dailycasestotal_per_100k_current.png")
+    create_subnational_map_metric_100k("daily_cases_reported_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Reported New Daily Cases Per 100,000 People",
+                           "map_dailycasestotal_per_100k_2w.png")
     create_binary_change_map(country_iso3, parameters)
 
 
@@ -446,6 +452,10 @@ def create_subnational_map_metric_100k(metric, country_iso3, parameters, date,fi
     if metric=="cases_per_100k_total":
         reporting_rate = bucky_npi['CASE_REPORT'].mean() * 100
         bucky_npi["cases_per_100k_total"]=bucky_npi["cases_per_100k"]*reporting_rate
+    if metric=="daily_cases_reported_per_100k":
+        bucky_npi["daily_cases_reported_per_100k"] = bucky_npi["daily_cases_reported"] /(bucky_npi["N"]/100000)
+    if metric=="daily_cases_total_per_100k":
+        bucky_npi["daily_cases_total_per_100k"] = bucky_npi["daily_cases"] /(bucky_npi["N"]/100000)
     if metric=="hospitalizations_per_100k_active":
         bucky_npi["hospitalizations_per_100k_active"] = bucky_npi["hospitalizations"] /(bucky_npi["N"]/100000)
 
@@ -504,14 +514,14 @@ def calculate_subnational_trends(country_iso3, parameters):
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix='IQG'
     bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
-    
+
     # make the col selector a list to ensure always a dataframe is returned (and not a series)
     start = bucky_npi.loc[[TODAY], :]
     end = bucky_npi.loc[[TWO_WEEKS], :]
     combined = start.merge(end[['adm1', 'cases_per_100k',"cases_active"]], how='outer', on='adm1',suffixes=("_today","_inTWOweeks"))
 
     combined["cases_per_100k_abs_change"]=combined['cases_per_100k_inTWOweeks'] - combined['cases_per_100k_today']
-    
+
     # Select the row if current OR projected have at least one active case
     # to remove noise
     combined_cases=combined.loc[(combined['cases_active_today']>=1) | (combined['cases_active_inTWOweeks']>=1),:].copy()
@@ -520,7 +530,7 @@ def calculate_subnational_trends(country_iso3, parameters):
 
     shapefile = gpd.read_file(parameters['shape'])
     shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
-    
+
     combined_change=combined_change.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
     #inf values are given when cases_per100k TODAY was 0 and in two weeks this is larger than 0
     # combined_change=combined_change.replace(np.inf,np.nan)
