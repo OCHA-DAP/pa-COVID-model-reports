@@ -83,13 +83,14 @@ def main(country_iso3='AFG', download_covid=False):
     #                        "map_active_cases_per_100k_total_current.png")
     # create_subnational_map_metric_100k("cases_per_100k",country_iso3, parameters, TWO_WEEKS, "Projected Reported Active Cases Per 100,000 People",
     #                        "map_active_cases_per_100k_2w.png")
-    create_subnational_map_metric_100k("hospitalizations_per_100k_active", country_iso3, parameters, TODAY, "Current Reported Hospitalizations Per 100,000 People",
+    calculate_subnational_incidence(country_iso3,parameters,TODAY+timedelta(days=1))
+    create_subnational_map_incidence_100k("hospitalizations_per_100k_active", country_iso3, parameters, TODAY, "Current Reported Hospitalizations Per 100,000 People",
                            "map_hospitalizations_per_100k_current.png")
-    create_subnational_map_metric_100k("daily_cases_reported_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Reported New Daily Cases Per 100,000 People",
+    create_subnational_map_incidence_100k("daily_cases_reported_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Reported New Daily Cases Per 100,000 People",
                            "map_dailycasesreported_per_100k_current.png")
-    create_subnational_map_metric_100k("daily_cases_total_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Estimated New Daily Cases Per 100,000 People",
+    create_subnational_map_incidence_100k("daily_cases_total_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Estimated New Daily Cases Per 100,000 People",
                            "map_dailycasestotal_per_100k_current.png")
-    create_subnational_map_metric_100k("daily_cases_reported_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Reported New Daily Cases Per 100,000 People",
+    create_subnational_map_incidence_100k("daily_cases_reported_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Reported New Daily Cases Per 100,000 People",
                            "map_dailycasestotal_per_100k_2w.png")
     create_binary_change_map(country_iso3, parameters)
 
@@ -440,26 +441,33 @@ def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
                           color=NO_NPI_COLOR,alpha=0.2
                           )
 
-def create_subnational_map_metric_100k(metric, country_iso3, parameters, date,fig_title,output_file):
-    bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=LAST_TWO_MONTHS, max_date=date, npi_filter='npi')
-
+def calculate_subnational_incidence(country_iso3, parameters, date):
+    bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=date, max_date=date, npi_filter='npi')
     bucky_npi = bucky_npi[bucky_npi['q'] == 0.5]
     adm1_pcode_prefix = parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix = 'IQG'
     bucky_npi['adm1'] = adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
-    bucky_npi["cases_per_100k"] = bucky_npi["cases_per_100k"].astype(int)
-    if metric=="cases_per_100k_total":
-        reporting_rate = bucky_npi['CASE_REPORT'].mean() * 100
-        bucky_npi["cases_per_100k_total"]=bucky_npi["cases_per_100k"]*reporting_rate
-    if metric=="daily_cases_reported_per_100k":
-        bucky_npi["daily_cases_reported_per_100k"] = bucky_npi["daily_cases_reported"] /(bucky_npi["N"]/100000)
-    if metric=="daily_cases_total_per_100k":
-        bucky_npi["daily_cases_total_per_100k"] = bucky_npi["daily_cases"] /(bucky_npi["N"]/100000)
-    if metric=="hospitalizations_per_100k_active":
-        bucky_npi["hospitalizations_per_100k_active"] = bucky_npi["hospitalizations"] /(bucky_npi["N"]/100000)
+    bucky_npi["daily_cases_reported_per_100k"] = bucky_npi["daily_cases_reported"] /(bucky_npi["N"]/100000)
+    bucky_npi["daily_cases_total_per_100k"] = bucky_npi["daily_cases"] /(bucky_npi["N"]/100000)
+    print(f"Daily reported and estimated total cases per admin1 region on {date}")
+    print(bucky_npi[["adm1","daily_cases_reported_per_100k","daily_cases_total_per_100k"]])
+    daily_rep_avg=bucky_npi["daily_cases_reported_per_100k"].mean()
+    daily_tot_avg=bucky_npi["daily_cases_total_per_100k"].mean()
+    print(f"Average over all admin regions of reported new daily cases per 100K: {daily_rep_avg:.2f}")
+    print(f"Average over all admin regions of total estimated new daily cases per 100K: {daily_tot_avg:.2f}")
 
-    bucky_npi = bucky_npi.loc[date, ["adm1",metric]]
+def create_subnational_map_incidence_100k(metric, country_iso3, parameters, date,fig_title,output_file):
+    bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=date, max_date=date, npi_filter='npi')
+    bucky_npi = bucky_npi[bucky_npi['q'] == 0.5]
+    adm1_pcode_prefix = parameters['iso2_code']
+    if country_iso3 == 'IRQ':
+        adm1_pcode_prefix = 'IQG'
+    bucky_npi['adm1'] = adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
+    bucky_npi["daily_cases_reported_per_100k"] = bucky_npi["daily_cases_reported"] /(bucky_npi["N"]/100000)
+    bucky_npi["daily_cases_total_per_100k"] = bucky_npi["daily_cases"] /(bucky_npi["N"]/100000)
+    bucky_npi["hospitalizations_per_100k_active"] = bucky_npi["hospitalizations"] /(bucky_npi["N"]/100000)
+
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
 
@@ -470,6 +478,7 @@ def create_subnational_map_metric_100k(metric, country_iso3, parameters, date,fi
     cmap = matplotlib.colors.LinearSegmentedColormap.from_list("", ["#00a67e","#f8b931","#f88c29","#df431d"])
     # set bins
     norm2 = mcolors.BoundaryNorm(boundaries=bins_list, ncolors=256)
+    # print(shapefile)
     shapefile.plot(column=metric, cmap=cmap, norm=norm2, ax=axis)
     #plot legend
     # cbar=fig.colorbar(axis.collections[0], cax=fig.add_axes([0.9, 0.2, 0.03, 0.60]))
