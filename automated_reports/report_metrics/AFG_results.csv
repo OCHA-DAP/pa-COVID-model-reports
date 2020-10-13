@@ -70,23 +70,23 @@ CFR,3.7152408448564045,2020-10-07,AFG
 Weekly new cases wrt last week - trend,-37.704918032786885,2020-10-07,AFG
 Weekly new deaths wrt last week - trend,-25.0,2020-10-07,AFG
 Estimated case reporting rate,4.9116093233986025,2020-10-07,AFG
-NPI - projected reported cases in 4w - MIN,40194,2020-10-07,AFG
-NPI - projected reported cases in 4w - MAX,40432,2020-10-07,AFG
-NPI - projected TREND reported cases in 4w - MIN,1.723483410523119,2020-10-07,AFG
-NPI - projected TREND reported cases in 4w - MAX,2.3258168197808318,2020-10-07,AFG
-NPI - projected reported deaths in 4w - MIN,1506,2020-10-07,AFG
-NPI - projected reported deaths in 4w - MAX,1520,2020-10-07,AFG
-NPI - projected TREND reported deaths in 4w - MIN,2.518720217835262,2020-10-07,AFG
-NPI - projected TREND reported deaths in 4w - MAX,3.4717494894486043,2020-10-07,AFG
+NPI - projected reported cases in 4w - MIN,40194.2845,2020-10-07,AFG
+NPI - projected reported cases in 4w - MAX,40432.765749999984,2020-10-07,AFG
+NPI - projected TREND reported cases in 4w - MIN,1.7238507284298492,2020-10-07,AFG
+NPI - projected TREND reported cases in 4w - MAX,2.3273999986383433,2020-10-07,AFG
+NPI - projected reported deaths in 4w - MIN,1506.3137499999998,2020-10-07,AFG
+NPI - projected reported deaths in 4w - MAX,1520.807999999999,2020-10-07,AFG
+NPI - projected TREND reported deaths in 4w - MIN,2.539380262898193,2020-10-07,AFG
+NPI - projected TREND reported deaths in 4w - MAX,3.526048154879819,2020-10-07,AFG
 NO NPI - projected reported cases in 4w - MIN,40710,2020-10-07,AFG
 NO NPI - projected reported cases in 4w - MAX,41136,2020-10-07,AFG
 NO NPI - projected reported deaths in 4w - MIN,1517,2020-10-07,AFG
 NO NPI - projected reported deaths in 4w - MAX,1535,2020-10-07,AFG
-Maximum number of extra cases if NPIs are lifted,942,2020-10-07,AFG
-Maximum number of extra deaths if NPIs are lifted,29,2020-10-07,AFG
+Maximum number of extra cases if NPIs are lifted,941,2020-10-07,AFG
+Maximum number of extra deaths if NPIs are lifted,28,2020-10-07,AFG
 Current situation - latest date MPHO reported numbers,2020-10-07,2020-10-07,AFG
-Current situation - latest MPHO cases,39548,2020-10-07,AFG
-Current situation - latest MPHO deaths,1469,2020-10-07,AFG
+Current situation - latest MPHO cases,39547,2020-10-07,AFG
+Current situation - latest MPHO deaths,1468,2020-10-07,AFG
 Hospitalizations current situation - MIN,91.0635,2020-10-07,AFG
 Hospitalizations current situation - MAX,146.72625000000005,2020-10-07,AFG
 NPI Hospitalizations projections 4w - MIN,99.44725,2020-10-07,AFG

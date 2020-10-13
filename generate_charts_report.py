@@ -18,6 +18,7 @@ TWO_WEEKS = TODAY + timedelta(days=14)
 LAST_TWO_MONTHS = TODAY - timedelta(days=60)
 EARLIEST_DATE = datetime.strptime('2020-02-24', '%Y-%m-%d').date()
 
+#these are the quantile values to consider for min and max projected numbers
 MIN_QUANTILE=0.25
 MAX_QUANTILE=0.75
 
@@ -33,7 +34,7 @@ NO_NPI_COLOR='red'
 WHO_DATA_COLOR='dodgerblue'
 SUBNATIONAL_DATA_COLOR='navy'
 
-def main(country_iso3='AFG', download_covid=False):
+def main(country_iso3, download_covid=False):
 
     parameters = utils.parse_yaml(CONFIG_FILE)[country_iso3]
     if download_covid:
@@ -55,11 +56,11 @@ def main(country_iso3='AFG', download_covid=False):
     else:
         df_all=pd.DataFrame()
 
-    #compute metrics current date
+    #compute metrics wrt to TODAY (can also be projections)
     df_reff = extract_reff(country_iso3)
     df_keyfigures = generate_key_figures(country_iso3,parameters)
     df_hospitalizations = generate_model_projections(country_iso3, parameters)
-    #create dataframe with metrics of current date
+    #create dataframe with metrics computed wrt to TODAY
     results_df=pd.concat([df_reff,df_keyfigures,df_hospitalizations]).reset_index()
     results_df.columns=["metric_name","metric_value"]
     results_df['assessment_date'] = TODAY
@@ -71,43 +72,67 @@ def main(country_iso3='AFG', download_covid=False):
     #calculate trends (being saved to separate csv within function)
     calculate_subnational_trends(country_iso3, parameters)
 
+    #retrieve active, modelled NPIS (Non Pharmeutical Interventions)
     #currently not used in report so not added to results_df
     retrieve_current_npis(parameters["npis_url"],NPISHEET_PATH)
 
-    #create graphs
+    #retrieve the incidence (=NEW daily cases/100k) per admin and country average, for total and reported incidence
+    calculate_subnational_incidence(country_iso3, parameters, TODAY + timedelta(days=1))
+
+    #create graphs of cumulative cases, cumulative deaths, new daily cases, daily deaths
     generate_data_model_comparison(country_iso3,parameters)
+
     generate_data_model_comparison_lifetime(country_iso3,parameters)
-    # create_subnational_map_metric_100k("cases_per_100k", country_iso3, parameters, TODAY, "Current Reported Active Cases Per 100,000 People",
-    #                        "map_active_cases_per_100k_reported_current.png")
-    # create_subnational_map_metric_100k("cases_per_100k_total", country_iso3, parameters, TODAY, "Current Estimated Active Cases Per 100,000 People",
-    #                        "map_active_cases_per_100k_total_current.png")
-    # create_subnational_map_metric_100k("cases_per_100k",country_iso3, parameters, TWO_WEEKS, "Projected Reported Active Cases Per 100,000 People",
-    #                        "map_active_cases_per_100k_2w.png")
-    calculate_subnational_incidence(country_iso3,parameters,TODAY+timedelta(days=1))
+
+    #hospitalizations/100k TODAY (have to check if this is active or new!)
     create_subnational_map_incidence_100k("hospitalizations_per_100k_active", country_iso3, parameters, TODAY, "Current Reported Hospitalizations Per 100,000 People",
                            "map_hospitalizations_per_100k_current.png")
+    #new reported daily cases/100k on TODAY+1
+    #set to TODAY+1 instead of TODAY since on TODAY the output can be negative due to initialization. This should be fixed in a future version of the model
     create_subnational_map_incidence_100k("daily_cases_reported_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Reported New Daily Cases Per 100,000 People",
                            "map_dailycasesreported_per_100k_current.png")
+    #new estimated total daily cases/100k (i.e. reported cases*reporting rate) on TODAY+1
     create_subnational_map_incidence_100k("daily_cases_total_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Estimated New Daily Cases Per 100,000 People",
                            "map_dailycasestotal_per_100k_current.png")
+    #new reported daily cases/100k in TWO_WEEKS
     create_subnational_map_incidence_100k("daily_cases_reported_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Reported New Daily Cases Per 100,000 People",
+                           "map_dailycasesreported_per_100k_2w.png")
+    #new estimated total daily cases/100k in TWO_WEEKS
+    create_subnational_map_incidence_100k("daily_cases_total_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Estimated New Daily Cases Per 100,000 People",
                            "map_dailycasestotal_per_100k_2w.png")
     create_binary_change_map(country_iso3, parameters)
 
 
 def retrieve_current_npis(npis_url,output_path):
+    """
+    Display the NPIs that are currently in place and are given as input to the model
+    Note: these NPIs might not be fully up to date
+    Args:
+        npis_url: url to the csv with the list of all npis
+        output_path: path to where to save the npi csv while downloading
+    """
     download_url(npis_url, output_path)
     df_npis_sheet = pd.read_csv(output_path)
+    #final_input==Yes indicates that the npi is given as input to the model
     df_npis_model = df_npis_sheet[df_npis_sheet["final_input"] == "Yes"]
     print("Currently in place NPIs")
     print(df_npis_model[["acaps_category", "acaps_measure", "bucky_measure", "affected_pcodes", "compliance_level", "start_date","end_date"]])
 
 def extract_reff(country_iso3):
+    """
+    Calculate the estimated doubling time and the effective reproduction number of the coming four weeks, for the scenarios when current NPIs are in place and when they wouldn't
+    Args:
+        country_iso3: iso3 code of the country of interest
+    Returns:
+        df_metrics: DataFrame containing the computed metrics
+    """
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
     bucky_npi=bucky_npi[bucky_npi['q']==0.5]
+    #this is calculated over the period that is included in bucky_npi, so from TODAY till FOUR_WEEKS and is based on the reported cumulative cases
     dt_npi,r_npi=get_bucky_dt_reff(bucky_npi)
+    #Reff= effective reproduction number, i.e. average number of secondary cases/infectious case in a population given the context, e.g. including measurements
     print(f'Estimated doubling time NPI {dt_npi}, Reff {r_npi}')
-    
+
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
     bucky_no_npi=bucky_no_npi[bucky_no_npi['q']==0.5]
     dt_no_npi,r_no_npi=get_bucky_dt_reff(bucky_no_npi)
@@ -116,23 +141,75 @@ def extract_reff(country_iso3):
     #create dict with all metrics
     dict_metrics={"Estimated doubling time NPI":dt_npi,"NPI Reff":r_npi,"Estimated doubling time No NPI":dt_no_npi,"No NPI Reff":r_no_npi}
     #convert dict to dataframe
-    return pd.DataFrame.from_dict(dict_metrics,orient="index")
+    df_metrics=pd.DataFrame.from_dict(dict_metrics,orient="index")
+    return df_metrics
 
 def generate_key_figures(country_iso3,parameters):
+    """
+    Retrieve the current cumulative cases and deaths given by WHO, MPHO (subnational) and the model (Bucky).
+    Moreover, compute the percentual change in new cases over the last week compared to the previous week based on WHO data
+    And, compute the expected number of cumulative cases and deaths in four weeks, both with and without current NPIs in place, based on the model output.
+    Args:
+        country_iso3: iso3 code of the country of interest
+        parameters: country specific parameters, retrieved from config
 
+    Returns:
+        df_metrics: DataFrame containing the computed metrics
+    """
+    #This is the World Health Organization (WHO) data and is available on national level
+    #all the numbers of WHO are reported numbers
     who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=LAST_TWO_MONTHS,max_date=TODAY)
     who_covid.index = pd.to_datetime(who_covid.index)
     who_deaths_today=who_covid.loc[TODAY,'Cumulative_deaths']
-    who_cases_today=who_covid.loc[TODAY,'Cumulative_cases']    
+    who_cases_today=who_covid.loc[TODAY,'Cumulative_cases']
     #CFR= Case Fatality Rate
     CFR=who_deaths_today/who_cases_today*100
-    #calculate the trend of the cases and deaths of last week compared to the previous week
+    print(
+        f'Current situation WHO {TODAY}: {who_cases_today:.0f} cumulative reported cases, {who_deaths_today:.0f} cumulative reported deaths')
+    # computed over cumulative cases
+    print(f'CFR from WHO based on cumulative cases up to {TODAY}: {CFR:.1f}')
+
+    # this is the data reported by the Ministry of Public Health (MPHO) and is available on subnational level
+    # all the numbers of MPHO are reported numbers
+    subnational_covid = get_subnational_covid_data(parameters, aggregate=True, min_date=LAST_TWO_MONTHS, max_date=TODAY)
+    subnational_covid.sort_index(inplace=True)
+    subnational_lastdate = subnational_covid.iloc[-1].name.strftime("%Y-%m-%d")
+    subnational_cases_latest = subnational_covid.iloc[-1][HLX_TAG_TOTAL_CASES].astype(int)
+    subnational_deaths_latest = subnational_covid.iloc[-1][HLX_TAG_TOTAL_DEATHS].astype(int)
+    print(
+        f"Latest date of data by MPHO (subnational) was {subnational_lastdate}: {subnational_cases_latest} cumulative reported cases, {subnational_deaths_latest} cumulative reported deaths")
+
+
+    bucky_npi = get_bucky(country_iso3, admin_level='adm0', min_date=TODAY, max_date=FOUR_WEEKS, npi_filter='npi')
+
+
+    #test understanding of metrics
+    # bucky_npiq=bucky_npi[bucky_npi['q'] == 0.5]
+    # bucky_npiq['cumulative_cases_reported_yesterday']=bucky_npiq["cumulative_cases_reported"].shift(1)
+    # bucky_npiq["reported_cases_change"]=bucky_npiq["cumulative_cases_reported"]-bucky_npiq["cumulative_cases_reported_yesterday"]
+    # bucky_npiq['cumulative_cases_total_yesterday']=bucky_npiq["cumulative_cases"].shift(1)
+    # bucky_npiq["total_cases_change"]=bucky_npiq["cumulative_cases"]-bucky_npiq["cumulative_cases_total_yesterday"]
+    # print(bucky_npiq[["cumulative_cases","cumulative_cases_total_yesterday"]])
+    # print(bucky_npiq[["reported_cases_change","daily_cases_reported","total_cases_change","daily_cases"]])
+    # bucky_npiq["ratio_tr"]=bucky_npiq["daily_cases_reported"]/bucky_npiq["daily_cases"]
+    # bucky_npiq["ratio_tr_cum"]=bucky_npiq["reported_cases_change"]/bucky_npiq["total_cases_change"]
+    # print(bucky_npiq[["ratio_tr","ratio_tr_cum","CASE_REPORT"]])
+
+    bucky_npi_cases_today = bucky_npi[bucky_npi['q'] == 0.5].loc[TODAY, 'cumulative_cases_reported']
+    bucky_npi_cases_today_notrep = bucky_npi[bucky_npi['q'] == 0.5].loc[TODAY, 'cumulative_cases']
+    bucky_npi_deaths_today = bucky_npi[bucky_npi['q'] == 0.5].loc[TODAY, 'cumulative_deaths']
+    reporting_rate = bucky_npi['CASE_REPORT'].mean() * 100
+    print(
+        f'Current situation Bucky {TODAY}: {bucky_npi_cases_today:.0f} cumulative reported cases, {bucky_npi_deaths_today:.0f} cumulative reported deaths')
+    print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today_notrep:.0f} cumulative estimated total cases')
+    print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}')
+
+    #calculate the percentual change of the sum of new cases and new deaths of last week compared to the previous week
+    #this is done with WHO data, on national level
     #a week is defined being from Mon-Sun and thus last week is the last complete week
-    #this is done to avoid biases due to delays in reporting.
-    #some countries report cases only after a few days (and not reporting over the weekend).
-    # resample('W') is from Mon-Sun
+    #this is done to avoid biases due to delays in reporting, some countries report cases only after a few days (and not reporting over the weekend).
     who_covid.groupby(['Country_code']).resample('W')
-    # get the sum of weekly new cases
+    # get the sum of weekly NEW cases and deaths
     new_WHO_w=who_covid.groupby(['Country_code']).resample('W').sum()[['New_cases','New_deaths']]
     # ndays_w is the number of days present of each week in the data
     # this is max 7, first and last week can contain less days
@@ -147,48 +224,29 @@ def generate_key_figures(country_iso3,parameters):
     # get percentual change of last full week (Mon-Sun)
     trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'New_cases_PercentChange']*100
     trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'New_deaths_PercentChange']*100
-    print(f'Current situation {TODAY}: {who_cases_today:.0f} cases, {who_deaths_today:.0f} deaths')
-    print(f'CFR {TODAY}: {CFR:.1f}')
+
+    #new cases during a week period
     print(f'Percentual change in new cases and deaths during last week (Mon-Sun) wrt previous week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
 
-    bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
-    reporting_rate=bucky_npi['CASE_REPORT'].mean()*100
+    #model (i.e. bucky) outputs are not always integers. This cannot reflect the real situation, but nevertheless we choose to use the floats such that trend calculations more precisely reflect the projected development
+    #numbers are only rounded for reporting purposes
+    min_cases_npi=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    max_cases_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    min_deaths_npi=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
+    max_deaths_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
 
-    #model (i.e. bucky) outputs are not always round numbers.
-    # Therefore convert them to ints, such that trends are computed based on ints and thus numbers in report correspond
-    min_cases_npi=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported'].astype(int)
-    max_cases_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported'].astype(int)
-    min_deaths_npi=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths'].astype(int)
-    max_deaths_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths'].astype(int)
-    bucky_npi_cases_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_cases_reported'].astype(int)
-    bucky_npi_cases_today_notrep=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_cases'].astype(int)
-    bucky_npi_deaths_today=bucky_npi[bucky_npi['q']==0.5].loc[TODAY,'cumulative_deaths'].astype(int)
-    print(f'Current situation WHO {TODAY}: {who_cases_today:.0f} cases (cumulative), {who_deaths_today:.0f} deaths (cumulative)')
-
-    print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today:.0f} cases reported (cumulative), {bucky_npi_deaths_today:.0f} deaths (cumulative)')
-    print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today_notrep:.0f} cases (cumulative)')
-    subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
-    subnational_covid.sort_index(inplace=True)
-    #want to only retrieve the data up to TODAY, in case analysis is re-run after TODAY and thus might include data in the "future"
-    subnational_covid_maxtoday=subnational_covid[subnational_covid.index.date <= TODAY]
-    subnational_lastdate=subnational_covid_maxtoday.iloc[-1].name.strftime("%Y-%m-%d")
-    subnational_cases_latest=subnational_covid_maxtoday.iloc[-1][HLX_TAG_TOTAL_CASES].astype(int)
-    subnational_deaths_latest=subnational_covid_maxtoday.iloc[-1][HLX_TAG_TOTAL_DEATHS].astype(int)
-    print(f"Latest number of cases reported by MPHO (subnational) was on {subnational_lastdate} and equalled {subnational_cases_latest} cases (cumulative)")
-    print(f"Latest number of deaths reported by MPHO (subnational) was on {subnational_lastdate} and equalled {subnational_deaths_latest} cases (cumulative)")
-
-    #this are the expected percentual change in CUMULATIVE cases/deaths
+    #Compute the expected percentual change in CUMULATIVE reported cases and deaths over four weeks
     rel_inc_min_cases_npi=(min_cases_npi-bucky_npi_cases_today)/bucky_npi_cases_today*100
     rel_inc_max_cases_npi=(max_cases_npi-bucky_npi_cases_today)/bucky_npi_cases_today*100
     rel_inc_min_deaths_npi=(min_deaths_npi-bucky_npi_deaths_today)/bucky_npi_deaths_today*100
     rel_inc_max_deaths_npi=(max_deaths_npi-bucky_npi_deaths_today)/bucky_npi_deaths_today*100
     print(f'- Projection date:{FOUR_WEEKS}')
-    print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}')
     print(f'-- NPI: Projected reported cases in 4w: {min_cases_npi:.0f} - {max_cases_npi:.0f}')
     print(f'-- NPI: Projected trend reported cases in 4w: {rel_inc_min_cases_npi:.0f}% - {rel_inc_max_cases_npi:.0f}%')
     print(f'-- NPI: Projected reported deaths in 4w: {min_deaths_npi:.0f} - {max_deaths_npi:.0f}')
     print(f'-- NPI: Projected trend reported deaths in 4w: {rel_inc_min_deaths_npi:.0f}% - {rel_inc_max_deaths_npi:.0f}%')
-    
+
+    # Compute the expected percentual change in CUMULATIVE reported cases and deaths when there are no NPIs in place
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
     min_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported'].astype(int)
     max_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported'].astype(int)
@@ -197,6 +255,7 @@ def generate_key_figures(country_iso3,parameters):
     print(f'--- no_npi: Projected reported cases in 4w: {min_cases_no_npi:.0f} - {max_cases_no_npi:.0f}')
     print(f'--- no_npi: Projected reported deaths in 4w: {min_deaths_no_npi:.0f} - {max_deaths_no_npi:.0f}')
 
+    #compute the maximum projected increase in cumulative reported cases and deaths in four weeks if the NPIs were lifted
     no_npi_max_increase_cases=(max_cases_no_npi-min_cases_npi).astype(int)
     no_npi_max_increase_deaths = (max_deaths_no_npi - min_deaths_npi).astype(int)
     print(f'Maximum number of extra cases if NPIs are lifted: {no_npi_max_increase_cases:.0f}')
@@ -225,10 +284,20 @@ def generate_key_figures(country_iso3,parameters):
                     "Current situation - latest MPHO deaths": subnational_deaths_latest,
                 }
 
-    return pd.DataFrame.from_dict(dict_metrics,orient="index")
+    df_metrics=pd.DataFrame.from_dict(dict_metrics, orient="index")
+    return df_metrics
 
 def generate_model_projections(country_iso3,parameters):
-    # generate plot with long term projections of daily cases
+    """
+    Compute metrics and draw a graph related to the current and projected number of hospitalizations
+    Args:
+        country_iso3: iso3 code of the country of interest
+        parameters: country specific parameters, retrieved from config
+
+    Returns:
+        df_metrics: DataFrame with the computed metrics
+    """
+    # generate plot with four-weeks ahead projections of daily cases
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
     metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max = draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'hospitalizations')
@@ -239,10 +308,22 @@ def generate_model_projections(country_iso3,parameters):
     f"NPI {metric.capitalize()} projections 4w - MAX": metric_4w_npi_max,
     f"NO NPI {metric.capitalize()} projections 4w - MIN": metric_4w_no_npi_min,
     f"NO NPI {metric.capitalize()} projections 4w - MAX": metric_4w_no_npi_max}
-
-    return pd.DataFrame.from_dict(dict_metric,orient="index")
+    df_metrics=pd.DataFrame.from_dict(dict_metric,orient="index")
+    return df_metrics
 
 def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric):
+    """
+    Compute the projected trends of the given metric, if NPIs are in place and when they are lifted, and produce a plot
+    Args:
+        country_iso3: iso3 code of the country of interest
+        bucky_npi: DataFrame with model projections given the current NPIs
+        bucky_no_npi: DataFrame with model projections given the NPIs are lifted
+        parameters:
+        metric: the column name to compute the metrics on
+        parameters: country specific parameters, retrieved from config
+    Returns:
+        the min and max value of the metric today and in four weeks, with and without NPIs
+    """
     # draw NPI vs non NPIs projections
     if metric=='daily_cases_reported':
         bucky_var='daily_cases_reported'
@@ -257,8 +338,8 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
         print(f'metric {metric} not implemented')
         return
 
+    #plot the history and projection of the metric, including uncertainty intervals
     fig,axis=create_new_subplot(fig_title)
-    # draw bucky
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
     plt.legend()
     print(f'----{metric} statistics')
@@ -277,30 +358,63 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     return metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max
 
 def generate_data_model_comparison(country_iso3,parameters):
+    """
+    Produce plots of the last two months and the projections of the coming four weeks with cumulative reported cases, cumulative deaths, daily new cases, and daily deaths
+    Args:
+        country_iso3: iso3 code of the country of interest
+        parameters: country specific parameters, retrieved from config
+    """
     # generate plot with subnational data, WHO data and projections
     subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
     who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS)
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=LAST_TWO_MONTHS,max_date=FOUR_WEEKS,npi_filter='no_npi')
+
+    #cumulative reported cases
     draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_reported_cases')
+    #cumulative deaths
     draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_deaths')
+
+    #daily new reported cases
     draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_cases_reported')
+    #daily reported deaths
     draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_deaths')
 
 def generate_data_model_comparison_lifetime(country_iso3,parameters):
+    """
+    Produce plots from the moment cases were reported till now plus projections of the coming four weeks with cumulative reported cases, cumulative deaths, daily new cases, and daily deaths
+    Args:
+        country_iso3: iso3 code of the country of interest
+        parameters: country specific parameters, retrieved from config
+    """
     # generate plot with subnational data, WHO data and projections
     subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=EARLIEST_DATE,max_date=FOUR_WEEKS)
     who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=EARLIEST_DATE,max_date=FOUR_WEEKS)
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=EARLIEST_DATE,max_date=FOUR_WEEKS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=EARLIEST_DATE,max_date=FOUR_WEEKS,npi_filter='no_npi')
-    
+
+    #cumulative reported cases
     draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_reported_cases')
+    #cumulative reported deaths
     draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,'cumulative_deaths')
+
+    #daily new reported cases
     draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_cases_reported')
+    #daily deaths
     draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,bucky_no_npi,'daily_deaths')
 
 def draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
-    # plot the 4 inputs and save figure
+    """
+    For the given metric, plot the WHO and subnational historical data for the last two months plus the projected numbers by the model, given npis are in place and are lifted
+    Args:
+        country_iso3: iso3 code of the country of interest
+        subnational_covid: DataFrame with historical subnational data reported by MPHO
+        who_covid: DataFrame with historical national data reported by WHO
+        bucky_npi: DataFrame with model projections given the current NPIs
+        bucky_no_npi: DataFrame with model projections given the NPIs are lifted
+        parameters: country specific parameters, retrieved from config
+        metric: the column name to plot the data from
+    """
     if metric=='cumulative_reported_cases':
         who_var='Cumulative_cases'
         bucky_var='cumulative_cases_reported'
@@ -319,19 +433,30 @@ def draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_cov
 
     fig,axis=create_new_subplot(fig_title)
 
-    # draw subnational reported cumulative cases
-    axis.scatter(who_covid.index, who_covid[who_var],\
+    # draw WHO national reported numbers
+    axis.scatter(who_covid.index, who_covid[who_var],
                      alpha=0.8, s=20,c=WHO_DATA_COLOR,marker='*',label='WHO')
+    # draw subnational reported numbers
     axis.scatter(subnational_covid.index, subnational_covid[subnational_var],\
                      alpha=0.8, s=20,c=SUBNATIONAL_DATA_COLOR,marker='o',label=subnational_source)
-    # draw bucky
+    # draw bucky projections and uncertainty intervals
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
 
     plt.legend()
     fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
 
 def draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
-    # plot the 4 inputs and save figure
+    """
+    For the given metric, plot the WHO and subnational historical data from the moment numbers were reported plus the projected numbers by the model, given npis are in place and are lifted
+    Args:
+        country_iso3: iso3 code of the country of interest
+        subnational_covid: DataFrame with historical subnational data reported by MPHO
+        who_covid: DataFrame with historical national data reported by WHO
+        bucky_npi: DataFrame with model projections given the current NPIs
+        bucky_no_npi: DataFrame with model projections given the NPIs are lifted
+        parameters: country specific parameters, retrieved from config
+        metric: the column name to plot the data from
+    """
     if metric=='cumulative_reported_cases':
         who_var='Cumulative_cases'
         bucky_var='cumulative_cases_reported'
@@ -370,6 +495,15 @@ def draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covi
     fig.savefig(f'Outputs/{country_iso3}/lifetime_{metric}.png')
 
 def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi,metric):
+    """
+    For the given metric, plot the daily numbers with a 7-day rolling average of the last two months. Plus the projected numbers as given by the model
+    Args:
+        country_iso3: iso3 code of the country of interest
+        who_covid: DataFrame with historical national data reported by WHO
+        bucky_npi: DataFrame with model projections given the current NPIs
+        bucky_no_npi: DataFrame with model projections given the NPIs are lifted
+        metric: the column name to plot the data from
+    """
     # plot the 4 inputs and save figure
     if metric=='daily_cases_reported':
         who_var='New_cases'
@@ -384,7 +518,7 @@ def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi
         return False
 
     fig,axis=create_new_subplot(fig_title)
-    # draw subnational reported cumulative cases
+    # draw reported data by who
     axis.bar(who_covid.index, who_covid[who_var],alpha=0.8,color=WHO_DATA_COLOR,label='WHO')
     # compute rolling 7-day average
     who_covid_rolling = who_covid[who_var].rolling(window=7).mean()
@@ -392,12 +526,20 @@ def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi
         lw=3,color=lighten_color(WHO_DATA_COLOR,1.6),label='WHO - 7d rolling average')
     # draw bucky
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
-    
+
     plt.legend()
     fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
 
 def draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,bucky_no_npi,metric):
-    # plot the 4 inputs and save figure
+    """
+    For the given metric, plot the daily numbers with a 7-day rolling average from the moment numbers were reported. Plus the projected numbers as given by the model
+    Args:
+        country_iso3: iso3 code of the country of interest
+        who_covid: DataFrame with historical national data reported by WHO
+        bucky_npi: DataFrame with model projections given the current NPIs
+        bucky_no_npi: DataFrame with model projections given the NPIs are lifted
+        metric: the column name to plot the data from
+    """
     if metric=='daily_cases_reported':
         who_var='New_cases'
         bucky_var='daily_cases_reported'
@@ -410,7 +552,6 @@ def draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,buc
         print(f'metric {metric} not implemented')
         return False
     fig,axis=create_new_subplot(fig_title)
-    # draw subnational reported cumulative cases
     axis.bar(who_covid.index, who_covid[who_var],alpha=0.8,color=WHO_DATA_COLOR,label='WHO')
     # compute rolling 7-day average
     who_covid_rolling = who_covid[who_var].rolling(window=7).mean()
@@ -418,15 +559,23 @@ def draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,buc
         lw=3,color=lighten_color(WHO_DATA_COLOR,1.6),label='WHO - 7d rolling average')
     # draw bucky
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
-    
+
     plt.legend(loc="upper right", prop={'size': 8})
     fig.savefig(f'Outputs/{country_iso3}/lifetime_{metric}.png')
 
 def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
+    """
+    Draw historical and projection of the bucky_var, including the uncertainty intervals
+    Args:
+        bucky_npi: DataFrame with model projections given the current NPIs
+        bucky_no_npi: DataFrame with model projections given the NPIs are lifted
+        bucky_var: the column name to plot
+        axis: the fig axis to plot them on
+    """
     bucky_npi=bucky_npi[bucky_npi[bucky_var]>0]
     bucky_npi_median=bucky_npi[bucky_npi['q']==0.5][bucky_var]
     bucky_npi_median.plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained')
-    axis.fill_between(bucky_npi_median.index,\
+    axis.fill_between(bucky_npi_median.index,
                           bucky_npi[bucky_npi['q']==MIN_QUANTILE][bucky_var],
                           bucky_npi[bucky_npi['q']==MAX_QUANTILE][bucky_var],
                           color=NPI_COLOR,alpha=0.2
@@ -435,19 +584,27 @@ def draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis):
     bucky_no_npi=bucky_no_npi[bucky_no_npi[bucky_var]>0]
     bucky_no_npi_median=bucky_no_npi[bucky_no_npi['q']==0.5][bucky_var]
     bucky_no_npi_median.plot(c=NO_NPI_COLOR,ax=axis,label='No NPIs in place'.format())
-    axis.fill_between(bucky_no_npi_median.index,\
+    axis.fill_between(bucky_no_npi_median.index,
                           bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE][bucky_var],
                           bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE][bucky_var],
                           color=NO_NPI_COLOR,alpha=0.2
                           )
 
 def calculate_subnational_incidence(country_iso3, parameters, date):
+    """
+    Compute the reported and total estimated daily NEW cases per 100k on DATE and display these per admin1 and national average
+    Args:
+        country_iso3: iso3 code of the country of interest
+        parameters: country specific parameters, retrieved from config
+        date: date for which the metrics are computed
+    """
     bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=date, max_date=date, npi_filter='npi')
     bucky_npi = bucky_npi[bucky_npi['q'] == 0.5]
     adm1_pcode_prefix = parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix = 'IQG'
     bucky_npi['adm1'] = adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
+    #in the model output the daily_cases per admin1 is given. The N column gives the population per admin1 through which the cases/100k can be calculated
     bucky_npi["daily_cases_reported_per_100k"] = bucky_npi["daily_cases_reported"] /(bucky_npi["N"]/100000)
     bucky_npi["daily_cases_total_per_100k"] = bucky_npi["daily_cases"] /(bucky_npi["N"]/100000)
     print(f"Daily reported and estimated total cases per admin1 region on {date}")
@@ -458,12 +615,24 @@ def calculate_subnational_incidence(country_iso3, parameters, date):
     print(f"Average over all admin regions of total estimated new daily cases per 100K: {daily_tot_avg:.2f}")
 
 def create_subnational_map_incidence_100k(metric, country_iso3, parameters, date,fig_title,output_file):
+    """
+    Plot a map with the given metric per 100k per admin1 region.
+    The bins and color scheme being used are according to the guidelines of the Harvard Global Health Institute, see https://globalhealth.harvard.edu/key-metrics-for-covid-suppression-researchers-and-public-health-experts-unite-to-bring-clarity-to-key-metrics-guiding-coronavirus-response/
+    Args:
+        metric: the name to plot the data for
+        country_iso3: iso3 code of the country of interest
+        parameters: country specific parameters, retrieved from config
+        date: the date to plot the data for
+        fig_title: the title of the plot
+        output_file: the filename to save the figure to
+    """
     bucky_npi = get_bucky(country_iso3, admin_level='adm1', min_date=date, max_date=date, npi_filter='npi')
     bucky_npi = bucky_npi[bucky_npi['q'] == 0.5]
     adm1_pcode_prefix = parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix = 'IQG'
     bucky_npi['adm1'] = adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x: "{0:0=2d}".format(int(x)))
+    #calculate metrics per 100k that are not in the output of the model but can be given as in put "metric"
     bucky_npi["daily_cases_reported_per_100k"] = bucky_npi["daily_cases_reported"] /(bucky_npi["N"]/100000)
     bucky_npi["daily_cases_total_per_100k"] = bucky_npi["daily_cases"] /(bucky_npi["N"]/100000)
     bucky_npi["hospitalizations_per_100k_active"] = bucky_npi["hospitalizations"] /(bucky_npi["N"]/100000)
@@ -490,6 +659,9 @@ def create_subnational_map_incidence_100k(metric, country_iso3, parameters, date
 def create_binary_change_map(country_iso3, parameters):
     """
     Generate a subnational map that indicates which areas are expected to have an increase and decrease in cases per 100k in two weeks
+    Args:
+        country_iso3: iso3 code of the country of interest
+        parameters: country specific parameters, retrieved from config
     """
     fig_title = f'Projected trend in number of cases per 100,000 people'
     df_change=calculate_subnational_trends(country_iso3,parameters)
@@ -517,6 +689,15 @@ def create_binary_change_map(country_iso3, parameters):
 
 
 def calculate_subnational_trends(country_iso3, parameters):
+    """
+    Compute the absolute and percentual change in ACTIVE cases/100k in TWO_WEEKS compared to TODAY
+    Args:
+        country_iso3: iso3 code of the country of interest
+        parameters: country specific parameters, retrieved from config
+
+    Returns:
+        combined_change: DataFrame with the metrics related to the change in active cases/100k. Also includes the English admin1 names
+    """
     bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
     bucky_npi = bucky_npi.loc[bucky_npi['q']==0.5,['adm1','Reff','cases_per_100k',"cases_active"]]
     adm1_pcode_prefix=parameters['iso2_code']
@@ -574,7 +755,7 @@ def generate_new_cases_graph(country_iso3):
             color='cornflowerblue')
 
     # format the ticks
-    months = mdates.MonthLocator()  
+    months = mdates.MonthLocator()
     months_fmt = mdates.DateFormatter('%m-%Y')
 
     ax.xaxis.set_major_locator(months)
