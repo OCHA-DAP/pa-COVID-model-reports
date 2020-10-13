@@ -178,8 +178,7 @@ effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'
                                   'effort' = c('Stay-at-home orders necessary', 
                                                'Strategic choices must be made about which package of non-pharmaceutical interventions to use for control. Stay-at-home orders are advised, unless viral testing and contact tracing capacity are implementable                                                    at levels meeting surge indicator standards.',
                                                'Strategic choices must be made about which package of non-pharmaceutical interventions to use for control',
-                                               'On track for containment, conditional on continuing use of viral testing and contact tracing for surveillance and to contain spikes and outbreaks.')
-                                  )
+                                               'On track for containment, conditional on continuing use of viral testing and contact tracing for surveillance and to contain spikes and outbreaks.'))
 ```
 
 
@@ -224,18 +223,6 @@ subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$cases_per_100k_abs_change <- round(as.numeric(subnational_projections$cases_per_100k_abs_change), 2)
 subnational_projections$cases_per_100k_inTWOweeks <- round(subnational_projections$cases_per_100k_inTWOweeks, 3)
-
-#subnational_raw_yaml <- yaml::read_yaml(file = "../config.yml")
-#subnational_yaml_df <- data.frame(reshape2::melt(subnational_raw_yaml)) 
-#country_subnational_data_url <- subnational_yaml_df %>% filter(L1 == country_iso_3_code & L2 == 'subnational_cases_url') %>% select(value) %>% as.character() 
-#country_subnational_data <- read.csv(country_subnational_data_url)
-#country_subnational_data <- country_subnational_data %>% 
-#                                rename(adm1_pcode = 'X.adm1.pcode', 
-#                                       adm2_pcode = 'X.adm2.pcode', 
-#                                       date = 'X.date', 
-#                                       affected_infected_confirmed_total = "X.affected.infected.confirmed.total", 
-#                                       affected_infected_dead_total = "X.affected.infected.dead.total")
-
 ```
 
 # `r paste(colorize('COVID-19 Projections:', 'centreGreen'), colorize(country, 'centreGreen'))`
@@ -268,47 +255,70 @@ This report summarizes the COVID-19 model results for Afghanistan, developed by 
 \large \textbf{`r colorize('Containment Progress', 'centreBlue')`}
 \normalsize 
 
-The key performance indicators below can be used to evaluate how effective the response has been in containing the spread of the virus. The map on the left illustrates risk levels to help decision-makers and community members know where they are. The levels communicate whether a region is on track for containment and what intensity of effort is needed to control COVID at varying levels of community spread. The map on the right represents the current need for healthcare support.
+This report leverages a framework to provide guidance in the interpretation of incidence rates so decision-makers can more readily understand how effective the response has been in containing the virus. The framework was devised by experts from the Harvard Global Health Institute, Harvard’s Edmond J. Safra Center for Ethics, and a network of research and policy organizations (more about the collaborative framework [here](https://globalhealth.harvard.edu/key-metrics-for-covid-suppression-researchers-and-public-health-experts-unite-to-bring-clarity-to-key-metrics-guiding-coronavirus-response/)). 
+
+The framework defines risk levels that indicate whether a region is on track for containment and can help decision-makers know where they are at the moment. The levels do not in themselves provide information about how to respond but do communicate the intensity of effort needed for control of COVID at varying levels of community spread. In addition to paying attention to the levels, decision-makers should pay close attention to direction of trend and rate of change (see section 4 for those metrics at the subnational level). 
+
+The map below illustrates regional risk levels as defined by daily new cases per 100,000 people. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
 
 \begin{center}
-\includegraphics[width=0.5\textwidth]{`r current_incidence_risk_graph_path`}
+\includegraphics[width=0.6\textwidth]{`r current_incidence_risk_graph_path`}
 \end{center}
 
-```{r containment_progress_table, echo = FALSE}
+```{r incidence_side_by_side, fig.show="hold", out.width="50%", echo = FALSE}
+
+effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'), 
+                                  'incidence' = c('25+', '10-25', '1-10', '<1'), 
+                                  'status' = c('Tipping Point', 'Accelerated Spread', 'Community Spread', 'On Track for Containment'),
+                                  'effort' = c('Stay-at-home orders necessary', 
+                                               'Strategic choices must be made about which package of non-pharmaceutical interventions to use for control. Stay-at-home orders are advised, unless viral testing and contact tracing capacity are implementable                                                    at levels meeting surge indicator standards.',
+                                               'Strategic choices must be made about which package of non-pharmaceutical interventions to use for control',
+                                               'On track for containment, conditional on continuing use of viral testing and contact tracing for surveillance and to contain spikes and outbreaks.'))
+
+
 kbl(effort_needed_table, 
-    align = 'l',
-    col.names = c("Risk Level", "Case Incidence*", "Intensity of Control Effort Needed")) %>%
-    add_footnote(c("*Daily new cases per 100,000 people as reported by WHO", "See \\href{https://globalepidemics.org/wp-content/uploads/2020/09/key_metrics_and_indicators_v5-1.pdf}{Key Metrics for COVID Suppression} for additional guidance on control effort needed."),
+    align = 'cccl',
+    col.names = c("Risk Level", "Case Incidence*", "Status", "Intensity of Control Effort Needed")) %>%
+    add_footnote(c("*Daily new cases per 100,000 people as reported by MOPH", "See \\href{https://globalepidemics.org/wp-content/uploads/2020/09/key_metrics_and_indicators_v5-1.pdf}{Key Metrics for COVID Suppression} for additional guidance on control effort needed."),
                 notation = "none", 
                 escape = F) %>%
     row_spec(0, bold = TRUE, font_size = 11) %>% 
     kableExtra::kable_styling(latex_options=c("scale_down", "hold_position")) %>%
-    column_spec(3, width = "16cm") %>%
-    column_spec(2, width = "2cm") %>%
-    column_spec(1, width = "2cm") %>%
+    column_spec(4, width = "10cm", color = "white") %>%
+    column_spec(3, width = "3cm", color = "white") %>%
+    column_spec(2, width = "2cm", color = "white") %>%
+    column_spec(1, width = "2cm", color = "white") %>%
     row_spec(1, background = "#df431d") %>%
     row_spec(2, background = "#f88c29") %>%
     row_spec(3, background = "#f8b931") %>%
-    row_spec(4, background = "#00a67e")
+    row_spec(4, background = "#00a67e") 
+
+#par(mar = c(4, 4, .1, .1))
+#include_graphics(current_incidence_risk_graph_path)
+#include_graphics(effort_needed_table_formatted)
 ```
 
-\large \textbf{`r colorize('Key Figures: Cumulative Cases and Deaths', 'centreBlue')`}
+\newpage
+
+\large \textbf{`r colorize('Key Figures: Current Cases and Deaths', 'centreBlue')`}
 
 ```{r section2_cumulative_figures, echo = FALSE}
 
-x <- data.frame(Cases = c(current_cum_cases, mpho_current_cum_cases),
-                Deaths = c(current_cum_deaths, mpho_current_cum_deaths)) 
+x <- data.frame(Cases = c(mpho_current_cum_cases,current_cum_cases),
+                Deaths = c(mpho_current_cum_deaths, current_cum_deaths)) 
 
-row.names(x) <- c("Based on WHO reports", "Based on MOPH data")
+row.names(x) <- c("Based on MOPH data", "Based on WHO data")
 
 x %>% 
-            kable(align = 'c',
-                  col.names = c('Cumulative Cases', 'Cumulative Deaths'),
+            kable(
+                  align = 'cc',
+                  col.names = c('Cases', 'Deaths'),
                   row.names = TRUE) %>%
             kableExtra::kable_styling(row_label_position = 'r',
                                       position = 'center',
                                       font_size = 11) %>%
-            row_spec(0, bold = FALSE, font_size = 12)
+            add_header_above(c("","Cumulative" = 2), bold = T, font_size = 12) %>%
+            row_spec(0, bold = F, font_size = 12)
 
 ```
 
@@ -317,7 +327,7 @@ x %>%
 \begin{center}
 Case Fatality Rate: `r cfr`\%
 
-Most recent data from MOPH dated: `r latest_moph_datapoint_date`
+Most recent data from MOPH: `r latest_moph_datapoint_date`
 \end{center}
 
 \large \textbf{`r colorize('Key Figures: Current Severe Cases', 'centreBlue')`}
@@ -330,41 +340,70 @@ row.names(x) <- "Estimate"
 x %>% 
             kable(format = "latex", 
                   align = 'c',
-                  col.names = c('Current Hospitalizations'),
+                  col.names = c('Hospitalizations'),
                   row.names = TRUE) %>%
             kableExtra::kable_styling(row_label_position = 'r',
                                       position = 'center',
                                       font_size = 11) %>%
-            row_spec(0, bold = FALSE, font_size = 12, hline_after = T) 
+            add_header_above(c("","Active" = 1), bold = T, font_size = 12) %>%
+            row_spec(0, bold = FALSE, font_size = 12) 
 ```
 
 \newpage
 
-\Large \textbf{`r colorize('3. National Projections', 'centreGreen')`} \normalsize (for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
-
-The regional data provided by the Ministry of Public Health was used to generate projections at the subnational level, which were then aggregated to the national level. 
-
+\Large \textbf{`r colorize('3. National Projections', 'centreGreen')`}[^3][^4] \normalsize (for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
 
 \large \textbf{`r colorize('Projected Cases and Deaths', 'centreBlue')`}
 
-|  | Projected Cases | | Projected Deaths | 
-|------------:|:-----|:---------|:------|
-| \colorbox{withNPIColor}{With current NPIs maintained} | \textcolor{withNPIFontColor}{`r paste(npi_projected_cases_4w_LOW, " - ", npi_projected_cases_4w_HI)`}| | \textcolor{withNPIFontColor}{`r paste(npi_projected_deaths_4w_LOW, " - ", npi_projected_deaths_4w_HI)` } |
-| \colorbox{noNPIColor}{With no NPIs} | \textcolor{noNPIFontColor}{`r paste(no_npi_projected_cases_4w_LOW, " - ", no_npi_projected_cases_4w_HI)`} | | \textcolor{noNPIFontColor}{`r paste(no_npi_projected_deaths_4w_LOW, " - ", no_npi_projected_deaths_4w_HI)` } |
+
+```{r section3_projected_cases_deaths, echo = FALSE}
+
+x <- data.frame(cum_cases = c(paste(npi_projected_cases_4w_LOW, " - ", npi_projected_cases_4w_HI), 
+                          paste(no_npi_projected_cases_4w_LOW, " - ", no_npi_projected_cases_4w_HI)),
+                cum_deaths = c(paste(npi_projected_deaths_4w_LOW, " - ", npi_projected_deaths_4w_HI), 
+                           paste(no_npi_projected_deaths_4w_LOW, " - ", no_npi_projected_deaths_4w_HI))
+                )
+
+row.names(x) <- c("With current NPIs maintained", "With no NPIs")
+
+x %>% 
+            kable(format = "latex", 
+                  align = 'cc',
+                  col.names = c('Cases', 'Deaths'),
+                  row.names = TRUE) %>%
+            kableExtra::kable_classic(row_label_position = 'r',
+                                      position = 'center',
+                                      font_size = 11) %>%
+            add_header_above(c("","Cumulative" = 2), bold = T, font_size = 12) %>%
+            row_spec(0, bold = F, font_size = 12) %>%
+            row_spec(1, color = '#20aa6c') %>%
+            row_spec(2, color = '#be0003')
 
 
-[^1]: \textbf{Reported cases} refers to the number of infections expected to be reported. It takes into account the \textbf{case reporting rate} which corresponds to the estimated number of COVID-19 infections that are actually tested, confirmed and reported. The case reporting rate is calculated based on the reported number of deaths and cases in the last 30 days.
+#\definecolor{centreGreen}{HTML}{1bb580}
+#\definecolor{centreBlue}{HTML}{1f69b3}
+#\definecolor{withNPIColor}{HTML}{d9ead3}
+#\definecolor{noNPIColor}{HTML}{f4cccc}
+#\definecolor{withNPIFontColor}{HTML}{20aa6c}
+#\definecolor{noNPIFontColor}{HTML}{be0003}
+```
+
+
+[^1]: \textbf{Reported cases} refers to the number of infections expected to be reported. It takes into account the \textbf{case reporting rate} which corresponds to the estimated number of COVID-19 infections that are actually tested, confirmed and reported. The case reporting rate is calculated based on the number of deaths and cases reported by the WHO in the last 30 days.
 
 [^2]: \textbf{Severe cases} refers to the number of people which will have severe symptoms and may require healthcare support. It is calculated as a proportion of the reported cases, and is based on planning parameters for case severity and the vulnerability of a given region.
 
+[^3]: The regional data provided by the Ministry of Public Health are used to generate projections at the subnational level, which are then aggregated to the national level. 
 
-\normalsize The figures below present the historical data on daily counts of cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
+[^4]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
+
+\normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
 
 ![](`r lifetime_new_cases_graph_path`){width=350px} ![](`r lifetime_new_deaths_graph_path`){width=350px}
 
 &nbsp;
 
-The figures below furthermore show the comparison between the reported data from two different sources: national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue. 
+The figures below show the comparison between two data sources: national level data from WHO in light blue and subnational data from the Ministry of Public Health in dark blue. 
 
 ![](`r lifetime_cum_cases_graph_path`){width=350px} ![](`r lifetime_cum_deaths_graph_path`){width=350px}
 
@@ -390,15 +429,33 @@ The figures below furthermore show the comparison between the reported data from
 
 \large \textbf{`r colorize('Projected Incidence', 'centreBlue')`}
 
-\footnotesize Assuming current NPIs[^3] are maintained.
+The map below represents the projected risk level of every ADMIN1 region, assuming the current NPIs are maintained. See Section 1 for detail on the relationship between risk level and progress towards virus containment.
 
-![](`r subnational_cases_per_100k_graph_path`){width=375px} ![](`r risk_levels_quadrants_path`){width=350px}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{`r subnational_cases_per_100k_graph_path`}
+\end{center}
 
+``` {r mini_effort_table, echo = FALSE}
+effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'), 
+                                  'status' = c('Tipping Point', 'Accelerated Spread', 'Community Spread', 'On Track for Containment'))
+                                  
+kbl(effort_needed_table, 
+    align = 'cc',
+    col.names = c("Risk Level", "Status")) %>%
+    row_spec(0, bold = TRUE, font_size = 11) %>% 
+kableExtra::kable_styling(position = 'center') %>%
+column_spec(2, width = "3cm", color = "white") %>%
+column_spec(1, width = "2cm", color = "white") %>%
+row_spec(1, background = "#df431d") %>%
+row_spec(2, background = "#f88c29") %>%
+row_spec(3, background = "#f8b931") %>%
+row_spec(4, background = "#00a67e") 
+```
 &nbsp;
 
 \large \textbf{`r colorize('Projected Changes In Incidence', 'centreBlue')`}
 
-Regions ordered in decreasing order of change magnitude, from largest increase (more concerning) to largest decrease (less concerning). While the magnitude of change may signal how successful mitigation strategies are projected to be, it should be evaluated in conjunction with regional incidence (cases per 100k people) when considering adding or lifting containment measures. 
+Below are the projected incidence (daily new cases per 100k people) and change (in daily new cases per 100k people) from the current situation for every region. Regions are ordered in decreasing order of change magnitude, from largest increase to largest decrease. While the magnitude of change may signal how successful mitigation strategies are projected to be, it should be evaluated in conjunction with incidence when considering adding or lifting suppression strategies. For instance, a region may be projected to show a large decrease but remain at a concerning high level of incidence that require intense control efforts.
 
 ```{r subnational_deltas, echo = FALSE}
 increases_nrow <- subnational_projections %>%
@@ -411,20 +468,29 @@ decreases_nrow <- subnational_projections %>%
 
 #### ADD ME: daily new cases for every region?
   
-subnational_projections %>%
+subnational_projections_ordered <- subnational_projections %>%
           arrange(desc(cases_per_100k_abs_change)) %>% # orders regions from largest to smallest change 
-          select(ADM1_EN, cases_per_100k_abs_change, cases_per_100k_inTWOweeks) %>%
+          select(ADM1_EN, cases_per_100k_abs_change, cases_per_100k_inTWOweeks) 
+
+subnational_projections_ordered %>%
+          mutate(cases_per_100k_abs_change = ifelse(cases_per_100k_abs_change > 0, paste0('+', cases_per_100k_abs_change), cases_per_100k_abs_change)) %>%
           kable(format = 'latex',
-                col.names = c("Region", "Change (%)", "Projected Cases per 100k People")) %>%
-          pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow)) %>%
-          row_spec(0, bold = TRUE) %>%
-          kable_styling(latex_options = c('striped', 'hold_position'))
+                col.names = c("Region", "Change", "Incidence"),
+                align = "lcc") %>%
+          kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
+          column_spec(1, width = "4cm") %>%
+          column_spec(2, width = "3.5cm") %>%
+          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$cases_per_100k_inTWOweeks < 1, "#00a67e",
+                                             ifelse(subnational_projections_ordered$cases_per_100k_inTWOweeks < 10, "#f8b931",
+                                                    ifelse(subnational_projections_ordered$cases_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+            
+          add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
+          pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow), italic = T) %>%
+          row_spec(0, bold = TRUE, font_size = 12)
+
 
 ```
 
-
-
-[^3]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place in Afghanistan are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
 \clearpage
 
