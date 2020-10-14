@@ -471,14 +471,33 @@ decreases_nrow <- subnational_projections %>%
                           filter(daily_cases_reported_per_100k_abs_change < 0) %>%
                           nrow()
 
-#### ADD ME: daily new cases for every region?
-  
 subnational_projections_ordered <- subnational_projections %>%
           arrange(desc(daily_cases_reported_per_100k_abs_change)) %>% # orders regions from largest to smallest change 
           select(ADM1_EN, daily_cases_reported_per_100k_abs_change, daily_cases_reported_per_100k_inTWOweeks) 
 
-subnational_projections_ordered %>%
-          mutate(daily_cases_reported_per_100k_abs_change = ifelse(daily_cases_reported_per_100k_abs_change > 0, paste0('+', daily_cases_reported_per_100k_abs_change), daily_cases_reported_per_100k_abs_change)) %>%
+# subnational_projections_ordered %>%
+#           mutate(daily_cases_reported_per_100k_abs_change = ifelse(daily_cases_reported_per_100k_abs_change > 0, 
+#                                                                    paste0('+', daily_cases_reported_per_100k_abs_change), 
+#                                                                    daily_cases_reported_per_100k_abs_change)) %>%
+#           kable(format = 'latex',
+#                 col.names = c("Region", "Change", "Incidence"),
+#                 align = "lcc") %>%
+#           kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
+#           column_spec(1, width = "4cm") %>%
+#           column_spec(2, width = "3.5cm") %>%
+#           column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 1, "#00a67e",
+#                                              ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 10, "#f8b931",
+#                                                     ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+#             
+#           add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
+#           pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow), italic = T, indent = T) %>%
+#           row_spec(0, bold = TRUE, font_size = 12)
+
+show_only_increasing_trends <- function(subnational_projections_ordered) {
+          subnational_projections_ordered %>%
+          mutate(daily_cases_reported_per_100k_abs_change = ifelse(daily_cases_reported_per_100k_abs_change > 0, 
+                                                                   paste0('+', daily_cases_reported_per_100k_abs_change), 
+                                                                   daily_cases_reported_per_100k_abs_change)) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change", "Incidence"),
                 align = "lcc") %>%
@@ -488,11 +507,57 @@ subnational_projections_ordered %>%
           column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 1, "#00a67e",
                                              ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 10, "#f8b931",
                                                     ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
-            
           add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
-          pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow), italic = T) %>%
+          pack_rows('Increasing or Stable', 1, increases_nrow, italic = T, indent = T) %>%
           row_spec(0, bold = TRUE, font_size = 12)
+}
 
+show_only_decreasing_trends <- function(subnational_projections_ordered) {
+          subnational_projections_ordered %>%
+          mutate(daily_cases_reported_per_100k_abs_change = ifelse(daily_cases_reported_per_100k_abs_change > 0, 
+                                                                   paste0('+', daily_cases_reported_per_100k_abs_change), 
+                                                                   daily_cases_reported_per_100k_abs_change)) %>%
+          kable(format = 'latex',
+                col.names = c("Region", "Change", "Incidence"),
+                align = "lcc") %>%
+          kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
+          column_spec(1, width = "4cm") %>%
+          column_spec(2, width = "3.5cm") %>%
+          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 1, "#00a67e",
+                                             ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 10, "#f8b931",
+                                                    ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+          add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
+          pack_rows('Decreasing', 1, decreases_nrow, italic = T, indent = T) %>%
+          row_spec(0, bold = TRUE, font_size = 12)
+}    
+    
+show_both_trends <- function(subnational_projections_ordered) {    
+          subnational_projections_ordered %>%
+          mutate(daily_cases_reported_per_100k_abs_change = ifelse(daily_cases_reported_per_100k_abs_change > 0,
+                                                                   paste0('+', daily_cases_reported_per_100k_abs_change),
+                                                                   daily_cases_reported_per_100k_abs_change)) %>%
+          kable(format = 'latex',
+                col.names = c("Region", "Change", "Incidence"),
+                align = "lcc") %>%
+          kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
+          column_spec(1, width = "4cm") %>%
+          column_spec(2, width = "3.5cm") %>%
+          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 1, "#00a67e",
+                                             ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 10, "#f8b931",
+                                                    ifelse(subnational_projections_ordered$daily_cases_reported_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+
+          add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
+          pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow), italic = T, indent = T) %>%
+          row_spec(0, bold = TRUE, font_size = 12)
+}
+  
+if (decreases_nrow == 0) {
+  show_only_increasing_trends(subnational_projections_ordered)
+  } else if (increases_nrow == 0) {
+  show_only_decreasing_trends(subnational_projections_ordered)
+  } else {
+  show_both_trends(subnational_projections_ordered)
+  }
 
 ```
 
