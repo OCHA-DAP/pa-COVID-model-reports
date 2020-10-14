@@ -86,20 +86,20 @@ def main(country_iso3, download_covid=False):
     generate_data_model_comparison_lifetime(country_iso3,parameters)
 
     #active hospitalizations/100k TODAY
-    create_subnational_map_incidence_100k("hospitalizations_per_100k_active", country_iso3, parameters, TODAY, "Current Reported Hospitalizations Per 100,000 People",
+    create_subnational_map_incidence_100k("hospitalizations_per_100k_active", country_iso3, parameters, TODAY, "Current Reported Hospitalizations \n Per 100,000 People",
                            "map_hospitalizations_per_100k_current.png")
     #new reported daily cases/100k on TODAY+1
     #set to TODAY+1 instead of TODAY since on TODAY the output can be negative due to initialization. This should be fixed in a future version of the model
-    create_subnational_map_incidence_100k("daily_cases_reported_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Reported New Daily Cases Per 100,000 People",
+    create_subnational_map_incidence_100k("daily_cases_reported_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Reported New Daily Cases \n Per 100,000 People",
                            "map_dailycasesreported_per_100k_current.png")
     #new estimated total daily cases/100k (i.e. reported cases*reporting rate) on TODAY+1
-    create_subnational_map_incidence_100k("daily_cases_total_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Estimated New Daily Cases Per 100,000 People",
+    create_subnational_map_incidence_100k("daily_cases_total_per_100k", country_iso3, parameters, TODAY+timedelta(days=1), "Current Estimated Total New Daily Cases \n Per 100,000 People",
                            "map_dailycasestotal_per_100k_current.png")
     #new reported daily cases/100k in TWO_WEEKS
-    create_subnational_map_incidence_100k("daily_cases_reported_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Reported New Daily Cases Per 100,000 People",
+    create_subnational_map_incidence_100k("daily_cases_reported_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Reported New Daily Cases \n Per 100,000 People",
                            "map_dailycasesreported_per_100k_2w.png")
     #new estimated total daily cases/100k in TWO_WEEKS
-    create_subnational_map_incidence_100k("daily_cases_total_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Estimated New Daily Cases Per 100,000 People",
+    create_subnational_map_incidence_100k("daily_cases_total_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Estimated Total New Daily Cases \n Per 100,000 People",
                            "map_dailycasestotal_per_100k_2w.png")
     #not being used in current report
     # create_binary_change_map(country_iso3, parameters)
