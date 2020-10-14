@@ -714,7 +714,7 @@ def calculate_subnational_trends(country_iso3, parameters):
     # combined_cases['cases_per_100k_perc_change'] = (combined_cases['cases_per_100k_inTWOweeks'] -combined_cases['cases_per_100k_today'])/ combined_cases['cases_per_100k_today'] * 100
     # combined_change=combined.merge(combined_cases[["adm1","cases_per_100k_perc_change"]],on="adm1",how="left")
 
-    shapefile = gpd.read_file(parameters['shape'])
+    shapefile = gpd.read_file(parameters['shape'],encoding="UTF-8")
     shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
 
     combined_shp=combined.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
