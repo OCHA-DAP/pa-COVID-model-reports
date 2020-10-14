@@ -201,7 +201,8 @@ current_cum_deaths <- who_data %>%
 ```
 
 ```{r graphs, include = FALSE}
-current_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_total_current.png") # use reported_current instead?
+current_reported_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailycasesreported_per_100k_current.png") 
+current_total_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailycasestotal_per_100k_current.png") # total = reported (as estimated) * case reporting rate
 cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
 new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
@@ -211,7 +212,8 @@ lifetime_cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/li
 lifetime_new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_cases_reported.png")
 lifetime_new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_deaths.png")
 hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
-subnational_cases_per_100k_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_cases_per_100k_2w.png")
+projected_reported_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailycasesreported_per_100k_2w.png")
+projected_total_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailycasestotal_per_100k_2w.png")
 risk_levels_quadrants_path <- paste0("visual_assets/risk_levels_quadrants.png")
 
 ```
@@ -234,7 +236,7 @@ This report summarizes the COVID-19 model results for Afghanistan, developed by 
 
 ![](visual_assets/green_horizontal_line.png){height=30px}
 
-\Large \textbf{`r colorize('1. Key Messages', 'centreGreen')`}[^1][^2]
+\Large \textbf{`r colorize('1. Key Messages', 'centreGreen')`}
 
 \large \textbf{Current Situation} \normalsize (as of `r format(assignment_date, "%d %b %Y")`)
 \normalsize
@@ -259,13 +261,18 @@ This report leverages a framework to provide guidance in the interpretation of i
 
 The framework defines risk levels that indicate whether a region is on track for containment and can help decision-makers know where they are at the moment. The levels do not in themselves provide information about how to respond but do communicate the intensity of effort needed for control of COVID at varying levels of community spread. In addition to paying attention to the levels, decision-makers should pay close attention to direction of trend and rate of change (see section 4 for those metrics at the subnational level). 
 
-The map below illustrates regional risk levels as defined by daily new cases per 100,000 people. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
+The maps below illustrate regional risk levels as defined by today's incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`). On the left is the map of reported cases while that on the right is the estimated total cases that takes into consideration case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
 
-\begin{center}
-\includegraphics[width=0.6\textwidth]{`r current_incidence_risk_graph_path`}
-\end{center}
+&nbsp;
 
-```{r incidence_side_by_side, fig.show="hold", out.width="50%", echo = FALSE}
+```{r current_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%"}
+
+par(mar = c(4, 4, .1, .1))
+include_graphics(current_reported_incidence_risk_graph_path)
+include_graphics(current_total_incidence_risk_graph_path)
+```
+
+```{r effort_table, fig.show="hold", out.width="50%", echo = FALSE}
 
 effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'), 
                                   'incidence' = c('25+', '10-25', '1-10', '<1'), 
@@ -293,14 +300,11 @@ kbl(effort_needed_table,
     row_spec(3, background = "#f8b931") %>%
     row_spec(4, background = "#00a67e") 
 
-#par(mar = c(4, 4, .1, .1))
-#include_graphics(current_incidence_risk_graph_path)
-#include_graphics(effort_needed_table_formatted)
 ```
 
 \newpage
 
-\large \textbf{`r colorize('Key Figures: Current Cases and Deaths', 'centreBlue')`}
+\large \textbf{`r colorize('Key Figures: Current Cases and Deaths', 'centreBlue')`}[^1][^2]
 
 ```{r section2_cumulative_figures, echo = FALSE}
 
@@ -340,7 +344,7 @@ row.names(x) <- "Estimate"
 x %>% 
             kable(format = "latex", 
                   align = 'c',
-                  col.names = c('Hospitalizations'),
+                  col.names = c('Severe Cases Requiring Hospitalization'),
                   row.names = TRUE) %>%
             kableExtra::kable_styling(row_label_position = 'r',
                                       position = 'center',
@@ -348,6 +352,11 @@ x %>%
             add_header_above(c("","Active" = 1), bold = T, font_size = 12) %>%
             row_spec(0, bold = FALSE, font_size = 12) 
 ```
+
+
+[^1]: \textbf{Reported cases} refers to the number of infections expected (current situation) or expected to be reported (projections). Projections take into account the \textbf{case reporting rate} which corresponds to the estimated number of COVID-19 infections that are actually tested, confirmed and reported. The case reporting rate is calculated based on the number of deaths and cases reported by the WHO in the last 30 days.
+
+[^2]: \textbf{Severe cases} refers to the number of people which will have severe symptoms and may require healthcare support. Projections are calculated as a proportion of the reported cases, and are based on planning parameters for case severity and the vulnerability of a given region.
 
 \newpage
 
@@ -378,20 +387,9 @@ x %>%
             row_spec(0, bold = F, font_size = 12) %>%
             row_spec(1, color = '#20aa6c') %>%
             row_spec(2, color = '#be0003')
-
-
-#\definecolor{centreGreen}{HTML}{1bb580}
-#\definecolor{centreBlue}{HTML}{1f69b3}
-#\definecolor{withNPIColor}{HTML}{d9ead3}
-#\definecolor{noNPIColor}{HTML}{f4cccc}
-#\definecolor{withNPIFontColor}{HTML}{20aa6c}
-#\definecolor{noNPIFontColor}{HTML}{be0003}
 ```
 
 
-[^1]: \textbf{Reported cases} refers to the number of infections expected to be reported. It takes into account the \textbf{case reporting rate} which corresponds to the estimated number of COVID-19 infections that are actually tested, confirmed and reported. The case reporting rate is calculated based on the number of deaths and cases reported by the WHO in the last 30 days.
-
-[^2]: \textbf{Severe cases} refers to the number of people which will have severe symptoms and may require healthcare support. It is calculated as a proportion of the reported cases, and is based on planning parameters for case severity and the vulnerability of a given region.
 
 [^3]: The regional data provided by the Ministry of Public Health are used to generate projections at the subnational level, which are then aggregated to the national level. 
 
@@ -412,9 +410,9 @@ The figures below show the comparison between two data sources: national level d
 
 \large \textbf{`r colorize('Projected Severe Cases', 'centreBlue')`}
 
-\normalsize The figures below show the projected trends for severe cases requiring hospitalizations. In green are the projections under the "Current NPIs maintained" scenario while in red are the projections under "No NPIs in place" scenario. 
+\normalsize The figures below show the projected trends for active severe cases requiring hospitalizations. In green are the projections under the "Current NPIs maintained" scenario while in red are the projections under "No NPIs in place" scenario. 
 
-| | Severe Cases |
+| | Active Severe Cases |
 |------------:|:-----|
 | \colorbox{withNPIColor}{With current NPIs maintained} | \textcolor{withNPIFontColor}{`r paste(npi_hospitalizations_LOW, " - ", npi_hospitalizations_HI)`}|
 | \colorbox{noNPIColor}{With no NPIs} | \textcolor{noNPIFontColor}{`r paste(no_npi_hospitalizations_LOW , " - ", no_npi_hospitalizations_HI)`} | 
@@ -431,9 +429,14 @@ The figures below show the comparison between two data sources: national level d
 
 The map below represents the projected risk level of every ADMIN1 region, assuming the current NPIs are maintained. See Section 1 for detail on the relationship between risk level and progress towards virus containment.
 
-\begin{center}
-\includegraphics[width=0.5\textwidth]{`r subnational_cases_per_100k_graph_path`}
-\end{center}
+
+```{r projected_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%"}
+
+par(mar = c(4, 4, .1, .1))
+include_graphics(projected_reported_incidence_risk_graph_path)
+include_graphics(projected_total_incidence_risk_graph_path)
+```
+
 
 ``` {r mini_effort_table, echo = FALSE}
 effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'), 
@@ -455,7 +458,9 @@ row_spec(4, background = "#00a67e")
 
 \large \textbf{`r colorize('Projected Changes In Incidence', 'centreBlue')`}
 
-Below are the projected incidence (daily new cases per 100k people) and change (in daily new cases per 100k people) from the current situation for every region. Regions are ordered in decreasing order of change magnitude, from largest increase to largest decrease. While the magnitude of change may signal how successful mitigation strategies are projected to be, it should be evaluated in conjunction with incidence when considering adding or lifting suppression strategies. For instance, a region may be projected to show a large decrease but remain at a concerning high level of incidence that require intense control efforts.
+Below are the projected incidence rates (= projected daily new cases per 100k people on `r format(projection_date_2w, "%d %b %Y")`) and projected absolute changes in incidence between then and today for every region. Regions are ordered in decreasing order of change magnitude, from largest increase to largest decrease. Note that Incidence Rates are rounded to the third decimal; a 0.000 incidence rate does not necessarily mean that no new daily cases are projected.
+
+While the magnitude of change may signal how successful mitigation strategies are projected to be, it should be evaluated in conjunction with incidence when considering adding or lifting suppression strategies. For instance, a region may be projected to show a large decrease but remain at a concerning high level of incidence that require intense control efforts. 
 
 ```{r subnational_deltas, echo = FALSE}
 increases_nrow <- subnational_projections %>%
@@ -499,7 +504,7 @@ subnational_projections_ordered %>%
 
 The Centre established a partnership with the Johns Hopkins University Applied Physics Laboratory to develop a COVID-19 model which provides projections and insights related to the **scale** of the crisis, the **duration** of the crisis in a specific location, and how different response **interventions** are expected to impact the epidemic curve.
 
-The team is using an **SEIR (Susceptible, Exposed, Infectious, Recovered)** model of infectious disease dynamics which is considered the simplest and most effective technique used in the literature. The model is based on a progression from susceptible to either recovered or dead. Inputs include the reproduction rate (Ro), case fatality rate (CFR), and estimated probabilities that an individual person may contract COVID-19. The model then simulates an outbreak and provides estimates for cases, hospitalizations, and deaths.
+The team is using an **SEIR (Susceptible, Exposed, Infectious, Recovered)** model of infectious disease dynamics which is considered the simplest and most effective technique used in the literature. The model is based on a progression from susceptible to either recovered or dead. Inputs include the reproduction rate (Ro), case fatality rate (CFR), and estimated probabilities that an individual person may contract COVID-19. The model then simulates an outbreak and provides estimates for cases, severe cases/hospitalizations, and deaths.
 
 \begin{center}
 \includegraphics{visual_assets/seird_with_legend.png}
