@@ -9,6 +9,10 @@ from scipy.optimize import curve_fit
 import numpy as np
 import matplotlib.colors as mc
 import colorsys
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 FIG_SIZE=(8,6)
 
@@ -49,6 +53,7 @@ def download_who_covid_data(url, save_path):
     print(f'Getting upadated COVID data from WHO')
     try:
         download_url(url, save_path)
+
     except Exception:
         print(f'Cannot download COVID file from from HDX')
 
@@ -69,6 +74,13 @@ def get_who(filename,country_iso2,min_date,max_date):
     who_covid=who_covid[(who_covid['Date_reported']>=min_date) &\
                         (who_covid['Date_reported']<=max_date)]
     who_covid=who_covid.set_index('Date_reported')
+
+    who_numeric_columns = list(who_covid.select_dtypes(include=[np.number]).columns.values)
+    for c in who_numeric_columns:
+        try:
+            assert all(i >= 0 for i in who_covid[c])
+        except AssertionError:
+            logger.error(f'Negative values in WHO column {c}, set to zero')
     #set negative numbers to 0. Explanation for negative numbers from WHO data documentation (found on https://data.humdata.org/dataset/coronavirus-covid-19-cases-and-deaths):
     # Due to the recent trend of countries conducting data reconciliation exercises which remove large numbers of cases or deaths from their total counts,
     # such data may reflect as negative numbers in the new cases / new deaths counts as appropriate.
