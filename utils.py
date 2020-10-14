@@ -57,12 +57,28 @@ def download_who_covid_data(url, save_path):
     except Exception:
         print(f'Cannot download COVID file from from HDX')
 
+
+def quality_check_negative(df, data_name):
+    df_numeric_columns = list(df.select_dtypes(include=[np.number]).columns.values)
+    for c in df_numeric_columns:
+        try:
+            assert all(i >= 0 for i in df[c])
+        except AssertionError:
+            logger.error(f'{data_name}: Negative values in column {c}')
+    # set negative numbers to 0
+    # Explanation for negative numbers from WHO data documentation (found on https://data.humdata.org/dataset/coronavirus-covid-19-cases-and-deaths):
+    # Bucky mainly occurs for first date due to initalization of model
+    # df._get_numeric_data()[df._get_numeric_data() < 0] = 0
+
+    return df
+
 def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     bucky_df=pd.read_csv(f'Bucky_results/{country_iso3}_{npi_filter}/{admin_level}_quantiles.csv')
     bucky_df['date']=pd.to_datetime(bucky_df['date']).dt.date
-    bucky_df=bucky_df[(bucky_df['date']>=min_date) &\
+    bucky_df=bucky_df[(bucky_df['date']>=min_date) &
                         (bucky_df['date']<=max_date)]
     bucky_df=bucky_df.set_index('date')
+    # quality_check_negative(bucky_df,"Bucky")
     return bucky_df
     
 def get_who(filename,country_iso2,min_date,max_date):
@@ -75,17 +91,10 @@ def get_who(filename,country_iso2,min_date,max_date):
                         (who_covid['Date_reported']<=max_date)]
     who_covid=who_covid.set_index('Date_reported')
 
-    who_numeric_columns = list(who_covid.select_dtypes(include=[np.number]).columns.values)
-    for c in who_numeric_columns:
-        try:
-            assert all(i >= 0 for i in who_covid[c])
-        except AssertionError:
-            logger.error(f'Negative values in WHO column {c}, set to zero')
-    #set negative numbers to 0. Explanation for negative numbers from WHO data documentation (found on https://data.humdata.org/dataset/coronavirus-covid-19-cases-and-deaths):
-    # Due to the recent trend of countries conducting data reconciliation exercises which remove large numbers of cases or deaths from their total counts,
-    # such data may reflect as negative numbers in the new cases / new deaths counts as appropriate.
-    # This will aid users in identifying when such adjustments occur.
-    # When additional details become available that allow the subtractions to be suitably apportioned to previous days, data will be updated accordingly.
+    who_covid=quality_check_negative(who_covid,"WHO")
+    #TO DO: check if this is the best way to handle the negative numbers
+    # set negative numbers to 0
+    # Explanation for negative numbers from WHO data documentation (found on https://data.humdata.org/dataset/coronavirus-covid-19-cases-and-deaths):
     who_covid._get_numeric_data()[who_covid._get_numeric_data() < 0] = 0
     return who_covid
 
@@ -108,6 +117,9 @@ def get_subnational_covid_data(parameters,aggregate,min_date,max_date):
         subnational_covid=subnational_covid.groupby(HLX_TAG_ADM2_PCODE).ffill()
         # sum by date
         subnational_covid=subnational_covid.groupby(HLX_TAG_DATE).sum()
+
+    #TO DO: decide what to do with negative numbers
+    subnational_covid=quality_check_negative(subnational_covid,"subnational")
     return subnational_covid
 
 

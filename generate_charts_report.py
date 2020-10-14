@@ -5,12 +5,9 @@ import sys
 import matplotlib
 import matplotlib.colors as mcolors
 from matplotlib.lines import Line2D
-import logging
 
 import utils
 from utils import *
-
-logger = logging.getLogger(__name__)
 
 country_iso_3 = sys.argv[1]
 
@@ -187,23 +184,7 @@ def generate_key_figures(country_iso3,parameters):
 
     bucky_npi = get_bucky(country_iso3, admin_level='adm0', min_date=TODAY, max_date=FOUR_WEEKS, npi_filter='npi')
 
-    #remove once fully understood!
-    # #test understanding of metrics
-    # bucky_npiq=bucky_npi[bucky_npi['q'] == 0.5]
-    # bucky_npiq['cumulative_cases_reported_yesterday']=bucky_npiq["cumulative_cases_reported"].shift(1)
-    # bucky_npiq["reported_cases_change"]=bucky_npiq["cumulative_cases_reported"]-bucky_npiq["cumulative_cases_reported_yesterday"]
-    # bucky_npiq['cumulative_cases_total_yesterday']=bucky_npiq["cumulative_cases"].shift(1)
-    # bucky_npiq["total_cases_change"]=bucky_npiq["cumulative_cases"]-bucky_npiq["cumulative_cases_total_yesterday"]
-    # print(bucky_npiq[["cumulative_cases","cumulative_cases_total_yesterday"]])
-    # print(bucky_npiq[["reported_cases_change","daily_cases_reported","total_cases_change","daily_cases"]])
-    # bucky_npiq["ratio_tr"]=bucky_npiq["daily_cases_reported"]/bucky_npiq["daily_cases"]
-    # bucky_npiq["ratio_tr_cum"]=bucky_npiq["reported_cases_change"]/bucky_npiq["total_cases_change"]
-    # bucky_npiq["diff_daily_cumul"] = (bucky_npiq["total_cases_change"]-bucky_npiq["daily_cases"])/bucky_npiq["daily_cases"]
-    # bucky_npiq["diff_repor_cumul"] = (bucky_npiq["reported_cases_change"]-bucky_npiq["daily_cases_reported"])/bucky_npiq["daily_cases_reported"]
-    # print(bucky_npiq[["ratio_tr","ratio_tr_cum","CASE_REPORT"]])
-    # print(bucky_npiq[["daily_cases","total_cases_change","diff_daily_cumul"]])
-    # print(bucky_npiq[["daily_cases_reported","reported_cases_change","diff_repor_cumul"]])
-
+    #cumulative cases TODAY - cumulative cases YESTERDAY might not always equal the daily cases TODAY. This is due to the model being run several times after which the results are divided in quantiles.
     bucky_npi_cases_today = bucky_npi[bucky_npi['q'] == 0.5].loc[TODAY, 'cumulative_cases_reported']
     bucky_npi_cases_today_notrep = bucky_npi[bucky_npi['q'] == 0.5].loc[TODAY, 'cumulative_cases']
     bucky_npi_deaths_today = bucky_npi[bucky_npi['q'] == 0.5].loc[TODAY, 'cumulative_deaths']
@@ -221,38 +202,43 @@ def generate_key_figures(country_iso3,parameters):
     print(f"Average new daily cases of the last 7 days from WHO: {who_covid_newcases_avg_week:.2f}")
     print(f"Average new daily deaths of the last 7 days from WHO: {who_covid_newdeaths_avg_week:.2f}")
 
-    #calculate the percentual change of the sum of new cases and new deaths of last week compared to the previous week
-    #this is done with WHO data, on national level
-    #a week is defined being from Mon-Sun and thus last week is the last complete week
-    #this is done to avoid biases due to delays in reporting, some countries report cases only after a few days (and not reporting over the weekend).
-    who_covid.groupby(['Country_code']).resample('W')
-    # get the sum of weekly NEW cases and deaths
-    new_WHO_w=who_covid.groupby(['Country_code']).resample('W').sum()[['New_cases','New_deaths']]
-    new_WHO_w[["Average_cases","Average_deaths"]]=who_covid.groupby(['Country_code']).resample('W').mean()[['New_cases','New_deaths']]
-    # ndays_w is the number of days present of each week in the data
-    # this is max 7, first and last week can contain less days
-    ndays_w=who_covid.groupby(['Country_code']).resample('W').count()['New_cases']
-    new_WHO_w["ndays"] = ndays_w
-    # select only the weeks of which all days are present
-    new_WHO_w=new_WHO_w[new_WHO_w['ndays']==7]
-    # get percentual change of cases and deaths compared to previous week
-    # percentual change=((cases week n)-(cases week n-1))/(cases week n-1)
-    new_WHO_w['New_cases_PercentChange'] = new_WHO_w.groupby('Country_code')['New_cases'].pct_change()
-    new_WHO_w['New_deaths_PercentChange'] = new_WHO_w.groupby('Country_code')['New_deaths'].pct_change()
-    # get percentual change of last full week (Mon-Sun)
-    trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'New_cases_PercentChange']*100
-    trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'New_deaths_PercentChange']*100
-    # print(f'Average new daily cases previous week: {new_WHO_w.loc[new_WHO_w.index[-2],"Average_cases"]}')
-    print(f"Average new daily cases during last week (Mon-Sun) from WHO: {new_WHO_w.loc[new_WHO_w.index[-1],'Average_cases']:.2f}")
-    #new cases during a week period
-    print(f'Percentual change in new cases and deaths during last week (Mon-Sun) wrt previous week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
+    #this is currently not in use in the report. We chose to go with TODAY - 7 days instead of Mon-Sun because of data freshness
+    # #calculate the percentual change of the sum of new cases and new deaths of last week compared to the previous week
+    # #this is done with WHO data, on national level
+    # #a week is defined being from Mon-Sun and thus last week is the last complete week
+    # #this is done to avoid biases due to delays in reporting, some countries report cases only after a few days (and not reporting over the weekend).
+    # who_covid.groupby(['Country_code']).resample('W')
+    # # get the sum of weekly NEW cases and deaths
+    # new_WHO_w=who_covid.groupby(['Country_code']).resample('W').sum()[['New_cases','New_deaths']]
+    # new_WHO_w[["Average_cases","Average_deaths"]]=who_covid.groupby(['Country_code']).resample('W').mean()[['New_cases','New_deaths']]
+    # # ndays_w is the number of days present of each week in the data
+    # # this is max 7, first and last week can contain less days
+    # ndays_w=who_covid.groupby(['Country_code']).resample('W').count()['New_cases']
+    # new_WHO_w["ndays"] = ndays_w
+    # # select only the weeks of which all days are present
+    # new_WHO_w=new_WHO_w[new_WHO_w['ndays']==7]
+    # # get percentual change of cases and deaths compared to previous week
+    # # percentual change=((cases week n)-(cases week n-1))/(cases week n-1)
+    # new_WHO_w['New_cases_PercentChange'] = new_WHO_w.groupby('Country_code')['New_cases'].pct_change()
+    # new_WHO_w['New_deaths_PercentChange'] = new_WHO_w.groupby('Country_code')['New_deaths'].pct_change()
+    # # get percentual change of last full week (Mon-Sun)
+    # trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'New_cases_PercentChange']*100
+    # trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'New_deaths_PercentChange']*100
+    # # print(f'Average new daily cases previous week: {new_WHO_w.loc[new_WHO_w.index[-2],"Average_cases"]}')
+    # # print(f"Average new daily cases during last week (Mon-Sun) from WHO: {new_WHO_w.loc[new_WHO_w.index[-1],'Average_cases']:.2f}")
+    # #new cases during a week period
+    # print(f'Percentual change in new cases and deaths during last week (Mon-Sun) wrt previous week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
 
     #model (i.e. bucky) outputs are not always integers. This cannot reflect the real situation, but nevertheless we choose to use the floats such that trend calculations more precisely reflect the projected development
     #numbers are only rounded for reporting purposes
     min_cases_npi=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported']
     max_cases_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported']
+    min_additional_cases_npi = min_cases_npi - bucky_npi_cases_today
+    max_additional_cases_npi = max_cases_npi - bucky_npi_cases_today
     min_deaths_npi=bucky_npi[bucky_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
     max_deaths_npi=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
+    min_additional_deaths_npi = min_deaths_npi - bucky_npi_deaths_today
+    max_additional_deaths_npi = max_deaths_npi - bucky_npi_deaths_today
 
     #Compute the expected percentual change in CUMULATIVE reported cases and deaths over four weeks
     rel_inc_min_cases_npi=(min_cases_npi-bucky_npi_cases_today)/bucky_npi_cases_today*100
@@ -261,22 +247,26 @@ def generate_key_figures(country_iso3,parameters):
     rel_inc_max_deaths_npi=(max_deaths_npi-bucky_npi_deaths_today)/bucky_npi_deaths_today*100
     print(f'- Projection date:{FOUR_WEEKS}')
     print(f'-- NPI: Projected reported cumulative cases in 4w: {min_cases_npi:.0f} - {max_cases_npi:.0f}')
-    print(f'-- NPI: Projected reported new cases in 4w: {min_cases_npi-bucky_npi_cases_today:.0f} - {max_cases_npi-bucky_npi_cases_today:.0f}')
+    print(f'-- NPI: Projected reported additional cases in 4w: {min_additional_cases_npi:.0f} - {max_additional_cases_npi:.0f}')
     print(f'-- NPI: Projected trend reported cases in 4w: {rel_inc_min_cases_npi:.0f}% - {rel_inc_max_cases_npi:.0f}%')
     print(f'-- NPI: Projected reported cumulative deaths in 4w: {min_deaths_npi:.0f} - {max_deaths_npi:.0f}')
-    print(f'-- NPI: Projected new reported deaths in 4w: {min_deaths_npi-bucky_npi_deaths_today:.0f} - {max_deaths_npi-bucky_npi_deaths_today:.0f}')
+    print(f'-- NPI: Projected additional reported deaths in 4w: {min_additional_deaths_npi:.0f} - {max_additional_deaths_npi:.0f}')
     print(f'-- NPI: Projected trend reported deaths in 4w: {rel_inc_min_deaths_npi:.0f}% - {rel_inc_max_deaths_npi:.0f}%')
 
     # Compute the expected percentual change in CUMULATIVE reported cases and deaths when there are no NPIs in place
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
     min_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported'].astype(int)
     max_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported'].astype(int)
+    min_additional_cases_no_npi = min_cases_no_npi - bucky_npi_cases_today
+    max_additional_cases_no_npi = max_cases_no_npi - bucky_npi_cases_today
     min_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths'].astype(int)
     max_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths'].astype(int)
+    min_additional_deaths_no_npi = min_deaths_no_npi - bucky_npi_deaths_today
+    max_additional_deaths_no_npi = max_deaths_no_npi - bucky_npi_deaths_today
     print(f'--- no_npi: Projected cumulative reported cases in 4w: {min_cases_no_npi:.0f} - {max_cases_no_npi:.0f}')
-    print(f'-- no_npi: Projected reported new cases in 4w: {min_cases_no_npi-bucky_npi_cases_today:.0f} - {max_cases_no_npi-bucky_npi_cases_today:.0f}')
+    print(f'-- no_npi: Projected additional reported cases in 4w: {min_additional_cases_no_npi:.0f} - {max_additional_cases_no_npi:.0f}')
     print(f'--- no_npi: Projected cumulative reported deaths in 4w: {min_deaths_no_npi:.0f} - {max_deaths_no_npi:.0f}')
-    print(f'-- no_npi: Projected new reported deaths in 4w: {min_deaths_no_npi-bucky_npi_deaths_today:.0f} - {max_deaths_no_npi-bucky_npi_deaths_today:.0f}')
+    print(f'-- no_npi: Projected additional reported deaths in 4w: {min_additional_deaths_no_npi:.0f} - {max_additional_deaths_no_npi:.0f}')
 
     #compute the maximum projected increase in cumulative reported cases and deaths in four weeks if the NPIs were lifted
     no_npi_max_increase_cases=(max_cases_no_npi-min_cases_npi).astype(int)
@@ -286,21 +276,30 @@ def generate_key_figures(country_iso3,parameters):
     dict_metrics={"Current situation - WHO cases today": who_cases_today,
                   "Current situation - WHO deaths today": who_deaths_today,
                     "CFR":CFR,
-                    "Weekly new cases wrt last week - trend":trend_w_cases,
-                    "Weekly new deaths wrt last week - trend":trend_w_deaths,
+                    #currently not in use in the report
+                    # "Weekly new cases wrt last week - trend":trend_w_cases,
+                    # "Weekly new deaths wrt last week - trend":trend_w_deaths,
                     "Estimated case reporting rate": reporting_rate,
                     "NPI - projected reported cases in 4w - MIN": min_cases_npi,
                     "NPI - projected reported cases in 4w - MAX": max_cases_npi,
+                    "NPI - projected additional reported cases in 4w - MIN": min_additional_cases_npi,
+                    "NPI - projected additional reported cases in 4w - MAX": max_additional_cases_npi,
                     "NPI - projected TREND reported cases in 4w - MIN": rel_inc_min_cases_npi,
                     "NPI - projected TREND reported cases in 4w - MAX": rel_inc_max_cases_npi,
                     "NPI - projected reported deaths in 4w - MIN": min_deaths_npi,
                     "NPI - projected reported deaths in 4w - MAX": max_deaths_npi,
+                    "NPI - projected additional reported deaths in 4w - MIN": min_additional_deaths_npi,
+                    "NPI - projected additional reported deaths in 4w - MAX": max_additional_deaths_npi,
                     "NPI - projected TREND reported deaths in 4w - MIN": rel_inc_min_deaths_npi,
                     "NPI - projected TREND reported deaths in 4w - MAX": rel_inc_max_deaths_npi,
                     "NO NPI - projected reported cases in 4w - MIN": min_cases_no_npi,
                     "NO NPI - projected reported cases in 4w - MAX": max_cases_no_npi,
+                    "NO NPI - projected additional reported cases in 4w - MIN": min_additional_cases_no_npi,
+                    "NO NPI - projected additional reported cases in 4w - MAX": max_additional_cases_no_npi,
                     "NO NPI - projected reported deaths in 4w - MIN": min_deaths_no_npi,
                     "NO NPI - projected reported deaths in 4w - MAX": max_deaths_no_npi,
+                    "NO NPI - projected additional reported deaths in 4w - MIN": min_additional_deaths_no_npi,
+                    "NO NPI - projected additional reported deaths in 4w - MAX": max_additional_deaths_no_npi,
                     "Maximum number of extra cases if NPIs are lifted": no_npi_max_increase_cases,
                     "Maximum number of extra deaths if NPIs are lifted": no_npi_max_increase_deaths,
                     "Current situation - latest date MPHO reported numbers": subnational_lastdate,
@@ -326,14 +325,19 @@ def generate_model_projections(country_iso3,parameters):
     # generate plot with four-weeks ahead projections of daily cases
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
-    metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max = draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'hospitalizations')
+    metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max, metric_additional_npi_min, metric_additional_npi_max, metric_additional_no_npi_min, metric_additional_no_npi_max = draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'hospitalizations')
 
     dict_metric={f"{metric.capitalize()} current situation - MIN": metric_today_min,
     f"{metric.capitalize()} current situation - MAX":metric_today_max,
     f"NPI {metric.capitalize()} projections 4w - MIN": metric_4w_npi_min,
     f"NPI {metric.capitalize()} projections 4w - MAX": metric_4w_npi_max,
+    f"NPI additional {metric.capitalize()} projections 4w - MIN": metric_additional_npi_min,
+    f"NPI additional {metric.capitalize()} projections 4w - MAX": metric_additional_npi_max,
     f"NO NPI {metric.capitalize()} projections 4w - MIN": metric_4w_no_npi_min,
-    f"NO NPI {metric.capitalize()} projections 4w - MAX": metric_4w_no_npi_max}
+    f"NO NPI {metric.capitalize()} projections 4w - MAX": metric_4w_no_npi_max,
+    f"NO NPI additional {metric.capitalize()} projections 4w - MIN": metric_additional_no_npi_min,
+    f"NO NPI additional {metric.capitalize()} projections 4w - MAX": metric_additional_no_npi_max}
+
     df_metrics=pd.DataFrame.from_dict(dict_metric,orient="index")
     return df_metrics
 
@@ -376,12 +380,19 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     metric_4w_npi_max=bucky_npi[bucky_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,bucky_var]
     metric_4w_no_npi_min=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]
     metric_4w_no_npi_max=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,bucky_var]
+    metric_additional_npi_min=metric_4w_npi_min-metric_today_min
+    metric_additional_npi_max=metric_4w_npi_max-metric_today_max
+    metric_additional_no_npi_min=metric_4w_no_npi_min-metric_today_min
+    metric_additional_no_npi_max=metric_4w_no_npi_max-metric_today_max
+
     print(f'----{metric} {TODAY}: {metric_today_min:.0f} - {metric_today_max:.0f}')
     print(f'----{metric} NPI {FOUR_WEEKS}: {metric_4w_npi_min:.0f} - {metric_4w_npi_max:.0f}')
+    print(f'----{metric} additional NPI {FOUR_WEEKS}: {metric_additional_npi_min:.0f} - {metric_additional_npi_max:.0f}')
     print(f'----{metric} NO NPI {FOUR_WEEKS}: {metric_4w_no_npi_min:.0f} - {metric_4w_no_npi_max:.0f}')
+    print(f'----{metric} additional NO NPI {FOUR_WEEKS}: {metric_additional_no_npi_min:.0f} - {metric_additional_no_npi_max:.0f}')
     fig.savefig(f'Outputs/{country_iso3}/projection_{metric}.png')
 
-    return metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max
+    return metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max, metric_additional_npi_min, metric_additional_npi_max, metric_additional_no_npi_min, metric_additional_no_npi_max
 
 def generate_data_model_comparison(country_iso3,parameters):
     """

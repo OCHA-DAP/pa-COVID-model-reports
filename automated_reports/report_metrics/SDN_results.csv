@@ -67,21 +67,27 @@ No NPI Reff,1.0784642702718634,2020-10-07,SDN
 Current situation - WHO cases today,13670,2020-10-07,SDN
 Current situation - WHO deaths today,836,2020-10-07,SDN
 CFR,6.115581565471836,2020-10-07,SDN
-Weekly new cases wrt last week - trend,-36.0,2020-10-07,SDN
-Weekly new deaths wrt last week - trend,,2020-10-07,SDN
 Estimated case reporting rate,3.4072760808605995,2020-10-07,SDN
 NPI - projected reported cases in 4w - MIN,15224.76175,2020-10-07,SDN
 NPI - projected reported cases in 4w - MAX,15939.44025,2020-10-07,SDN
+NPI - projected additional reported cases in 4w - MIN,806.5607499999951,2020-10-07,SDN
+NPI - projected additional reported cases in 4w - MAX,1521.239249999995,2020-10-07,SDN
 NPI - projected TREND reported cases in 4w - MIN,5.594045678791653,2020-10-07,SDN
 NPI - projected TREND reported cases in 4w - MAX,10.550825654323965,2020-10-07,SDN
 NPI - projected reported deaths in 4w - MIN,969.6992499999994,2020-10-07,SDN
 NPI - projected reported deaths in 4w - MAX,1041.5634999999997,2020-10-07,SDN
+NPI - projected additional reported deaths in 4w - MIN,63.43124999999975,2020-10-07,SDN
+NPI - projected additional reported deaths in 4w - MAX,135.29550000000006,2020-10-07,SDN
 NPI - projected TREND reported deaths in 4w - MIN,6.9991713268039675,2020-10-07,SDN
 NPI - projected TREND reported deaths in 4w - MAX,14.928862102601009,2020-10-07,SDN
 NO NPI - projected reported cases in 4w - MIN,19464,2020-10-07,SDN
 NO NPI - projected reported cases in 4w - MAX,22368,2020-10-07,SDN
+NO NPI - projected additional reported cases in 4w - MIN,5045.798999999995,2020-10-07,SDN
+NO NPI - projected additional reported cases in 4w - MAX,7949.798999999995,2020-10-07,SDN
 NO NPI - projected reported deaths in 4w - MIN,1187,2020-10-07,SDN
 NO NPI - projected reported deaths in 4w - MAX,1375,2020-10-07,SDN
+NO NPI - projected additional reported deaths in 4w - MIN,280.7320000000003,2020-10-07,SDN
+NO NPI - projected additional reported deaths in 4w - MAX,468.7320000000003,2020-10-07,SDN
 Maximum number of extra cases if NPIs are lifted,7143,2020-10-07,SDN
 Maximum number of extra deaths if NPIs are lifted,405,2020-10-07,SDN
 Current situation - latest date MPHO reported numbers,2020-09-05,2020-10-07,SDN
@@ -93,5 +99,9 @@ Hospitalizations current situation - MIN,457.44799999999975,2020-10-07,SDN
 Hospitalizations current situation - MAX,708.4912499999997,2020-10-07,SDN
 NPI Hospitalizations projections 4w - MIN,229.3855,2020-10-07,SDN
 NPI Hospitalizations projections 4w - MAX,395.88349999999986,2020-10-07,SDN
+NPI additional Hospitalizations projections 4w - MIN,-228.06249999999974,2020-10-07,SDN
+NPI additional Hospitalizations projections 4w - MAX,-312.60774999999984,2020-10-07,SDN
 NO NPI Hospitalizations projections 4w - MIN,1238.269,2020-10-07,SDN
 NO NPI Hospitalizations projections 4w - MAX,2155.8189999999986,2020-10-07,SDN
+NO NPI additional Hospitalizations projections 4w - MIN,780.8210000000003,2020-10-07,SDN
+NO NPI additional Hospitalizations projections 4w - MAX,1447.327749999999,2020-10-07,SDN
