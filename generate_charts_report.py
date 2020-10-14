@@ -5,9 +5,12 @@ import sys
 import matplotlib
 import matplotlib.colors as mcolors
 from matplotlib.lines import Line2D
+import logging
 
 import utils
 from utils import *
+
+logger = logging.getLogger(__name__)
 
 country_iso_3 = sys.argv[1]
 
@@ -80,11 +83,12 @@ def main(country_iso3, download_covid=False):
     calculate_subnational_incidence(country_iso3, parameters, TODAY + timedelta(days=1))
 
     #create graphs of cumulative cases, cumulative deaths, new daily cases, daily deaths
+    #of last two months
     generate_data_model_comparison(country_iso3,parameters)
-
+    #of start COVID
     generate_data_model_comparison_lifetime(country_iso3,parameters)
 
-    #hospitalizations/100k TODAY (have to check if this is active or new!)
+    #active hospitalizations/100k TODAY
     create_subnational_map_incidence_100k("hospitalizations_per_100k_active", country_iso3, parameters, TODAY, "Current Reported Hospitalizations Per 100,000 People",
                            "map_hospitalizations_per_100k_current.png")
     #new reported daily cases/100k on TODAY+1
@@ -100,7 +104,8 @@ def main(country_iso3, download_covid=False):
     #new estimated total daily cases/100k in TWO_WEEKS
     create_subnational_map_incidence_100k("daily_cases_total_per_100k", country_iso3, parameters, TWO_WEEKS, "Projected Estimated New Daily Cases Per 100,000 People",
                            "map_dailycasestotal_per_100k_2w.png")
-    create_binary_change_map(country_iso3, parameters)
+    #not being used in current report
+    # create_binary_change_map(country_iso3, parameters)
 
 
 def retrieve_current_npis(npis_url,output_path):
@@ -182,8 +187,8 @@ def generate_key_figures(country_iso3,parameters):
 
     bucky_npi = get_bucky(country_iso3, admin_level='adm0', min_date=TODAY, max_date=FOUR_WEEKS, npi_filter='npi')
 
-
-    #test understanding of metrics
+    #remove once fully understood!
+    # #test understanding of metrics
     # bucky_npiq=bucky_npi[bucky_npi['q'] == 0.5]
     # bucky_npiq['cumulative_cases_reported_yesterday']=bucky_npiq["cumulative_cases_reported"].shift(1)
     # bucky_npiq["reported_cases_change"]=bucky_npiq["cumulative_cases_reported"]-bucky_npiq["cumulative_cases_reported_yesterday"]
@@ -193,7 +198,11 @@ def generate_key_figures(country_iso3,parameters):
     # print(bucky_npiq[["reported_cases_change","daily_cases_reported","total_cases_change","daily_cases"]])
     # bucky_npiq["ratio_tr"]=bucky_npiq["daily_cases_reported"]/bucky_npiq["daily_cases"]
     # bucky_npiq["ratio_tr_cum"]=bucky_npiq["reported_cases_change"]/bucky_npiq["total_cases_change"]
+    # bucky_npiq["diff_daily_cumul"] = (bucky_npiq["total_cases_change"]-bucky_npiq["daily_cases"])/bucky_npiq["daily_cases"]
+    # bucky_npiq["diff_repor_cumul"] = (bucky_npiq["reported_cases_change"]-bucky_npiq["daily_cases_reported"])/bucky_npiq["daily_cases_reported"]
     # print(bucky_npiq[["ratio_tr","ratio_tr_cum","CASE_REPORT"]])
+    # print(bucky_npiq[["daily_cases","total_cases_change","diff_daily_cumul"]])
+    # print(bucky_npiq[["daily_cases_reported","reported_cases_change","diff_repor_cumul"]])
 
     bucky_npi_cases_today = bucky_npi[bucky_npi['q'] == 0.5].loc[TODAY, 'cumulative_cases_reported']
     bucky_npi_cases_today_notrep = bucky_npi[bucky_npi['q'] == 0.5].loc[TODAY, 'cumulative_cases']
@@ -204,6 +213,14 @@ def generate_key_figures(country_iso3,parameters):
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today_notrep:.0f} cumulative estimated total cases')
     print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}')
 
+    #calculate average over 7 last 7 days for the WHO data (MPHO data is too sparse to compute this on)
+    #select the last week and use rolling, which returns nan if less than min_periods datapoints
+    who_covid_mean = who_covid.loc[TODAY-timedelta(days=6):TODAY,["New_cases","New_deaths"]].rolling(window=7,min_periods=4).mean()
+    who_covid_newcases_avg_week = who_covid_mean.loc[TODAY,"New_cases"]
+    who_covid_newdeaths_avg_week = who_covid_mean.loc[TODAY,"New_deaths"]
+    print(f"Average new daily cases of the last 7 days from WHO: {who_covid_newcases_avg_week:.2f}")
+    print(f"Average new daily deaths of the last 7 days from WHO: {who_covid_newdeaths_avg_week:.2f}")
+
     #calculate the percentual change of the sum of new cases and new deaths of last week compared to the previous week
     #this is done with WHO data, on national level
     #a week is defined being from Mon-Sun and thus last week is the last complete week
@@ -211,6 +228,7 @@ def generate_key_figures(country_iso3,parameters):
     who_covid.groupby(['Country_code']).resample('W')
     # get the sum of weekly NEW cases and deaths
     new_WHO_w=who_covid.groupby(['Country_code']).resample('W').sum()[['New_cases','New_deaths']]
+    new_WHO_w[["Average_cases","Average_deaths"]]=who_covid.groupby(['Country_code']).resample('W').mean()[['New_cases','New_deaths']]
     # ndays_w is the number of days present of each week in the data
     # this is max 7, first and last week can contain less days
     ndays_w=who_covid.groupby(['Country_code']).resample('W').count()['New_cases']
@@ -224,7 +242,8 @@ def generate_key_figures(country_iso3,parameters):
     # get percentual change of last full week (Mon-Sun)
     trend_w_cases=new_WHO_w.loc[new_WHO_w.index[-1],'New_cases_PercentChange']*100
     trend_w_deaths=new_WHO_w.loc[new_WHO_w.index[-1],'New_deaths_PercentChange']*100
-
+    # print(f'Average new daily cases previous week: {new_WHO_w.loc[new_WHO_w.index[-2],"Average_cases"]}')
+    print(f"Average new daily cases during last week (Mon-Sun) from WHO: {new_WHO_w.loc[new_WHO_w.index[-1],'Average_cases']:.2f}")
     #new cases during a week period
     print(f'Percentual change in new cases and deaths during last week (Mon-Sun) wrt previous week: {trend_w_cases:.0f}% cases, {trend_w_deaths:.0f}% deaths')
 
@@ -241,9 +260,11 @@ def generate_key_figures(country_iso3,parameters):
     rel_inc_min_deaths_npi=(min_deaths_npi-bucky_npi_deaths_today)/bucky_npi_deaths_today*100
     rel_inc_max_deaths_npi=(max_deaths_npi-bucky_npi_deaths_today)/bucky_npi_deaths_today*100
     print(f'- Projection date:{FOUR_WEEKS}')
-    print(f'-- NPI: Projected reported cases in 4w: {min_cases_npi:.0f} - {max_cases_npi:.0f}')
+    print(f'-- NPI: Projected reported cumulative cases in 4w: {min_cases_npi:.0f} - {max_cases_npi:.0f}')
+    print(f'-- NPI: Projected reported new cases in 4w: {min_cases_npi-bucky_npi_cases_today:.0f} - {max_cases_npi-bucky_npi_cases_today:.0f}')
     print(f'-- NPI: Projected trend reported cases in 4w: {rel_inc_min_cases_npi:.0f}% - {rel_inc_max_cases_npi:.0f}%')
-    print(f'-- NPI: Projected reported deaths in 4w: {min_deaths_npi:.0f} - {max_deaths_npi:.0f}')
+    print(f'-- NPI: Projected reported cumulative deaths in 4w: {min_deaths_npi:.0f} - {max_deaths_npi:.0f}')
+    print(f'-- NPI: Projected new reported deaths in 4w: {min_deaths_npi-bucky_npi_deaths_today:.0f} - {max_deaths_npi-bucky_npi_deaths_today:.0f}')
     print(f'-- NPI: Projected trend reported deaths in 4w: {rel_inc_min_deaths_npi:.0f}% - {rel_inc_max_deaths_npi:.0f}%')
 
     # Compute the expected percentual change in CUMULATIVE reported cases and deaths when there are no NPIs in place
@@ -252,15 +273,18 @@ def generate_key_figures(country_iso3,parameters):
     max_cases_no_npi=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_cases_reported'].astype(int)
     min_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths'].astype(int)
     max_deaths_no_npi=bucky_no_npi[bucky_no_npi['q']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths'].astype(int)
-    print(f'--- no_npi: Projected reported cases in 4w: {min_cases_no_npi:.0f} - {max_cases_no_npi:.0f}')
-    print(f'--- no_npi: Projected reported deaths in 4w: {min_deaths_no_npi:.0f} - {max_deaths_no_npi:.0f}')
+    print(f'--- no_npi: Projected cumulative reported cases in 4w: {min_cases_no_npi:.0f} - {max_cases_no_npi:.0f}')
+    print(f'-- no_npi: Projected reported new cases in 4w: {min_cases_no_npi-bucky_npi_cases_today:.0f} - {max_cases_no_npi-bucky_npi_cases_today:.0f}')
+    print(f'--- no_npi: Projected cumulative reported deaths in 4w: {min_deaths_no_npi:.0f} - {max_deaths_no_npi:.0f}')
+    print(f'-- no_npi: Projected new reported deaths in 4w: {min_deaths_no_npi-bucky_npi_deaths_today:.0f} - {max_deaths_no_npi-bucky_npi_deaths_today:.0f}')
 
     #compute the maximum projected increase in cumulative reported cases and deaths in four weeks if the NPIs were lifted
     no_npi_max_increase_cases=(max_cases_no_npi-min_cases_npi).astype(int)
     no_npi_max_increase_deaths = (max_deaths_no_npi - min_deaths_npi).astype(int)
     print(f'Maximum number of extra cases if NPIs are lifted: {no_npi_max_increase_cases:.0f}')
     print(f'Maximum number of extra deaths if NPIs are lifted: {no_npi_max_increase_deaths:.0f}')
-    dict_metrics={"Current situation - WHO cases today": who_cases_today,"Current situation - WHO deaths today": who_deaths_today,
+    dict_metrics={"Current situation - WHO cases today": who_cases_today,
+                  "Current situation - WHO deaths today": who_deaths_today,
                     "CFR":CFR,
                     "Weekly new cases wrt last week - trend":trend_w_cases,
                     "Weekly new deaths wrt last week - trend":trend_w_deaths,
@@ -282,6 +306,8 @@ def generate_key_figures(country_iso3,parameters):
                     "Current situation - latest date MPHO reported numbers": subnational_lastdate,
                     "Current situation - latest MPHO cases": subnational_cases_latest,
                     "Current situation - latest MPHO deaths": subnational_deaths_latest,
+                    "Current situation - WHO daily new cases, 7-day average": who_covid_newcases_avg_week,
+                    "Current situation - WHO daily new deaths, 7-day average": who_covid_newdeaths_avg_week
                 }
 
     df_metrics=pd.DataFrame.from_dict(dict_metrics, orient="index")
@@ -473,9 +499,8 @@ def draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covi
         print(f'metric {metric} not implemented')
         return False
     fig,axis=create_new_subplot(fig_title)
-
-    who_mindate=who_covid[who_covid[who_var]>0].index.min()
-    subnational_mindate=subnational_covid[subnational_covid[subnational_var]>0].index.min()
+    who_mindate=who_covid[(who_covid[["Cumulative_cases","Cumulative_deaths"]] > 0).any(1)].index.min()
+    subnational_mindate=subnational_covid[(subnational_covid[[HLX_TAG_TOTAL_CASES,HLX_TAG_TOTAL_DEATHS]] > 0).any(1)].index.min()
     mindate=min(who_mindate,subnational_mindate)-timedelta(days=14)
     who_covid_start=who_covid.loc[mindate:,:]
     subnational_covid_start=subnational_covid.loc[mindate:,:]
@@ -522,7 +547,7 @@ def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi
     axis.bar(who_covid.index, who_covid[who_var],alpha=0.8,color=WHO_DATA_COLOR,label='WHO')
     # compute rolling 7-day average
     who_covid_rolling = who_covid[who_var].rolling(window=7).mean()
-    axis.plot(who_covid_rolling.index, who_covid_rolling,\
+    axis.plot(who_covid_rolling.index, who_covid_rolling,
         lw=3,color=lighten_color(WHO_DATA_COLOR,1.6),label='WHO - 7d rolling average')
     # draw bucky
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
@@ -656,38 +681,6 @@ def create_subnational_map_incidence_100k(metric, country_iso3, parameters, date
     shapefile.boundary.plot(linewidth=0.1, ax=axis,color="lightgrey")
     fig.savefig(f'Outputs/{country_iso3}/{output_file}',bbox_inches="tight")
 
-def create_binary_change_map(country_iso3, parameters):
-    """
-    Generate a subnational map that indicates which areas are expected to have an increase and decrease in cases per 100k in two weeks
-    Args:
-        country_iso3: iso3 code of the country of interest
-        parameters: country specific parameters, retrieved from config
-    """
-    fig_title = f'Projected trend in number of cases per 100,000 people'
-    df_change=calculate_subnational_trends(country_iso3,parameters)
-
-    shapefile = gpd.read_file(parameters['shape'])
-    shapefile = shapefile.merge(df_change, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
-    #Classify as "increase" if cases per 100k is projected to increase by 5 or more percent in two weeks
-    #decrease if this is more than -5, else stable.
-    # Also stable for regions with less than 1 active cases (=nans from calculate_subnational_trends)
-    change_threshold=10
-    shapefile.loc[:,"change_name"]=shapefile["cases_per_100k_abs_change"].apply(lambda x: f"Increase of {change_threshold}+" if x>=change_threshold else (f"Decrease of {change_threshold}+" if x<=-change_threshold else f"Less than {change_threshold} change"))
-    color_dict={f"Increase of {change_threshold}+" :"red",f"Less than {change_threshold} change":"grey",f"Decrease of {change_threshold}+":"green"}
-
-    fig, ax = plt.subplots(figsize=(10, 10))
-    for k in shapefile["change_name"].unique():
-        shapefile[shapefile["change_name"]==k].plot(color=color_dict[k], ax=ax,edgecolor='gray')
-    legend_elements= [Line2D([0], [0], marker='o',markersize=15,label=k,color=color_dict[k],linestyle='None') for k in color_dict.keys()]
-    leg=plt.legend(title="Legend",frameon=False,handles=legend_elements,bbox_to_anchor=(1.5,0.8))
-    leg._legend_box.align = "left"
-
-    shapefile.boundary.plot(linewidth=0.1,ax=ax,color="white")
-    ax.set_axis_off()
-    ax.set_title(fig_title)
-    fig.savefig(f'Outputs/{country_iso3}/map_binary_change_cases_per_100k_2w.png',bbox_inches="tight")
-
-
 def calculate_subnational_trends(country_iso3, parameters):
     """
     Compute the absolute and percentual change in ACTIVE cases/100k in TWO_WEEKS compared to TODAY
@@ -698,114 +691,148 @@ def calculate_subnational_trends(country_iso3, parameters):
     Returns:
         combined_change: DataFrame with the metrics related to the change in active cases/100k. Also includes the English admin1 names
     """
-    bucky_npi =  get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
-    bucky_npi = bucky_npi.loc[bucky_npi['q']==0.5,['adm1','Reff','cases_per_100k',"cases_active"]]
+    bucky_npi = get_bucky(country_iso3 ,admin_level='adm1',min_date=TODAY,max_date=TWO_WEEKS,npi_filter='npi')
+    bucky_npi = bucky_npi[bucky_npi['q']==0.5]
     adm1_pcode_prefix=parameters['iso2_code']
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix='IQG'
     bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  "{0:0=2d}".format(int(x)))
-
+    bucky_npi["daily_cases_reported_per_100k"] = bucky_npi["daily_cases_reported"] / (bucky_npi["N"] / 100000)
+    # bucky_npi["daily_cases_total_per_100k"] = bucky_npi["daily_cases"] / (bucky_npi["N"] / 100000)
     # make the col selector a list to ensure always a dataframe is returned (and not a series)
-    start = bucky_npi.loc[[TODAY], :]
+    start = bucky_npi.loc[[TODAY+timedelta(days=1)], :]
     end = bucky_npi.loc[[TWO_WEEKS], :]
-    combined = start.merge(end[['adm1', 'cases_per_100k',"cases_active"]], how='outer', on='adm1',suffixes=("_today","_inTWOweeks"))
+    combined = start[['adm1','Reff','daily_cases_reported_per_100k']].merge(end[['adm1', 'daily_cases_reported_per_100k']], how='outer', on='adm1',suffixes=("_today","_inTWOweeks"))
 
-    combined["cases_per_100k_abs_change"]=combined['cases_per_100k_inTWOweeks'] - combined['cases_per_100k_today']
+    combined["daily_cases_reported_per_100k_abs_change"]=combined['daily_cases_reported_per_100k_inTWOweeks'] - combined['daily_cases_reported_per_100k_today']
 
     # Select the row if current OR projected have at least one active case
     # to remove noise
-    combined_cases=combined.loc[(combined['cases_active_today']>=1) | (combined['cases_active_inTWOweeks']>=1),:].copy()
-    combined_cases['cases_per_100k_perc_change'] = (combined_cases['cases_per_100k_inTWOweeks'] -combined_cases['cases_per_100k_today'])/ combined_cases['cases_per_100k_today'] * 100
-    combined_change=combined.merge(combined_cases[["adm1","cases_per_100k_perc_change"]],on="adm1",how="left")
+    #for now we decided to also include <1 active/new cases since it is a statistical model so non-integer cases are okay, plus you have the chance of then displaying the regions as if there is no change while there is
+    #however this only works for absolute numbers and not for percentual because then it can get very skewed!
+    # combined_cases=combined.loc[(combined['cases_active_today']>=1) | (combined['cases_active_inTWOweeks']>=1),:].copy()
+    # combined_cases['cases_per_100k_perc_change'] = (combined_cases['cases_per_100k_inTWOweeks'] -combined_cases['cases_per_100k_today'])/ combined_cases['cases_per_100k_today'] * 100
+    # combined_change=combined.merge(combined_cases[["adm1","cases_per_100k_perc_change"]],on="adm1",how="left")
 
     shapefile = gpd.read_file(parameters['shape'])
     shapefile=shapefile[[parameters['adm1_pcode'],parameters['adm1_name']]]
 
-    combined_change=combined_change.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
+    combined_shp=combined.merge(shapefile,how='left',left_on='adm1',right_on=parameters['adm1_pcode'])
     #inf values are given when cases_per100k TODAY was 0 and in two weeks this is larger than 0
     # combined_change=combined_change.replace(np.inf,np.nan)
-    combined_change.loc[:,'cases_per_100k_perc_change']=combined_change.loc[:,'cases_per_100k_perc_change'].astype('float')
-    combined_change = combined_change.sort_values('cases_per_100k_perc_change', ascending=False)
-    combined_change.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
-    return combined_change
+    # combined_shp.loc[:,'cases_per_100k_perc_change']=combined_shp.loc[:,'cases_per_100k_perc_change'].astype('float')
+    combined_shp = combined_shp.sort_values('adm1')
+    # combined_shp = combined_shp.sort_values('daily_cases_reported_per_100k_abs_change', ascending=False)
+    combined_shp.to_csv(f'Outputs/{country_iso3}/ADM1_ranking.csv', index=False)
+    return combined_shp
 
-
-
+#this map is currently not used and has to be revised given the changes in metrics we made (especially active vs new cases)
+# def create_binary_change_map(country_iso3, parameters):
+#     """
+#     Generate a subnational map that indicates which areas are expected to have an increase and decrease in cases per 100k in two weeks
+#     Args:
+#         country_iso3: iso3 code of the country of interest
+#         parameters: country specific parameters, retrieved from config
+#     """
+#     fig_title = f'Projected trend in number of cases per 100,000 people'
+#     df_change=calculate_subnational_trends(country_iso3,parameters)
+#
+#     shapefile = gpd.read_file(parameters['shape'])
+#     shapefile = shapefile.merge(df_change, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
+#     #Classify as "increase" if cases per 100k is projected to increase by 5 or more percent in two weeks
+#     #decrease if this is more than -5, else stable.
+#     # Also stable for regions with less than 1 active cases (=nans from calculate_subnational_trends)
+#     change_threshold=10
+#     shapefile.loc[:,"change_name"]=shapefile["cases_per_100k_abs_change"].apply(lambda x: f"Increase of {change_threshold}+" if x>=change_threshold else (f"Decrease of {change_threshold}+" if x<=-change_threshold else f"Less than {change_threshold} change"))
+#     color_dict={f"Increase of {change_threshold}+" :"red",f"Less than {change_threshold} change":"grey",f"Decrease of {change_threshold}+":"green"}
+#
+#     fig, ax = plt.subplots(figsize=(10, 10))
+#     for k in shapefile["change_name"].unique():
+#         shapefile[shapefile["change_name"]==k].plot(color=color_dict[k], ax=ax,edgecolor='gray')
+#     legend_elements= [Line2D([0], [0], marker='o',markersize=15,label=k,color=color_dict[k],linestyle='None') for k in color_dict.keys()]
+#     leg=plt.legend(title="Legend",frameon=False,handles=legend_elements,bbox_to_anchor=(1.5,0.8))
+#     leg._legend_box.align = "left"
+#
+#     shapefile.boundary.plot(linewidth=0.1,ax=ax,color="white")
+#     ax.set_axis_off()
+#     ax.set_title(fig_title)
+#     fig.savefig(f'Outputs/{country_iso3}/map_binary_change_cases_per_100k_2w.png',bbox_inches="tight")
 
 
 if __name__ == "__main__":
     args = parse_args()
     main(args.country_iso3.upper(),download_covid=args.download_covid)
 
-
-def generate_new_cases_graph(country_iso3):
-    # get all time cases and deaths
-    who_covid_new = get_who(WHO_COVID_FILENAME,country_iso3, min_date=pd.to_datetime('2000-01-01'),max_date=TODAY)
-    who_covid_new.reset_index(inplace=True)
-
-    # compute rolling 7-day average
-    who_covid_new['new_cases_rolling_mean'] = who_covid_new.NewCase.rolling(window=7).mean()
-
-    # Create figure and plot space
-    fig, ax = plt.subplots(figsize=(10, 10))
-
-    # Add x-axis and y-axis
-    ax.bar(who_covid_new['date_epicrv'],
-            who_covid_new['NewCase'],
-            color='cornflowerblue')
-
-    # format the ticks
-    months = mdates.MonthLocator()
-    months_fmt = mdates.DateFormatter('%m-%Y')
-
-    ax.xaxis.set_major_locator(months)
-    ax.xaxis.set_major_formatter(months_fmt)
-
-    # Set title and labels for axes
-    ax.set(xlabel="Date",
-        ylabel="New Cases",
-        title="Daily Cases")
-
-    # add rolling average trend line
-    plt.plot(who_covid_new['date_epicrv'], who_covid_new['new_cases_rolling_mean'], label='7-day average', color='navy')
-
-    # place a label near the trendline
-    ax.text(0.05, 0.13, "Seven-day average", transform=ax.transAxes, fontsize=14,
-            verticalalignment='top', color='navy')
-
-    plt.show()
-    fig.savefig(f'Outputs/{country_iso3}/current_new_cases.png')
-
-def generate_new_deaths_graph(country_iso3):
-    # compute rolling 7-day average
-    who_covid_new['new_deaths_rolling_mean'] = who_covid_new.NewDeath.rolling(window=7).mean()
-
-    # Create figure and plot space
-    fig, ax = plt.subplots(figsize=(10, 10))
-
-    # Add x-axis and y-axis
-    ax.bar(who_covid_new['date_epicrv'],
-            who_covid_new['NewDeath'],
-            color='indianred')
-
-    # format the ticks
-    months = mdates.MonthLocator()
-    months_fmt = mdates.DateFormatter('%m-%Y')
-
-    ax.xaxis.set_major_locator(months)
-    ax.xaxis.set_major_formatter(months_fmt)
-
-    # Set title and labels for axes
-    ax.set(xlabel="Date",
-        ylabel="New Deaths",
-        title="Daily Deaths")
-
-    # add rolling average trend line
-    plt.plot(who_covid_new['date_epicrv'], who_covid_new['new_deaths_rolling_mean'], label='7-day average', color='darkred')
-
-    # place a label near the trendline
-    ax.text(0.05, 0.13, "Seven-day average", transform=ax.transAxes, fontsize=14,
-            verticalalignment='top', color='darkred')
-
-    plt.show()
-    fig.savefig(f'Outputs/{country_iso3}/current_new_deaths.png')
+# # this graph is currently not being used
+# def generate_new_cases_graph(country_iso3):
+#     # get all time cases and deaths
+#     who_covid_new = get_who(WHO_COVID_FILENAME,country_iso3, min_date=pd.to_datetime('2000-01-01'),max_date=TODAY)
+#     who_covid_new.reset_index(inplace=True)
+#
+#     # compute rolling 7-day average
+#     who_covid_new['new_cases_rolling_mean'] = who_covid_new.NewCase.rolling(window=7).mean()
+#
+#     # Create figure and plot space
+#     fig, ax = plt.subplots(figsize=(10, 10))
+#
+#     # Add x-axis and y-axis
+#     ax.bar(who_covid_new['date_epicrv'],
+#             who_covid_new['NewCase'],
+#             color='cornflowerblue')
+#
+#     # format the ticks
+#     months = mdates.MonthLocator()
+#     months_fmt = mdates.DateFormatter('%m-%Y')
+#
+#     ax.xaxis.set_major_locator(months)
+#     ax.xaxis.set_major_formatter(months_fmt)
+#
+#     # Set title and labels for axes
+#     ax.set(xlabel="Date",
+#         ylabel="New Cases",
+#         title="Daily Cases")
+#
+#     # add rolling average trend line
+#     plt.plot(who_covid_new['date_epicrv'], who_covid_new['new_cases_rolling_mean'], label='7-day average', color='navy')
+#
+#     # place a label near the trendline
+#     ax.text(0.05, 0.13, "Seven-day average", transform=ax.transAxes, fontsize=14,
+#             verticalalignment='top', color='navy')
+#
+#     plt.show()
+#     fig.savefig(f'Outputs/{country_iso3}/current_new_cases.png')
+#
+# # this graph is currently not being used
+# def generate_new_deaths_graph(country_iso3):
+#     # compute rolling 7-day average
+#     who_covid_new['new_deaths_rolling_mean'] = who_covid_new.NewDeath.rolling(window=7).mean()
+#
+#     # Create figure and plot space
+#     fig, ax = plt.subplots(figsize=(10, 10))
+#
+#     # Add x-axis and y-axis
+#     ax.bar(who_covid_new['date_epicrv'],
+#             who_covid_new['NewDeath'],
+#             color='indianred')
+#
+#     # format the ticks
+#     months = mdates.MonthLocator()
+#     months_fmt = mdates.DateFormatter('%m-%Y')
+#
+#     ax.xaxis.set_major_locator(months)
+#     ax.xaxis.set_major_formatter(months_fmt)
+#
+#     # Set title and labels for axes
+#     ax.set(xlabel="Date",
+#         ylabel="New Deaths",
+#         title="Daily Deaths")
+#
+#     # add rolling average trend line
+#     plt.plot(who_covid_new['date_epicrv'], who_covid_new['new_deaths_rolling_mean'], label='7-day average', color='darkred')
+#
+#     # place a label near the trendline
+#     ax.text(0.05, 0.13, "Seven-day average", transform=ax.transAxes, fontsize=14,
+#             verticalalignment='top', color='darkred')
+#
+#     plt.show()
+#     fig.savefig(f'Outputs/{country_iso3}/current_new_deaths.png')

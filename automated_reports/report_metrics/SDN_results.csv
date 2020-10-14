@@ -87,6 +87,8 @@ Maximum number of extra deaths if NPIs are lifted,405,2020-10-07,SDN
 Current situation - latest date MPHO reported numbers,2020-09-05,2020-10-07,SDN
 Current situation - latest MPHO cases,13437,2020-10-07,SDN
 Current situation - latest MPHO deaths,822,2020-10-07,SDN
+"Current situation - WHO daily new cases, 7-day average",4.285714285714286,2020-10-07,SDN
+"Current situation - WHO daily new deaths, 7-day average",0.0,2020-10-07,SDN
 Hospitalizations current situation - MIN,457.44799999999975,2020-10-07,SDN
 Hospitalizations current situation - MAX,708.4912499999997,2020-10-07,SDN
 NPI Hospitalizations projections 4w - MIN,229.3855,2020-10-07,SDN
