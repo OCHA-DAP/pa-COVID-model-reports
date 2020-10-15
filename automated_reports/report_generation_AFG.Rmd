@@ -112,10 +112,14 @@ report_metrics_all_dates <- read.csv(report_metrics_filename)
 # keep latest metrics
 report_metrics <- report_metrics_all_dates %>% filter(assessment_date == assignment_date)
 
-# cfr
+# case fatality rate
 cfr <- report_metrics %>% filter(metric_name == 'CFR') %>% select(metric_value) %>% as.numeric()
 cfr <- round(cfr, 1)
 cfr_text <- paste0(cfr, '%')
+
+# case reporting rate
+crr <- report_metrics %>% filter(metric_name == 'Estimated case reporting rate') %>% select(metric_value) %>% as.numeric()
+crr <- round(crr, 1)
 
 # Current Situation MOPH data counts
 latest_moph_datapoint_date <- report_metrics %>% filter(metric_name == "Current situation - latest date MPHO reported numbers") %>% select(metric_value) %>% as.character() %>% as.Date("%Y-%m-%d")
@@ -182,22 +186,30 @@ effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'
 ```
 
 
-```{r who_data, include = FALSE}
+```{r current_who_data, include = FALSE}
 who_data <- read.csv(who_data_filename)
 who_data$Date_reported <- as.Date(who_data$Date_reported)
-current_cum_cases <- who_data %>%
+who_current_cum_cases <- who_data %>%
                       filter(Country == country & 
                       Date_reported == assignment_date) %>%
                       select(Cumulative_cases) %>%
                       as.numeric() %>%
                       format(., big.mark = ",")
 
-current_cum_deaths <- who_data %>%
+who_current_cum_deaths <- who_data %>%
                       filter(Country == country & 
                       Date_reported == assignment_date) %>%
                       select(Cumulative_deaths) %>%
                       as.numeric() %>%
                       format(., big.mark = ",")  
+
+
+who_current_newdaily_7daverage_cases <- report_metrics %>% filter(metric_name == "Current situation - WHO daily new cases, 7-day average") %>% select(metric_value) %>% as.numeric()
+who_current_newdaily_7daverage_cases <- format(round(who_current_newdaily_7daverage_cases, 1), big.mark = ",")
+
+who_current_newdaily_7daverage_deaths <- report_metrics %>% filter(metric_name == "Current situation - WHO daily new deaths, 7-day average") %>% select(metric_value) %>% as.numeric()
+who_current_newdaily_7daverage_deaths <- format(round(who_current_newdaily_7daverage_deaths, 1), big.mark = ",")
+
 ```
 
 ```{r graphs, include = FALSE}
@@ -232,7 +244,7 @@ subnational_projections$daily_cases_reported_per_100k_inTWOweeks <- round(subnat
 
 &nbsp;
 
-This report summarizes the COVID-19 model results for Afghanistan, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r format(assignment_date, format="%d %B %Y")`. The data is sourced from World Health Organization (WHO) and the country's Ministry of Public Health (MOPH). For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
+This report summarizes the COVID-19 model results for `r country`, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r format(assignment_date, format="%d %B %Y")`. The data is sourced from World Health Organization (WHO) and the country's Ministry of Public Health (MOPH). For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
 
 ![](visual_assets/green_horizontal_line.png){height=30px}
 
@@ -261,7 +273,7 @@ This report leverages a framework to provide guidance in the interpretation of i
 
 The framework defines risk levels that indicate whether a region is on track for containment and can help decision-makers know where they are at the moment. The levels do not in themselves provide information about how to respond but do communicate the intensity of effort needed for control of COVID at varying levels of community spread. In addition to paying attention to the levels, decision-makers should pay close attention to direction of trend and rate of change (see section 4 for those metrics at the subnational level). 
 
-The maps below illustrate regional risk levels as defined by today's incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`). On the left is the map of reported cases while that on the right is the estimated total cases that takes into consideration case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
+The maps below illustrate regional risk levels as defined by today's incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`).  On the left are the reported cases while on the right are the total cases as estimated from case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
 
 &nbsp;
 
@@ -304,12 +316,12 @@ kbl(effort_needed_table,
 
 \newpage
 
-\large \textbf{`r colorize('Key Figures: Current Cases and Deaths', 'centreBlue')`}[^1][^2]
+\large \textbf{`r colorize('Key Figures: Current Cases and Deaths', 'centreBlue')`}[^1][^2][^3]
 
-```{r section2_cumulative_figures, echo = FALSE}
+```{r section2_cumulative_figures, echo = FALSE, eval = FALSE}
 
-x <- data.frame(Cases = c(mpho_current_cum_cases,current_cum_cases),
-                Deaths = c(mpho_current_cum_deaths, current_cum_deaths)) 
+x <- data.frame(Cases = c(mpho_current_cum_cases,who_current_cum_cases),
+                Deaths = c(mpho_current_cum_deaths, who_current_cum_deaths)) 
 
 row.names(x) <- c("Based on MOPH data", "Based on WHO data")
 
@@ -326,10 +338,36 @@ x %>%
 
 ```
 
+```{r section2_cumulative_figures_revised, echo = FALSE}
+
+x <- data.frame(NewCases = c('NA', who_current_newdaily_7daverage_cases),
+                CumCases = c(mpho_current_cum_cases, who_current_cum_cases),
+                NewDeaths = c('NA', who_current_newdaily_7daverage_deaths),
+                CumDeaths = c(mpho_current_cum_deaths, who_current_cum_deaths)) 
+
+
+row.names(x) <- c("Based on MOPH data", "Based on WHO data")
+
+x %>% 
+            kable(
+                  align = 'cc',
+                  col.names = c('Daily New Cases', 'Cumulative', 'Daily New Cases', 'Cumulative'),
+                  row.names = TRUE) %>%
+            kableExtra::kable_styling(row_label_position = 'r',
+                                      position = 'center',
+                                      font_size = 11) %>%
+            add_header_above(c("","Cases" = 2, "Deaths" = 2), bold = T, font_size = 12) %>%
+            row_spec(0, bold = F, font_size = 12)
+
+```
+
+
 \footnotesize
 
 \begin{center}
 Case Fatality Rate: `r cfr`\%
+
+Case Reporting Rate: `r crr`\%
 
 Most recent data from MOPH: `r latest_moph_datapoint_date`
 \end{center}
@@ -353,14 +391,27 @@ x %>%
             row_spec(0, bold = FALSE, font_size = 12) 
 ```
 
+\large \textbf{`r colorize('Note on data reliability', 'centreBlue')`}
+
+\normalsize 
+
+The limitations of COVID-19 reported data should be taken into consideration when interpreting metrics and projections. Sources may diverge in the counts they report (see WHO vs MOPH figures above); data reports may lag by several days or be missing altogether on certain days (see date of latest data above); cases and deaths are almost certainly underreported and their numbers are affected by testing practices. Scenario modelling (NPI vs non-NPI projections) relies on the freshness and accuracy of the information provided in the ACAPS database (see footnote 3). We strongly encourage the reader to ensure the database is up to date and to contact the Centre for Humanitarian Data with any suggestions of additional data sources or improvements to existing ones.
+
+These are common limitations. This report aims to help the reader understand the situation on the ground through comparing and contrasting multiple data sources and estimates. For instance, we present side-by-side the incidence maps of reported cases and total cases, the latter being an estimate of the true number of cases on the ground considering the case reporting rate (ie., how many cases are likely unreported.) The projections are best estimates based on available data.
+
+
+
+
 
 [^1]: \textbf{Reported cases} refers to the number of infections expected (current situation) or expected to be reported (projections). Projections take into account the \textbf{case reporting rate} which corresponds to the estimated number of COVID-19 infections that are actually tested, confirmed and reported. The case reporting rate is calculated based on the number of deaths and cases reported by the WHO in the last 30 days.
 
 [^2]: \textbf{Severe cases} refers to the number of people which will have severe symptoms and may require healthcare support. Projections are calculated as a proportion of the reported cases, and are based on planning parameters for case severity and the vulnerability of a given region.
 
+[^3]: \textbf{Case Fatality Rate} refers to the estimated proportion of deaths compared to the total number of people diagnosed with the disease. 
+
 \newpage
 
-\Large \textbf{`r colorize('3. National Projections', 'centreGreen')`}[^3][^4] \normalsize (for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
+\Large \textbf{`r colorize('3. National Projections', 'centreGreen')`}[^4][^5] \normalsize (for the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
 
 \large \textbf{`r colorize('Projected Cases and Deaths', 'centreBlue')`}
 
@@ -391,9 +442,9 @@ x %>%
 
 
 
-[^3]: The regional data provided by the Ministry of Public Health are used to generate projections at the subnational level, which are then aggregated to the national level. 
+[^4]: The regional data provided by the Ministry of Public Health are used to generate projections at the subnational level, which are then aggregated to the national level. 
 
-[^4]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
+[^5]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
 \normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
 
@@ -412,10 +463,28 @@ The figures below show the comparison between two data sources: national level d
 
 \normalsize The figures below show the projected trends for active severe cases requiring hospitalizations. In green are the projections under the "Current NPIs maintained" scenario while in red are the projections under "No NPIs in place" scenario. 
 
-| | Active Severe Cases |
-|------------:|:-----|
-| \colorbox{withNPIColor}{With current NPIs maintained} | \textcolor{withNPIFontColor}{`r paste(npi_hospitalizations_LOW, " - ", npi_hospitalizations_HI)`}|
-| \colorbox{noNPIColor}{With no NPIs} | \textcolor{noNPIFontColor}{`r paste(no_npi_hospitalizations_LOW , " - ", no_npi_hospitalizations_HI)`} | 
+```{r section3_projected_severecases, echo = FALSE}
+
+x <- data.frame(hospitalizations = c(paste(npi_hospitalizations_LOW, " - ", npi_hospitalizations_HI), 
+                          paste(no_npi_hospitalizations_LOW, " - ", no_npi_hospitalizations_HI))
+                )
+
+row.names(x) <- c("With current NPIs maintained", "With no NPIs")
+
+x %>% 
+            kable(format = "latex", 
+                  align = 'c',
+                  col.names = c('Severe Cases'),
+                  row.names = TRUE) %>%
+            kableExtra::kable_classic(row_label_position = 'r',
+                                      position = 'center',
+                                      font_size = 11) %>%
+            add_header_above(c("","Active" = 1), bold = T, font_size = 12) %>%
+            row_spec(0, bold = F, font_size = 12) %>%
+            row_spec(1, color = '#20aa6c') %>%
+            row_spec(2, color = '#be0003')
+```
+
 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{`r hospitalizations_graph_path`}
@@ -427,8 +496,9 @@ The figures below show the comparison between two data sources: national level d
 
 \large \textbf{`r colorize('Projected Incidence', 'centreBlue')`}
 
-The map below represents the projected risk level of every ADMIN1 region, assuming the current NPIs are maintained. See Section 1 for detail on the relationship between risk level and progress towards virus containment.
+The maps below represent the projected risk level of every ADMIN1 region, assuming the current NPIs are maintained. On the left are the cases projected to be reported while on the right are the projected total cases as estimated from case reporting rate to adjust for underreporting. See Section 1 for detail on the relationship between risk level and progress towards virus containment. 
 
+&nbsp;
 
 ```{r projected_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%"}
 
@@ -458,7 +528,7 @@ row_spec(4, background = "#00a67e")
 
 \large \textbf{`r colorize('Projected Changes In Incidence', 'centreBlue')`}
 
-Below are the projected incidence rates (= projected daily new cases per 100k people on `r format(projection_date_2w, "%d %b %Y")`) and projected absolute changes in incidence between then and today for every region. Regions are ordered in decreasing order of change magnitude, from largest increase to largest decrease. Note that Incidence Rates are rounded to the third decimal; a 0.000 incidence rate does not necessarily mean that no new daily cases are projected.
+Below are the projected incidence rates (= projected daily new cases per 100k people on `r format(projection_date_2w, "%d %b %Y")`) and projected absolute changes in incidence between then and today for every region. Regions are ordered in decreasing order of change magnitude, from largest increase to largest decrease. Note that Incidence Rates are rounded to the third decimal; therefore a 0.000 incidence rate may mean that no new daily cases are projected or that fewer than 1 cases per 100 million people are projected.
 
 While the magnitude of change may signal how successful mitigation strategies are projected to be, it should be evaluated in conjunction with incidence when considering adding or lifting suppression strategies. For instance, a region may be projected to show a large decrease but remain at a concerning high level of incidence that require intense control efforts. 
 
