@@ -6,8 +6,9 @@ Bucky_results/*/plots/*
 .Rproj.user
 
 
-# ignore R history
+# ignore R history and logs
 .Rhistory
+.log
 
 # pycharm
 .idea
