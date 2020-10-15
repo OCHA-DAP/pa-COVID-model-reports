@@ -10,6 +10,8 @@ import numpy as np
 import matplotlib.colors as mc
 import colorsys
 import logging
+import coloredlogs
+from datetime import timedelta
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +22,21 @@ HLX_TAG_TOTAL_CASES = "#affected+infected+confirmed+total"
 HLX_TAG_TOTAL_DEATHS = "#affected+infected+dead+total"
 HLX_TAG_DATE = "#date"
 HLX_TAG_ADM2_PCODE='#adm2+pcode'
+
+def config_logger(level='INFO'):
+    #set styling of logger
+    # Colours selected from here:
+    # http://humanfriendly.readthedocs.io/en/latest/_images/ansi-demo.png
+    coloredlogs.install(
+        level=level,
+        fmt="%(asctime)s %(name)s %(levelname)s %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        field_styles={
+            'name': {'color': 8 },
+            'asctime': {'color': 248},
+            'levelname': {'color': 8, 'bold': True},
+        },
+    )
 
 def set_matlotlib(plt):
 
@@ -59,18 +76,74 @@ def download_who_covid_data(url, save_path):
 
 
 def quality_check_negative(df, data_name):
+    negative_values=False
     df_numeric_columns = list(df.select_dtypes(include=[np.number]).columns.values)
     for c in df_numeric_columns:
         try:
             assert all(i >= 0 for i in df[c])
         except AssertionError:
-            logger.error(f'{data_name}: Negative values in column {c}')
-    # set negative numbers to 0
-    # Explanation for negative numbers from WHO data documentation (found on https://data.humdata.org/dataset/coronavirus-covid-19-cases-and-deaths):
-    # Bucky mainly occurs for first date due to initalization of model
-    # df._get_numeric_data()[df._get_numeric_data() < 0] = 0
+            neg_dates = df[df[c] < 0].index.unique()
+            neg_dates_str=",".join([n.strftime("%d-%m-%Y") for n in neg_dates])
+            logger.warning(f'{data_name}: Negative value in column {c} on {neg_dates_str}')
+            negative_values= True
+    return negative_values
 
-    return df
+
+def quality_check_missing_dates(df,data_name,today,window=14):
+    df_window=df.loc[today-timedelta(days=window):today,:]
+    dates_window=list(df_window.index.values)
+    dates_total=list(df.index.values)
+    try:
+        assert not len(dates_total)<window
+    except AssertionError:
+        logger.warning(f'{data_name} less than {window} data points')
+    try:
+        assert not len(dates_window)==0
+    except AssertionError:
+        logger.warning(f'{data_name} no values in last {window} days')
+
+def quality_check_nondecreasing(df,data_name):
+    decreasing_values=False
+    df_numeric_columns = list(df.select_dtypes(include=[np.number]).columns.values)
+    for c in df_numeric_columns:
+        try:
+            assert all(x <= y for x, y in zip(df[c], df[c][1:]))
+        except AssertionError:
+            df_copy=df.copy()
+            df_copy["prev_val"]=df_copy[c].shift(1)
+            neg_dates = df_copy[df_copy[c] < df_copy["prev_val"]].index.unique()
+            neg_dates_str = ",".join([n.strftime("%d-%m-%Y") for n in neg_dates])
+            logger.warning(f'{data_name}: Decreasing value in column {c} on {neg_dates_str}')
+            decreasing_values = True
+    return decreasing_values
+
+def quality_check_allsources(country_iso3,parameters,who_filename,min_date,max_date,today):
+    # Explanation for negative numbers from WHO data documentation (found on https://data.humdata.org/dataset/coronavirus-covid-19-cases-and-deaths)
+    # Due to the recent trend of countries conducting data reconciliation exercises which remove large numbers of cases or deaths from their total counts,
+    # such data may reflect as negative numbers in the new cases / new deaths counts as appropriate.
+    # This will aid users in identifying when such adjustments occur.
+    # When additional details become available that allow the subtractions to be suitably apportioned to previous days, data will be updated accordingly.
+    who_covid=get_who(who_filename,parameters["iso2_code"],min_date,max_date)
+    quality_check_negative(who_covid, "WHO")
+    quality_check_nondecreasing(who_covid[["Cumulative_cases","Cumulative_deaths"]], "WHO")
+    quality_check_missing_dates(who_covid,"WHO",today)
+    subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=min_date,max_date=max_date)
+    subnational_covid.index=subnational_covid.index.date
+    quality_check_negative(subnational_covid, "subnational")
+    quality_check_nondecreasing(subnational_covid[[HLX_TAG_TOTAL_CASES,HLX_TAG_TOTAL_DEATHS]],"subnational")
+    quality_check_missing_dates(subnational_covid,"subnational",today)
+    # Bucky negative values mainly occur for first date due to initalization of model
+    bucky_npi_adm0=get_bucky(country_iso3,admin_level='adm0', min_date=min_date, max_date=max_date, npi_filter='npi')#.reset_index(inplace=True)
+    quality_check_negative(bucky_npi_adm0,"Bucky NPI Adm0")
+    quality_check_nondecreasing(bucky_npi_adm0.loc[bucky_npi_adm0["q"]==0.5,["cumulative_cases","cumulative_cases_reported","cumulative_deaths"]],"Bucky NPI Adm0")
+    bucky_no_npi_adm0=get_bucky(country_iso3,admin_level='adm0', min_date=min_date, max_date=max_date, npi_filter='no_npi')
+    quality_check_negative(bucky_no_npi_adm0, "Bucky NO NPI Adm0")
+    quality_check_nondecreasing(bucky_no_npi_adm0.loc[bucky_npi_adm0["q"]==0.5,["cumulative_cases","cumulative_cases_reported","cumulative_deaths"]],"Bucky NO NPI Adm0")
+    #don't do quality check nondecreasing for adm1 level because you would have to do this for every admin separately
+    bucky_npi_adm1=get_bucky(country_iso3,admin_level='adm1', min_date=min_date, max_date=max_date, npi_filter='npi')
+    quality_check_negative(bucky_npi_adm1, "Bucky NPI Adm1")
+    bucky_no_npi_adm1=get_bucky(country_iso3,admin_level='adm1', min_date=min_date, max_date=max_date, npi_filter='no_npi')
+    quality_check_negative(bucky_no_npi_adm1, "Bucky NO NPI Adm1")
 
 def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     bucky_df=pd.read_csv(f'Bucky_results/{country_iso3}_{npi_filter}/{admin_level}_quantiles.csv')
@@ -78,7 +151,6 @@ def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     bucky_df=bucky_df[(bucky_df['date']>=min_date) &
                         (bucky_df['date']<=max_date)]
     bucky_df=bucky_df.set_index('date')
-    # quality_check_negative(bucky_df,"Bucky")
     return bucky_df
     
 def get_who(filename,country_iso2,min_date,max_date):
@@ -90,12 +162,6 @@ def get_who(filename,country_iso2,min_date,max_date):
     who_covid=who_covid[(who_covid['Date_reported']>=min_date) &\
                         (who_covid['Date_reported']<=max_date)]
     who_covid=who_covid.set_index('Date_reported')
-
-    who_covid=quality_check_negative(who_covid,"WHO")
-    #TO DO: check if this is the best way to handle the negative numbers
-    # set negative numbers to 0
-    # Explanation for negative numbers from WHO data documentation (found on https://data.humdata.org/dataset/coronavirus-covid-19-cases-and-deaths):
-    who_covid._get_numeric_data()[who_covid._get_numeric_data() < 0] = 0
     return who_covid
 
 
@@ -118,8 +184,6 @@ def get_subnational_covid_data(parameters,aggregate,min_date,max_date):
         # sum by date
         subnational_covid=subnational_covid.groupby(HLX_TAG_DATE).sum()
 
-    #TO DO: decide what to do with negative numbers
-    subnational_covid=quality_check_negative(subnational_covid,"subnational")
     return subnational_covid
 
 
