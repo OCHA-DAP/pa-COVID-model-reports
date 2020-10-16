@@ -105,3 +105,48 @@ NO NPI Hospitalizations projections 4w - MIN,11.605000000000002,2020-10-07,SSD
 NO NPI Hospitalizations projections 4w - MAX,18.19625,2020-10-07,SSD
 NO NPI additional Hospitalizations projections 4w - MIN,7.838750000000003,2020-10-07,SSD
 NO NPI additional Hospitalizations projections 4w - MAX,11.97625,2020-10-07,SSD
+Estimated doubling time NPI,316.9216602851136,2020-10-14,SSD
+NPI Reff,1.0153825075939187,2020-10-14,SSD
+Estimated doubling time No NPI,150.5572995085006,2020-10-14,SSD
+No NPI Reff,1.0325493937570998,2020-10-14,SSD
+Current situation - WHO cases today,2798,2020-10-14,SSD
+Current situation - WHO deaths today,55,2020-10-14,SSD
+CFR,1.9656897784131524,2020-10-14,SSD
+Estimated case reporting rate,88.68499421883755,2020-10-14,SSD
+NPI - projected reported cases in 4w - MIN,2766.7560091081787,2020-10-14,SSD
+NPI - projected reported cases in 4w - MAX,2858.640443328623,2020-10-14,SSD
+NPI - projected additional reported cases in 4w - MIN,131.2487500191146,2020-10-14,SSD
+NPI - projected additional reported cases in 4w - MAX,223.1331842395589,2020-10-14,SSD
+NPI - projected TREND reported cases in 4w - MIN,4.980018535956504,2020-10-14,SSD
+NPI - projected TREND reported cases in 4w - MAX,8.46642267707821,2020-10-14,SSD
+NPI - projected reported deaths in 4w - MIN,55.91395085034414,2020-10-14,SSD
+NPI - projected reported deaths in 4w - MAX,57.799135824022805,2020-10-14,SSD
+NPI - projected additional reported deaths in 4w - MIN,3.7565356946766855,2020-10-14,SSD
+NPI - projected additional reported deaths in 4w - MAX,5.641720668355347,2020-10-14,SSD
+NPI - projected TREND reported deaths in 4w - MIN,7.202304185253509,2020-10-14,SSD
+NPI - projected TREND reported deaths in 4w - MAX,10.81671829694251,2020-10-14,SSD
+NO NPI - projected reported cases in 4w - MIN,2955,2020-10-14,SSD
+NO NPI - projected reported cases in 4w - MAX,3082,2020-10-14,SSD
+NO NPI - projected additional reported cases in 4w - MIN,319.49274091093594,2020-10-14,SSD
+NO NPI - projected additional reported cases in 4w - MAX,446.49274091093594,2020-10-14,SSD
+NO NPI - projected reported deaths in 4w - MIN,58,2020-10-14,SSD
+NO NPI - projected reported deaths in 4w - MAX,60,2020-10-14,SSD
+NO NPI - projected additional reported deaths in 4w - MIN,5.842584844332542,2020-10-14,SSD
+NO NPI - projected additional reported deaths in 4w - MAX,7.842584844332542,2020-10-14,SSD
+Maximum number of extra cases if NPIs are lifted,315,2020-10-14,SSD
+Maximum number of extra deaths if NPIs are lifted,4,2020-10-14,SSD
+Current situation - latest date MPHO reported numbers,2020-10-06,2020-10-14,SSD
+Current situation - latest MPHO cases,2435,2020-10-14,SSD
+Current situation - latest MPHO deaths,47,2020-10-14,SSD
+"Current situation - WHO daily new cases, 7-day average",7.142857142857143,2020-10-14,SSD
+"Current situation - WHO daily new deaths, 7-day average",0.7142857142857143,2020-10-14,SSD
+Hospitalizations current situation - MIN,3.3159116379840743,2020-10-14,SSD
+Hospitalizations current situation - MAX,4.422476686957777,2020-10-14,SSD
+NPI Hospitalizations projections 4w - MIN,3.854466472854971,2020-10-14,SSD
+NPI Hospitalizations projections 4w - MAX,6.5804335832631375,2020-10-14,SSD
+NPI additional Hospitalizations projections 4w - MIN,0.5385548348708968,2020-10-14,SSD
+NPI additional Hospitalizations projections 4w - MAX,2.15795689630536,2020-10-14,SSD
+NO NPI Hospitalizations projections 4w - MIN,10.536272725700464,2020-10-14,SSD
+NO NPI Hospitalizations projections 4w - MAX,15.628583200849281,2020-10-14,SSD
+NO NPI additional Hospitalizations projections 4w - MIN,7.220361087716389,2020-10-14,SSD
+NO NPI additional Hospitalizations projections 4w - MAX,11.206106513891504,2020-10-14,SSD

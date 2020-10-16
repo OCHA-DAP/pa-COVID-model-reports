@@ -51,22 +51,24 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 39,928 cases and 1,480 deaths have been reported by the WHO. 
+* Per the WHO, a total of 39,928 cases and 1,480 deaths have been reported with the current number of daily new cases standing at 63.1 (7-day average).
 * The current number of active severe cases requiring healthcare support is estimated at 29 - 51.
 * There is community spread in Herat and additional regions according to estimates of true number of cases that adjust for underreporting. Non-pharmaceutical interventions are recommended to control further spread (see section 2 for detail).
 * Cases had a first peak in early June and deaths had a first peak in early July. 
+* We note the following measures as currently in place: domestic travel restrictions (50% compliance), limits on public gatherings (50% compliance), public health awareness campaigns (50% compliance), and school closures (100% compliance). Please update the ACAPS database if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * The data from the WHO and the Ministry of Public health concord well.
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, the total number of cases is projected to reach 40,194 - 40,432 and the total number of deaths is projected to reach 1,506 - 1,520 if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 942 more cases and up to 29 more deaths; see sections 2 and 3 for details).
-* The number of severe cases requiring healthcare is projected to increase, and to increase by least twice as much if NPIs are lifted (see section 3).
+* In 4 weeks, the total number of cases is projected to reach 41,357 - 41,587 and the total number of deaths is projected to reach 1,546 - 1,567 if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 1904 more cases and up to 56 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 8 weeks later.
+* The number of active severe cases requiring healthcare is projected to be at 75 - 96 if NPIs are maintained, with more than twice as many cases if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* Fewer regions are expected to be at a Tipping Point in 2 weeks however many regions will still be battling community spread even if current NPIs are maintained (see section 4).
-* The ratio of active cases per 100,000 people is expected to increase the most in Ghor, Badghis, Ghazni and to decrease the most in Hirat, Daykundi, Farah assuming all current NPIs are maintained. Note that the 3 regions with the sharpest declines in cases are still projected to be in a red state (= highest risk level) (see section 4).
+* In two weeks, the country is projected to be on track for containment (= green risk level) based on reported data. However community spread is projected to continue in Herat and additional regions according to estimates of true number of cases that adjust for underreporting (see section 4).
+* Strategies for containment likely to still be warranted to mitigate spread. 
+* The ratio of active cases per 100,000 people is expected to decrease or stay stable across the country assuming all current NPIs are maintained (see section 4).
 "
 ```
 
@@ -527,7 +529,9 @@ row_spec(4, background = "#00a67e")
 
 \large \textbf{`r colorize('Projected Changes In Incidence', 'centreBlue')`}
 
-Below are the projected incidence rates (= projected daily new cases per 100k people on `r format(projection_date_2w, "%d %b %Y")`) and projected absolute changes in incidence between then and today for every region. Regions are ordered in decreasing order of change magnitude, from largest increase to largest decrease. Note that Incidence Rates are rounded to the third decimal; therefore a 0.000 incidence rate may mean that no new daily cases are projected or that fewer than 1 cases per 100 million people are projected.
+Below are the projected incidence rates (= projected daily new cases per 100k people on `r format(projection_date_2w, "%d %b %Y")`) and projected absolute changes in incidence between then and today for every region. These metrics do not include adjustments for underreporting.
+
+Regions are ordered in decreasing order of change magnitude, from largest increase to largest decrease. Note that Incidence Rates are rounded to the third decimal; therefore a 0.000 incidence rate may mean that no new daily cases are projected or that fewer than 1 cases per 100 million people are projected.
 
 While the magnitude of change may signal how successful mitigation strategies are projected to be, it should be evaluated in conjunction with incidence when considering adding or lifting suppression strategies. For instance, a region may be projected to show a large decrease but remain at a concerning high level of incidence that require intense control efforts. 
 

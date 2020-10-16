@@ -51,22 +51,25 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* A total of 3,745 cases and 99 deaths have been reported by the WHO. 
-* The current number of severe cases requiring healthcare support is estimated at 48 - 77.
-* Progress towards containment is insufficient in certain areas. Regions vary in the intensity of control effort needed to achieve containment (see section 2).
+* Per the WHO, a total of 3,864 cases and 99 deaths have been reported with the current number of daily new cases standing at 17 (7-day average). No new deaths were reported since our last update.
+* The current number of active severe cases requiring healthcare support is estimated at 18 - 24.
 * Cases saw a peak in cases in May-June.
-* The data from the WHO and the Ministry of Public health concord well.
+* We note the following measures as currently in place: domestic travel restrictions (50% compliance), curfews (50% compliance), and limits on public gatherings (50% compliance). By contrast school closures were lifted in June. Please update the ACAPS database if this information is inaccurate or incomplete as it affects the accuracy of projections.
+* Based on the reports from the WHO and MOPH, the country is on track for containment of COVID-19 except for Bari and Nugaal, which still see community spread (see section 2).
+* The data reported by the WHO suffers from severe gaps and displays significant variation
+from day-to-day. This might reflect challenges in data collection and/or batching where multiple days' worth of
+data are reported at once. For these reasons it is difficult to assess the stability of trends.
 "   
 
 key_messages_national_projections <- "
-* In the next 4 weeks, the total number of cases is projected to reach 4,128 and the total number of deaths is projected to reach 4,249 if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 874 more cases and up to 33 more deaths; see sections 2 and 3 for details).
-* The number of severe cases requiring healthcare is projected to increase sharply if NPIs are lifted (see section 3).
+* In 4 weeks, the total number of cases is projected to reach 4,331 - 4,408 and the total number of deaths is projected to reach 103 -104 if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases in particular (up to 877 more cases and up to 3 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 8 weeks later.
+* The number of active severe cases requiring healthcare is projected to reach 40 -53 and to increase sharply if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* Fewer regions are expected to be at a Tipping Point in 2 weeks however many regions will still be battling community spread even if current NPIs are maintained (see section 4).
-* The ratio of active cases per 100,000 people is expected to increase the most in Togdheer, Wooqooyi Galbeed and Sool assuming all current NPIs are maintained. Note that Bari and Nugaal are projected to stay at concerningly high incidence rates (see section 4).
+* In two weeks the country is projected to stay stable in terms of risk levels (green except for Bari and Nuggal's yellow). Measures are recommended to stay in place to address community spread (see section 4).
+* Incidence, the number of daily new cases per 100,000 people, is expected to decrease Awdal, Woqooyi Galbeed, Togdheer, Bari and Nugaal assuming all current NPIs are maintained. Note that Bari and Nugaal are projected to stay at higher incidence rates where community spread is likely to occur (see section 4).
 "
 ```
 
@@ -529,7 +532,9 @@ row_spec(4, background = "#00a67e")
 
 \large \textbf{`r colorize('Projected Changes In Incidence', 'centreBlue')`}
 
-Below are the projected incidence rates (= projected daily new cases per 100k people on `r format(projection_date_2w, "%d %b %Y")`) and projected absolute changes in incidence between then and today for every region. Regions are ordered in decreasing order of change magnitude, from largest increase to largest decrease. Note that Incidence Rates are rounded to the third decimal; therefore a 0.000 incidence rate may mean that no new daily cases are projected or that fewer than 1 cases per 100 million people are projected.
+Below are the projected incidence rates (= projected daily new cases per 100k people on `r format(projection_date_2w, "%d %b %Y")`) and projected absolute changes in incidence between then and today for every region. These metrics do not include adjustments for underreporting.
+
+Regions are ordered in decreasing order of change magnitude, from largest increase to largest decrease. Note that Incidence Rates are rounded to the third decimal; therefore a 0.000 incidence rate may mean that no new daily cases are projected or that fewer than 1 cases per 100 million people are projected.
 
 While the magnitude of change may signal how successful mitigation strategies are projected to be, it should be evaluated in conjunction with incidence when considering adding or lifting suppression strategies. For instance, a region may be projected to show a large decrease but remain at a concerning high level of incidence that require intense control efforts. 
 
@@ -544,7 +549,7 @@ decreases_nrow <- subnational_projections %>%
 
 subnational_projections_ordered <- subnational_projections %>%
           arrange(desc(daily_cases_reported_per_100k_abs_change)) %>% # orders regions from largest to smallest change 
-          select(ADM1_EN, daily_cases_reported_per_100k_abs_change, daily_cases_reported_per_100k_inTWOweeks) 
+          select(admin1RefN, daily_cases_reported_per_100k_abs_change, daily_cases_reported_per_100k_inTWOweeks) 
 
 show_only_increasing_trends <- function(subnational_projections_ordered) {
           subnational_projections_ordered %>%
