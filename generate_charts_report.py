@@ -690,7 +690,9 @@ def create_subnational_map_incidence_100k(metric, country_iso3, parameters, date
     # cbar.ax.set_yticklabels(["0", "1", "10","25+",""])
     #plot boundaries of admin regions
     shapefile.boundary.plot(linewidth=0.1, ax=axis,color="lightgrey")
-    fig.savefig(f'Outputs/{country_iso3}/{output_file}',bbox_inches="tight")
+    fig.tight_layout()
+    fig.set_size_inches(7,6)
+    fig.savefig(f'Outputs/{country_iso3}/{output_file}')
 
 def calculate_subnational_trends(country_iso3, parameters):
     """
