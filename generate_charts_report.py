@@ -86,21 +86,21 @@ def main(country_iso3, download_covid=False):
     generate_data_model_comparison_lifetime(country_iso3,parameters)
 
     #active hospitalizations/100k TODAY
-    create_subnational_map_incidence_100k('current_hospitalizations_per_100k', country_iso3, parameters, TODAY, 'Current Reported Hospitalizations \n Per 100,000 People',
+    create_subnational_map_incidence_100k('hospitalizations_per_100k', country_iso3, parameters, TODAY, 'Current Reported Hospitalizations \n Per 100,000 People',
                            'map_hospitalizations_per_100k_current.png')
     #new reported daily cases/100k on TODAY+1
     #set to TODAY+1 instead of TODAY since on TODAY the output can be negative due to initialization. This should be fixed in a future version of the model
     create_subnational_map_incidence_100k('daily_reported_cases_per_100k', country_iso3, parameters, TODAY+timedelta(days=1), 'Current Reported New Daily Cases \n Per 100,000 People',
-                           'map_dailycasesreported_per_100k_current.png')
+                           'map_dailyreportedcases_per_100k_current.png')
     #new estimated total daily cases/100k (i.e. reported cases*reporting rate) on TODAY+1
     create_subnational_map_incidence_100k('daily_cases_total_per_100k', country_iso3, parameters, TODAY+timedelta(days=1), 'Current Estimated Total New Daily Cases \n Per 100,000 People',
-                           'map_dailycasestotal_per_100k_current.png')
+                           'map_dailytotalcases_per_100k_current.png')
     #new reported daily cases/100k in TWO_WEEKS
     create_subnational_map_incidence_100k('daily_reported_cases_per_100k', country_iso3, parameters, TWO_WEEKS, 'Projected Reported New Daily Cases \n Per 100,000 People',
-                           'map_dailycasesreported_per_100k_2w.png')
+                           'map_dailyreportedcases_per_100k_2w.png')
     #new estimated total daily cases/100k in TWO_WEEKS
     create_subnational_map_incidence_100k('daily_cases_total_per_100k', country_iso3, parameters, TWO_WEEKS, 'Projected Estimated Total New Daily Cases \n Per 100,000 People',
-                           'map_dailycasestotal_per_100k_2w.png')
+                           'map_dailytotalcases_per_100k_2w.png')
     #not being used in current report
     # create_binary_change_map(country_iso3, parameters)
 
@@ -325,7 +325,7 @@ def generate_model_projections(country_iso3,parameters):
     # generate plot with four-weeks ahead projections of daily cases
     bucky_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='npi')
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
-    metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max, metric_additional_npi_min, metric_additional_npi_max, metric_additional_no_npi_min, metric_additional_no_npi_max = draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'current_hospitalizations')
+    metric, metric_today_min, metric_today_max, metric_4w_npi_min, metric_4w_npi_max, metric_4w_no_npi_min, metric_4w_no_npi_max, metric_additional_npi_min, metric_additional_npi_max, metric_additional_no_npi_min, metric_additional_no_npi_max = draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,'hospitalizations')
 
     dict_metric={f'{metric.capitalize()} current situation - MIN': metric_today_min,
     f'{metric.capitalize()} current situation - MAX':metric_today_max,
@@ -361,7 +361,7 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     elif metric=='daily_deaths':
         bucky_var='daily_deaths'
         fig_title='Daily deaths'
-    elif metric=='current_hospitalizations':
+    elif metric=='hospitalizations':
         bucky_var='current_hospitalizations'
         fig_title='People requiring healthcare support'
     else:
@@ -671,7 +671,7 @@ def create_subnational_map_incidence_100k(metric, country_iso3, parameters, date
     #calculate metrics per 100k that are not in the output of the model but can be given as in put 'metric'
     bucky_npi['daily_reported_cases_per_100k'] = bucky_npi['daily_reported_cases'] /(bucky_npi['total_population']/100000)
     bucky_npi['daily_cases_total_per_100k'] = bucky_npi['daily_cases'] /(bucky_npi['total_population']/100000)
-    bucky_npi['current_hospitalizations_per_100k'] = bucky_npi['current_hospitalizations'] /(bucky_npi['total_population']/100000)
+    bucky_npi['hospitalizations_per_100k'] = bucky_npi['current_hospitalizations'] /(bucky_npi['total_population']/100000)
 
     shapefile = gpd.read_file(parameters['shape'])
     shapefile = shapefile.merge(bucky_npi, left_on=parameters['adm1_pcode'], right_on='adm1', how='left')
