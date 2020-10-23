@@ -216,19 +216,19 @@ who_current_newdaily_7daverage_deaths <- format(round(who_current_newdaily_7dave
 ```
 
 ```{r graphs, include = FALSE}
-current_reported_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailycasesreported_per_100k_current.png") 
-current_total_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailycasestotal_per_100k_current.png") # total = reported (as estimated) * case reporting rate
+current_reported_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailyreportedcases_per_100k_current.png")
+current_total_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailytotalcases_per_100k_current.png") # total = reported (as estimated) * case reporting rate
 cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_reported_cases.png")
 cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_cumulative_deaths.png")
-new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_cases_reported.png")
+new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_reported_cases.png")
 new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/current_daily_deaths.png")
 lifetime_cum_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_cumulative_reported_cases.png")
 lifetime_cum_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_cumulative_deaths.png")
-lifetime_new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_cases_reported.png")
+lifetime_new_cases_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_reported_cases.png")
 lifetime_new_deaths_graph_path <- paste0("../Outputs/", country_iso_3_code, "/lifetime_daily_deaths.png")
 hospitalizations_graph_path <- paste0("../Outputs/", country_iso_3_code, "/projection_hospitalizations.png")
-projected_reported_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailycasesreported_per_100k_2w.png")
-projected_total_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailycasestotal_per_100k_2w.png")
+projected_reported_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailyreportedcases_per_100k_2w.png")
+projected_total_incidence_risk_graph_path <- paste0("../Outputs/", country_iso_3_code, "/map_dailytotalcases_per_100k_2w.png")
 risk_levels_quadrants_path <- paste0("visual_assets/risk_levels_quadrants.png")
 
 ```
@@ -238,8 +238,8 @@ subnational_full_projections_filename <- paste0("../Bucky_results/", paste0(coun
 subnational_full_projections <- read.csv(subnational_full_projections_filename)
 subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/ADM1_ranking.csv")
 subnational_projections <- read.csv(subnational_projections_filename)
-subnational_projections$daily_cases_reported_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_cases_reported_per_100k_abs_change), 2)
-subnational_projections$daily_cases_reported_per_100k_inTWOweeks <- round(subnational_projections$daily_cases_reported_per_100k_inTWOweeks, 3)
+subnational_projections$daily_reported_cases_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_reported_cases_per_100k_abs_change), 2)
+subnational_projections$daily_reported_cases_per_100k_inTWOweeks <- round(subnational_projections$daily_reported_cases_per_100k_inTWOweeks, 3)
 ```
 
 # `r paste(colorize('COVID-19 Projections:', 'centreGreen'), colorize(country, 'centreGreen'))`
