@@ -199,7 +199,7 @@ def generate_key_figures(country_iso3,parameters):
     print(
         f'Current situation Bucky {TODAY}: {bucky_npi_cases_today:.0f} cumulative reported cases, {bucky_npi_deaths_today:.0f} cumulative reported deaths')
     print(f'Current situation Bucky {TODAY}: {bucky_npi_cases_today_notrep:.0f} cumulative estimated total cases')
-    print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}')
+    print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}%')
 
     #calculate average over 7 last 7 days for the WHO data (MPHO data is too sparse to compute this on)
     #select the last week and use rolling, which returns nan if less than min_periods datapoints
