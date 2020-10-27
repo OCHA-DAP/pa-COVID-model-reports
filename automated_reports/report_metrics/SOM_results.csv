@@ -150,3 +150,48 @@ NO NPI Hospitalizations projections 4w - MIN,134.61810319827111,2020-10-14,SOM
 NO NPI Hospitalizations projections 4w - MAX,178.136786864039,2020-10-14,SOM
 NO NPI additional Hospitalizations projections 4w - MIN,116.91344953860239,2020-10-14,SOM
 NO NPI additional Hospitalizations projections 4w - MAX,154.04160120380743,2020-10-14,SOM
+Estimated doubling time NPI,10.081306948927836,2020-10-26,SOM
+NPI Reff,1.5555909388481057,2020-10-26,SOM
+Estimated doubling time No NPI,10.192343595453577,2020-10-26,SOM
+No NPI Reff,1.5487102437771119,2020-10-26,SOM
+Current situation - WHO cases today,3941,2020-10-26,SOM
+Current situation - WHO deaths today,104,2020-10-26,SOM
+CFR,2.638924130931236,2020-10-26,SOM
+Estimated case reporting rate,53.59988235888585,2020-10-26,SOM
+NPI - projected reported cases in 4w - MIN,139982.91758094713,2020-10-26,SOM
+NPI - projected reported cases in 4w - MAX,2857533.376109018,2020-10-26,SOM
+NPI - projected additional reported cases in 4w - MIN,136041.91758094713,2020-10-26,SOM
+NPI - projected additional reported cases in 4w - MAX,2853592.376109018,2020-10-26,SOM
+NPI - projected TREND reported cases in 4w - MIN,3451.9644146396126,2020-10-26,SOM
+NPI - projected TREND reported cases in 4w - MAX,72407.8248188028,2020-10-26,SOM
+NPI - projected reported deaths in 4w - MIN,2548.4691537588783,2020-10-26,SOM
+NPI - projected reported deaths in 4w - MAX,26721.28694276876,2020-10-26,SOM
+NPI - projected additional reported deaths in 4w - MIN,2443.4691537588783,2020-10-26,SOM
+NPI - projected additional reported deaths in 4w - MAX,26616.28694276876,2020-10-26,SOM
+NPI - projected TREND reported deaths in 4w - MIN,2327.1134797703603,2020-10-26,SOM
+NPI - projected TREND reported deaths in 4w - MAX,25348.844707398817,2020-10-26,SOM
+NO NPI - projected reported cases in 4w - MIN,163331,2020-10-26,SOM
+NO NPI - projected reported cases in 4w - MAX,3324380,2020-10-26,SOM
+NO NPI - projected additional reported cases in 4w - MIN,159390.0,2020-10-26,SOM
+NO NPI - projected additional reported cases in 4w - MAX,3320439.0,2020-10-26,SOM
+NO NPI - projected reported deaths in 4w - MIN,3030,2020-10-26,SOM
+NO NPI - projected reported deaths in 4w - MAX,31551,2020-10-26,SOM
+NO NPI - projected additional reported deaths in 4w - MIN,2925.0,2020-10-26,SOM
+NO NPI - projected additional reported deaths in 4w - MAX,31446.0,2020-10-26,SOM
+Maximum number of extra cases if NPIs are lifted,3184397,2020-10-26,SOM
+Maximum number of extra deaths if NPIs are lifted,29002,2020-10-26,SOM
+Current situation - latest date MPHO reported numbers,2020-10-26,2020-10-26,SOM
+Current situation - latest MPHO cases,3940,2020-10-26,SOM
+Current situation - latest MPHO deaths,104,2020-10-26,SOM
+"Current situation - WHO daily new cases, 7-day average",11.0,2020-10-26,SOM
+"Current situation - WHO daily new deaths, 7-day average",0.7142857142857143,2020-10-26,SOM
+Hospitalizations current situation - MIN,6.292708115740537,2020-10-26,SOM
+Hospitalizations current situation - MAX,7.700750547110685,2020-10-26,SOM
+NPI Hospitalizations projections 4w - MIN,1224.2005640531893,2020-10-26,SOM
+NPI Hospitalizations projections 4w - MAX,80992.7601906888,2020-10-26,SOM
+NPI additional Hospitalizations projections 4w - MIN,1217.9078559374489,2020-10-26,SOM
+NPI additional Hospitalizations projections 4w - MAX,80985.05944014169,2020-10-26,SOM
+NO NPI Hospitalizations projections 4w - MIN,1890.146280469824,2020-10-26,SOM
+NO NPI Hospitalizations projections 4w - MAX,77148.92287592834,2020-10-26,SOM
+NO NPI additional Hospitalizations projections 4w - MIN,1883.8535723540836,2020-10-26,SOM
+NO NPI additional Hospitalizations projections 4w - MAX,77141.22212538123,2020-10-26,SOM
