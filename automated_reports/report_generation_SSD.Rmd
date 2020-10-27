@@ -70,7 +70,6 @@ key_messages_national_projections <- "
 key_messages_subnational_projections <- "
 Data gaps and inconsistencies in the reported number of cases and deaths in South Sudan represent major challenges. For this reason no subnational projections are available yet.
 "
-
 ```
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
@@ -92,7 +91,7 @@ assignment_date <- as.Date(params$assignment_date)
 projection_date_4w <- assignment_date + 28
 projection_date_2w <- assignment_date + 14
 
-# specify file locations
+# specify file location
 who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
 
 # functions
@@ -115,7 +114,6 @@ report_metrics_all_dates <- read.csv(report_metrics_filename)
 # keep latest metrics
 report_metrics <- report_metrics_all_dates %>% filter(assessment_date == assignment_date)
 
-
 # case fatality rate
 cfr <- report_metrics %>% filter(metric_name == 'CFR') %>% select(metric_value) %>% as.numeric()
 cfr <- round(cfr, 1)
@@ -134,7 +132,7 @@ mpho_current_cum_cases <- format(round(mpho_current_cum_cases, 0), big.mark = ",
 mpho_current_cum_deaths <- report_metrics %>% filter(metric_name == "Current situation - latest MPHO deaths") %>% select(metric_value) %>% as.numeric()
 mpho_current_cum_deaths <- format(round(mpho_current_cum_deaths, 0), big.mark = ",")
 
-# bucky projections and estimates
+# projected cumulative totals at 4w
 npi_projected_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
 npi_projected_cases_4w_LOW <- format(round(npi_projected_cases_4w_LOW, 0), big.mark = ",")
 
@@ -159,6 +157,32 @@ no_npi_projected_deaths_4w_LOW <- format(round(no_npi_projected_deaths_4w_LOW, 0
 no_npi_projected_deaths_4w_HI <- report_metrics %>% filter(metric_name == "NO NPI - projected reported deaths in 4w - MAX") %>% select(metric_value) %>% as.numeric()
 no_npi_projected_deaths_4w_HI <- format(round(no_npi_projected_deaths_4w_HI, 0), big.mark = ",")
 
+# projected deltas at 4w
+npi_projected_deltas_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected additional reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
+npi_projected_deltas_cases_4w_LOW <- format(round(npi_projected_deltas_cases_4w_LOW, 0), big.mark = ",")
+
+npi_projected_deltas_cases_4w_HI <- report_metrics %>% filter(metric_name == "NPI - projected additional reported cases in 4w - MAX") %>% select(metric_value) %>% as.numeric()
+npi_projected_deltas_cases_4w_HI <- format(round(npi_projected_deltas_cases_4w_HI, 0), big.mark = ",")
+
+npi_projected_deltas_deaths_4w_LOW <- report_metrics %>% filter(metric_name == "NPI - projected additional reported deaths in 4w - MIN") %>% select(metric_value) %>% as.numeric()
+npi_projected_deltas_deaths_4w_LOW <- format(round(npi_projected_deltas_deaths_4w_LOW, 0), big.mark = ",")
+
+npi_projected_deltas_deaths_4w_HI <- report_metrics %>% filter(metric_name == "NPI - projected additional reported deaths in 4w - MAX") %>% select(metric_value) %>% as.numeric()
+npi_projected_deltas_deaths_4w_HI <- format(round(npi_projected_deltas_deaths_4w_HI, 0), big.mark = ",")
+
+no_npi_projected_deltas_cases_4w_LOW <- report_metrics %>% filter(metric_name == "NO NPI - projected additional reported cases in 4w - MIN") %>% select(metric_value) %>% as.numeric()
+no_npi_projected_deltas_cases_4w_LOW <- format(round(no_npi_projected_deltas_cases_4w_LOW, 0), big.mark = ",")
+
+no_npi_projected_deltas_cases_4w_HI <- report_metrics %>% filter(metric_name == "NO NPI - projected additional reported cases in 4w - MAX") %>% select(metric_value) %>% as.numeric()
+no_npi_projected_deltas_cases_4w_HI <- format(round(no_npi_projected_deltas_cases_4w_HI, 0), big.mark = ",")
+
+no_npi_projected_deltas_deaths_4w_LOW <- report_metrics %>% filter(metric_name == "NO NPI - projected additional reported deaths in 4w - MIN") %>% select(metric_value) %>% as.numeric()
+no_npi_projected_deltas_deaths_4w_LOW <- format(round(no_npi_projected_deltas_deaths_4w_LOW, 0), big.mark = ",")
+
+no_npi_projected_deltas_deaths_4w_HI <- report_metrics %>% filter(metric_name == "NO NPI - projected additional reported deaths in 4w - MAX") %>% select(metric_value) %>% as.numeric()
+no_npi_projected_deltas_deaths_4w_HI <- format(round(no_npi_projected_deltas_deaths_4w_HI, 0), big.mark = ",")
+
+# projected hospitalizations at 4w
 hospitalizations_current_LOW <- report_metrics %>% filter(metric_name == "Hospitalizations current situation - MIN") %>% select(metric_value) %>% as.numeric()
 hospitalizations_current_LOW <- format(round(hospitalizations_current_LOW, 0), big.mark = ",")
 
@@ -367,7 +391,6 @@ x %>%
 
 \footnotesize
 
-
 \begin{center}
 Case Reporting Rate: `r crr`\%      |      Case Fatality Rate: `r cfr`\%
 
@@ -375,7 +398,6 @@ Case Reporting Rate: `r crr`\%      |      Case Fatality Rate: `r cfr`\%
 
 Most recent data from MOPH: `r latest_moph_datapoint_date`
 \end{center}
-
 
 \large \textbf{`r colorize('Key Figures: Current Severe Cases', 'centreBlue')`}
 
@@ -423,10 +445,16 @@ These are common limitations. This report aims to help the reader understand the
 
 ```{r section3_projected_cases_deaths, echo = FALSE}
 
-x <- data.frame(cum_cases = c(paste(npi_projected_cases_4w_LOW, " - ", npi_projected_cases_4w_HI), 
-                          paste(no_npi_projected_cases_4w_LOW, " - ", no_npi_projected_cases_4w_HI)),
-                cum_deaths = c(paste(npi_projected_deaths_4w_LOW, " - ", npi_projected_deaths_4w_HI), 
-                           paste(no_npi_projected_deaths_4w_LOW, " - ", no_npi_projected_deaths_4w_HI))
+#x <- data.frame(cum_cases = c(paste(npi_projected_cases_4w_LOW, " - ", npi_projected_cases_4w_HI), 
+#                          paste(no_npi_projected_cases_4w_LOW, " - ", no_npi_projected_cases_4w_HI)),
+#                cum_deaths = c(paste(npi_projected_deaths_4w_LOW, " - ", npi_projected_deaths_4w_HI), 
+#                           paste(no_npi_projected_deaths_4w_LOW, " - ", no_npi_projected_deaths_4w_HI))
+#                )
+
+x <- data.frame(delta_cases_4w = c(paste(npi_projected_deltas_cases_4w_LOW, " - ", npi_projected_deltas_cases_4w_HI), 
+                          paste(no_npi_projected_deltas_cases_4w_LOW, " - ", no_npi_projected_deltas_cases_4w_HI)),
+                delta_deaths_4w = c(paste(npi_projected_deltas_deaths_4w_LOW, " - ", npi_projected_deltas_deaths_4w_HI), 
+                           paste(no_npi_projected_deltas_deaths_4w_LOW, " - ", no_npi_projected_deltas_deaths_4w_HI))
                 )
 
 row.names(x) <- c("With current NPIs maintained", "With no NPIs")
@@ -434,15 +462,16 @@ row.names(x) <- c("With current NPIs maintained", "With no NPIs")
 x %>% 
             kable(format = "latex", 
                   align = 'cc',
-                  col.names = c('Cases', 'Deaths'),
+                  col.names = c('Added Cases', 'Added Deaths'),
                   row.names = TRUE) %>%
             kableExtra::kable_classic(row_label_position = 'r',
                                       position = 'center',
                                       font_size = 11) %>%
-            add_header_above(c("","Cumulative" = 2), bold = T, font_size = 12) %>%
+            add_header_above(c("","Change" = 2), bold = T, font_size = 12) %>%
             row_spec(0, bold = F, font_size = 12) %>%
             row_spec(1, color = '#20aa6c') %>%
             row_spec(2, color = '#be0003')
+
 ```
 
 
@@ -518,13 +547,8 @@ The key features of the model include:
 - **Population stratification** The model fidelity is increased by taking into consideration:
     + The age structure of the population at the subnational level
     + The expected probability of contact between populations of different age groups, including contacts expected to happen at work, school, home and everywhere else (social mixing)
-    + Vulnerability factors such as food insecurity, household air pollution and access to handwashing facilities.
+    + Vulnerability factors such as food insecurity and household air pollution.
 - **Non-pharmaceutical interventions (NPIs)** The model simulates the expected impact of NPIs at the subnational level, and also how the outbreaks is influenced by changing NPIs implemented over time. The NPIs currently implemented can be categorised in three main groups:
     + Mobility based NPIs, which would limit the spread of disease between administrative units (e.g. border closures)
     + Contact based  NPIs, which reduce the probability of contact between specific groups (e.g. shielding of the elderly, closing schools)
     + R0 based NPIs, which reduce the overall reproduction rate (e.g. awareness campaigns, curfews)
-
-
-
-
-

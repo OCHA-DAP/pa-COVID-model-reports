@@ -91,7 +91,7 @@ assignment_date <- as.Date(params$assignment_date)
 projection_date_4w <- assignment_date + 28
 projection_date_2w <- assignment_date + 14
 
-# specify file locations
+# specify file location
 who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
 
 # functions
@@ -676,8 +676,3 @@ The key features of the model include:
     + Mobility based NPIs, which would limit the spread of disease between administrative units (e.g. border closures)
     + Contact based  NPIs, which reduce the probability of contact between specific groups (e.g. shielding of the elderly, closing schools)
     + R0 based NPIs, which reduce the overall reproduction rate (e.g. awareness campaigns, curfews)
-
-
-
-
-
