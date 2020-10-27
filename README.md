@@ -19,5 +19,5 @@ Active: the current active confirmations. Cases and hospitalizaitons are reporte
 For cases, a reporting rate is also calculated which estimates the percentage of cases that is reported. By using this rate, the reported cases can be converted to an estimated total cases.   
 
 
-** Developer notes**
+**Developer notes**
 Since 27 October 2020, several column names of the `Bucky_results` were changed and these changes have been reflected in this repository. If using Bucky outputs that were generated before that day, use the code of commit `56871e063fd11f858a3140e2916b102b1d7a84a6` 
