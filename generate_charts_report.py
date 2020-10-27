@@ -1,17 +1,17 @@
 import os
+import shutil
 import geopandas as gpd
 from datetime import datetime,timedelta
 import sys
 import matplotlib
 import matplotlib.colors as mcolors
-from matplotlib.lines import Line2D
 
 import utils
 from utils import *
 
 country_iso_3 = sys.argv[1]
 
-ASSESSMENT_DATE='2020-10-14'
+ASSESSMENT_DATE='2020-10-26'
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
 TWO_WEEKS = TODAY + timedelta(days=14)
@@ -27,14 +27,15 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
 RESULTS_FILENAME=f'automated_reports/report_metrics/{country_iso_3}_results.csv'
-NPISHEET_PATH=f'Outputs/{country_iso_3}/npis_googlesheet.csv'
+OUTPUT_DIR=f'Outputs/{country_iso_3}/'
+NPISHEET_PATH=f'{OUTPUT_DIR}npis_googlesheet.csv'
 
 NPI_COLOR='green'
 NO_NPI_COLOR='red'
 WHO_DATA_COLOR='dodgerblue'
 SUBNATIONAL_DATA_COLOR='navy'
 
-def main(country_iso3, download_covid=False):
+def main(country_iso3, download_covid=False,output_folder=OUTPUT_DIR):
 
     parameters = utils.parse_yaml(CONFIG_FILE)[country_iso3]
     if download_covid:
@@ -43,6 +44,12 @@ def main(country_iso3, download_covid=False):
 
     #function from utils to set plot parameters
     set_matlotlib(plt)
+
+    #create folder if doesn't exist and if it exists empty the folder
+    #done such that old files with changed filenames are not lingering around in the output folder
+    if os.path.exists(output_folder):
+        shutil.rmtree(output_folder)
+    os.makedirs(output_folder)
 
     print('\n\n\n')
     print(f'{country_iso3}')
