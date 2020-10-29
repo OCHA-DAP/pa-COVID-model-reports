@@ -51,25 +51,25 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 3,864 cases and 99 deaths have been reported with the current number of daily new cases standing at 17 (7-day average). No new deaths were reported since our last update.
-* The current number of active severe cases requiring healthcare support is estimated at 18 - 24.
+* Per the WHO, a total of 3,941 cases and 104 deaths have been reported to date with the current number of daily new cases standing at 11.0 (7-day average). 
+* The number of active severe cases requiring hospitalization is estimated at 7 - 8.
 * Cases saw a peak in cases in May-June.
-* We note the following measures as currently in place: domestic travel restrictions (50% compliance), curfews (50% compliance), and limits on public gatherings (50% compliance). By contrast school closures were lifted in June. Please update the ACAPS database if this information is inaccurate or incomplete as it affects the accuracy of projections.
-* Based on the reports from the WHO and MOPH, the country is on track for containment of COVID-19 except for Bari and Nugaal, which still see community spread (see section 2).
-* The data reported by the WHO suffers from severe gaps and displays significant variation
-from day-to-day. This might reflect challenges in data collection and/or batching where multiple days' worth of
-data are reported at once. For these reasons it is difficult to assess the stability of trends.
+* We note the following measures as currently in place: border closures (50% compliance), curfews (50% compliance), school closures (100% compliance), and limits on public gatherings (50% compliance). By contrast school closures were lifted in June. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
+* Based on the reports from the WHO and MOPH, the country is on track for containment of COVID-19 in every region (see section 2).
+* The data reported by the authorities suffers from severe gaps and displays significant variation from day-to-day. This might reflect challenges in data collection and/or batching where multiple days' worth of data are reported at once. For these reasons it is difficult to assess the stability of trends.
+* Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, the total number of cases is projected to reach 4,331 - 4,408 and the total number of deaths is projected to reach 103 -104 if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases in particular (up to 877 more cases and up to 3 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 8 weeks later.
-* The number of active severe cases requiring healthcare is projected to reach 40 -53 and to increase sharply if NPIs are lifted (see section 3).
+* In 4 weeks, we project that an additional 128 - 176 cases and 11 - 13 deaths will be reported if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases in particular (up to 492 more cases and up to 12 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 8 weeks later.
+* The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to continue to decline if NPIs are maintained and to start climbing sharply if NPIs are lifted. 
+* The number of active severe cases requiring hospitalization is projected to reach 7 - 8 and to increase five- to eight-fold if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* In two weeks the country is projected to stay stable in terms of risk levels (green except for Bari and Nuggal's yellow). Measures are recommended to stay in place to address community spread (see section 4).
-* Incidence, the number of daily new cases per 100,000 people, is expected to decrease Awdal, Woqooyi Galbeed, Togdheer, Bari and Nugaal assuming all current NPIs are maintained. Note that Bari and Nugaal are projected to stay at higher incidence rates where community spread is likely to occur (see section 4).
+* In two weeks the country is projected to stay stable in terms of risk levels (green across the country; see section 4) assuming current NPIs are maintained. We reiterate that lifting NPIs would likely cause a jump in cases and may result in regions falling into higher risk levels.
+* Incidence, the number of daily new cases per 100,000 people, is expected to decrease in Banadir, Awdal, Woqooyi Galbeed, Togdheer, Sool and Sanaag assuming all current NPIs are maintained (see section 4).
 "
 ```
 

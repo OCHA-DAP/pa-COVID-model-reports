@@ -51,20 +51,22 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 2,798 cases and 55 deaths have been reported with the current number of daily new cases standing at 7.1 (7-day average).
-* The current number of active severe cases requiring healthcare support is estimated at 3 - 4 based on available data.
+* Per the WHO, a total of 2,890 cases and 56 deaths have been reported with the current number of daily new cases standing at 6.14 (7-day average). This rate has decreased since our last update.
+* The number of active severe cases requiring hospitalization is estimated at 3 - 4 based on available data.
 * Cases had a peak of cases around June.
 * According to the data reported by the WHO and the MOPH as well as estimates including non-reported cases, the country is on track for containment of COVID-19 (see section 2 for detail).
-* We note the following measures as currently in place: domestic travel restrictions (50% compliance), curfews (50% compliance), school closures (100% compliance), and limits on public gatherings (50% compliance). Please update the ACAPS database if this information is inaccurate or incomplete as it affects the accuracy of projections.
+* We note the following measures as currently in place: restrictions on inter-regional movement (50% compliance), social distancing (50% compliance), school closures (100% compliance), and limits on public gatherings (50% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * We also note concerning data gaps and data quality issues that limit visibility into the current situation and affect
 the ability to make projections.
-* In the past 4 - 6 weeks, the WHO has reported more cases but fewer deaths than the MOPH.
+* In the past 4 weeks, the WHO has reported more cases and deaths than the MOPH.
+* Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, the total number of cases is projected to reach up to 2,767 - 2,859 if current NPIs are maintained. 
-* Lifting the NPIs would lead to a larger increase in cases in particular (up to 315 more cases and up to 4 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 8 weeks later.
-* The number of active severe cases requiring healthcare is projected to reach 4 - 7 and up to 16 if NPIs are lifted (see section 3).
+* In 4 weeks, we project that an additional 31 - 52 cases and 4 - 6 deaths will be reported if current NPIs are maintained.
+* The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to continue to decline if NPIs are maintained and to start climbing if NPIs are lifted.
+* Lifting the NPIs would lead to a larger number of cases being added (up to 170 more cases and up to 9 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 8 weeks later.
+* The number of active severe cases requiring hospitalization is projected to be at 2 - 5 and up to 24 if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
