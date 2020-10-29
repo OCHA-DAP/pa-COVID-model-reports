@@ -58,6 +58,7 @@ key_messages_current_situation <- "
 * We note the following measures as currently in place: domestic travel restrictions (50% compliance), limits on public gatherings (50% compliance), public health awareness campaigns (50% compliance), and school closures (100% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * The data from the WHO and the Ministry of Public health concord well.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
+
 "   
 
 key_messages_national_projections <- "
