@@ -12,7 +12,7 @@ country_list <- c('Afghanistan', 'Democratic Republic of Congo', 'Iraq', 'Sudan'
 for (i in 1:length(country_files)) rmarkdown::render(country_files[i],
                                            params = list(
                                            assignment_date = "2020-10-27"),
-                                           output_file = paste0(country_list[i], " ", Sys.Date(), ".pdf"),
+                                           output_file = paste0(country_list[i], " ", assignment_date, ".pdf"),
                                            )
 
 filenames <- dir(".", pattern = "*.pdf", ignore.case = TRUE)
