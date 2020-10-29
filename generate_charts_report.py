@@ -192,9 +192,9 @@ def generate_key_figures(country_iso3,parameters):
     bucky_npi = get_bucky(country_iso3, admin_level='adm0', min_date=TODAY, max_date=FOUR_WEEKS, npi_filter='npi')
 
     #cumulative cases TODAY - cumulative cases YESTERDAY might not always equal the daily cases TODAY. This is due to the model being run several times after which the results are divided in quantiles.
-    bucky_npi_cases_today = bucky_npi[bucky_npi['quantile'] == 0.5].loc[TODAY, 'cumulative_reported_cases']
-    bucky_npi_cases_today_notrep = bucky_npi[bucky_npi['quantile'] == 0.5].loc[TODAY, 'cumulative_cases']
-    bucky_npi_deaths_today = bucky_npi[bucky_npi['quantile'] == 0.5].loc[TODAY, 'cumulative_deaths']
+    bucky_npi_cases_today = round(bucky_npi[bucky_npi['quantile'] == 0.5].loc[TODAY, 'cumulative_reported_cases']).astype(int)
+    bucky_npi_cases_today_notrep = round(bucky_npi[bucky_npi['quantile'] == 0.5].loc[TODAY, 'cumulative_cases']).astype(int)
+    bucky_npi_deaths_today = round(bucky_npi[bucky_npi['quantile'] == 0.5].loc[TODAY, 'cumulative_deaths']).astype(int)
     reporting_rate = bucky_npi['case_reporting_rate'].mean() * 100
     print(
         f'Current situation Bucky {TODAY}: {bucky_npi_cases_today:.0f} cumulative reported cases, {bucky_npi_deaths_today:.0f} cumulative reported deaths')
@@ -238,12 +238,12 @@ def generate_key_figures(country_iso3,parameters):
 
     #model (i.e. bucky) outputs are not always integers. This cannot reflect the real situation, but nevertheless we choose to use the floats such that trend calculations more precisely reflect the projected development
     #numbers are only rounded for reporting purposes
-    min_cases_npi=bucky_npi[bucky_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_reported_cases']
-    max_cases_npi=bucky_npi[bucky_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_reported_cases']
+    min_cases_npi=round(bucky_npi[bucky_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_reported_cases']).astype(int)
+    max_cases_npi=round(bucky_npi[bucky_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_reported_cases']).astype(int)
     min_additional_cases_npi = min_cases_npi - bucky_npi_cases_today
     max_additional_cases_npi = max_cases_npi - bucky_npi_cases_today
-    min_deaths_npi=bucky_npi[bucky_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
-    max_deaths_npi=bucky_npi[bucky_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']
+    min_deaths_npi=round(bucky_npi[bucky_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']).astype(int)
+    max_deaths_npi=round(bucky_npi[bucky_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']).astype(int)
     min_additional_deaths_npi = min_deaths_npi - bucky_npi_deaths_today
     max_additional_deaths_npi = max_deaths_npi - bucky_npi_deaths_today
 
@@ -262,12 +262,12 @@ def generate_key_figures(country_iso3,parameters):
 
     # Compute the expected percentual change in CUMULATIVE reported cases and deaths when there are no NPIs in place
     bucky_no_npi=get_bucky(country_iso3,admin_level='adm0',min_date=TODAY,max_date=FOUR_WEEKS,npi_filter='no_npi')
-    min_cases_no_npi=bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_reported_cases'].astype(int)
-    max_cases_no_npi=bucky_no_npi[bucky_no_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_reported_cases'].astype(int)
+    min_cases_no_npi=round(bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_reported_cases']).astype(int)
+    max_cases_no_npi=round(bucky_no_npi[bucky_no_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_reported_cases']).astype(int)
     min_additional_cases_no_npi = min_cases_no_npi - bucky_npi_cases_today
     max_additional_cases_no_npi = max_cases_no_npi - bucky_npi_cases_today
-    min_deaths_no_npi=bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths'].astype(int)
-    max_deaths_no_npi=bucky_no_npi[bucky_no_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths'].astype(int)
+    min_deaths_no_npi=round(bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']).astype(int)
+    max_deaths_no_npi=round(bucky_no_npi[bucky_no_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,'cumulative_deaths']).astype(int)
     min_additional_deaths_no_npi = min_deaths_no_npi - bucky_npi_deaths_today
     max_additional_deaths_no_npi = max_deaths_no_npi - bucky_npi_deaths_today
     print(f'--- no_npi: Projected cumulative reported cases in 4w: {min_cases_no_npi:.0f} - {max_cases_no_npi:.0f}')
@@ -276,8 +276,8 @@ def generate_key_figures(country_iso3,parameters):
     print(f'-- no_npi: Projected additional reported deaths in 4w: {min_additional_deaths_no_npi:.0f} - {max_additional_deaths_no_npi:.0f}')
 
     #compute the maximum projected increase in cumulative reported cases and deaths in four weeks if the NPIs were lifted
-    no_npi_max_increase_cases=(max_cases_no_npi-min_cases_npi).astype(int)
-    no_npi_max_increase_deaths = (max_deaths_no_npi - min_deaths_npi).astype(int)
+    no_npi_max_increase_cases=max_cases_no_npi-min_cases_npi
+    no_npi_max_increase_deaths = max_deaths_no_npi - min_deaths_npi
     print(f'Maximum number of extra cases if NPIs are lifted: {no_npi_max_increase_cases:.0f}')
     print(f'Maximum number of extra deaths if NPIs are lifted: {no_npi_max_increase_deaths:.0f}')
     dict_metrics={'Current situation - WHO cases today': who_cases_today,
@@ -381,12 +381,12 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     plt.legend()
     print(f'----{metric} statistics')
     #bucky_no_npi and bucky_npi are initialized with the same numbers, so doesn't matter which is being used for displaying the current situation
-    metric_today_min=bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[TODAY,bucky_var]
-    metric_today_max=bucky_no_npi[bucky_no_npi['quantile']==MAX_QUANTILE].loc[TODAY,bucky_var]
-    metric_4w_npi_min=bucky_npi[bucky_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]
-    metric_4w_npi_max=bucky_npi[bucky_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,bucky_var]
-    metric_4w_no_npi_min=bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]
-    metric_4w_no_npi_max=bucky_no_npi[bucky_no_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,bucky_var]
+    metric_today_min=round(bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[TODAY,bucky_var]).astype(int)
+    metric_today_max=round(bucky_no_npi[bucky_no_npi['quantile']==MAX_QUANTILE].loc[TODAY,bucky_var]).astype(int)
+    metric_4w_npi_min=round(bucky_npi[bucky_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]).astype(int)
+    metric_4w_npi_max=round(bucky_npi[bucky_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,bucky_var]).astype(int)
+    metric_4w_no_npi_min=round(bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]).astype(int)
+    metric_4w_no_npi_max=round(bucky_no_npi[bucky_no_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,bucky_var]).astype(int)
     metric_additional_npi_min=metric_4w_npi_min-metric_today_min
     metric_additional_npi_max=metric_4w_npi_max-metric_today_max
     metric_additional_no_npi_min=metric_4w_no_npi_min-metric_today_min
