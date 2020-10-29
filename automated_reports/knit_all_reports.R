@@ -7,11 +7,17 @@ country_files <- c('report_generation_AFG.Rmd',
                    'report_generation_SOM.Rmd',
                    'report_generation_SSD.Rmd')
 
-for (f in country_files) rmarkdown::render(f,
+country_list <- c('Afghanistan', 'Democratic Republic of Congo', 'Iraq', 'Sudan', 'Somalia', "South Sudan")
+
+for (i in 1:length(country_files)) rmarkdown::render(country_files[i],
                                            params = list(
-                                             assignment_date = "2020-10-14")
+                                           assignment_date = "2020-10-27"),
+                                           output_file = paste0(country_list[i], " ", assignment_date, ".pdf"),
                                            )
 
+filenames <- dir(".", pattern = "*.pdf", ignore.case = TRUE)
+  
+for (i in 1:length(filenames)) file.rename(from = filenames[i], to = paste0("archive/", filenames[i]))
 
 ## Note from the author of rmarkdown regarding putting the output files in another directory:
 # For output_file, do not put it in a different directory; output_file = 'test.md' is good, and foo/test.md is bad;

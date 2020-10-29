@@ -1,7 +1,7 @@
 # ignore R history
 .Rhistory
 
-# logs
+# Log file
 *.log
 
 # pycharm

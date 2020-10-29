@@ -8,7 +8,7 @@ Bucky_results/*/plots/*
 
 # ignore R history and logs
 .Rhistory
-.log
+*.log
 
 # pycharm
 .idea
