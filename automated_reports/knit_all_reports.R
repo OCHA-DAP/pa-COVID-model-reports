@@ -9,7 +9,7 @@ country_files <- c('report_generation_AFG.Rmd',
 
 for (f in country_files) rmarkdown::render(f,
                                            params = list(
-                                             assignment_date = "2020-10-27")
+                                             assignment_date = "2020-10-14")
                                            )
 
 
