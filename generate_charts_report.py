@@ -647,11 +647,23 @@ def calculate_subnational_incidence(country_iso3, parameters, date):
     if country_iso3 == 'IRQ':
         adm1_pcode_prefix = 'IQG'
     bucky_npi['adm1'] = adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x: '{0:0=2d}'.format(int(x)))
+
+    shapefile = gpd.read_file(parameters['shape'], encoding='UTF-8')
+    shapefile = shapefile[[parameters['adm1_pcode'], parameters['adm1_name']]]
+
+    combined_shp = bucky_npi.merge(shapefile, how='left', left_on='adm1', right_on=parameters['adm1_pcode'])
     #in the model output the daily_cases per admin1 is given. The N column gives the population per admin1 through which the cases/100k can be calculated
     bucky_npi['daily_reported_cases_per_100k'] = bucky_npi['daily_reported_cases'] /(bucky_npi['total_population']/100000)
     bucky_npi['daily_cases_total_per_100k'] = bucky_npi['daily_cases'] /(bucky_npi['total_population']/100000)
+
+    #shapefile contains adm1 names so add them to printout on console
+    shapefile = gpd.read_file(parameters['shape'], encoding='UTF-8')
+    shapefile = shapefile[[parameters['adm1_pcode'], parameters['adm1_name']]]
+    combined_shp = bucky_npi.merge(shapefile, how='left', left_on='adm1', right_on=parameters['adm1_pcode'])
+    combined_shp=combined_shp.set_index('adm1')
     print(f'Daily reported and estimated total cases per admin1 region on {date}')
-    print(bucky_npi[['adm1','daily_reported_cases_per_100k','daily_cases_total_per_100k']])
+    print(combined_shp[[parameters['adm1_name'],'daily_reported_cases_per_100k','daily_cases_total_per_100k']])
+
     daily_rep_avg=bucky_npi['daily_reported_cases_per_100k'].mean()
     daily_tot_avg=bucky_npi['daily_cases_total_per_100k'].mean()
     print(f'Average over all admin regions of reported new daily cases per 100K: {daily_rep_avg:.2f}')
