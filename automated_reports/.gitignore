@@ -1,6 +1,9 @@
 # ignore R history
 .Rhistory
 
+# Log file
+*.log
+
 # pycharm
 .idea
 

@@ -206,7 +206,7 @@ def get_bucky_dt_reff(df_bucky):
     # start fit
     dates_proj = df_bucky.index
     xfit=[(x-dates_proj[0]).days for x in dates_proj]
-    yfit = df_bucky['cumulative_cases_reported']
+    yfit = df_bucky['cumulative_reported_cases']
     initial_caseload=yfit[0]
     initial_parameters=[initial_caseload,0.03]
     # # TODO check quality of the fit
