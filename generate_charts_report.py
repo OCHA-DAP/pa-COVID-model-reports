@@ -11,7 +11,7 @@ from utils import *
 
 country_iso_3 = sys.argv[1]
 
-ASSESSMENT_DATE='2020-10-27'
+ASSESSMENT_DATE='2020-11-11' # Wednesday's date
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 FOUR_WEEKS = TODAY + timedelta(days=28)
 TWO_WEEKS = TODAY + timedelta(days=14)
