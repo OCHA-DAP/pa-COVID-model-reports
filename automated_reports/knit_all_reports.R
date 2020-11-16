@@ -9,9 +9,10 @@ country_files <- c('report_generation_AFG.Rmd',
 
 country_list <- c('Afghanistan', 'Democratic Republic of Congo', 'Iraq', 'Sudan', 'Somalia', "South Sudan")
 
+# assignment_date should be Wednesday's date
 for (i in 1:length(country_files)) rmarkdown::render(country_files[i],
                                            params = list(
-                                           assignment_date = "2020-11-11"), # Wednesday's date
+                                           assignment_date = "2020-11-16"), 
                                            output_file = paste0(country_list[i], " ", assignment_date, ".pdf"),
                                            )
 
