@@ -51,24 +51,22 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 455,398 cases and 10,671 deaths have been reported with the current number of daily new cases standing at 3,531.4 (7-day average).
-* The current number of active severe cases requiring hospitalization is estimated at 1,485 - 2,334.
-* Progress towards containment is insufficient: the entire country is seeing Community Spread or Accelerated Spread (yellow or orange risk levels), requiring more intense control efforts (see section 2).
-* After taking into consideration underrreporting, some regions are considered at a Tipping Point (highest level of risk) and requiring the highest intensity of control efforts (section 2).
-* We note that an awareness campaign began on 12 Oct. The other mitigation measure currently in place is face mask wearing (50% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
+* Per the WHO, a total of 519,152 cases and 11,670 deaths have been reported with the current number of daily new cases standing at 2,943 (7-day average).
+* The current number of active severe cases requiring hospitalization is estimated at 3,316 - 4,258.
+* Progress towards containment is insufficient: the entire country except for Thi Qar is seeing Community or Accelerated Spread (yellow or orange risk levels), or are at Tipping Point. More intense control efforts are needed (see section 2).
+* We note that an awareness campaign began on 12 Oct. The other mitigation measure currently in place is face mask wearing (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 92,926 - 110,321 cases and 2,208 -2,690 deaths will be reported if current NPIs are maintained.
-* The projections are identical under the two scenarios examined, which indicates that currently implemented NPIs will likely be insufficient to curb spread.
-* The number of active severe cases requiring healthcare is projected to reach 4,373 - 5,577 (see section 3).
+* In 4 weeks, we project that an additional 164,049 - 209,506 cases and 3,003 - 3,828 deaths will be reported if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 141,760 more cases and up to 1,818 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* Active severe cases requiring healthcare are projected to increase by 6,870 - 9,372 (see section 3) assuming NPIs are maintained.
 "
 
 key_messages_subnational_projections <- "
-* In the next two weeks, the country is projected to remain at Yellow and Orange risk levels, meaning that community spread is expected to remain problematic and require control strategies (see section 4). 
-* Case incidence (new daily cases per 100,000 people) is projected to increase in Baghdad, Al-Anbar, Duhok, Ninewa, Kirkuk, Diyala, Salah Al-Din, Maysan, Kerbala, Babil, Erbil, Al-Najaf and Al-Sulaymaniyah; the rest of the country is projected to see a decrease in incidence (see section 4). 
-* Whether increasing or decreasing in trend, certain regions are expected to have Accelerated Spread (that is, be at an orange risk level) and to still require moderately intense containment strategies.
+* In the next two weeks, the situation in the country is projected to worsen and require more intense control strategies (see section 4). 
+* Case incidence (new daily cases per 100,000 people) is projected to increase in every region with Baghdad showing the largest increase (see section 4). 
 "
 ```
 
@@ -480,7 +478,7 @@ x %>%
 
 [^5]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
-\normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
+\normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-4 weeks.
 
 ![](`r lifetime_new_cases_graph_path`){width=350px} ![](`r lifetime_new_deaths_graph_path`){width=350px}
 

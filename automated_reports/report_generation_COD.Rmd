@@ -484,7 +484,7 @@ x %>%
 
 [^5]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
-\normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
+\normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-4 weeks.
 
 ![](`r lifetime_new_cases_graph_path`){width=350px} ![](`r lifetime_new_deaths_graph_path`){width=350px}
 
