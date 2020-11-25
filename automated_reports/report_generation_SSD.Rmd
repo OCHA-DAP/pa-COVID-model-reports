@@ -265,6 +265,8 @@ subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$daily_reported_cases_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_reported_cases_per_100k_abs_change), 2)
 subnational_projections$daily_reported_cases_per_100k_inTWOweeks <- round(subnational_projections$daily_reported_cases_per_100k_inTWOweeks, 3)
+subnational_projections$daily_cases_total_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_cases_total_per_100k_abs_change), 2)
+subnational_projections$daily_cases_total_per_100k_inTWOweeks <- round(subnational_projections$daily_cases_total_per_100k_inTWOweeks, 3)
 ```
 
 # `r paste(colorize('COVID-19 Projections:', 'centreGreen'), colorize(country, 'centreGreen'))`
@@ -301,14 +303,12 @@ This report leverages a framework to provide guidance in the interpretation of i
 
 The framework defines risk levels that indicate whether a region is on track for containment and can help decision-makers know where they are at the moment. The levels do not in themselves provide information about how to respond but do communicate the intensity of effort needed for control of COVID at varying levels of community spread. In addition to paying attention to the levels, decision-makers should pay close attention to direction of trend and rate of change (see section 4 for those metrics at the subnational level). 
 
-The maps below illustrate regional risk levels as defined by today's incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`).  On the left are the reported cases while on the right are the total cases as estimated from case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
+The map below illustrates regional risk levels as defined by estimated total incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`). Total cases are estimated from case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
 
-&nbsp;
-
-```{r current_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%"}
+```{r current_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%",  fig.align='center'}
 
 par(mar = c(4, 4, .1, .1))
-include_graphics(current_reported_incidence_risk_graph_path)
+#include_graphics(current_reported_incidence_risk_graph_path)
 include_graphics(current_total_incidence_risk_graph_path)
 ```
 

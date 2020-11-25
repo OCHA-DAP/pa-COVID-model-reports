@@ -265,6 +265,8 @@ subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$daily_reported_cases_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_reported_cases_per_100k_abs_change), 2)
 subnational_projections$daily_reported_cases_per_100k_inTWOweeks <- round(subnational_projections$daily_reported_cases_per_100k_inTWOweeks, 3)
+subnational_projections$daily_cases_total_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_cases_total_per_100k_abs_change), 2)
+subnational_projections$daily_cases_total_per_100k_inTWOweeks <- round(subnational_projections$daily_cases_total_per_100k_inTWOweeks, 3)
 ```
 
 # `r paste(colorize('COVID-19 Projections:', 'centreGreen'), colorize(country, 'centreGreen'))`
@@ -301,14 +303,12 @@ This report leverages a framework to provide guidance in the interpretation of i
 
 The framework defines risk levels that indicate whether a region is on track for containment and can help decision-makers know where they are at the moment. The levels do not in themselves provide information about how to respond but do communicate the intensity of effort needed for control of COVID at varying levels of community spread. In addition to paying attention to the levels, decision-makers should pay close attention to direction of trend and rate of change (see section 4 for those metrics at the subnational level). 
 
-The maps below illustrate regional risk levels as defined by today's incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`).  On the left are the reported cases while on the right are the total cases as estimated from case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
+The map below illustrates regional risk levels as defined by estimated total incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`). Total cases are estimated from case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
 
-&nbsp;
-
-```{r current_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%"}
+```{r current_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%",  fig.align='center'}
 
 par(mar = c(4, 4, .1, .1))
-include_graphics(current_reported_incidence_risk_graph_path)
+#include_graphics(current_reported_incidence_risk_graph_path)
 include_graphics(current_total_incidence_risk_graph_path)
 ```
 
@@ -531,14 +531,13 @@ x %>%
 
 \large \textbf{`r colorize('Projected Incidence', 'centreBlue')`}
 
-The maps below represent the projected risk level of every ADMIN1 region, assuming the current NPIs are maintained. On the left are the cases projected to be reported while on the right are the projected total cases as estimated from case reporting rate to adjust for underreporting. See Section 1 for detail on the relationship between risk level and progress towards virus containment. 
+The map below displays the projected risk level of every ADMIN1 region, assuming the current NPIs are maintained. It represents the projected total cases as estimated from case reporting rate to adjust for underreporting. See Section 1 for detail on the relationship between risk level and progress towards virus containment. 
 
-&nbsp;
 
-```{r projected_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%"}
+```{r projected_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%",  fig.align='center'}
 
 par(mar = c(4, 4, .1, .1))
-include_graphics(projected_reported_incidence_risk_graph_path)
+#include_graphics(projected_reported_incidence_risk_graph_path)
 include_graphics(projected_total_incidence_risk_graph_path)
 ```
 
@@ -571,31 +570,31 @@ While the magnitude of change may signal how successful mitigation strategies ar
 
 ```{r subnational_deltas, echo = FALSE}
 increases_nrow <- subnational_projections %>%
-                          filter(daily_reported_cases_per_100k_abs_change >= 0) %>%
+                          filter(daily_cases_total_per_100k_abs_change >= 0) %>%
                           nrow()
 
 decreases_nrow <- subnational_projections %>%
-                          filter(daily_reported_cases_per_100k_abs_change < 0) %>%
+                          filter(daily_cases_total_per_100k_abs_change < 0) %>%
                           nrow()
 
 subnational_projections_ordered <- subnational_projections %>%
-          arrange(desc(daily_reported_cases_per_100k_abs_change)) %>% # orders regions from largest to smallest change
-          select(admin1RefN, daily_reported_cases_per_100k_abs_change, daily_reported_cases_per_100k_inTWOweeks)
+          arrange(desc(daily_cases_total_per_100k_abs_change)) %>% # orders regions from largest to smallest change
+          select(admin1RefN, daily_cases_total_per_100k_abs_change, daily_cases_total_per_100k_inTWOweeks)
 
 show_only_increasing_trends <- function(subnational_projections_ordered) {
           subnational_projections_ordered %>%
-          mutate(daily_reported_cases_per_100k_abs_change = ifelse(daily_reported_cases_per_100k_abs_change > 0,
-                                                                   paste0('+', daily_reported_cases_per_100k_abs_change),
-                                                                   daily_reported_cases_per_100k_abs_change)) %>%
+          mutate(daily_cases_total_per_100k_abs_change = ifelse(daily_cases_total_per_100k_abs_change > 0,
+                                                                   paste0('+', daily_cases_total_per_100k_abs_change),
+                                                                   daily_cases_total_per_100k_abs_change)) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change", "Incidence"),
                 align = "lcc") %>%
           kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
           column_spec(1, width = "4cm") %>%
           column_spec(2, width = "3.5cm") %>%
-          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 1, "#00a67e",
-                                             ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 10, "#f8b931",
-                                                    ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 1, "#00a67e",
+                                             ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 10, "#f8b931",
+                                                    ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
           add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
           pack_rows('Increasing or Stable', 1, increases_nrow, italic = T, indent = T) %>%
           row_spec(0, bold = TRUE, font_size = 12)
@@ -603,18 +602,18 @@ show_only_increasing_trends <- function(subnational_projections_ordered) {
 
 show_only_decreasing_trends <- function(subnational_projections_ordered) {
           subnational_projections_ordered %>%
-          mutate(daily_reported_cases_per_100k_abs_change = ifelse(daily_reported_cases_per_100k_abs_change > 0,
-                                                                   paste0('+', daily_reported_cases_per_100k_abs_change),
-                                                                   daily_reported_cases_per_100k_abs_change)) %>%
+          mutate(daily_cases_total_per_100k_abs_change = ifelse(daily_cases_total_per_100k_abs_change > 0,
+                                                                   paste0('+', daily_cases_total_per_100k_abs_change),
+                                                                   daily_cases_total_per_100k_abs_change)) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change", "Incidence"),
                 align = "lcc") %>%
           kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
           column_spec(1, width = "4cm") %>%
           column_spec(2, width = "3.5cm") %>%
-          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 1, "#00a67e",
-                                             ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 10, "#f8b931",
-                                                    ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 1, "#00a67e",
+                                             ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 10, "#f8b931",
+                                                    ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
           add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
           pack_rows('Decreasing', 1, decreases_nrow, italic = T, indent = T) %>%
           row_spec(0, bold = TRUE, font_size = 12)
@@ -622,18 +621,18 @@ show_only_decreasing_trends <- function(subnational_projections_ordered) {
     
 show_both_trends <- function(subnational_projections_ordered) {    
           subnational_projections_ordered %>%
-          mutate(daily_reported_cases_per_100k_abs_change = ifelse(daily_reported_cases_per_100k_abs_change > 0,
-                                                                   paste0('+', daily_reported_cases_per_100k_abs_change),
-                                                                   daily_reported_cases_per_100k_abs_change)) %>%
+          mutate(daily_cases_total_per_100k_abs_change = ifelse(daily_cases_total_per_100k_abs_change > 0,
+                                                                   paste0('+', daily_cases_total_per_100k_abs_change),
+                                                                   daily_cases_total_per_100k_abs_change)) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change", "Incidence"),
                 align = "lcc") %>%
           kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
           column_spec(1, width = "4cm") %>%
           column_spec(2, width = "3.5cm") %>%
-          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 1, "#00a67e",
-                                             ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 10, "#f8b931",
-                                                    ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 1, "#00a67e",
+                                             ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 10, "#f8b931",
+                                                    ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
 
           add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
           pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow), italic = T, indent = T) %>%
