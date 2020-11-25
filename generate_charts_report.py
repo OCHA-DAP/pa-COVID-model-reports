@@ -730,13 +730,14 @@ def calculate_subnational_trends(country_iso3, parameters):
         adm1_pcode_prefix='IQG'
     bucky_npi['adm1']=adm1_pcode_prefix + bucky_npi['adm1'].apply(lambda x:  '{0:0=2d}'.format(int(x)))
     bucky_npi['daily_reported_cases_per_100k'] = bucky_npi['daily_reported_cases'] / (bucky_npi['total_population'] / 100000)
-    # bucky_npi['daily_cases_total_per_100k'] = bucky_npi['daily_cases'] / (bucky_npi['total_population'] / 100000)
+    bucky_npi['daily_cases_total_per_100k'] = bucky_npi['daily_cases'] / (bucky_npi['total_population'] / 100000)
     # make the col selector a list to ensure always a dataframe is returned (and not a series)
     start = bucky_npi.loc[[TODAY+timedelta(days=1)], :]
     end = bucky_npi.loc[[TWO_WEEKS], :]
-    combined = start[['adm1','R_eff','daily_reported_cases_per_100k']].merge(end[['adm1', 'daily_reported_cases_per_100k']], how='outer', on='adm1',suffixes=('_today','_inTWOweeks'))
+    combined = start[['adm1','R_eff','daily_reported_cases_per_100k','daily_cases_total_per_100k']].merge(end[['adm1', 'daily_reported_cases_per_100k','daily_cases_total_per_100k']], how='outer', on='adm1',suffixes=('_today','_inTWOweeks'))
 
     combined['daily_reported_cases_per_100k_abs_change']=combined['daily_reported_cases_per_100k_inTWOweeks'] - combined['daily_reported_cases_per_100k_today']
+    combined['daily_cases_total_per_100k_abs_change']=combined['daily_cases_total_per_100k_inTWOweeks'] - combined['daily_cases_total_per_100k_today']
 
     # Select the row if current OR projected have at least one active case
     # to remove noise
