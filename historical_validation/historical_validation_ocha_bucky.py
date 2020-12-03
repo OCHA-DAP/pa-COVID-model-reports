@@ -11,7 +11,7 @@ country_iso2='SS'
 github_repo='https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-reports'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
 WHO_DATA_COLOR='dodgerblue'
-download_csv=True
+download_csv=False
 
 TODAY = datetime.today().date()
 EARLIEST_DATE = datetime.strptime('2020-02-24', '%Y-%m-%d').date()
@@ -26,7 +26,7 @@ def download_bucky_results(dir_path,country_iso3,github_repo):
         for myline in myfile:              
             if not 'commit' in myline: continue
             commit_id = myline.split(' ')[1].replace('\n','')
-            os.system(f'wget {github_repo}/{commit_id}/{bucky_csv_file} > {data_folder}/adm0_quantiles_{commit_id}.csv')
+            os.system(f'wget -O {data_folder}/adm0_quantiles_{commit_id}.csv {github_repo}/{commit_id}/{bucky_csv_file}')
 
 def create_new_subplot(fig_title):
     fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
