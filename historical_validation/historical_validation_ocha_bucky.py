@@ -9,6 +9,8 @@ import pandas as pd
 country_iso3='AFG'
 country_iso2='AF'
 github_repo='https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-reports'
+WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
+WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
 WHO_DATA_COLOR='dodgerblue'
 NPI_COLOR='green'
@@ -16,7 +18,8 @@ NPI_COLOR='green'
 MIN_QUANTILE=0.25
 MAX_QUANTILE=0.75
 
-download_csv=True
+download_bucky_csv=True
+download_WHO_csv=True
 
 TODAY = datetime.today().date()
 EARLIEST_DATE = datetime.strptime('2020-07-01', '%Y-%m-%d').date()
@@ -92,6 +95,10 @@ def draw_data_model_comparison_new(country_iso3,metric):
         who_var='New_deaths'
         bucky_var=['daily_deaths']
         fig_title='Daily reported deaths'
+    elif metric=='cumulative_deaths':
+        who_var='Cumulative_deaths'
+        bucky_var=['cumulative_deaths']
+        fig_title='Cumulative deaths'
     else:
         print(f'metric {metric} not implemented')
         return False
@@ -115,22 +122,24 @@ def draw_data_model_comparison_new(country_iso3,metric):
         print(bucky_npi)
         bucky_npi=bucky_npi[bucky_npi['med']>0]
         bucky_npi['med'].plot(c=NPI_COLOR,ax=axis,label='Current NPIs maintained')
-    # axis.fill_between(bucky_npi_median.index,
-                        #   bucky_npi[bucky_npi['quantile']==MIN_QUANTILE][bucky_var],
-                        #   bucky_npi[bucky_npi['quantile']==MAX_QUANTILE][bucky_var],
-                        #   color=NPI_COLOR,alpha=0.2 
+        axis.fill_between(bucky_npi.index,
+                          bucky_npi['min'],
+                          bucky_npi['max'],
+                          color=NPI_COLOR,alpha=0.2 
 
 
 if __name__ == "__main__":
 
-    if download_csv:
+    if download_bucky_csv:
         download_bucky_results(dir_path,country_iso3,github_repo)
-    
-  
+    if download_who_covid_data:
+        # Download latest covid file tiles and read them in
+        download_who_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
 
     # draw_data_model_comparison_new(country_iso3,'daily_reported_cases')
-    draw_data_model_comparison_new(country_iso3,'cumulative_reported_cases')
+    # draw_data_model_comparison_new(country_iso3,'cumulative_reported_cases')
     # draw_data_model_comparison_new(country_iso3,'daily_deaths')
+    draw_data_model_comparison_new(country_iso3,'cumulative_deaths')
     # plt.legend()
     plt.show()
 
