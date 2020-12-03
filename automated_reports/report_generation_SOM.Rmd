@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-10-14'      
+  assignment_date: '2020-12-02'      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue

@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-10-14'      
+  assignment_date: '2020-12-02'      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -51,26 +51,27 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 43,240 cases and 1,625 deaths have been reported with the current number of daily new cases standing at 154 (7-day average).
-* The current number of active severe cases requiring healthcare support is estimated at 72 - 138.
-* There is community spread in Balkh, Zabul, Kapisa, Bamyan, Takhar, Kunduz, Kandahar, Nimroz and Hirat according to estimates of true number of cases that adjust for underreporting. Non-pharmaceutical interventions are recommended to control further spread (see section 2 for detail).
+* Per the WHO, a total of 46,717 cases and 1,795 deaths have been reported with the current number of daily new cases standing at 206 (7-day average).
+* The current number of active severe cases requiring healthcare support is estimated at 483 - 579.
+* There is community spread in most of the country according to estimates of true number of cases that adjust for underreporting. More intense control efforts are recommended to counter further spread (see section 2 for detail).
 * Cases had a first peak in early June and deaths had a first peak in early July. 
-* We note that public health awareness campaings are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
+* We note that public health awareness campaigns are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * The data from the WHO and the Ministry of Public health concord well.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project 3,850 - 4,533 additional cases and 170 - 222 additional deaths will be reported if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases and deaths (up to 1,899 more cases and up to 79 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
-* The number of active severe cases requiring healthcare is projected to be at 177 - 225 if NPIs are maintained, with significantly more cases if NPIs are lifted (see section 3).
+* In 4 weeks, we project 4,506 - 5,609 additional cases and 251 - 304 additional deaths will be reported if current NPIs are maintained.
+* Lifting of NPIs would lead to daily new cases to rapidly increase instead of secreasing if NPIs are maintained. That would lead to a larger increase in cases and deaths by up to 2,771 more cases and 103 more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* The number of active severe cases requiring healthcare is projected to sharply increase to 2054 - 2715 if NPIs are maintained, with significantly more cases if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* In two weeks, the country is projected to continue to see community spread (= yellow risk level) in several regions according to estimates of true number of cases that adjust for underreporting (see section 4).
-* Strategies for containment likely to still be warranted to mitigate spread. 
-* Assuming NPIs remain in place, Hirat, Kabul, Nangarhar are projected to see an increase in their ratio of daily new cases per 100,000 people while Zabul and Balkh are projected to show decreases. Those two regions are still projected to still face community spread and require mitigation strategies (see section 4).
+* In two weeks, the country is projected to continue to see high incidence in most of the country according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
+* Assuming NPIs remain in place, Nangarhar, Hirat, Jawzjan, Samangan, Sar-e-Pul, Khost, Kunar are projected to see an increase in their ratio of daily new cases per 100,000 people.
+* Despite a slightly lower incidence, most regions will still be facing community or accelerated spread (yellow and orange risk levels) while Kandahar, Takhar, and Nimroz are projected to still be at tipping points, the highest level of risk. 
+* Strategies for containment should be intensified to mitigate spread. 
 "
 ```
 

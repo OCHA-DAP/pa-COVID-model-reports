@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-10-14'      
+  assignment_date: '2020-12-02'      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -51,10 +51,10 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 14,626 cases and 1116 deaths have been reported with the current number of daily new cases standing at 60 (7-day average). We note that 279 deaths were reported since our last update, which may be due to delays in reporting.
-* The number of active severe cases requiring hospitalization is estimated at 70 - 82.
-* Case Fatality Rate has increased to a concerning 7.6%, which may partly due to underreporting. We note another improvement in estimated case reporting rate from 23% to 31%.
-* According to the data reported by the MOPH and WHO, the country is on track for containment with fewer than 1 case per 100,000 people in every state. However Khartoum is seeing community spread when looking at estimates of true number of cases that adjust for underreporting.
+* Per the WHO, a total of 18,254 cases and 1,265 deaths have been reported with the current number of daily new cases standing at 199 (7-day average). 
+* The number of active severe cases requiring hospitalization is estimated at 2889 - 3393.
+* Case Fatality Rate stands at a concerning 6.2%, which may partly due to underreporting. 
+* According to the data reported by the MOPH and WHO, while some of the country is on track for containment with fewer than 1 case per 100,000 people most regions are seeing community or accelerated spread (yellow and orange risk levels.) 
 * We note the following measures as currently in place: limits on public gatherings (25% compliance), border closings (25% compliance), and partial lockdown (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * The data reported by the authorities suffers from concerning gaps and displays significant variation from day-to-day. This might reflect challenges in data collection and/or batching where multiple days' worth of data are reported at once. For these reasons it is difficult to assess the stability of trends.
 * Based on available data, the country saw a peak in cases late May - early June.
@@ -62,13 +62,14 @@ key_messages_current_situation <- "
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 1,429 - 1,774 cases and 137 - 163 deaths will be reported if current NPIs are maintained.
-* Projections under the two scenarios (NPIs maintained vs. lifted) are similar, suggesting that the NPIs currently in place may not suffice to mitigate spread (see sections 2 and 3 for details). Still lifting NPIs would lead to a larger increase in cases and deaths (up to 553 more cases and up to 36 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
-* The number of active severe cases requiring hospitalization is projected to stand at 102 - 134 assuming NPIS are maintained (see section 3).
+* In 4 weeks, we project that an additional 5,928 - 7,283 cases and 894 - 1062 deaths will be reported if current NPIs are maintained.
+* Lifting the NPIs would lead to a larger increase in cases and deaths (up to 2771 more cases and up to 103 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* The number of active severe cases requiring hospitalization is projected to stand at 2054 - 2715 assuming NPIS are maintained (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* In two weeks incidence across the country is projected to be stable although we note an increasing trend in daily new cases in Khartoum (see section 4).
+* In two weeks incidence across the country is projected to be stable or to increase with Khartoum, River Nile and White Nile showing the largest increases.
+* We note a highly concerning projected incidence in Khartoum (see section 4).
 "
 
 ```

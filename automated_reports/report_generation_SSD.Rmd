@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-10-14'      
+  assignment_date: '2020-12-02'      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -51,21 +51,20 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 3,012 cases and 59 deaths have been reported with the current number of daily new cases standing at 7.43 (7-day average). This rate has increased since our last update.
-* The number of active severe cases requiring hospitalization is estimated at 6 - 7 based on available data.
+* Per the WHO, a total of 3,109 cases and 61 deaths have been reported with the current number of daily new cases standing at 8.86 (7-day average). This rate has increased since our last update.
+* The number of active severe cases requiring hospitalization is estimated at 9 - 14 based on available data.
 * Cases had a peak of cases around June.
 * We note the following measures as currently in place: restrictions on inter-regional movement (25% compliance), social distancing (25% compliance), and limits on public gatherings (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
-* According to the data reported by the WHO and the MOPH as well as estimates including non-reported cases, the country is on track for containment of COVID-19 (see section 2 for detail).
+* According to the data reported by the WHO and the MOPH as well as estimates including non-reported cases, the country is on track for containment of COVID-19 except in Central Equatoria (see section 2 for detail).
 * We also note concerning data gaps and data quality issues that limit visibility into the current situation and affect the ability to make projections.
 * In the past 4 weeks, the WHO has reported more cases and deaths than the MOPH.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks and based on the available data, we project that an additional 97 - 121 cases and 4 - 5 deaths will be reported if current NPIs are maintained.
-* The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to decline if NPIs are maintained and to start climbing if NPIs are lifted.
-* Lifting the NPIs would lead to a larger number of cases being added (up to 209 more cases and up to 4 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
-* The number of active severe cases requiring hospitalization is projected to be at 3 - 5 and up to 14 if NPIs are lifted (see section 3).
+* In 4 weeks and based on the available data, we project that an additional 40 - 64 cases and 2 deaths will be reported if current NPIs are maintained.
+* Lifting the NPIs would lead to a larger number of cases being added (up to 133 more cases and up to 2 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
+* The number of active severe cases requiring hospitalization is projected to reach 6 - 9 and up to 32 if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "

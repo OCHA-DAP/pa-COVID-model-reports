@@ -4,15 +4,18 @@ country_files <- c('report_generation_AFG.Rmd',
                 #   'report_generation_COD.Rmd',
                    'report_generation_IRQ.Rmd',
                    'report_generation_SDN.Rmd',
-                   'report_generation_SOM.Rmd',
+               #    'report_generation_SOM.Rmd',
                    'report_generation_SSD.Rmd')
 
 #country_list <- c('Afghanistan', 'Democratic Republic of Congo', 'Iraq', 'Sudan', 'Somalia', "South Sudan")
-country_list <- c('Afghanistan', 'Iraq', 'Sudan', 'Somalia', "South Sudan")
+#country_list <- c('Afghanistan', 'Iraq', 'Sudan', 'Somalia', "South Sudan")
+country_list <- c('Afghanistan', 'Iraq', 'Sudan', "South Sudan")
 
 # assignment_date should be Wednesday's date
+assignment_date <- "2020-12-02"
+
 for (i in 1:length(country_files)) rmarkdown::render(country_files[i],
-                                           params = list(assignment_date = "2020-11-16"), 
+                                           params = list(assignment_date = assignment_date), 
                                            output_file = paste0(country_list[i], " ", assignment_date, ".pdf"),
                                            )
 
