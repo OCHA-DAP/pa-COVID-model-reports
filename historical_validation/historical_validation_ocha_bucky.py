@@ -1,7 +1,7 @@
 import os
-dir_path = os.path.dirname(os.path.realpath('__file__'))
+DIR_PATH = os.path.dirname(os.path.realpath('__file__'))
 import sys
-sys.path.insert(0, dir_path)
+sys.path.insert(0, DIR_PATH)
 from datetime import datetime
 from utils import *
 import pandas as pd
@@ -18,18 +18,18 @@ NPI_COLOR='green'
 MIN_QUANTILE=0.25
 MAX_QUANTILE=0.75
 
-download_bucky_csv=True
-download_WHO_csv=True
+download_bucky_csv=False
+download_WHO_csv=False
 
 TODAY = datetime.today().date()
 EARLIEST_DATE = datetime.strptime('2020-07-01', '%Y-%m-%d').date()
 
 
-def download_bucky_results(dir_path,country_iso3,github_repo):
-    data_folder=f'{dir_path}/historical_validation/data/{country_iso3}'
+def download_bucky_results(DIR_PATH,country_iso3,github_repo):
+    data_folder=f'{DIR_PATH}/historical_validation/data/{country_iso3}'
     log_file=f'{data_folder}/gitlog.txt'
     bucky_csv_file=f'Bucky_results/{country_iso3}_npi/adm0_quantiles.csv'
-    os.system(f'git log {dir_path}/{bucky_csv_file} > {log_file}')
+    os.system(f'git log {DIR_PATH}/{bucky_csv_file} > {log_file}')
     with open (log_file, 'rt') as myfile:  
         for myline in myfile:              
             if not 'commit' in myline: continue
@@ -53,7 +53,7 @@ def create_new_subplot(fig_title):
 
 def get_historical_bucky_collection(country_iso3,bucky_var):
 
-    data_folder=f'{dir_path}/historical_validation/data/{country_iso3}'
+    data_folder=f'{DIR_PATH}/historical_validation/data/{country_iso3}'
     bucky_collection={}
     for filename in os.listdir(data_folder):
         if filename.endswith(".csv"):
@@ -125,13 +125,13 @@ def draw_data_model_comparison_new(country_iso3,metric):
         axis.fill_between(bucky_npi.index,
                           bucky_npi['min'],
                           bucky_npi['max'],
-                          color=NPI_COLOR,alpha=0.2 
+                          color=NPI_COLOR,alpha=0.2)
 
 
 if __name__ == "__main__":
 
     if download_bucky_csv:
-        download_bucky_results(dir_path,country_iso3,github_repo)
+        download_bucky_results(DIR_PATH,country_iso3,github_repo)
     if download_who_covid_data:
         # Download latest covid file tiles and read them in
         download_who_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
