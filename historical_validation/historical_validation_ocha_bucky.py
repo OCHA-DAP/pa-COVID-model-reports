@@ -11,7 +11,7 @@ country_iso2='SS'
 github_repo='https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-reports'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
 WHO_DATA_COLOR='dodgerblue'
-download_csv=False
+download_csv=True
 
 TODAY = datetime.today().date()
 EARLIEST_DATE = datetime.strptime('2020-02-24', '%Y-%m-%d').date()
