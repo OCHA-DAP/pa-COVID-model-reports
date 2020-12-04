@@ -2,12 +2,12 @@ import os
 DIR_PATH = os.path.dirname(os.path.realpath('__file__'))
 import sys
 sys.path.insert(0, DIR_PATH)
-from datetime import datetime
+from datetime import datetime, timedelta
 from utils import *
 import pandas as pd
 
-country_iso3='AFG'
-country_iso2='AF'
+country_iso3='SSD'
+country_iso2='SS'
 github_repo='https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-reports'
 WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
@@ -18,7 +18,7 @@ NPI_COLOR='green'
 MIN_QUANTILE=0.25
 MAX_QUANTILE=0.75
 
-download_bucky_csv=False
+download_bucky_csv=True
 download_WHO_csv=False
 
 TODAY = datetime.today().date()
@@ -30,11 +30,30 @@ def download_bucky_results(DIR_PATH,country_iso3,github_repo):
     log_file=f'{data_folder}/gitlog.txt'
     bucky_csv_file=f'Bucky_results/{country_iso3}_npi/adm0_quantiles.csv'
     os.system(f'git log {DIR_PATH}/{bucky_csv_file} > {log_file}')
+    commit_ids=list()
+    dates=list()
     with open (log_file, 'rt') as myfile:  
-        for myline in myfile:              
-            if not 'commit' in myline: continue
-            commit_id = myline.split(' ')[1].replace('\n','')
-            os.system(f'wget -O {data_folder}/adm0_quantiles_{commit_id}.csv {github_repo}/{commit_id}/{bucky_csv_file}')
+        for myline in myfile:
+            if 'commit' in myline:
+                commit_ids.append(myline.split(' ')[1].replace('\n',''))
+            if 'Date' in myline:
+                dates.append(myline.split('   ')[1].replace('\n',''))
+    dates=pd.to_datetime(dates)
+    date_diffs=[abs(t - s).total_seconds()/3600 for s, t in zip(dates, dates[1:])]
+    date_diffs.insert(0,0)
+    # for i,datediff in date_diffs:
+        # if(datediff>timedelta(hours=120)):
+            # commit_ids.()
+    print(dates)
+    print(date_diffs)
+    print(len(date_diffs))
+    # print(len(dates))
+    print(dates)
+    # for date in dates:
+        # print(date)
+    # print(commit_ids)
+    # print(dates)
+            # os.system(f'wget -O {data_folder}/adm0_quantiles_{commit_id}.csv {github_repo}/{commit_id}/{bucky_csv_file}')
 
 def create_new_subplot(fig_title):
     fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
@@ -132,16 +151,16 @@ if __name__ == "__main__":
 
     if download_bucky_csv:
         download_bucky_results(DIR_PATH,country_iso3,github_repo)
-    if download_who_covid_data:
-        # Download latest covid file tiles and read them in
-        download_who_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
+    # if download_who_covid_data:
+    #     # Download latest covid file tiles and read them in
+    #     download_who_covid_data(WHO_COVID_URL,f'{DIR_PATH}/{WHO_COVID_FILENAME}')
 
-    # draw_data_model_comparison_new(country_iso3,'daily_reported_cases')
+    # # draw_data_model_comparison_new(country_iso3,'daily_reported_cases')
     # draw_data_model_comparison_new(country_iso3,'cumulative_reported_cases')
-    # draw_data_model_comparison_new(country_iso3,'daily_deaths')
-    draw_data_model_comparison_new(country_iso3,'cumulative_deaths')
-    # plt.legend()
-    plt.show()
+    # # draw_data_model_comparison_new(country_iso3,'daily_deaths')
+    # # draw_data_model_comparison_new(country_iso3,'cumulative_deaths')
+    # # plt.legend()
+    # plt.show()
 
 
     
