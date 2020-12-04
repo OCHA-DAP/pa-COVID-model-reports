@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-12-02'      
+  assignment_date: '2020-12-03'      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -51,17 +51,17 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 554,767 cases and 12,306 deaths have been reported with the current number of daily new cases standing at 2,145 (7-day average).
-* The current number of active severe cases requiring hospitalization is estimated at 1,924 - 2,647.
+* Per the WHO, a total of 556,728 cases and 12,340 deaths have been reported with the current number of daily new cases standing at 2,077 (7-day average).
+* The current number of active severe cases requiring hospitalization is estimated at 2,545 - 3,389.
 * Progress towards containment is insufficient: the entire country is seeing Community or Accelerated Spread (yellow or orange risk levels), or are at a Tipping Point. More intense control efforts are critically needed (see section 2).
 * We note that mitigation measures currently in place include an awareness campaign, face mask wearing (50% compliance) and limits on public gatherings (50% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 70,080 - 87,078 cases and 770 - 941 deaths will be reported if current NPIs are maintained.
-* Lifting the NPIs would lead to a sharp increase in cases and deaths (up to 177,321 more cases and up to 842 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
-* Active severe cases requiring healthcare are projected to increase by an additional 5,290 - 6,852 (see section 3) assuming NPIs are maintained.
+* In 4 weeks, we project that an additional 71,577 - 89,860 cases and 802 - 982 deaths will be reported if current NPIs are maintained.
+* Lifting the NPIs would lead to a sharp increase in cases and deaths (up to 194,906 more cases and up to 929 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* Active severe cases requiring healthcare are projected to increase by an additional 4,716 - 6,275 (see section 3) assuming NPIs are maintained.
 "
 
 key_messages_subnational_projections <- "
