@@ -395,8 +395,6 @@ x %>%
 \footnotesize
 
 \begin{center}
-Case Reporting Rate: `r crr`\%      |      Case Fatality Rate: `r cfr`\%
-
 "Daily new cases" in this table is the average over the last 7 days.
 
 Most recent data from MOPH: `r latest_moph_datapoint_date`
