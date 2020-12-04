@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-12-03'      
+  assignment_date: ''      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -69,8 +69,8 @@ key_messages_national_projections <- "
 
 key_messages_subnational_projections <- "
 * In two weeks, the country is projected to continue to see high incidence in most of the country according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
-* Assuming NPIs remain in place, Nangarhar, Hirat, Jawzjan, Samangan, Sar-e-Pul, Khost, Kunar are projected to see an increase in their ratio of daily new cases per 100,000 people.
-* Despite a slightly lower incidence, most regions will still be facing community or accelerated spread (yellow and orange risk levels) while Kandahar, Takhar, and Nimroz are projected to still be at tipping points, the highest level of risk. 
+* Assuming NPIs remain in place, Nangarhar, Hirat, Jawzjan, Samangan, Sar-e-Pul, Kabul, Khost, Kunar are projected to see an increase in their ratio of daily new cases per 100,000 people.
+* Despite a slightly lower incidence, most regions will still be facing community or accelerated spread (yellow and orange risk levels) while Kandahar, Takhar, and Nimroz are projected to remain at tipping points, the highest level of risk. 
 * Strategies for containment should be intensified to mitigate spread. 
 "
 ```
