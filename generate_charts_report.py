@@ -382,7 +382,7 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     #plot the history and projection of the metric, including uncertainty intervals
     fig,axis=create_new_subplot(fig_title)
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
-    plt.legend()
+    plt.legend(loc='upper left', prop={'size': 8})
     print(f'----{metric} statistics')
     #bucky_no_npi and bucky_npi are initialized with the same numbers, so doesn't matter which is being used for displaying the current situation
     metric_tomorrow_min=round(bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[TOMORROW,bucky_var]).astype(int)
@@ -490,7 +490,7 @@ def draw_data_model_comparison_cumulative(country_iso3,subnational_covid,who_cov
     # draw bucky projections and uncertainty intervals
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
 
-    plt.legend()
+    plt.legend(loc='upper left', prop={'size': 8})
     fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
 
 def draw_data_model_comparison_cumulative_lifetime(country_iso3,subnational_covid,who_covid,bucky_npi,bucky_no_npi,parameters,metric):
@@ -574,7 +574,7 @@ def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi
     # draw bucky
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
 
-    plt.legend()
+    plt.legend(loc='upper left', prop={'size': 8})
     fig.savefig(f'Outputs/{country_iso3}/current_{metric}.png')
 
 def draw_data_model_comparison_new_lifetime(country_iso3,who_covid,bucky_npi,bucky_no_npi,metric):
