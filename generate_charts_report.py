@@ -15,7 +15,9 @@ ASSESSMENT_DATE='2020-12-03' # Wednesday's date
 #today is the last date to retrieve historical data for
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 #tomorrow is the first date to use to calculate numbers on the projections, i.e. bucky output
-#we don't use today for this, since if the first date of the bucky results=TODAY, using TODAY instead of TOMORROW for the projection numbers will give incorrect results
+#The first date of the bucky results, is used as initialization and thus those numbers are not reliable.
+# Hence, if first date of bucky results=TODAY, then using TODAY as start date of the projections would produce incorrect numbers.
+# To circumvent that we always use TOMORROW as start date of the projections
 TOMORROW = TODAY+timedelta(days=1)
 FOUR_WEEKS = TOMORROW + timedelta(days=28)
 TWO_WEEKS = TOMORROW + timedelta(days=14)
