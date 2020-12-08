@@ -39,16 +39,20 @@ def download_bucky_results(DIR_PATH,country_iso3,github_repo):
             if 'Date' in myline:
                 dates.append(myline.split('   ')[1].replace('\n',''))
     dates=pd.to_datetime(dates)
-    date_diffs=[abs(t - s).total_seconds()/3600 for s, t in zip(dates, dates[1:])]
-    date_diffs.insert(0,0)
-    # for i,datediff in date_diffs:
-        # if(datediff>timedelta(hours=120)):
-            # commit_ids.()
+    hour_diffs=[abs(t - s).total_seconds()/3600 for s, t in zip(dates, dates[1:])]
+    # we always want to select the latest commit (position 0)
+    hour_diffs.insert(0,1000)
+    # at least 5 days (120 hours) from the following commit
+    commit_ids_download=[[commit_id] for commit_id,hour_diff in zip(commit_ids, hour_diffs) if hour_diff>=120]
+    print(commit_ids)
+    print(hour_diffs)
     print(dates)
-    print(date_diffs)
-    print(len(date_diffs))
+    print(commit_ids_download)
+    # print(dates)
+    # print(date_diffs)
+    # print(len(date_diffs))
     # print(len(dates))
-    print(dates)
+    # print(dates)
     # for date in dates:
         # print(date)
     # print(commit_ids)
