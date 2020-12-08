@@ -1,0 +1,101 @@
+commit 6025498b85212ba5025391bb78e4051598801bbc
+Author: Tinkaa <tinkavalentijn@gmail.com>
+Date:   Wed Dec 2 14:22:46 2020 +0000
+
+    Bucky results 02-12-2020
+
+commit b718f26b702679344e9a52c794abbd8884bc3f2a
+Author: Tinkaa <tinkavalentijn@gmail.com>
+Date:   Mon Nov 16 16:20:50 2020 +0000
+
+    Update Bucky results 16-11
+
+commit 862bc4ee3340793720de378980cbf043c04e919b
+Author: Tinkaa <tinkavalentijn@gmail.com>
+Date:   Thu Nov 12 16:25:15 2020 +0000
+
+    Update 11-11 with fix bucky code
+
+commit 47e6ca00fe250c6c17b3ab181e5491f7bf5a14d1
+Author: Tinkaa <tinkavalentijn@gmail.com>
+Date:   Thu Nov 12 08:36:06 2020 +0000
+
+    Bucky results 11-11-2020
+
+commit e99971df8f548ebc94eae342f50476b75094ccc7
+Author: Tinkaa <tinkavalentijn@gmail.com>
+Date:   Wed Oct 28 14:49:04 2020 +0000
+
+    Outputs 27-10 COD SDN SOM SSD
+
+commit 8ab4b3a38cafe0f039284c405794d0806097add9
+Author: Tinkaa <tinkavalentijn@gmail.com>
+Date:   Tue Oct 27 10:09:07 2020 +0000
+
+    Bucky results for 26 oct 2020
+
+commit 9714d789ff0bc3921612172e686122b78a7caecb
+Author: Josee Poirier <josee.poirier@un.org>
+Date:   Fri Oct 16 09:43:41 2020 -0400
+
+    bucky results 14 oct debugged and rerun
+
+commit b020ab76b01346351b2418d0aca15ea3e6ec0946
+Author: Josee Poirier <josee.poirier@un.org>
+Date:   Thu Oct 15 10:45:33 2020 -0400
+
+    bucky results for 14 oct 2020
+
+commit cb2ae25eda25eaf0ef679ac6bac10a42fc7a9ef0
+Author: Josee Poirier <josee.poirier@un.org>
+Date:   Thu Oct 8 12:00:19 2020 -0400
+
+    bucky results 7 oct 2020
+
+commit b7ec577c4c772f328f131b9eb30e5ed145c5f43e
+Author: Leonardo Milano <milanoleonardo@yahoo.it>
+Date:   Thu Sep 24 10:29:01 2020 +0200
+
+    new results as of 23 Sept
+
+commit b2faaeb565cd27fa77b60314f10506429024a650
+Author: Josee Poirier <josee.poirier@un.org>
+Date:   Thu Sep 10 07:07:40 2020 -0400
+
+    bucky results of 9 sept
+
+commit 6d53f05b707293c44a5c6c6b897b36b7a01a863e
+Author: Leonardo Milano <milanoleonardo@yahoo.it>
+Date:   Wed Aug 26 22:11:13 2020 +0200
+
+    updated results as of 26 Aug
+
+commit 7e20eed02b4ae7b1809003a1e8f508be409aa174
+Author: Leonardo Milano <milanoleonardo@yahoo.it>
+Date:   Thu Aug 13 09:54:51 2020 +0200
+
+    new outputs from Bucky + updated WHO link and field names
+
+commit a53a5696d9e26f1b38194c8fa31a1a8591b2d0df
+Author: Leonardo Milano <milanoleonardo@yahoo.it>
+Date:   Thu Jul 30 08:41:00 2020 +0200
+
+    new Bucky results from 29 Jul
+
+commit 53e6aa1f82358b71ef22de5f6ca1ca3c441a8f7a
+Author: Leonardo Milano <milanoleonardo@yahoo.it>
+Date:   Fri Jul 17 23:05:09 2020 +0200
+
+    updates results
+
+commit 5bd153f09bd22ce2aa2c78b721020bd7393cd5c2
+Author: Leonardo Milano <milanoleonardo@yahoo.it>
+Date:   Fri Jul 17 16:32:23 2020 +0200
+
+    updated results from APL
+
+commit 968c92c9e7e747192fefa401a71b43d1633abcb5
+Author: Leonardo Milano <milanoleonardo@yahoo.it>
+Date:   Tue Jul 14 14:29:34 2020 +0200
+
+    adding all files for the countries

@@ -13,8 +13,14 @@ from matplotlib import cm
 # country_iso2='SS'
 # country_iso3='AFG'
 # country_iso2='AF'
-country_iso3='SOM'
-country_iso2='SO'
+# country_iso3='SOM'
+# country_iso2='SO'
+# country_iso3='COD'
+# country_iso2='CD'
+# country_iso3='SDN'
+# country_iso2='SD'
+country_iso3='IRQ'
+country_iso2='IQ'
 
 CONFIG_FILE = 'config.yml'
 WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
@@ -36,9 +42,6 @@ GITHUB_REPO='https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-reports'
 BUCKY_CSV_FILE=f'Bucky_results/{country_iso3}_npi/adm0_quantiles.csv'
 DATA_FOLDER=f'{DIR_PATH}/historical_validation/data/{country_iso3}'
 GIT_LOGFILE=f'{DATA_FOLDER}/gitlog.txt'
-
-# def save_git_log_file():
-
 
 def get_list_of_commits():
     os.system(f'git log {DIR_PATH}/{BUCKY_CSV_FILE} > {GIT_LOGFILE}')
