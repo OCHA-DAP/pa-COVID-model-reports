@@ -43,21 +43,9 @@ def download_bucky_results(DIR_PATH,country_iso3,github_repo):
     # we always want to select the latest commit (position 0)
     hour_diffs.insert(0,1000)
     # at least 5 days (120 hours) from the following commit
-    commit_ids_download=[[commit_id] for commit_id,hour_diff in zip(commit_ids, hour_diffs) if hour_diff>=120]
-    print(commit_ids)
-    print(hour_diffs)
-    print(dates)
-    print(commit_ids_download)
-    # print(dates)
-    # print(date_diffs)
-    # print(len(date_diffs))
-    # print(len(dates))
-    # print(dates)
-    # for date in dates:
-        # print(date)
-    # print(commit_ids)
-    # print(dates)
-            # os.system(f'wget -O {data_folder}/adm0_quantiles_{commit_id}.csv {github_repo}/{commit_id}/{bucky_csv_file}')
+    commit_ids_download=[commit_id for commit_id,hour_diff in zip(commit_ids, hour_diffs) if hour_diff>=120]
+    for commit_id in commit_ids_download:
+        os.system(f'wget -O {data_folder}/adm0_quantiles_{commit_id}.csv {github_repo}/{commit_id}/{bucky_csv_file}')
 
 def create_new_subplot(fig_title):
     fig,axis=plt.subplots(figsize=(FIG_SIZE[0],FIG_SIZE[1]))
