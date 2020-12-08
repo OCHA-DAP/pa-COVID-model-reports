@@ -6,8 +6,10 @@ from datetime import datetime, timedelta
 from utils import *
 import pandas as pd
 
-country_iso3='SSD'
-country_iso2='SS'
+# country_iso3='SSD'
+# country_iso2='SS'
+country_iso3='AFG'
+country_iso2='AF'
 github_repo='https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-reports'
 WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
