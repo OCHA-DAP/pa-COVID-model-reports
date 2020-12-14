@@ -11,32 +11,33 @@ from matplotlib import cm
 
 # country_iso3='SSD'
 # country_iso2='SS'
-# country_iso3='AFG'
-# country_iso2='AF'
+country_iso3='AFG'
+country_iso2='AF'
 # country_iso3='SOM'
 # country_iso2='SO'
 # country_iso3='COD'
 # country_iso2='CD'
 # country_iso3='SDN'
 # country_iso2='SD'
-country_iso3='IRQ'
-country_iso2='IQ'
+# country_iso3='IRQ'
+# country_iso2='IQ'
+
+download_bucky_csv=0
+download_WHO_csv=0
+
+TODAY = datetime.today().date()
+EARLIEST_DATE = datetime.strptime('2020-06-01', '%Y-%m-%d').date()
 
 CONFIG_FILE = 'config.yml'
 WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
 WHO_DATA_COLOR='dodgerblue'
-NPI_COLOR='green'
+# NPI_COLOR='green'
 SUBNATIONAL_DATA_COLOR='navy'
 #these are the quantile values to consider for min and max projected numbers
 MIN_QUANTILE=0.05
 MAX_QUANTILE=0.95
 
-download_bucky_csv=True
-download_WHO_csv=False
-
-TODAY = datetime.today().date()
-EARLIEST_DATE = datetime.strptime('2020-07-29', '%Y-%m-%d').date()
 
 GITHUB_REPO='https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-reports'
 BUCKY_CSV_FILE=f'Bucky_results/{country_iso3}_npi/adm0_quantiles.csv'
@@ -105,6 +106,8 @@ def get_historical_bucky_collection(country_iso3,bucky_var):
             'max':df[df[quantile]==MAX_QUANTILE][bucky_metric],
         })
         out_df.index = pd.to_datetime(out_df.index)
+        # the first date of the simulation should be removed, as it is an adjustment of the model
+        out_df = out_df.iloc[1:]
         # finally remove all projections before EARLIEST_DATE
         if min(out_df.index) < EARLIEST_DATE:
             continue
@@ -142,9 +145,21 @@ def draw_data_model_comparison_new(country_iso3,metric):
     bucky_npi_collection=get_historical_bucky_collection(country_iso3,bucky_var)
 
     fig,axis=create_new_subplot(fig_title)
+
+    evenly_spaced_interval = np.linspace(0, 1, len(bucky_npi_collection))
+    colors = [cm.viridis(x) for x in evenly_spaced_interval]
+
+    for icolor,(_, bucky_npi) in enumerate(bucky_npi_collection.items()):
+        bucky_npi=bucky_npi[bucky_npi['med']>0]
+        bucky_npi['med'].plot(c=colors[icolor],ax=axis,label='_nolegend_',lw=5, zorder=0)
+        axis.fill_between(bucky_npi.index,
+                          bucky_npi['min'],
+                          bucky_npi['max'],
+                          color=colors[icolor],
+                          alpha=0.4)
+
     # draw reported data by who
     if 'daily' in metric:
-
         axis.bar(who_covid.index, who_covid[who_var],alpha=0.8,color=WHO_DATA_COLOR,label='WHO')
         # compute rolling 7-day average
         who_covid_rolling = who_covid[who_var].rolling(window=7).mean()
@@ -155,24 +170,27 @@ def draw_data_model_comparison_new(country_iso3,metric):
         axis.scatter(who_covid.index, who_covid[who_var],
                      alpha=0.8, s=20,c=WHO_DATA_COLOR,marker='*',label='WHO')
 
-    evenly_spaced_interval = np.linspace(0, 1, len(bucky_npi_collection))
-    colors = [cm.viridis(x) for x in evenly_spaced_interval]
-
-    for icolor,(_, bucky_npi) in enumerate(bucky_npi_collection.items()):
-        bucky_npi=bucky_npi[bucky_npi['med']>0]
-        bucky_npi['med'].plot(c=colors[icolor],ax=axis,label='_nolegend_')
-        axis.fill_between(bucky_npi.index,
-                          bucky_npi['min'],
-                          bucky_npi['max'],
-                          color=colors[icolor],
-                          alpha=0.2)
+    axis.set_xlim(EARLIEST_DATE,TODAY)
     if 'daily' in metric:
+        axis.add_artist(plt.legend(title='COVID-19 data',loc='upper left',ncol=2))
+        axis.add_artist(get_bucky_legend(colors,location='upper right'))
+        fig.savefig(f'{DATA_FOLDER}/{country_iso3}_{metric}.png')
         return
     # draw subnational reported numbers
     axis.scatter(subnational_covid.index, subnational_covid[subnational_var],\
                      alpha=0.8, s=20,c=SUBNATIONAL_DATA_COLOR,marker='o',label='MoPH')
+
+    axis.add_artist(plt.legend(title='COVID-19 data',loc='upper left',ncol=2))
+    axis.add_artist(get_bucky_legend(colors,location='lower right'))
+    fig.savefig(f'{DATA_FOLDER}/{country_iso3}_{metric}.png')
     return
-    
+
+def get_bucky_legend(colors,location):
+    from matplotlib.lines import Line2D
+    custom_lines = [Line2D([0], [0], color=colors[0], lw=4),
+                    Line2D([0], [0], color=colors[-1], lw=4)]
+    return plt.legend(custom_lines, ['Recent','Past'],title='OCHA-Bucky projections',loc=location,ncol=2)
+
 
 if __name__ == "__main__":
 
@@ -187,7 +205,6 @@ if __name__ == "__main__":
     draw_data_model_comparison_new(country_iso3,'cumulative_reported_cases')
     draw_data_model_comparison_new(country_iso3,'daily_deaths')
     draw_data_model_comparison_new(country_iso3,'cumulative_deaths')
-    plt.legend()
     plt.show()
 
 
