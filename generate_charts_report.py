@@ -175,14 +175,15 @@ def generate_key_figures(country_iso3,parameters):
     #all the numbers of WHO are reported numbers
     who_covid=get_who(WHO_COVID_FILENAME,parameters['iso2_code'],min_date=LAST_TWO_MONTHS,max_date=TODAY)
     who_covid.index = pd.to_datetime(who_covid.index)
-    who_deaths_today=who_covid.loc[TODAY,'Cumulative_deaths']
-    who_cases_today=who_covid.loc[TODAY,'Cumulative_cases']
+    who_lastdate=who_covid.index[-1]
+    who_deaths_latest=who_covid.loc[who_lastdate,'Cumulative_deaths']
+    who_cases_latest=who_covid.loc[who_lastdate,'Cumulative_cases']
     #CFR= Case Fatality Rate
-    CFR=who_deaths_today/who_cases_today*100
+    CFR=who_deaths_latest/who_cases_latest*100
     print(
-        f'Current situation WHO {TODAY}: {who_cases_today:.0f} cumulative reported cases, {who_deaths_today:.0f} cumulative reported deaths')
+        f'Current situation WHO {who_lastdate}: {who_cases_latest:.0f} cumulative reported cases, {who_deaths_latest:.0f} cumulative reported deaths')
     # computed over cumulative cases
-    print(f'CFR from WHO based on cumulative cases up to {TODAY}: {CFR:.1f}')
+    print(f'CFR from WHO based on cumulative cases up to {who_lastdate}: {CFR:.1f}')
 
     # this is the data reported by the Ministry of Public Health (MPHO) and is available on subnational level
     # all the numbers of MPHO are reported numbers
@@ -201,17 +202,19 @@ def generate_key_figures(country_iso3,parameters):
     bucky_npi_cases_tomorrow = round(bucky_npi[bucky_npi['quantile'] == 0.5].loc[TOMORROW, 'cumulative_reported_cases']).astype(int)
     bucky_npi_cases_tomorrow_notrep = round(bucky_npi[bucky_npi['quantile'] == 0.5].loc[TOMORROW, 'cumulative_cases']).astype(int)
     bucky_npi_deaths_tomorrow = round(bucky_npi[bucky_npi['quantile'] == 0.5].loc[TOMORROW, 'cumulative_deaths']).astype(int)
+    bucky_npi_daily_deaths_tomorrow = round(bucky_npi[bucky_npi['quantile'] == 0.5].loc[TOMORROW, 'daily_deaths']).astype(int)
     reporting_rate = bucky_npi['case_reporting_rate'].mean() * 100
     print(
         f'Current situation Bucky {TOMORROW}: {bucky_npi_cases_tomorrow:.0f} cumulative reported cases, {bucky_npi_deaths_tomorrow:.0f} cumulative reported deaths')
     print(f'Current situation Bucky {TOMORROW}: {bucky_npi_cases_tomorrow_notrep:.0f} cumulative estimated total cases')
+    print(f'Current situation Bucky {TOMORROW}: {bucky_npi_daily_deaths_tomorrow:.0f} daily deaths')
     print(f'- ESTIMATED CASE REPORTING RATE {reporting_rate:.0f}%')
 
     #calculate average over 7 last 7 days for the WHO data (MPHO data is too sparse to compute this on)
     #select the last week and use rolling, which returns nan if less than min_periods datapoints
-    who_covid_mean = who_covid.loc[TODAY-timedelta(days=6):TODAY,['New_cases','New_deaths']].rolling(window=7,min_periods=4).mean()
-    who_covid_newcases_avg_week = who_covid_mean.loc[TODAY,'New_cases']
-    who_covid_newdeaths_avg_week = who_covid_mean.loc[TODAY,'New_deaths']
+    who_covid_mean = who_covid.loc[who_lastdate-timedelta(days=6):who_lastdate,['New_cases','New_deaths']].rolling(window=7,min_periods=4).mean()
+    who_covid_newcases_avg_week = who_covid_mean.loc[who_lastdate,'New_cases']
+    who_covid_newdeaths_avg_week = who_covid_mean.loc[who_lastdate,'New_deaths']
     print(f'Average new daily cases of the last 7 days from WHO: {who_covid_newcases_avg_week:.2f}')
     print(f'Average new daily deaths of the last 7 days from WHO: {who_covid_newdeaths_avg_week:.2f}')
 
@@ -286,8 +289,8 @@ def generate_key_figures(country_iso3,parameters):
     no_npi_max_increase_deaths = max_deaths_no_npi - min_deaths_npi
     print(f'Maximum number of extra cases if NPIs are lifted: {no_npi_max_increase_cases:.0f}')
     print(f'Maximum number of extra deaths if NPIs are lifted: {no_npi_max_increase_deaths:.0f}')
-    dict_metrics={'Current situation - WHO cases today': who_cases_today,
-                  'Current situation - WHO deaths today': who_deaths_today,
+    dict_metrics={'Current situation - WHO cases most recent': who_cases_latest,
+                  'Current situation - WHO deaths most recent': who_deaths_latest,
                     'CFR':CFR,
                     #currently not in use in the report
                     # 'Weekly new cases wrt last week - trend':trend_w_cases,
