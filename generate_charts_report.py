@@ -11,7 +11,7 @@ from utils import *
 
 country_iso_3 = sys.argv[1]
 
-ASSESSMENT_DATE='2020-12-03' # Wednesday's date
+ASSESSMENT_DATE='2020-12-15' # Wednesday's date
 #today is the last date to retrieve historical data for
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 #tomorrow is the first date to use to calculate numbers on the projections, i.e. bucky output
