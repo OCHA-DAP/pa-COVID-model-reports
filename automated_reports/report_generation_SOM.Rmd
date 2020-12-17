@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-10-14'      
+  assignment_date: ''      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -51,25 +51,25 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 4,301 cases and 107 deaths have been reported to date with the current number of daily new cases standing at 10 (7-day average). 
-* The number of active severe cases requiring hospitalization is estimated at 45 - 52.
+* Per the WHO, a total of 4,525 cases and 121 deaths have been reported to date with the current number of daily new cases standing at 11.4 (7-day average). 
+* The number of active severe cases requiring hospitalization is estimated at 4 - 8.
 * Cases saw a peak in cases in May-June.
 * We note the following measures as currently in place: limits on public gatherings (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
-* Based on the reports from the WHO and MOPH, the country is on track for containment except in: Bari and Nugaal (see section 2).
+* Based on the reports from the WHO and MOPH, the country is on track for containment (see section 2).
 * The data reported by the authorities suffers from severe gaps and displays significant variation from day-to-day. This might reflect challenges in data collection and/or batching where multiple days' worth of data are reported at once. For these reasons it is difficult to assess the stability of trends.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 942 - 1,302 cases and 29 - 36 deaths will be reported if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases in particular (up to 1,050 more cases and up to 16 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
+* In 4 weeks, we project that an additional 212 - 245 cases and 3 - 4 deaths will be reported if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases in particular (up to 98 more cases; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
 * The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to continue to decline if NPIs are maintained and to start climbing if NPIs are lifted. 
-* The number of active severe cases requiring hospitalization is projected to reach 38 - 54 if NPIs are maintained (see section 3).
+* The number of active severe cases requiring hospitalization is projected to reach 25 - 32 if NPIs are maintained (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* In two weeks the country is projected to stay stable in terms of risk levels (green across the country except for Nugaal and Bari; see section 4) assuming current NPIs are maintained. We reiterate that lifting NPIs would likely cause a jump in cases and may result in regions falling into higher risk levels.
-* Incidence, the number of daily new cases per 100,000 people, is expected to increase in Lower Shabelle, Middle Shabelle, and Banadir assuming all current NPIs are maintained (see section 4).
+* In two weeks the country is projected to stay stable in terms of risk levels (green across the country; see section 4) assuming current NPIs are maintained. We reiterate that lifting NPIs would likely cause a jump in cases and may result in regions falling into higher risk levels.
+* Incidence, the number of daily new cases per 100,000 people, is expected to slightly increase in Lower Shabelle and Middle Shabelle assuming all current NPIs are maintained. All other regions are expected to stay stable or see their incdence decrease (see section 4).
 "
 ```
 
@@ -393,8 +393,6 @@ x %>%
 \footnotesize
 
 \begin{center}
-Case Reporting Rate: `r crr`\%      |      Case Fatality Rate: `r cfr`\%
-
 "Daily new cases" in this table is the average over the last 7 days.
 
 Most recent data from MOPH: `r latest_moph_datapoint_date`

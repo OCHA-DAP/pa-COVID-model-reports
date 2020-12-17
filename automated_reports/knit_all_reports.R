@@ -1,24 +1,38 @@
-library('rmarkdown')
+library(rmarkdown)
+library(webshot)
 
 country_files <- c('report_generation_AFG.Rmd',
-                #   'report_generation_COD.Rmd',
+                   'report_generation_COD.Rmd',
                    'report_generation_IRQ.Rmd',
                    'report_generation_SDN.Rmd',
                    'report_generation_SOM.Rmd',
                    'report_generation_SSD.Rmd')
 
-#country_list <- c('Afghanistan', 'Democratic Republic of Congo', 'Iraq', 'Sudan', 'Somalia', "South Sudan")
-country_list <- c('Afghanistan', 'Iraq', 'Sudan', 'Somalia', "South Sudan")
+country_list <- c('Afghanistan', 'Democratic Republic of Congo', 'Iraq', 'Sudan', 'Somalia', "South Sudan")
+
+countries <- data.frame(country_files, country_list)
 
 # assignment_date should be Wednesday's date
-for (i in 1:length(country_files)) rmarkdown::render(country_files[i],
-                                           params = list(assignment_date = "2020-11-16"), 
-                                           output_file = paste0(country_list[i], " ", assignment_date, ".pdf"),
-                                           )
+assignment_date <- as.Date("2020-12-15")
 
+# render each report using assignment_date
+for (country in countries$country_list) {
+  
+  rmarkdown::render(countries[which(countries$country_list==country), 'country_files'],
+                    params = list(assignment_date = assignment_date), 
+                    output_file = paste0(country, " ", assignment_date, ".pdf")
+  )
+}
+
+# move PDF and log files to archive folder
 filenames <- dir(".", pattern = "*.pdf", ignore.case = TRUE)
+logs <- dir(".", pattern = "*.log", ignore.case = TRUE)
   
 for (i in 1:length(filenames)) file.rename(from = filenames[i], to = paste0("archive/", filenames[i]))
+for (i in 1:length(logs)) file.rename(from = logs[i], to = paste0("archive/_logs/", logs[i]))
+
+
+
 
 ## Note from the author of rmarkdown regarding putting the output files in another directory:
 # For output_file, do not put it in a different directory; output_file = 'test.md' is good, and foo/test.md is bad;
