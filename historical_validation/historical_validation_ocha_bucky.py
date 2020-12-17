@@ -11,8 +11,8 @@ from matplotlib import cm
 iso3s=['SSD','AFG','SOM','COD','SDN','IRQ']
 iso2s=['SS', 'AF', 'SO', 'CD', 'SD', 'IQ']
 
-download_bucky_csv=0
-download_WHO_csv=0
+download_bucky_csv=1
+download_WHO_csv=1
 
 TODAY = datetime.today().date()
 EARLIEST_DATE = datetime.strptime('2020-06-01', '%Y-%m-%d').date()
