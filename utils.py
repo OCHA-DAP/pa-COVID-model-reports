@@ -67,7 +67,7 @@ def download_url(url, save_path, chunk_size=128):
 
 def download_who_covid_data(url, save_path):
     # download covid data from HDX
-    print(f'Getting upadated COVID data from WHO')
+    print(f'Getting updated COVID data from WHO')
     try:
         download_url(url, save_path)
 
@@ -172,11 +172,10 @@ def quality_check_allsources(country_iso3,parameters,who_filename,min_date,max_d
 
 def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     bucky_df=pd.read_csv(f'Bucky_results/{country_iso3}_{npi_filter}/{admin_level}_quantiles.csv')
+    #first date is used as an initalization date. This causes daily numbers to sometimes give odd values. The cumulative numbers should equal the last historical number of the subnational data
+    #we are removing the first date to be sure the data is clean and since the first date is not a projection yet, this doesn't remove valuable data
+    bucky_df=bucky_df[bucky_df['date']>bucky_df['date'].min()]
     bucky_df['date']=pd.to_datetime(bucky_df['date']).dt.date
-
-    #negative values might occur on startdate in the "daily columns" due to initalization of bucky (e.g. new_cases cannot be estimated on the first day of the simulation)
-    # we set these to nans since they are incorrect values
-    bucky_df.loc[bucky_df.date == bucky_df.date.min(),[c for c in bucky_df.columns if "daily" in c]]=np.nan
 
     bucky_df=bucky_df[(bucky_df['date']>=min_date) &
                         (bucky_df['date']<=max_date)]
@@ -199,8 +198,7 @@ def get_subnational_covid_data(parameters,aggregate,min_date,max_date):
     # get subnational from COVID parameterization repo
     subnational_covid=pd.read_csv(parameters['subnational_cases_url'])
     subnational_covid[HLX_TAG_DATE]=pd.to_datetime(subnational_covid[HLX_TAG_DATE]).dt.date
-    subnational_covid=subnational_covid[(subnational_covid[HLX_TAG_DATE]>=min_date) &\
-                                        (subnational_covid[HLX_TAG_DATE]<=max_date)]
+    subnational_covid=subnational_covid.sort_values(by=HLX_TAG_DATE)
     if aggregate:
         # date and adm2 are the unique keys
         dates=sorted(set(subnational_covid[HLX_TAG_DATE]))
@@ -214,6 +212,17 @@ def get_subnational_covid_data(parameters,aggregate,min_date,max_date):
         # sum by date
         subnational_covid=subnational_covid.groupby(HLX_TAG_DATE).sum()
 
+    #only select the subset of dates after aggregation
+    #else with forward filling of missing values, there is no good startdata which messes up the estimations
+    subnational_covid=subnational_covid.reset_index()
+    #during the aggregatoin this changes to a date instead of datetime object, so set it again to datetime
+    subnational_covid[HLX_TAG_DATE] = pd.to_datetime(subnational_covid[HLX_TAG_DATE]).dt.date
+    subnational_covid=subnational_covid[(subnational_covid[HLX_TAG_DATE]>=min_date) &\
+                                        (subnational_covid[HLX_TAG_DATE]<=max_date)]
+    subnational_covid=subnational_covid.set_index(HLX_TAG_DATE)
+
+    #TO DO: decide what to do with negative numbers
+    subnational_covid=quality_check_negative(subnational_covid,"subnational")
     return subnational_covid
 
 

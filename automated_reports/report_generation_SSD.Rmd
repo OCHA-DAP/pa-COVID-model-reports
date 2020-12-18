@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-10-14'      
+  assignment_date: ''     
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -51,22 +51,19 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 2,890 cases and 56 deaths have been reported with the current number of daily new cases standing at 6.14 (7-day average). This rate has decreased since our last update.
-* The number of active severe cases requiring hospitalization is estimated at 3 - 4 based on available data.
-* Cases had a peak of cases around June.
-* According to the data reported by the WHO and the MOPH as well as estimates including non-reported cases, the country is on track for containment of COVID-19 (see section 2 for detail).
-* We note the following measures as currently in place: restrictions on inter-regional movement (50% compliance), social distancing (50% compliance), school closures (100% compliance), and limits on public gatherings (50% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
-* We also note concerning data gaps and data quality issues that limit visibility into the current situation and affect
-the ability to make projections.
-* In the past 4 weeks, the WHO has reported more cases and deaths than the MOPH.
+* Per the WHO, a total of 3,206 cases and 62 deaths have been reported with the current number of daily new cases standing at 3.6 (7-day average). This rate has decreased since our last update.
+* The number of severe cases requiring hospitalization is estimated at 17 - 26 based on available data.
+* We note the following measures as currently in place: restrictions on inter-regional movement (25% compliance), social distancing (25% compliance), and limits on public gatherings (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
+* According to the data reported by the WHO and the MOPH as well as estimates inferring non-reported cases, the country is on track for containment of COVID-19 except in Central Equatoria (see section 2 for detail).
+* We also note concerning data gaps and data quality issues that limit visibility into the current situation and affect the ability to make projections.
+* Recently the WHO has reported more cases and deaths than the MOPH.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 31 - 52 cases and 4 - 6 deaths will be reported if current NPIs are maintained.
-* The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to continue to decline if NPIs are maintained and to start climbing if NPIs are lifted.
-* Lifting the NPIs would lead to a larger number of cases being added (up to 170 more cases and up to 9 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 8 weeks later.
-* The number of active severe cases requiring hospitalization is projected to be at 2 - 5 and up to 24 if NPIs are lifted (see section 3).
+* In 4 weeks and based on the available data, we project that an additional 20 - 52 cases and 0 - 2 deaths will be reported if current NPIs are maintained.
+* Lifting the NPIs would lead to a larger number of cases being added (up to 253 more cases and up to 4 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
+* The number of active severe cases requiring hospitalization is projected to decrease if NPIs are maintained and to increase by up to 16 if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
@@ -266,6 +263,8 @@ subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$daily_reported_cases_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_reported_cases_per_100k_abs_change), 2)
 subnational_projections$daily_reported_cases_per_100k_inTWOweeks <- round(subnational_projections$daily_reported_cases_per_100k_inTWOweeks, 3)
+subnational_projections$daily_cases_total_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_cases_total_per_100k_abs_change), 2)
+subnational_projections$daily_cases_total_per_100k_inTWOweeks <- round(subnational_projections$daily_cases_total_per_100k_inTWOweeks, 3)
 ```
 
 # `r paste(colorize('COVID-19 Projections:', 'centreGreen'), colorize(country, 'centreGreen'))`
@@ -302,14 +301,12 @@ This report leverages a framework to provide guidance in the interpretation of i
 
 The framework defines risk levels that indicate whether a region is on track for containment and can help decision-makers know where they are at the moment. The levels do not in themselves provide information about how to respond but do communicate the intensity of effort needed for control of COVID at varying levels of community spread. In addition to paying attention to the levels, decision-makers should pay close attention to direction of trend and rate of change (see section 4 for those metrics at the subnational level). 
 
-The maps below illustrate regional risk levels as defined by today's incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`).  On the left are the reported cases while on the right are the total cases as estimated from case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
+The map below illustrates regional risk levels as defined by estimated total incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`). Total cases are estimated from case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
 
-&nbsp;
-
-```{r current_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%"}
+```{r current_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%",  fig.align='center'}
 
 par(mar = c(4, 4, .1, .1))
-include_graphics(current_reported_incidence_risk_graph_path)
+#include_graphics(current_reported_incidence_risk_graph_path)
 include_graphics(current_total_incidence_risk_graph_path)
 ```
 
@@ -394,8 +391,6 @@ x %>%
 \footnotesize
 
 \begin{center}
-Case Reporting Rate: `r crr`\%      |      Case Fatality Rate: `r cfr`\%
-
 "Daily new cases" in this table is the average over the last 7 days.
 
 Most recent data from MOPH: `r latest_moph_datapoint_date`
@@ -482,7 +477,7 @@ x %>%
 
 [^5]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
-\normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
+\normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-4 weeks.
 
 ![](`r lifetime_new_cases_graph_path`){width=350px} ![](`r lifetime_new_deaths_graph_path`){width=350px}
 

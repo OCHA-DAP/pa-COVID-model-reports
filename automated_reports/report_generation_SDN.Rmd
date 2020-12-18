@@ -7,7 +7,7 @@ output:
   classoption: twocolumn
   extra_dependencies: xcolor
 params:
-  assignment_date: '2020-10-14'      
+  assignment_date: ''      
 fontsize: 11pt
 geometry: margin=0.6in
 urlcolor: centreBlue
@@ -51,26 +51,25 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 13,747 cases and 837 deaths have been reported with the current number of daily new cases standing at 3.29 (7-day average). We note that only 1 death was reported since our last update.
-* The number of active severe cases requiring hospitalization is estimated at 2 - 4.
-* Case Fatality Rate remains high at 6.1%, which may partly due to underreporting. We note another improvement in estimated case reporting rate from 20% to 23%.
-* According to the data reported by the MOPH and WHO, the country is on track for containment with fewer than 1 case per 100,000 people in every state. This assessment remains when looking at estimates of true number of cases that adjust for underreporting.
-* We note the following measures as currently in place: limits on public gatherings (30% compliance), border closings (50% compliance), partial lockdown (30% compliance), school closures (100% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
+* Per the WHO, a total of 22,082 cases and 1,384 deaths have been reported with the current number of daily new cases standing at 230.6 (7-day average). We note a worsening of the situation since our last update. 
+* The number of current severe cases requiring hospitalization is estimated at 2,824 - 3,691.
+* Case Fatality Rate stands at a concerning 6.3%, which may partly due to underreporting. We note that the WHO has reported significantly more deaths than the MOPH.
+* A study by Imperial College London estimates that only 2% of deaths due to COVID-19 were reported in official reported mortality numbers between April and September 2020, suggesting that the total number of deaths would be markedly higher than reported above. More on the study here: https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-39-sudan/
+* According to the data reported by the MOPH and WHO, while some regions are on track for containment with fewer than 1 case per 100,000 people, most regions are seeing community spread (yellow risk levels.) Khartoum is in the highest level of risk with an estimated incidence at 78.1 cases per 100,000 people.
+* We note the following measures as currently in place: limits on public gatherings (25% compliance), border closings (25% compliance), and partial lockdown (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * The data reported by the authorities suffers from concerning gaps and displays significant variation from day-to-day. This might reflect challenges in data collection and/or batching where multiple days' worth of data are reported at once. For these reasons it is difficult to assess the stability of trends.
-* Based on available data, the country saw a peak in cases late May - early June.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 220 - 438 cases and 14 - 25 deaths will be reported if current NPIs are maintained.
-* Projections under the two scenarios (NPIs maintained vs. lifted) are very similar, suggesting that the NPIs currently in place may not suffice to mitigate spread (see sections 2 and 3 for details).
-* Daily new cases (the rate at which cases are reported) is projected to increase under both scenarios, resulting in the curve starting to climb back up.
-* The number of active severe cases requiring hospitalization is projected to stand at 21 - 39 assuming NPIS are maintained (see section 3).
+* In 4 weeks, we project that an additional 8,975 - 11,238 cases and 384 - 481 deaths will be reported if current NPIs are maintained. The curve is projected to climb sharply, indicating a rapid deterioration of the situation.
+* Lifting the NPIs would lead to a larger increase in cases and deaths (up to 2,878 more cases and up to 109 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* The number of active severe cases requiring hospitalization is projected to increase by 662 - 971 assuming NPIs are maintained (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* In two weeks the country is projected to remain at the lowest level of risk (green) although we note increasing trends in daily new cases (see section 4).
-* The rate at which daily new cases are added is projected to increase in Khartoum, West Darfur, Sennar and Aj Jazirah.
+* In two weeks incidence is projected to increase in Khartoum, Red Sea, Sennar, River Nile, West Kordofan, White Nile, Northern, West Darfur, and Abyei PCA.
+* We note a highly concerning projected incidence in Khartoum, which would maintain the region in the highest level of risk (red; see section 4).
 "
 
 ```
@@ -267,6 +266,8 @@ subnational_projections_filename <- paste0("../Outputs/", country_iso_3_code, "/
 subnational_projections <- read.csv(subnational_projections_filename)
 subnational_projections$daily_reported_cases_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_reported_cases_per_100k_abs_change), 2)
 subnational_projections$daily_reported_cases_per_100k_inTWOweeks <- round(subnational_projections$daily_reported_cases_per_100k_inTWOweeks, 3)
+subnational_projections$daily_cases_total_per_100k_abs_change <- round(as.numeric(subnational_projections$daily_cases_total_per_100k_abs_change), 2)
+subnational_projections$daily_cases_total_per_100k_inTWOweeks <- round(subnational_projections$daily_cases_total_per_100k_inTWOweeks, 3)
 ```
 
 # `r paste(colorize('COVID-19 Projections:', 'centreGreen'), colorize(country, 'centreGreen'))`
@@ -303,14 +304,12 @@ This report leverages a framework to provide guidance in the interpretation of i
 
 The framework defines risk levels that indicate whether a region is on track for containment and can help decision-makers know where they are at the moment. The levels do not in themselves provide information about how to respond but do communicate the intensity of effort needed for control of COVID at varying levels of community spread. In addition to paying attention to the levels, decision-makers should pay close attention to direction of trend and rate of change (see section 4 for those metrics at the subnational level). 
 
-The maps below illustrate regional risk levels as defined by today's incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`).  On the left are the reported cases while on the right are the total cases as estimated from case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
+The map below illustrates regional risk levels as defined by estimated total incidence rate (daily new cases per 100,000 people as of `r format(assignment_date, "%d %b %Y")`). Total cases are estimated from case reporting rate to adjust for underreporting. The table details the cutoffs for each risk level along with strategies of disease response needed for containment.
 
-&nbsp;
-
-```{r current_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%"}
+```{r current_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%",  fig.align='center'}
 
 par(mar = c(4, 4, .1, .1))
-include_graphics(current_reported_incidence_risk_graph_path)
+#include_graphics(current_reported_incidence_risk_graph_path)
 include_graphics(current_total_incidence_risk_graph_path)
 ```
 
@@ -395,8 +394,6 @@ x %>%
 \footnotesize
 
 \begin{center}
-Case Reporting Rate: `r crr`\%      |      Case Fatality Rate: `r cfr`\%
-
 "Daily new cases" in this table is the average over the last 7 days.
 
 Most recent data from MOPH: `r latest_moph_datapoint_date`
@@ -483,7 +480,7 @@ x %>%
 
 [^5]: \textbf{Non-pharmaceutical interventions - NPIs} are all measures implemented by different actors with the aim of reducing the spread and the impact of COVID-19. The NPIs currently in place are extracted from the [ACAPS database](https://data.humdata.org/dataset/acaps-covid19-government-measures-dataset) and complemented with additional contextual information provided by our partners in the country. 
 
-\normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-8 weeks.
+\normalsize The figures below present the historical data on daily new cases and deaths, and their projected trends. Trends are represented by a green line for the "Current NPIs maintained" scenario and a red line for the "No NPIs in place" scenario. Note that deaths typically lag reported cases by 2-4 weeks.
 
 ![](`r lifetime_new_cases_graph_path`){width=350px} ![](`r lifetime_new_deaths_graph_path`){width=350px}
 
@@ -533,14 +530,13 @@ x %>%
 
 \large \textbf{`r colorize('Projected Incidence', 'centreBlue')`}
 
-The maps below represent the projected risk level of every ADMIN1 region, assuming the current NPIs are maintained. On the left are the cases projected to be reported while on the right are the projected total cases as estimated from case reporting rate to adjust for underreporting. See Section 1 for detail on the relationship between risk level and progress towards virus containment. 
+The map below displays the projected risk level of every ADMIN1 region, assuming the current NPIs are maintained. It represents the projected total cases as estimated from case reporting rate to adjust for underreporting. See Section 1 for detail on the relationship between risk level and progress towards virus containment. 
 
-&nbsp;
 
-```{r projected_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%"}
+```{r projected_incidence_maps, echo = FALSE, fig.show="hold", out.width="50%",  fig.align='center'}
 
 par(mar = c(4, 4, .1, .1))
-include_graphics(projected_reported_incidence_risk_graph_path)
+#include_graphics(projected_reported_incidence_risk_graph_path)
 include_graphics(projected_total_incidence_risk_graph_path)
 ```
 
@@ -573,31 +569,31 @@ While the magnitude of change may signal how successful mitigation strategies ar
 
 ```{r subnational_deltas, echo = FALSE}
 increases_nrow <- subnational_projections %>%
-                          filter(daily_reported_cases_per_100k_abs_change >= 0) %>%
+                          filter(daily_cases_total_per_100k_abs_change >= 0) %>%
                           nrow()
 
 decreases_nrow <- subnational_projections %>%
-                          filter(daily_reported_cases_per_100k_abs_change < 0) %>%
+                          filter(daily_cases_total_per_100k_abs_change < 0) %>%
                           nrow()
 
 subnational_projections_ordered <- subnational_projections %>%
-          arrange(desc(daily_reported_cases_per_100k_abs_change)) %>% # orders regions from largest to smallest change
-          select(ADM1_EN, daily_reported_cases_per_100k_abs_change, daily_reported_cases_per_100k_inTWOweeks)
+          arrange(desc(daily_cases_total_per_100k_abs_change)) %>% # orders regions from largest to smallest change
+          select(ADM1_EN, daily_cases_total_per_100k_abs_change, daily_cases_total_per_100k_inTWOweeks)
 
 show_only_increasing_trends <- function(subnational_projections_ordered) {
           subnational_projections_ordered %>%
-          mutate(daily_reported_cases_per_100k_abs_change = ifelse(daily_reported_cases_per_100k_abs_change > 0,
-                                                                   paste0('+', daily_reported_cases_per_100k_abs_change),
-                                                                   daily_reported_cases_per_100k_abs_change)) %>%
+          mutate(daily_cases_total_per_100k_abs_change = ifelse(daily_cases_total_per_100k_abs_change > 0,
+                                                                   paste0('+', daily_cases_total_per_100k_abs_change),
+                                                                   daily_cases_total_per_100k_abs_change)) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change", "Incidence"),
                 align = "lcc") %>%
           kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
           column_spec(1, width = "4cm") %>%
           column_spec(2, width = "3.5cm") %>%
-          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 1, "#00a67e",
-                                             ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 10, "#f8b931",
-                                                    ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 1, "#00a67e",
+                                             ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 10, "#f8b931",
+                                                    ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
           add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
           pack_rows('Increasing or Stable', 1, increases_nrow, italic = T, indent = T) %>%
           row_spec(0, bold = TRUE, font_size = 12)
@@ -605,18 +601,18 @@ show_only_increasing_trends <- function(subnational_projections_ordered) {
 
 show_only_decreasing_trends <- function(subnational_projections_ordered) {
           subnational_projections_ordered %>%
-          mutate(daily_reported_cases_per_100k_abs_change = ifelse(daily_reported_cases_per_100k_abs_change > 0,
-                                                                   paste0('+', daily_reported_cases_per_100k_abs_change),
-                                                                   daily_reported_cases_per_100k_abs_change)) %>%
+          mutate(daily_cases_total_per_100k_abs_change = ifelse(daily_cases_total_per_100k_abs_change > 0,
+                                                                   paste0('+', daily_cases_total_per_100k_abs_change),
+                                                                   daily_cases_total_per_100k_abs_change)) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change", "Incidence"),
                 align = "lcc") %>%
           kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
           column_spec(1, width = "4cm") %>%
           column_spec(2, width = "3.5cm") %>%
-          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 1, "#00a67e",
-                                             ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 10, "#f8b931",
-                                                    ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 1, "#00a67e",
+                                             ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 10, "#f8b931",
+                                                    ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
           add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
           pack_rows('Decreasing', 1, decreases_nrow, italic = T, indent = T) %>%
           row_spec(0, bold = TRUE, font_size = 12)
@@ -624,18 +620,18 @@ show_only_decreasing_trends <- function(subnational_projections_ordered) {
     
 show_both_trends <- function(subnational_projections_ordered) {    
           subnational_projections_ordered %>%
-          mutate(daily_reported_cases_per_100k_abs_change = ifelse(daily_reported_cases_per_100k_abs_change > 0,
-                                                                   paste0('+', daily_reported_cases_per_100k_abs_change),
-                                                                   daily_reported_cases_per_100k_abs_change)) %>%
+          mutate(daily_cases_total_per_100k_abs_change = ifelse(daily_cases_total_per_100k_abs_change > 0,
+                                                                   paste0('+', daily_cases_total_per_100k_abs_change),
+                                                                   daily_cases_total_per_100k_abs_change)) %>%
           kable(format = 'latex',
                 col.names = c("Region", "Change", "Incidence"),
                 align = "lcc") %>%
           kable_styling(latex_options = c('hold_position', 'repeat_header')) %>%
           column_spec(1, width = "4cm") %>%
           column_spec(2, width = "3.5cm") %>%
-          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 1, "#00a67e",
-                                             ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 10, "#f8b931",
-                                                    ifelse(subnational_projections_ordered$daily_reported_cases_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
+          column_spec(3, width = "2cm", background = ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 1, "#00a67e",
+                                             ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 10, "#f8b931",
+                                                    ifelse(subnational_projections_ordered$daily_cases_total_per_100k_inTWOweeks < 25, "#f88c29", "#df431d")))) %>%
 
           add_header_above(c("","Projections in cases per 100k people" = 2), bold = T, font_size = 12) %>%
           pack_rows(index = c('Increasing or Stable' = increases_nrow, 'Decreasing' = decreases_nrow), italic = T, indent = T) %>%
