@@ -148,7 +148,6 @@ def quality_check_allsources(country_iso3,parameters,who_filename,min_date,max_d
     quality_check_nondecreasing(who_covid[["Cumulative_cases","Cumulative_deaths"]], "WHO")
     quality_check_missing_dates(who_covid,"WHO",today)
     subnational_covid=get_subnational_covid_data(parameters,aggregate=True,min_date=min_date,max_date=max_date)
-    subnational_covid.index=subnational_covid.index.date
     quality_check_negative(subnational_covid, "subnational")
     quality_check_nan(subnational_covid, "subnational")
     quality_check_nondecreasing(subnational_covid[[HLX_TAG_TOTAL_CASES,HLX_TAG_TOTAL_DEATHS]],"subnational")
@@ -176,7 +175,6 @@ def get_bucky(country_iso3,admin_level,min_date,max_date,npi_filter):
     #we are removing the first date to be sure the data is clean and since the first date is not a projection yet, this doesn't remove valuable data
     bucky_df=bucky_df[bucky_df['date']>bucky_df['date'].min()]
     bucky_df['date']=pd.to_datetime(bucky_df['date']).dt.date
-
     bucky_df=bucky_df[(bucky_df['date']>=min_date) &
                         (bucky_df['date']<=max_date)]
     bucky_df=bucky_df.set_index('date')
@@ -221,8 +219,6 @@ def get_subnational_covid_data(parameters,aggregate,min_date,max_date):
                                         (subnational_covid[HLX_TAG_DATE]<=max_date)]
     subnational_covid=subnational_covid.set_index(HLX_TAG_DATE)
 
-    #TO DO: decide what to do with negative numbers
-    subnational_covid=quality_check_negative(subnational_covid,"subnational")
     return subnational_covid
 
 
