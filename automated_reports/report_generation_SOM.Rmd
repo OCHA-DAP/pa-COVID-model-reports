@@ -422,7 +422,7 @@ x %>%
 
 The limitations of COVID-19 reported data should be taken into consideration when interpreting metrics and projections. Sources may diverge in the counts they report (see WHO vs MOPH figures above); data reports may lag by several days or be missing altogether on certain days (see date of latest data above); cases and deaths are almost certainly underreported and their numbers are affected by testing practices. Scenario modelling (NPI vs non-NPI projections) relies on the freshness and accuracy of the information provided in the ACAPS database (see footnote 3). We strongly encourage the reader to ensure the database is up to date and to contact the Centre for Humanitarian Data with any suggestions of additional data sources or improvements to existing ones.
 
-These are common limitations. This report aims to help the reader understand the situation on the ground through comparing and contrasting multiple data sources and estimates. For instance, we present side-by-side the incidence maps of reported cases and total cases, the latter being an estimate of the true number of cases on the ground considering the case reporting rate (ie., how many cases are likely unreported.) The projections are best estimates based on available data.
+These are common limitations. This report aims to help the reader understand the situation on the ground through comparing and contrasting multiple data sources and estimates. For instance, we present data reported by the WHO and the MOPH, projected cases and deaths, and incidence of total cases, an estimate of the true number of cases factoring in the case reporting rate (ie., how many cases are likely unreported.) The projections are best estimates based on available data.
 
 
 

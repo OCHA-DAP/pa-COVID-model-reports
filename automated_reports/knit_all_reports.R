@@ -1,5 +1,6 @@
 library(rmarkdown)
 library(webshot)
+library(tinytex)
 
 country_files <- c('report_generation_AFG.Rmd',
                    'report_generation_COD.Rmd',
@@ -18,10 +19,12 @@ assignment_date <- as.Date("2020-12-16")
 # render each report using assignment_date
 for (country in countries$country_list) {
   
-  rmarkdown::render(countries[which(countries$country_list==country), 'country_files'],
+  country_file <- countries[which(countries$country_list == country), 'country_files']
+  
+  rmarkdown::render(country_file,
                     params = list(assignment_date = assignment_date), 
                     output_file = paste0(country, " ", assignment_date, ".pdf")
-  )
+                    )
 }
 
 # move PDF and log files to archive folder
