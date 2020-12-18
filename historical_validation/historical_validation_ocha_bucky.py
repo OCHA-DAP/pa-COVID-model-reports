@@ -8,19 +8,8 @@ from utils import *
 import pandas as pd
 from matplotlib import cm
 
-
-# country_iso3='SSD'
-# country_iso2='SS'
-country_iso3='AFG'
-country_iso2='AF'
-# country_iso3='SOM'
-# country_iso2='SO'
-# country_iso3='COD'
-# country_iso2='CD'
-# country_iso3='SDN'
-# country_iso2='SD'
-# country_iso3='IRQ'
-# country_iso2='IQ'
+iso3s=['SSD','AFG','SOM','COD','SDN','IRQ']
+iso2s=['SS', 'AF', 'SO', 'CD', 'SD', 'IQ']
 
 download_bucky_csv=0
 download_WHO_csv=0
@@ -28,6 +17,7 @@ download_WHO_csv=0
 TODAY = datetime.today().date()
 EARLIEST_DATE = datetime.strptime('2020-06-01', '%Y-%m-%d').date()
 
+GITHUB_REPO='https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-reports'
 CONFIG_FILE = 'config.yml'
 WHO_COVID_URL='https://covid19.who.int/WHO-COVID-19-global-data.csv'
 WHO_COVID_FILENAME='WHO_data/WHO-COVID-19-global-data.csv'
@@ -39,10 +29,6 @@ MIN_QUANTILE=0.05
 MAX_QUANTILE=0.95
 
 
-GITHUB_REPO='https://raw.githubusercontent.com/OCHA-DAP/pa-COVID-model-reports'
-BUCKY_CSV_FILE=f'Bucky_results/{country_iso3}_npi/adm0_quantiles.csv'
-DATA_FOLDER=f'{DIR_PATH}/historical_validation/data/{country_iso3}'
-GIT_LOGFILE=f'{DATA_FOLDER}/gitlog.txt'
 
 def get_list_of_commits():
     os.system(f'git log {DIR_PATH}/{BUCKY_CSV_FILE} > {GIT_LOGFILE}')
@@ -62,8 +48,8 @@ def get_list_of_commits():
     commit_ids_download=[commit_id for commit_id,hour_diff in zip(commit_ids, hour_diffs) if hour_diff>=120]
     return commit_ids_download
 
-def download_bucky_results():
-    for commit_id in get_list_of_commits():
+def download_bucky_results(DATA_FOLDER,GITHUB_REPO,BUCKY_CSV_FILE):
+    for commit_id in get_list_of_commits(BUCKY_CSV_FILE):
         os.system(f'wget -O {DATA_FOLDER}/adm0_quantiles_{commit_id}.csv {GITHUB_REPO}/{commit_id}/{BUCKY_CSV_FILE}')
 
 def create_new_subplot(fig_title):
@@ -86,9 +72,6 @@ def get_historical_bucky_collection(country_iso3,bucky_var):
     DATA_FOLDER=f'{DIR_PATH}/historical_validation/data/{country_iso3}'
     bucky_collection={}
     for commit_id in get_list_of_commits():
-    # for filename in os.listdir(DATA_FOLDER):
-    #     if filename.endswith(".csv"):
-    #         filename=os.path.join(DATA_FOLDER, filename)
         csv_filename=f'{DATA_FOLDER}/adm0_quantiles_{commit_id}.csv'
         df=pd.read_csv(csv_filename)
         bucky_metric=''
@@ -115,7 +98,7 @@ def get_historical_bucky_collection(country_iso3,bucky_var):
     return bucky_collection
 
 
-def draw_data_model_comparison_new(country_iso3,metric):
+def draw_data_model_comparison(country_iso3,country_iso2,metric):
     # plot the 4 inputs and save figure
     if metric=='cumulative_reported_cases':
         who_var='Cumulative_cases'
@@ -144,7 +127,7 @@ def draw_data_model_comparison_new(country_iso3,metric):
     subnational_covid = get_subnational_covid_data(parameters, aggregate=True, min_date=EARLIEST_DATE, max_date=TODAY)
     bucky_npi_collection=get_historical_bucky_collection(country_iso3,bucky_var)
 
-    fig,axis=create_new_subplot(fig_title)
+    fig,axis=create_new_subplot(f'{fig_title} - {country_iso3}')
 
     evenly_spaced_interval = np.linspace(0, 1, len(bucky_npi_collection))
     colors = [cm.viridis(x) for x in evenly_spaced_interval]
@@ -194,19 +177,22 @@ def get_bucky_legend(colors,location):
 
 if __name__ == "__main__":
 
-    if download_bucky_csv:
-        # get all bucky results from github
-        download_bucky_results()
     if download_WHO_csv:
         # Download latest covid file tiles and read them in
         download_who_covid_data(WHO_COVID_URL,WHO_COVID_FILENAME)
 
-    draw_data_model_comparison_new(country_iso3,'daily_reported_cases')
-    draw_data_model_comparison_new(country_iso3,'cumulative_reported_cases')
-    draw_data_model_comparison_new(country_iso3,'daily_deaths')
-    draw_data_model_comparison_new(country_iso3,'cumulative_deaths')
+    for icountry,country_iso3 in enumerate(iso3s):
+        country_iso2=iso2s[icountry]
+        BUCKY_CSV_FILE=f'Bucky_results/{country_iso3}_npi/adm0_quantiles.csv'
+        DATA_FOLDER=f'{DIR_PATH}/historical_validation/data/{country_iso3}'
+        GIT_LOGFILE=f'{DATA_FOLDER}/gitlog.txt'
+
+        if download_bucky_csv:
+            # get all bucky results from github
+            download_bucky_results(DATA_FOLDER,GITHUB_REPO,BUCKY_CSV_FILE)
+
+        draw_data_model_comparison(country_iso3,country_iso2,'daily_reported_cases')
+        draw_data_model_comparison(country_iso3,country_iso2,'cumulative_reported_cases')
+        draw_data_model_comparison(country_iso3,country_iso2,'daily_deaths')
+        draw_data_model_comparison(country_iso3,country_iso2,'cumulative_deaths')
     plt.show()
-
-
-    
-    

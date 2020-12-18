@@ -1,3 +1,21 @@
+commit a5a8e0587eb82957becfa8ccc24322becf265f97
+Author: Tinkaa <tinkavalentijn@gmail.com>
+Date:   Wed Dec 16 08:03:55 2020 +0000
+
+    Bucky results 16-12-2020
+
+commit 987d26d0aaa87859a79a7159b54d688be9d62317
+Author: Tinkaa <tinkavalentijn@gmail.com>
+Date:   Thu Dec 3 17:00:42 2020 +0000
+
+    Bucky results 03-12-2020 - recent CFR
+
+commit 621b691b9046394810b8c9ac03593ed8addcb028
+Author: Tinkaa <tinkavalentijn@gmail.com>
+Date:   Thu Dec 3 12:24:29 2020 +0000
+
+    Bucky results 03-12-2020
+
 commit 6025498b85212ba5025391bb78e4051598801bbc
 Author: Tinkaa <tinkavalentijn@gmail.com>
 Date:   Wed Dec 2 14:22:46 2020 +0000

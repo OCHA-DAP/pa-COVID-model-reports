@@ -95,6 +95,7 @@ Current situation - latest MPHO cases,2458,2020-10-07,SSD
 Current situation - latest MPHO deaths,48,2020-10-07,SSD
 "Current situation - WHO daily new cases, 7-day average",6.285714285714286,2020-10-07,SSD
 "Current situation - WHO daily new deaths, 7-day average",0.14285714285714285,2020-10-07,SSD
+Negative values in last 7 days from WHO,False,2020-10-07,SSD
 Hospitalizations current situation - MIN,3.76625,2020-10-07,SSD
 Hospitalizations current situation - MAX,6.22,2020-10-07,SSD
 NPI Hospitalizations projections 4w - MIN,5.274749999999999,2020-10-07,SSD

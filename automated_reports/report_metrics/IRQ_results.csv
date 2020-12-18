@@ -91,10 +91,11 @@ NO NPI - projected additional reported deaths in 4w - MAX,2761.6944999999996,202
 Maximum number of extra cases if NPIs are lifted,72608,2020-10-07,IRQ
 Maximum number of extra deaths if NPIs are lifted,978,2020-10-07,IRQ
 Current situation - latest date MPHO reported numbers,2020-10-05,2020-10-07,IRQ
-Current situation - latest MPHO cases,382949,2020-10-07,IRQ
+Current situation - latest MPHO cases,382948,2020-10-07,IRQ
 Current situation - latest MPHO deaths,9464,2020-10-07,IRQ
 "Current situation - WHO daily new cases, 7-day average",4118.714285714285,2020-10-07,IRQ
 "Current situation - WHO daily new deaths, 7-day average",58.42857142857143,2020-10-07,IRQ
+Negative values in last 7 days from WHO,False,2020-10-07,IRQ
 Hospitalizations current situation - MIN,6098.72075,2020-10-07,IRQ
 Hospitalizations current situation - MAX,10359.280750000002,2020-10-07,IRQ
 NPI Hospitalizations projections 4w - MIN,3617.15875,2020-10-07,IRQ

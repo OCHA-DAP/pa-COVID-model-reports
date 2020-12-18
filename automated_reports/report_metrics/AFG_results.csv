@@ -91,10 +91,11 @@ NO NPI - projected additional reported deaths in 4w - MAX,65.99000000000092,2020
 Maximum number of extra cases if NPIs are lifted,941,2020-10-07,AFG
 Maximum number of extra deaths if NPIs are lifted,28,2020-10-07,AFG
 Current situation - latest date MPHO reported numbers,2020-10-07,2020-10-07,AFG
-Current situation - latest MPHO cases,39547,2020-10-07,AFG
+Current situation - latest MPHO cases,39548,2020-10-07,AFG
 Current situation - latest MPHO deaths,1469,2020-10-07,AFG
 "Current situation - WHO daily new cases, 7-day average",31.142857142857142,2020-10-07,AFG
 "Current situation - WHO daily new deaths, 7-day average",1.2857142857142858,2020-10-07,AFG
+Negative values in last 7 days from WHO,False,2020-10-07,AFG
 Hospitalizations current situation - MIN,91.0635,2020-10-07,AFG
 Hospitalizations current situation - MAX,146.72625000000005,2020-10-07,AFG
 NPI Hospitalizations projections 4w - MIN,99.44725,2020-10-07,AFG
