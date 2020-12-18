@@ -91,10 +91,11 @@ NO NPI - projected additional reported deaths in 4w - MAX,52.060500000000005,202
 Maximum number of extra cases if NPIs are lifted,873,2020-10-07,SOM
 Maximum number of extra deaths if NPIs are lifted,32,2020-10-07,SOM
 Current situation - latest date MPHO reported numbers,2020-09-28,2020-10-07,SOM
-Current situation - latest MPHO cases,3587,2020-10-07,SOM
+Current situation - latest MPHO cases,3588,2020-10-07,SOM
 Current situation - latest MPHO deaths,99,2020-10-07,SOM
 "Current situation - WHO daily new cases, 7-day average",22.428571428571427,2020-10-07,SOM
 "Current situation - WHO daily new deaths, 7-day average",0.0,2020-10-07,SOM
+Negative values in last 7 days from WHO,False,2020-10-07,SOM
 Hospitalizations current situation - MIN,48.30925,2020-10-07,SOM
 Hospitalizations current situation - MAX,76.61475,2020-10-07,SOM
 NPI Hospitalizations projections 4w - MIN,54.26324999999999,2020-10-07,SOM

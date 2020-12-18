@@ -50,6 +50,8 @@ def main(country_iso3, download_covid=False,output_folder=OUTPUT_DIR):
 
     #function from utils to set plot parameters
     set_matlotlib(plt)
+    #set level to warning such that logger prints errors
+    config_logger(level="warning")
 
     #create folder if doesn't exist and if it exists empty the folder
     #done such that old files with changed filenames are not lingering around in the output folder
@@ -68,6 +70,9 @@ def main(country_iso3, download_covid=False,output_folder=OUTPUT_DIR):
         df_all=df_all[df_all['assessment_date']!=str(TODAY)]
     else:
         df_all=pd.DataFrame()
+
+    #check for negative, and decreasing cumulative values. Plus no data in last 14 days
+    quality_check_allsources(country_iso3, parameters, WHO_COVID_FILENAME, EARLIEST_DATE, FOUR_WEEKS,TODAY)
 
     #compute metrics wrt to TODAY (can also be projections)
     df_reff = extract_reff(country_iso3)
@@ -212,7 +217,11 @@ def generate_key_figures(country_iso3,parameters):
 
     #calculate average over 7 last 7 days for the WHO data (MPHO data is too sparse to compute this on)
     #select the last week and use rolling, which returns nan if less than min_periods datapoints
-    who_covid_mean = who_covid.loc[who_lastdate-timedelta(days=6):who_lastdate,['New_cases','New_deaths']].rolling(window=7,min_periods=4).mean()
+    who_covid_7days=who_covid.loc[who_lastdate - timedelta(days=6):who_lastdate, ["New_cases", "New_deaths"]]
+    who_negative_values=quality_check_negative(who_covid_7days,"WHO")
+    if who_negative_values:
+        print(f"Negative values in last 7 days from WHO")
+    who_covid_mean = who_covid_7days.rolling(window=7,min_periods=4).mean()
     who_covid_newcases_avg_week = who_covid_mean.loc[who_lastdate,'New_cases']
     who_covid_newdeaths_avg_week = who_covid_mean.loc[who_lastdate,'New_deaths']
     print(f'Average new daily cases of the last 7 days from WHO: {who_covid_newcases_avg_week:.2f}')
@@ -322,7 +331,8 @@ def generate_key_figures(country_iso3,parameters):
                     'Current situation - latest MPHO cases': subnational_cases_latest,
                     'Current situation - latest MPHO deaths': subnational_deaths_latest,
                     'Current situation - WHO daily new cases, 7-day average': who_covid_newcases_avg_week,
-                    'Current situation - WHO daily new deaths, 7-day average': who_covid_newdeaths_avg_week
+                    'Current situation - WHO daily new deaths, 7-day average': who_covid_newdeaths_avg_week,
+                    "Negative values in last 7 days from WHO": who_negative_values
                 }
 
     df_metrics=pd.DataFrame.from_dict(dict_metrics, orient='index')

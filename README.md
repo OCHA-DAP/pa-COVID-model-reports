@@ -17,7 +17,11 @@ Cumulative: the total number since the start of the pandemic. Cases and deaths a
 New: the new daily confirmations. Cases and deaths are reported for this.   
 Active: the current active confirmations. Cases and hospitalizaitons are reported for this.   
 
+Additional information on model outputs
 For cases, a reporting rate is also calculated which estimates the percentage of cases that is reported. By using this rate, the reported cases can be converted to an estimated total cases.   
+For deaths, it is assumed that the reported deaths equal the total deaths, i.e. there is no underreporting of deaths.  
+For the model outputs, the cumulative cases on (TODAY - cumulative cases YESTERDAY) doesn't always exactly line up with the new cases TODAY. This is due to the fact that for producing the output the model is run multiple times after which the results are divided in quantiles.  
+The new cases of TODAY might return negative values. This is due to initialization of the model and might be changed in the future. 
 
 
 **Developer notes**
