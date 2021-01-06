@@ -14,7 +14,7 @@ country_list <- c('Afghanistan', 'Democratic Republic of Congo', 'Iraq', 'Sudan'
 countries <- data.frame(country_files, country_list)
 
 # assignment_date should be Wednesday's date
-assignment_date <- as.Date("2020-12-16")
+assignment_date <- as.Date("2021-01-06")
 
 # render each report using assignment_date
 for (country in countries$country_list) {
