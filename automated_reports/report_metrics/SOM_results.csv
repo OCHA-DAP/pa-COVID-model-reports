@@ -498,7 +498,7 @@ Maximum number of extra cases if NPIs are lifted,55,2021-01-06,SOM
 Maximum number of extra deaths if NPIs are lifted,2,2021-01-06,SOM
 Current situation - latest date MPHO reported numbers,2020-12-31,2021-01-06,SOM
 Current situation - latest MPHO cases,4714,2021-01-06,SOM
-Current situation - latest MPHO deaths,130,2021-01-06,SOM
+Current situation - latest MPHO deaths,131,2021-01-06,SOM
 "Current situation - WHO daily new cases, 7-day average",3.4285714285714284,2021-01-06,SOM
 "Current situation - WHO daily new deaths, 7-day average",0.42857142857142855,2021-01-06,SOM
 Negative values in last 7 days from WHO,False,2021-01-06,SOM

@@ -543,7 +543,7 @@ Maximum number of extra cases if NPIs are lifted,67548,2021-01-06,IRQ
 Maximum number of extra deaths if NPIs are lifted,281,2021-01-06,IRQ
 Current situation - latest date MPHO reported numbers,2021-01-04,2021-01-06,IRQ
 Current situation - latest MPHO cases,598369,2021-01-06,IRQ
-Current situation - latest MPHO deaths,12844,2021-01-06,IRQ
+Current situation - latest MPHO deaths,12843,2021-01-06,IRQ
 "Current situation - WHO daily new cases, 7-day average",797.8571428571429,2021-01-06,IRQ
 "Current situation - WHO daily new deaths, 7-day average",8.0,2021-01-06,IRQ
 Negative values in last 7 days from WHO,False,2021-01-06,IRQ
