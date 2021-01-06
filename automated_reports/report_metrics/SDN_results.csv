@@ -511,3 +511,49 @@ NO NPI Hospitalizations projections 4w - MIN,3752,2020-12-16,SDN
 NO NPI Hospitalizations projections 4w - MAX,4993,2020-12-16,SDN
 NO NPI additional Hospitalizations projections 4w - MIN,928,2020-12-16,SDN
 NO NPI additional Hospitalizations projections 4w - MAX,1302,2020-12-16,SDN
+Estimated doubling time NPI,104.71932297830256,2021-01-06,SDN
+NPI Reff,1.047000508264457,2021-01-06,SDN
+Estimated doubling time No NPI,86.52205065008133,2021-01-06,SDN
+No NPI Reff,1.0570561008993191,2021-01-06,SDN
+Current situation - WHO cases most recent,23316,2021-01-06,SDN
+Current situation - WHO deaths most recent,1468,2021-01-06,SDN
+CFR,6.2961056785040315,2021-01-06,SDN
+Estimated case reporting rate,4.045275074344983,2021-01-06,SDN
+NPI - projected reported cases in 4w - MIN,31494,2021-01-06,SDN
+NPI - projected reported cases in 4w - MAX,33484,2021-01-06,SDN
+NPI - projected additional reported cases in 4w - MIN,4523,2021-01-06,SDN
+NPI - projected additional reported cases in 4w - MAX,6513,2021-01-06,SDN
+NPI - projected TREND reported cases in 4w - MIN,16.769863927922586,2021-01-06,SDN
+NPI - projected TREND reported cases in 4w - MAX,24.14815913388454,2021-01-06,SDN
+NPI - projected reported deaths in 4w - MIN,1558,2021-01-06,SDN
+NPI - projected reported deaths in 4w - MAX,1672,2021-01-06,SDN
+NPI - projected additional reported deaths in 4w - MIN,257,2021-01-06,SDN
+NPI - projected additional reported deaths in 4w - MAX,371,2021-01-06,SDN
+NPI - projected TREND reported deaths in 4w - MIN,19.754035357417372,2021-01-06,SDN
+NPI - projected TREND reported deaths in 4w - MAX,28.516525749423522,2021-01-06,SDN
+NO NPI - projected reported cases in 4w - MIN,32898,2021-01-06,SDN
+NO NPI - projected reported cases in 4w - MAX,35338,2021-01-06,SDN
+NO NPI - projected additional reported cases in 4w - MIN,5927,2021-01-06,SDN
+NO NPI - projected additional reported cases in 4w - MAX,8367,2021-01-06,SDN
+NO NPI - projected reported deaths in 4w - MIN,1606,2021-01-06,SDN
+NO NPI - projected reported deaths in 4w - MAX,1729,2021-01-06,SDN
+NO NPI - projected additional reported deaths in 4w - MIN,305,2021-01-06,SDN
+NO NPI - projected additional reported deaths in 4w - MAX,428,2021-01-06,SDN
+Maximum number of extra cases if NPIs are lifted,3844,2021-01-06,SDN
+Maximum number of extra deaths if NPIs are lifted,171,2021-01-06,SDN
+Current situation - latest date MPHO reported numbers,2020-12-20,2021-01-06,SDN
+Current situation - latest MPHO cases,23316,2021-01-06,SDN
+Current situation - latest MPHO deaths,1090,2021-01-06,SDN
+"Current situation - WHO daily new cases, 7-day average",0.0,2021-01-06,SDN
+"Current situation - WHO daily new deaths, 7-day average",0.0,2021-01-06,SDN
+Negative values in last 7 days from WHO,False,2021-01-06,SDN
+Hospitalizations current situation - MIN,2609,2021-01-06,SDN
+Hospitalizations current situation - MAX,3189,2021-01-06,SDN
+NPI Hospitalizations projections 4w - MIN,2049,2021-01-06,SDN
+NPI Hospitalizations projections 4w - MAX,2921,2021-01-06,SDN
+NPI additional Hospitalizations projections 4w - MIN,-560,2021-01-06,SDN
+NPI additional Hospitalizations projections 4w - MAX,-268,2021-01-06,SDN
+NO NPI Hospitalizations projections 4w - MIN,2712,2021-01-06,SDN
+NO NPI Hospitalizations projections 4w - MAX,3872,2021-01-06,SDN
+NO NPI additional Hospitalizations projections 4w - MIN,103,2021-01-06,SDN
+NO NPI additional Hospitalizations projections 4w - MAX,683,2021-01-06,SDN
