@@ -51,24 +51,23 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 49,703 cases and 2,001 deaths have been reported with the current number of daily new cases standing at 191 (7-day average).
-* The current number of active severe cases requiring healthcare support is estimated at 3080 - 4272.
-* There is community or accelerated spread in most of the country according to estimates of true number of cases that adjust for underreporting, as well as several regions at a Tipping point (the highest level of risk). More intense control efforts are recommended to counter further spread (see section 2 for detail).
+* Per the WHO, a total of 53,105 cases and 2,244 deaths have been reported with the current number of daily new cases standing at 110.7 (7-day average).
+* The current number of active severe cases requiring healthcare support is estimated at 1,368 - 2,468.
+* There is community or accelerated spread in most of the country according to estimates of true number of cases that adjust for underreporting. Takhar, Zabul, and Hirat are at a Tipping point (the highest level of risk). More intense control efforts are recommended to counter further spread (see section 2 for detail).
 * We note that public health awareness campaigns are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
-
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project 3,910 - 4,987 additional cases and 398 - 472 additional deaths will be reported if current NPIs are maintained.
-* The trajectory of the crisis depends on whether NPIs are kept in place: lifting of NPIs would lead daily new cases to rapidly increase instead of decreasing if NPIs are maintained. That would lead to a larger increase in cases and deaths by up to 2,419 more cases and 117 more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
-* The number of active severe cases requiring healthcare is projected to decrease but still reach 2,518 - 3,368 if NPIs are maintained. Hospitalizations are projected to increase if NPIs are lifted (see section 3).
+* In 4 weeks, we project 2,318 - 2,881 additional cases and 181 - 262 additional deaths will be reported if current NPIs are maintained.
+* The trajectory of the crisis depends on whether NPIs are kept in place: lifting of NPIs would lead daily new cases to increase rather than decrease if NPIs are maintained. Thus lifting NPIs would result in a larger increase in cases and deaths by up to 1,340 more cases and 102 more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* The number of active severe cases requiring healthcare is projected to decrease but still reach 1,213 - 1,668 if NPIs are maintained. Hospitalizations may increase if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
 * In two weeks, the country is projected to continue to see high incidence in most of the country according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
-* Assuming NPIs remain in place, Paktika, Badakhshan, Nangarhar, and Sar-e-Pul are projected to see an increase in their ratio of daily new cases per 100,000 people.
-* Despite a decreasing incidence, all other regions are projected to still be facing community or accelerated spread (yellow and orange risk levels) while Parwan, Baghlan, Balkh, Zabul, Farah, Kapisa and Pansjer are projected to remain at tipping points, the highest level of risk (see section 4).
+* Assuming NPIs remain in place, most regions are projected to see a decrease in their ratio of daily new cases per 100,000 people.
+* Despite a decreasing incidence, most regions are projected to still be facing community or accelerated spread (yellow and orange risk levels) while Zabul and Hirat are projected to be at tipping points (red level of risk; see section 4).
 * Strategies for containment should be intensified to mitigate spread.
 "
 ```

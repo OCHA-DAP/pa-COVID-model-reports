@@ -51,23 +51,23 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 577,323 cases and 12,614 deaths have been reported with the current number of daily new cases standing at 1,317.9 (7-day average), an improvement over our last update.
-* The current number of active severe cases requiring hospitalization is estimated at 3,944 - 7,239.
-* Progress towards containment is insufficient: the entire country is seeing Community or Accelerated Spread (yellow or orange risk levels), or are at a Tipping Point. The situation is most severe in Kirkuk, Al-Sulaymaniyah, Duhok, Diyala, and Ninewa. More intense control efforts are critically needed (see section 2).
+* Per the WHO, a total of 599,126 cases and 12,856 deaths have been reported with the current number of daily new cases standing at 797.9 (7-day average), an improvement over our last update.
+* The current number of active severe cases requiring hospitalization is estimated at 1,996 - 3,301.
+* Progress towards containment is insufficient: the entire country is seeing Community or Accelerated Spread (yellow or orange risk levels), or is at a Tipping Point. The situation is most severe in Kirkuk, Duhok, Diyala, and Ninewa. More intense control efforts are critically needed (see section 2).
 * We note that mitigation measures currently in place include an awareness campaign, face mask wearing (50% compliance) and limits on public gatherings (50% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 37,943 - 53,342 cases and 433 - 739 deaths will be reported if current NPIs are maintained. The curve is projected to increase over the next 4 weeks.
-* Lifting the NPIs would lead to a markedly sharp increase in cases and deaths (up to 125,857 more cases and up to 683 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
-* Active severe cases requiring healthcare are projected to decline and reach 3,857 - 5,523 if NPIs are maintained, and to jump to 13,459 - 19,418 if they are lifted (see section 3).
+* In 4 weeks, we project that an additional 23,780 - 30,013 cases and 246 - 351 deaths will be reported if current NPIs are maintained. 
+* Currently implemented mitigation strategies are insufficient to curb the spread of the virus: cases are projected to increase even if NPIs are maintained. More intense control efforts are needed.
+* Lifting the NPIs would lead to a markedly sharp increase in cases and deaths (up to 67,548 more cases and up to 281 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* Active severe cases requiring healthcare are projected to reach 2,196 - 2,935 if NPIs are maintained, and to jump to 7,619 - 10,530 if they are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* In the next two weeks, the situation in the country is projected to significantly worsen in Baghdad and in Al-Muthanna with one more region reaching Tipping Point (red risk level) assuming NPIs are maintained (see section 4). 
+* In the next two weeks and assuming NPIs are maintained, the situation in the country is projected to significantly worsen in Baghdad while many regions will see slight decreases in incidence. Still, those decreases will not suffice to suppress community spread and regions will remain at a yellow or worse level of risk (see section 4). 
 * The projected incidence indicates a need for more intense control strategies.
-* Case incidence (new daily cases per 100,000 people) is projected to decrease meaningfully in Kirkuk, Al-Sulaymaniyah and Duhok however these regions will still face alarmingly high incidence requiring the most intense control efforts (see section 4). 
 "
 ```
 

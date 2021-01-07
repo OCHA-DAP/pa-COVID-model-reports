@@ -51,24 +51,23 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 4,579 cases and 121 deaths have been reported to date with the current number of daily new cases standing at 0 (7-day average). We note that no new deaths were reported since our last update and that the current 7-day average might reflect underreporting.
-* The number of active severe cases requiring hospitalization is estimated at 36 - 46.
+* Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. We are concerned there might be severe underreporting in the country: nearby countries report rates of 3.7 (Djibouti), 2.4 (Ethiopia), and 1.6 (Kenya) weekly number of new cases per 100,000 people while Somalia reports 0.2. If reports underrepresent the severity of the crisis, the model will underestimate the magnitude and might erroneously predict the path of the disease even after accounting for some underreporting. 
+* Per the WHO, a total of 4,714 cases and 131 deaths have been reported to date with the current number of daily new cases standing at 3.4 (7-day average). 
+* The number of active severe cases requiring hospitalization is estimated at 23 - 31.
 * We note the following measures as currently in place: limits on public gatherings (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
-* Based on the reports from the WHO and MOPH, the country is on track for containment (see section 2).
+* Based on the reports from the WHO and MOPH, the country is on track for containment (see section 2). However we are concerned about likely underreporting that may hide the true severity of the crisis.
 * The data reported by the authorities suffers from severe gaps and displays significant variation from day-to-day. This might reflect challenges in data collection and/or batching where multiple days' worth of data are reported at once. For these reasons it is difficult to assess the stability of trends.
-* Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 174 - 218 cases and 4 - 5 deaths will be reported if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases in particular (up to 136 more cases; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
-* The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to decline if NPIs are maintained and to climb if NPIs are lifted. 
-* The number of severe cases requiring hospitalization is projected to reach decrease and reach 26 -35 if NPIs are maintained, and increase to 40 -54 if NPIs are lifted (see section 3).
+* In 4 weeks, we project that an additional 75 - 93 cases and 2 - 3 deaths will be reported if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases in particular (up to 55 more cases; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
+* The number of severe cases requiring hospitalization is projected to decrease and reach 17 - 22 if NPIs are maintained, and to increase to 25 - 34 if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* In two weeks the country is projected to stay stable in terms of risk levels (green across the country; see section 4) assuming current NPIs are maintained. We reiterate that lifting NPIs would likely cause a jump in cases and may result in regions falling into higher risk levels.
-* Incidence, the number of daily new cases per 100,000 people, is expected to slightly increase in Lower Shabelle assuming all current NPIs are maintained. All other regions are expected to stay stable or see their incidence decrease (see section 4).
+* In two weeks the country is projected to stay stable in terms of risk levels (green across the country; see section 4) assuming current NPIs are maintained. We reiterate that the crisis may be more severe but data gaps prevent us from having a more complete assessment of the situation.
+* All regions are expected to stay stable or see their incidence decrease (see section 4).
 "
 ```
 
