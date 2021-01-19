@@ -11,7 +11,7 @@ from utils import *
 
 country_iso_3 = sys.argv[1]
 
-ASSESSMENT_DATE='2021-01-06' # Wednesday's date
+ASSESSMENT_DATE='2021-01-18' # Wednesday's date
 #today is the last date to retrieve historical data for
 TODAY = datetime.strptime(ASSESSMENT_DATE, '%Y-%m-%d').date()
 #tomorrow is the first date to use to calculate numbers on the projections, i.e. bucky output
@@ -571,6 +571,7 @@ def draw_data_model_comparison_new(country_iso3,who_covid,bucky_npi,bucky_no_npi
         who_var='New_cases'
         bucky_var='daily_reported_cases'
         fig_title='Daily reported cases'
+        print(who_covid[who_var])
     elif metric=='daily_deaths':
         who_var='New_deaths'
         bucky_var='daily_deaths'
