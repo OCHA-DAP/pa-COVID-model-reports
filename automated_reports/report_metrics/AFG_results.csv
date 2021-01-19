@@ -557,3 +557,49 @@ NO NPI Hospitalizations projections 4w - MIN,1663,2021-01-06,AFG
 NO NPI Hospitalizations projections 4w - MAX,2307,2021-01-06,AFG
 NO NPI additional Hospitalizations projections 4w - MIN,295,2021-01-06,AFG
 NO NPI additional Hospitalizations projections 4w - MAX,-161,2021-01-06,AFG
+Estimated doubling time NPI,623.5702653226901,2021-01-18,AFG
+NPI Reff,1.0077997993432586,2021-01-18,AFG
+Estimated doubling time No NPI,495.3043776166558,2021-01-18,AFG
+No NPI Reff,1.0098257827191295,2021-01-18,AFG
+Current situation - WHO cases most recent,54062,2021-01-18,AFG
+Current situation - WHO deaths most recent,2343,2021-01-18,AFG
+CFR,4.333912914801524,2021-01-18,AFG
+Estimated case reporting rate,3.0455882999165125,2021-01-18,AFG
+NPI - projected reported cases in 4w - MIN,54651,2021-01-18,AFG
+NPI - projected reported cases in 4w - MAX,54937,2021-01-18,AFG
+NPI - projected additional reported cases in 4w - MIN,1539,2021-01-18,AFG
+NPI - projected additional reported cases in 4w - MAX,1825,2021-01-18,AFG
+NPI - projected TREND reported cases in 4w - MIN,2.8976502485314053,2021-01-18,AFG
+NPI - projected TREND reported cases in 4w - MAX,3.43613496008435,2021-01-18,AFG
+NPI - projected reported deaths in 4w - MIN,2452,2021-01-18,AFG
+NPI - projected reported deaths in 4w - MAX,2496,2021-01-18,AFG
+NPI - projected additional reported deaths in 4w - MIN,122,2021-01-18,AFG
+NPI - projected additional reported deaths in 4w - MAX,166,2021-01-18,AFG
+NPI - projected TREND reported deaths in 4w - MIN,5.236051502145923,2021-01-18,AFG
+NPI - projected TREND reported deaths in 4w - MAX,7.124463519313305,2021-01-18,AFG
+NO NPI - projected reported cases in 4w - MIN,55039,2021-01-18,AFG
+NO NPI - projected reported cases in 4w - MAX,55426,2021-01-18,AFG
+NO NPI - projected additional reported cases in 4w - MIN,1927,2021-01-18,AFG
+NO NPI - projected additional reported cases in 4w - MAX,2314,2021-01-18,AFG
+NO NPI - projected reported deaths in 4w - MIN,2462,2021-01-18,AFG
+NO NPI - projected reported deaths in 4w - MAX,2511,2021-01-18,AFG
+NO NPI - projected additional reported deaths in 4w - MIN,132,2021-01-18,AFG
+NO NPI - projected additional reported deaths in 4w - MAX,181,2021-01-18,AFG
+Maximum number of extra cases if NPIs are lifted,775,2021-01-18,AFG
+Maximum number of extra deaths if NPIs are lifted,59,2021-01-18,AFG
+Current situation - latest date MPHO reported numbers,2021-01-18,2021-01-18,AFG
+Current situation - latest MPHO cases,53042,2021-01-18,AFG
+Current situation - latest MPHO deaths,2324,2021-01-18,AFG
+"Current situation - WHO daily new cases, 7-day average",74.85714285714286,2021-01-18,AFG
+"Current situation - WHO daily new deaths, 7-day average",7.857142857142857,2021-01-18,AFG
+Negative values in last 7 days from WHO,False,2021-01-18,AFG
+Hospitalizations current situation - MIN,921,2021-01-18,AFG
+Hospitalizations current situation - MAX,1559,2021-01-18,AFG
+NPI Hospitalizations projections 4w - MIN,820,2021-01-18,AFG
+NPI Hospitalizations projections 4w - MAX,1069,2021-01-18,AFG
+NPI additional Hospitalizations projections 4w - MIN,-101,2021-01-18,AFG
+NPI additional Hospitalizations projections 4w - MAX,-490,2021-01-18,AFG
+NO NPI Hospitalizations projections 4w - MIN,1129,2021-01-18,AFG
+NO NPI Hospitalizations projections 4w - MAX,1483,2021-01-18,AFG
+NO NPI additional Hospitalizations projections 4w - MIN,208,2021-01-18,AFG
+NO NPI additional Hospitalizations projections 4w - MAX,-76,2021-01-18,AFG

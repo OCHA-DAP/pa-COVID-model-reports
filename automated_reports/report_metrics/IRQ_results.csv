@@ -541,9 +541,9 @@ NO NPI - projected additional reported deaths in 4w - MIN,374,2021-01-06,IRQ
 NO NPI - projected additional reported deaths in 4w - MAX,527,2021-01-06,IRQ
 Maximum number of extra cases if NPIs are lifted,67548,2021-01-06,IRQ
 Maximum number of extra deaths if NPIs are lifted,281,2021-01-06,IRQ
-Current situation - latest date MPHO reported numbers,2021-01-04,2021-01-06,IRQ
-Current situation - latest MPHO cases,598369,2021-01-06,IRQ
-Current situation - latest MPHO deaths,12843,2021-01-06,IRQ
+Current situation - latest date MPHO reported numbers,2021-01-06,2021-01-06,IRQ
+Current situation - latest MPHO cases,599965,2021-01-06,IRQ
+Current situation - latest MPHO deaths,12864,2021-01-06,IRQ
 "Current situation - WHO daily new cases, 7-day average",797.8571428571429,2021-01-06,IRQ
 "Current situation - WHO daily new deaths, 7-day average",8.0,2021-01-06,IRQ
 Negative values in last 7 days from WHO,False,2021-01-06,IRQ
@@ -557,3 +557,49 @@ NO NPI Hospitalizations projections 4w - MIN,7619,2021-01-06,IRQ
 NO NPI Hospitalizations projections 4w - MAX,10530,2021-01-06,IRQ
 NO NPI additional Hospitalizations projections 4w - MIN,5623,2021-01-06,IRQ
 NO NPI additional Hospitalizations projections 4w - MAX,7229,2021-01-06,IRQ
+Estimated doubling time NPI,488.2389523838802,2021-01-18,IRQ
+NPI Reff,1.0099684107371794,2021-01-18,IRQ
+Estimated doubling time No NPI,184.20753945933345,2021-01-18,IRQ
+No NPI Reff,1.0265551990400903,2021-01-18,IRQ
+Current situation - WHO cases most recent,608232,2021-01-18,IRQ
+Current situation - WHO deaths most recent,12944,2021-01-18,IRQ
+CFR,2.1281353167870156,2021-01-18,IRQ
+Estimated case reporting rate,14.266051436876875,2021-01-18,IRQ
+NPI - projected reported cases in 4w - MIN,632049,2021-01-18,IRQ
+NPI - projected reported cases in 4w - MAX,637549,2021-01-18,IRQ
+NPI - projected additional reported cases in 4w - MIN,22456,2021-01-18,IRQ
+NPI - projected additional reported cases in 4w - MAX,27956,2021-01-18,IRQ
+NPI - projected TREND reported cases in 4w - MIN,3.683769334621625,2021-01-18,IRQ
+NPI - projected TREND reported cases in 4w - MAX,4.586010666132977,2021-01-18,IRQ
+NPI - projected reported deaths in 4w - MIN,13167,2021-01-18,IRQ
+NPI - projected reported deaths in 4w - MAX,13251,2021-01-18,IRQ
+NPI - projected additional reported deaths in 4w - MIN,206,2021-01-18,IRQ
+NPI - projected additional reported deaths in 4w - MAX,290,2021-01-18,IRQ
+NPI - projected TREND reported deaths in 4w - MIN,1.5893835352210477,2021-01-18,IRQ
+NPI - projected TREND reported deaths in 4w - MAX,2.2374816757966207,2021-01-18,IRQ
+NO NPI - projected reported cases in 4w - MIN,671311,2021-01-18,IRQ
+NO NPI - projected reported cases in 4w - MAX,691489,2021-01-18,IRQ
+NO NPI - projected additional reported cases in 4w - MIN,61718,2021-01-18,IRQ
+NO NPI - projected additional reported cases in 4w - MAX,81896,2021-01-18,IRQ
+NO NPI - projected reported deaths in 4w - MIN,13266,2021-01-18,IRQ
+NO NPI - projected reported deaths in 4w - MAX,13386,2021-01-18,IRQ
+NO NPI - projected additional reported deaths in 4w - MIN,305,2021-01-18,IRQ
+NO NPI - projected additional reported deaths in 4w - MAX,425,2021-01-18,IRQ
+Maximum number of extra cases if NPIs are lifted,59440,2021-01-18,IRQ
+Maximum number of extra deaths if NPIs are lifted,219,2021-01-18,IRQ
+Current situation - latest date MPHO reported numbers,2021-01-17,2021-01-18,IRQ
+Current situation - latest MPHO cases,608231,2021-01-18,IRQ
+Current situation - latest MPHO deaths,12944,2021-01-18,IRQ
+"Current situation - WHO daily new cases, 7-day average",756.2857142857143,2021-01-18,IRQ
+"Current situation - WHO daily new deaths, 7-day average",7.0,2021-01-18,IRQ
+Negative values in last 7 days from WHO,False,2021-01-18,IRQ
+Hospitalizations current situation - MIN,1584,2021-01-18,IRQ
+Hospitalizations current situation - MAX,2697,2021-01-18,IRQ
+NPI Hospitalizations projections 4w - MIN,1897,2021-01-18,IRQ
+NPI Hospitalizations projections 4w - MAX,2541,2021-01-18,IRQ
+NPI additional Hospitalizations projections 4w - MIN,313,2021-01-18,IRQ
+NPI additional Hospitalizations projections 4w - MAX,-156,2021-01-18,IRQ
+NO NPI Hospitalizations projections 4w - MIN,6405,2021-01-18,IRQ
+NO NPI Hospitalizations projections 4w - MAX,8827,2021-01-18,IRQ
+NO NPI additional Hospitalizations projections 4w - MIN,4821,2021-01-18,IRQ
+NO NPI additional Hospitalizations projections 4w - MAX,6130,2021-01-18,IRQ

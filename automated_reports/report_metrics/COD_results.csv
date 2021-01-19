@@ -375,3 +375,95 @@ NO NPI Hospitalizations projections 4w - MIN,914,2020-12-16,COD
 NO NPI Hospitalizations projections 4w - MAX,1276,2020-12-16,COD
 NO NPI additional Hospitalizations projections 4w - MIN,433,2020-12-16,COD
 NO NPI additional Hospitalizations projections 4w - MAX,675,2020-12-16,COD
+Estimated doubling time NPI,210.50667558700795,2021-01-06,COD
+NPI Reff,1.0232140245914738,2021-01-06,COD
+Estimated doubling time No NPI,61.59478145765934,2021-01-06,COD
+No NPI Reff,1.0807056194823452,2021-01-06,COD
+Current situation - WHO cases most recent,18152,2021-01-06,COD
+Current situation - WHO deaths most recent,601,2021-01-06,COD
+CFR,3.3109299250771267,2021-01-06,COD
+Estimated case reporting rate,8.794375301360697,2021-01-06,COD
+NPI - projected reported cases in 4w - MIN,16740,2021-01-06,COD
+NPI - projected reported cases in 4w - MAX,17644,2021-01-06,COD
+NPI - projected additional reported cases in 4w - MIN,1076,2021-01-06,COD
+NPI - projected additional reported cases in 4w - MAX,1980,2021-01-06,COD
+NPI - projected TREND reported cases in 4w - MIN,6.869254341164453,2021-01-06,COD
+NPI - projected TREND reported cases in 4w - MAX,12.640449438202248,2021-01-06,COD
+NPI - projected reported deaths in 4w - MIN,447,2021-01-06,COD
+NPI - projected reported deaths in 4w - MAX,470,2021-01-06,COD
+NPI - projected additional reported deaths in 4w - MIN,38,2021-01-06,COD
+NPI - projected additional reported deaths in 4w - MAX,61,2021-01-06,COD
+NPI - projected TREND reported deaths in 4w - MIN,9.290953545232274,2021-01-06,COD
+NPI - projected TREND reported deaths in 4w - MAX,14.91442542787286,2021-01-06,COD
+NO NPI - projected reported cases in 4w - MIN,21756,2021-01-06,COD
+NO NPI - projected reported cases in 4w - MAX,25124,2021-01-06,COD
+NO NPI - projected additional reported cases in 4w - MIN,6092,2021-01-06,COD
+NO NPI - projected additional reported cases in 4w - MAX,9460,2021-01-06,COD
+NO NPI - projected reported deaths in 4w - MIN,540,2021-01-06,COD
+NO NPI - projected reported deaths in 4w - MAX,597,2021-01-06,COD
+NO NPI - projected additional reported deaths in 4w - MIN,131,2021-01-06,COD
+NO NPI - projected additional reported deaths in 4w - MAX,188,2021-01-06,COD
+Maximum number of extra cases if NPIs are lifted,8384,2021-01-06,COD
+Maximum number of extra deaths if NPIs are lifted,150,2021-01-06,COD
+Current situation - latest date MPHO reported numbers,2020-12-14,2021-01-06,COD
+Current situation - latest MPHO cases,14596,2021-01-06,COD
+Current situation - latest MPHO deaths,757,2021-01-06,COD
+"Current situation - WHO daily new cases, 7-day average",176.71428571428572,2021-01-06,COD
+"Current situation - WHO daily new deaths, 7-day average",2.4285714285714284,2021-01-06,COD
+Negative values in last 7 days from WHO,False,2021-01-06,COD
+Hospitalizations current situation - MIN,783,2021-01-06,COD
+Hospitalizations current situation - MAX,1046,2021-01-06,COD
+NPI Hospitalizations projections 4w - MIN,286,2021-01-06,COD
+NPI Hospitalizations projections 4w - MAX,456,2021-01-06,COD
+NPI additional Hospitalizations projections 4w - MIN,-497,2021-01-06,COD
+NPI additional Hospitalizations projections 4w - MAX,-590,2021-01-06,COD
+NO NPI Hospitalizations projections 4w - MIN,1393,2021-01-06,COD
+NO NPI Hospitalizations projections 4w - MAX,2265,2021-01-06,COD
+NO NPI additional Hospitalizations projections 4w - MIN,610,2021-01-06,COD
+NO NPI additional Hospitalizations projections 4w - MAX,1219,2021-01-06,COD
+Estimated doubling time NPI,130.24290895881444,2021-01-18,COD
+NPI Reff,1.0376844922106703,2021-01-18,COD
+Estimated doubling time No NPI,25.24522548155165,2021-01-18,COD
+No NPI Reff,1.2037966872900332,2021-01-18,COD
+Current situation - WHO cases most recent,20692,2021-01-18,COD
+Current situation - WHO deaths most recent,630,2021-01-18,COD
+CFR,3.0446549391069015,2021-01-18,COD
+Estimated case reporting rate,4.2221942508107215,2021-01-18,COD
+NPI - projected reported cases in 4w - MIN,20670,2021-01-18,COD
+NPI - projected reported cases in 4w - MAX,22947,2021-01-18,COD
+NPI - projected additional reported cases in 4w - MIN,1995,2021-01-18,COD
+NPI - projected additional reported cases in 4w - MAX,4272,2021-01-18,COD
+NPI - projected TREND reported cases in 4w - MIN,10.682730923694779,2021-01-18,COD
+NPI - projected TREND reported cases in 4w - MAX,22.87550200803213,2021-01-18,COD
+NPI - projected reported deaths in 4w - MIN,1143,2021-01-18,COD
+NPI - projected reported deaths in 4w - MAX,1261,2021-01-18,COD
+NPI - projected additional reported deaths in 4w - MIN,119,2021-01-18,COD
+NPI - projected additional reported deaths in 4w - MAX,237,2021-01-18,COD
+NPI - projected TREND reported deaths in 4w - MIN,11.62109375,2021-01-18,COD
+NPI - projected TREND reported deaths in 4w - MAX,23.14453125,2021-01-18,COD
+NO NPI - projected reported cases in 4w - MIN,49706,2021-01-18,COD
+NO NPI - projected reported cases in 4w - MAX,65000,2021-01-18,COD
+NO NPI - projected additional reported cases in 4w - MIN,31031,2021-01-18,COD
+NO NPI - projected additional reported cases in 4w - MAX,46325,2021-01-18,COD
+NO NPI - projected reported deaths in 4w - MIN,2054,2021-01-18,COD
+NO NPI - projected reported deaths in 4w - MAX,2483,2021-01-18,COD
+NO NPI - projected additional reported deaths in 4w - MIN,1030,2021-01-18,COD
+NO NPI - projected additional reported deaths in 4w - MAX,1459,2021-01-18,COD
+Maximum number of extra cases if NPIs are lifted,44330,2021-01-18,COD
+Maximum number of extra deaths if NPIs are lifted,1340,2021-01-18,COD
+Current situation - latest date MPHO reported numbers,2020-12-14,2021-01-18,COD
+Current situation - latest MPHO cases,14596,2021-01-18,COD
+Current situation - latest MPHO deaths,757,2021-01-18,COD
+"Current situation - WHO daily new cases, 7-day average",219.28571428571428,2021-01-18,COD
+"Current situation - WHO daily new deaths, 7-day average",2.857142857142857,2021-01-18,COD
+Negative values in last 7 days from WHO,False,2021-01-18,COD
+Hospitalizations current situation - MIN,5707,2021-01-18,COD
+Hospitalizations current situation - MAX,8114,2021-01-18,COD
+NPI Hospitalizations projections 4w - MIN,1174,2021-01-18,COD
+NPI Hospitalizations projections 4w - MAX,1920,2021-01-18,COD
+NPI additional Hospitalizations projections 4w - MIN,-4533,2021-01-18,COD
+NPI additional Hospitalizations projections 4w - MAX,-6194,2021-01-18,COD
+NO NPI Hospitalizations projections 4w - MIN,12693,2021-01-18,COD
+NO NPI Hospitalizations projections 4w - MAX,18755,2021-01-18,COD
+NO NPI additional Hospitalizations projections 4w - MIN,6986,2021-01-18,COD
+NO NPI additional Hospitalizations projections 4w - MAX,10641,2021-01-18,COD
