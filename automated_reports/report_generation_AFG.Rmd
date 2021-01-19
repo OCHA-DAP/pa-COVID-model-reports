@@ -53,8 +53,8 @@ editor_options:
 key_messages_current_situation <- "
 * Per the WHO, a total of 54,062 cases and 2,343 deaths have been reported with the current number of daily new cases standing at 74.9 (7-day average).
 * The current number of active severe cases requiring healthcare support is estimated at 921 - 1,559.
-* There is community spread in most of the country, and accelerated spread in Nimroz and Hirat, according to estimates of true number of cases that adjust for underreporting. TODO: More intense control efforts are recommended to counter further spread (see section 2 for detail).
-* TODO: We note that public health awareness campaigns are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
+* There is community spread in most of the country, and accelerated spread in Hirat, Nimroz, Langhman, Kunar, and Farah, according to estimates of true number of cases that adjust for underreporting. More intense control efforts are recommended to counter further spread (see section 2 for detail).
+* We note that public health awareness campaigns are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
@@ -65,10 +65,10 @@ key_messages_national_projections <- "
 "
 
 key_messages_subnational_projections <- "
-* In two weeks, the country is projected to continue to see high incidence in most of the country according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
+* In two weeks, the country is projected to continue to see high incidence in most areas according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
 * Assuming NPIs remain in place, most regions are projected to see a decrease in their ratio of daily new cases per 100,000 people.
 * Despite a decreasing incidence, most regions are projected to still be facing community spread (yellow risk level) while Nimroz and Hirat are projected to have accelerated spread (orange level of risk; see section 4).
-* TODO: Strategies for containment should be intensified to mitigate spread.
+* Strategies for containment should be intensified to mitigate spread.
 "
 ```
 
