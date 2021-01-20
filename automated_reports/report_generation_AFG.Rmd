@@ -52,7 +52,7 @@ editor_options:
 
 key_messages_current_situation <- "
 * Per the WHO, a total of 54,062 cases and 2,343 deaths have been reported with the current number of daily new cases standing at 74.9 (7-day average).
-* The current number of active severe cases requiring healthcare support is estimated at 921 - 1,559.
+* The current number of active severe cases requiring healthcare support is estimated at 921 - 1,558.
 * There is community spread in most of the country, and accelerated spread in Hirat, Nimroz, Langhman, Kunar, and Farah, according to estimates of true number of cases that adjust for underreporting. More intense control efforts are recommended to counter further spread (see section 2 for detail).
 * We note that public health awareness campaigns are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 

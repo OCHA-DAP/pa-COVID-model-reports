@@ -51,9 +51,9 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* No data has been reported since 31 Dec 2020 (MOPH) and since 4 Jan 2021 (WHO). Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
+* No data has been reported since 31 Dec 2020 (MOPH) and since 4 Jan 2021 (WHO), which means that we have not received any new information since our last report. Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 * Per the WHO, a total of 26,279 cases and 1,603 deaths have been reported. 
-* The number of current severe cases requiring hospitalization is estimated at 2,363 - 2,904.
+* The number of current severe cases requiring hospitalization is estimated at 2,222 - 2,728.
 * Case Fatality Rate stands at a concerning 6.1%, which may partly due to underreporting. We note that the WHO has reported significantly more deaths than the MOPH.
 * A study by Imperial College London estimates that only 2% of deaths due to COVID-19 were reported in official reported mortality numbers between April and September 2020, suggesting that the total number of deaths would be markedly higher than reported above. More on the study here: https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-39-sudan/
 * According to the data reported by the MOPH and WHO, while some regions are on track for containment with fewer than 1 case per 100,000 people, many regions are seeing community or accelerated spread (yellow and orange risk levels.) Khartoum is in the highest level of risk (red, Tipping Point) with an estimated incidence at 50.9 cases per 100,000 people.

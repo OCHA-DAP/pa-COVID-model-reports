@@ -51,24 +51,25 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
+* No data has been reported since 14 Dec 2020 (MOPH), which means that we have not received any new information since our last report. Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 * Per the WHO, a total of 20,692 cases and 630 deaths have been reported with the current number of daily new cases standing at 219.3 (7-day average). We note a worsening of the situation since our last update.
-* The current number of active severe cases requiring healthcare support is estimated at 481 - 601.
+* The current number of active severe cases requiring healthcare support is estimated at 1339 - 1869.
+* While most of the country is on track for containment, there is accelerated spread in Kongo-Central (orange risk level), while Kinshasa is at a tipping point (red risk level). More intense control efforts are recommended to counter further spread (see section 2 for detail).
 * We note that the only mitigation measure currently in place is face mask wearing (50% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
-* According to the data reported by the WHO and the MOPH as well as estimates of non-reported cases, the country is on track for containment of COVID-19 (see section 2 for detail).
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 
 "   
 key_messages_national_projections <- "
-* The country is on track for containment except for Kinshasa where Community Spread is present (yellow risk level).
-* In 4 weeks, we project that an additional 1,452 - 1,884 cases and 48 - 63 deaths will be reported if current NPIs are maintained. 
-* The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to continue to decline if NPIs are maintained and to start climbing sharply if NPIs are lifted.
-* Lifting the NPIs would lead to a larger number of additional cases and deaths in 4 weeks: up to 2,941 more cases and up to 49 more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 8 weeks later.
-* The number of active severe cases requiring hospitalization is projected to decrease by 129 - 139 assuming NPIs are maintained, and to increase by 433 - 675 if NPIs are lifted (see section 3).
+* Case numbers are starting to increase in several regions, particularly in Kongo-Central which is already facing accelerated spread (orange risk level)
+* In 4 weeks, we project that an additional 1,995 - 4,272 cases and 119 - 237 deaths will be reported if current NPIs are maintained. 
+* The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to stay roughly constant if NPIs are maintained and to start climbing sharply if NPIs are lifted.
+* Lifting the NPIs would lead to a significantly higher number of additional cases and deaths in 4 weeks: up to 44,330 more cases and up to 1340 more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 8 weeks later.
+* The number of active severe cases requiring hospitalization is projected to stay roughly constant assuming NPIs are maintained, and to increase by 11354 - 16886 if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* Assuming all current NPIs are maintained, the number of cases is expected to stay stable or decrease across the country over the next 2 weeks (see section 4).
-* Every region is projected to be On Track for Containement (green risk level) with the exception of Kinshasa (yellow risk level), despite a likely decrease in incidence (see section 4).
+* Assuming all current NPIs are maintained, the number of cases is expected to increase in several areas across the country over the next 2 weeks (see section 4).
+* Despite a likely decrease in incidence, Kinshasa is projected to remain at a tipping point (red risk level), while Kongo-Central, already facing accelerated spread, is projected to see an increase.
 "
 
 ```

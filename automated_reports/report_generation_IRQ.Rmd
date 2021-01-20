@@ -51,15 +51,15 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 608,232 cases and 12,944 deaths have been reported with the current number of daily new cases standing at 756.3 (7-day average).
-* The current number of active severe cases requiring hospitalization is estimated at 1,584 - 2,697.
+* Per the WHO, a total of 608,232 cases and 12,944 deaths have been reported, an improvement over our last update. The current number of daily new cases stands at 756.3 (7-day average).
+* The current number of active severe cases requiring hospitalization is estimated at 1,576 - 2,666.
 * Progress towards containment is insufficient: the entire country is seeing Community or Accelerated Spread (yellow or orange risk levels), while Al-Sulaymaniyah is at a Tipping Point (red risk level). More intense control efforts are critically needed (see section 2).
 * We note that mitigation measures currently in place include an awareness campaign, face mask wearing (50% compliance) and limits on public gatherings (50% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 22,456 - 27,956 cases and 206 - 290 deaths will be reported if current NPIs are maintained. 
+* Even if current NPIs are maintined, we project an increase in the number of daily new cases, with an additional 22,456 - 27,956 cases and 206 - 290 deaths reported in the next four weeks. 
 * Currently implemented mitigation strategies are insufficient to curb the spread of the virus: cases are projected to increase even if NPIs are maintained. More intense control efforts are needed.
 * Lifting the NPIs would lead to a markedly sharp increase in cases and deaths (up to 59,440 more cases and up to 219 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
 * Active severe cases requiring healthcare are projected to reach 1,897 - 2,541 if NPIs are maintained, and to jump to 6,405 - 8,827 if they are lifted (see section 3).
