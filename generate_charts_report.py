@@ -399,9 +399,11 @@ def draw_model_projections(country_iso3,bucky_npi,bucky_no_npi,parameters,metric
     draw_bucky_projections(bucky_npi,bucky_no_npi,bucky_var,axis)
     plt.legend(loc='upper left', prop={'size': 8})
     print(f'----{metric} statistics')
-    #bucky_no_npi and bucky_npi are initialized with the same numbers, so doesn't matter which is being used for displaying the current situation
-    metric_tomorrow_min=round(bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[TOMORROW,bucky_var]).astype(int)
-    metric_tomorrow_max=round(bucky_no_npi[bucky_no_npi['quantile']==MAX_QUANTILE].loc[TOMORROW,bucky_var]).astype(int)
+    # the number of hospitalizations is always an estimate. In the optimal case the assessment_date is close to the last date of subnational data
+    # in that case the estimated number of hospitalizations is about the same for the situation with and without npi
+    # however, if this is not the case, we choose to display the current situation as the estimated situation with npis in place since we assume that to be the closest to the real situation
+    metric_tomorrow_min = round(bucky_npi[bucky_npi['quantile'] == MIN_QUANTILE].loc[TOMORROW, bucky_var]).astype(int)
+    metric_tomorrow_max = round(bucky_npi[bucky_npi['quantile'] == MAX_QUANTILE].loc[TOMORROW, bucky_var]).astype(int)
     metric_4w_npi_min=round(bucky_npi[bucky_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]).astype(int)
     metric_4w_npi_max=round(bucky_npi[bucky_npi['quantile']==MAX_QUANTILE].loc[FOUR_WEEKS,bucky_var]).astype(int)
     metric_4w_no_npi_min=round(bucky_no_npi[bucky_no_npi['quantile']==MIN_QUANTILE].loc[FOUR_WEEKS,bucky_var]).astype(int)
