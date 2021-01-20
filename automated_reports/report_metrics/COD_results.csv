@@ -457,13 +457,13 @@ Current situation - latest MPHO deaths,757,2021-01-18,COD
 "Current situation - WHO daily new cases, 7-day average",219.28571428571428,2021-01-18,COD
 "Current situation - WHO daily new deaths, 7-day average",2.857142857142857,2021-01-18,COD
 Negative values in last 7 days from WHO,False,2021-01-18,COD
-Hospitalizations current situation - MIN,5707,2021-01-18,COD
-Hospitalizations current situation - MAX,8114,2021-01-18,COD
+Hospitalizations current situation - MIN,1339,2021-01-18,COD
+Hospitalizations current situation - MAX,1869,2021-01-18,COD
 NPI Hospitalizations projections 4w - MIN,1174,2021-01-18,COD
 NPI Hospitalizations projections 4w - MAX,1920,2021-01-18,COD
-NPI additional Hospitalizations projections 4w - MIN,-4533,2021-01-18,COD
-NPI additional Hospitalizations projections 4w - MAX,-6194,2021-01-18,COD
+NPI additional Hospitalizations projections 4w - MIN,-165,2021-01-18,COD
+NPI additional Hospitalizations projections 4w - MAX,51,2021-01-18,COD
 NO NPI Hospitalizations projections 4w - MIN,12693,2021-01-18,COD
 NO NPI Hospitalizations projections 4w - MAX,18755,2021-01-18,COD
-NO NPI additional Hospitalizations projections 4w - MIN,6986,2021-01-18,COD
-NO NPI additional Hospitalizations projections 4w - MAX,10641,2021-01-18,COD
+NO NPI additional Hospitalizations projections 4w - MIN,11354,2021-01-18,COD
+NO NPI additional Hospitalizations projections 4w - MAX,16886,2021-01-18,COD
