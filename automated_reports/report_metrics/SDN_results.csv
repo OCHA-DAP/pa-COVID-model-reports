@@ -559,8 +559,8 @@ NO NPI additional Hospitalizations projections 4w - MIN,103,2021-01-06,SDN
 NO NPI additional Hospitalizations projections 4w - MAX,683,2021-01-06,SDN
 Estimated doubling time NPI,124.08725344686886,2021-01-18,SDN
 NPI Reff,1.0395764221860622,2021-01-18,SDN
-Estimated doubling time No NPI,106.57702533380878,2021-01-18,SDN
-No NPI Reff,1.0461698004546947,2021-01-18,SDN
+Estimated doubling time No NPI,106.57702533543642,2021-01-18,SDN
+No NPI Reff,1.0461698004539761,2021-01-18,SDN
 Current situation - WHO cases most recent,26279,2021-01-18,SDN
 Current situation - WHO deaths most recent,1603,2021-01-18,SDN
 CFR,6.099927698923095,2021-01-18,SDN
@@ -593,13 +593,13 @@ Current situation - latest MPHO deaths,1256,2021-01-18,SDN
 "Current situation - WHO daily new cases, 7-day average",0.0,2021-01-18,SDN
 "Current situation - WHO daily new deaths, 7-day average",0.0,2021-01-18,SDN
 Negative values in last 7 days from WHO,False,2021-01-18,SDN
-Hospitalizations current situation - MIN,2363,2021-01-18,SDN
-Hospitalizations current situation - MAX,2904,2021-01-18,SDN
+Hospitalizations current situation - MIN,2222,2021-01-18,SDN
+Hospitalizations current situation - MAX,2728,2021-01-18,SDN
 NPI Hospitalizations projections 4w - MIN,1721,2021-01-18,SDN
 NPI Hospitalizations projections 4w - MAX,2447,2021-01-18,SDN
-NPI additional Hospitalizations projections 4w - MIN,-642,2021-01-18,SDN
-NPI additional Hospitalizations projections 4w - MAX,-457,2021-01-18,SDN
+NPI additional Hospitalizations projections 4w - MIN,-501,2021-01-18,SDN
+NPI additional Hospitalizations projections 4w - MAX,-281,2021-01-18,SDN
 NO NPI Hospitalizations projections 4w - MIN,2122,2021-01-18,SDN
 NO NPI Hospitalizations projections 4w - MAX,3038,2021-01-18,SDN
-NO NPI additional Hospitalizations projections 4w - MIN,-241,2021-01-18,SDN
-NO NPI additional Hospitalizations projections 4w - MAX,134,2021-01-18,SDN
+NO NPI additional Hospitalizations projections 4w - MIN,-100,2021-01-18,SDN
+NO NPI additional Hospitalizations projections 4w - MAX,310,2021-01-18,SDN

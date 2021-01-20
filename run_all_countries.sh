@@ -4,3 +4,4 @@ do
     python generate_charts_report.py $iso3 -d
     # python generate_charts_report.py $iso3
 done
+

@@ -559,8 +559,8 @@ NO NPI additional Hospitalizations projections 4w - MIN,5623,2021-01-06,IRQ
 NO NPI additional Hospitalizations projections 4w - MAX,7229,2021-01-06,IRQ
 Estimated doubling time NPI,488.2389523838802,2021-01-18,IRQ
 NPI Reff,1.0099684107371794,2021-01-18,IRQ
-Estimated doubling time No NPI,184.20753945933345,2021-01-18,IRQ
-No NPI Reff,1.0265551990400903,2021-01-18,IRQ
+Estimated doubling time No NPI,184.20754188134435,2021-01-18,IRQ
+No NPI Reff,1.0265551986880956,2021-01-18,IRQ
 Current situation - WHO cases most recent,608232,2021-01-18,IRQ
 Current situation - WHO deaths most recent,12944,2021-01-18,IRQ
 CFR,2.1281353167870156,2021-01-18,IRQ
@@ -593,13 +593,13 @@ Current situation - latest MPHO deaths,12944,2021-01-18,IRQ
 "Current situation - WHO daily new cases, 7-day average",756.2857142857143,2021-01-18,IRQ
 "Current situation - WHO daily new deaths, 7-day average",7.0,2021-01-18,IRQ
 Negative values in last 7 days from WHO,False,2021-01-18,IRQ
-Hospitalizations current situation - MIN,1584,2021-01-18,IRQ
-Hospitalizations current situation - MAX,2697,2021-01-18,IRQ
+Hospitalizations current situation - MIN,1576,2021-01-18,IRQ
+Hospitalizations current situation - MAX,2666,2021-01-18,IRQ
 NPI Hospitalizations projections 4w - MIN,1897,2021-01-18,IRQ
 NPI Hospitalizations projections 4w - MAX,2541,2021-01-18,IRQ
-NPI additional Hospitalizations projections 4w - MIN,313,2021-01-18,IRQ
-NPI additional Hospitalizations projections 4w - MAX,-156,2021-01-18,IRQ
+NPI additional Hospitalizations projections 4w - MIN,321,2021-01-18,IRQ
+NPI additional Hospitalizations projections 4w - MAX,-125,2021-01-18,IRQ
 NO NPI Hospitalizations projections 4w - MIN,6405,2021-01-18,IRQ
 NO NPI Hospitalizations projections 4w - MAX,8827,2021-01-18,IRQ
-NO NPI additional Hospitalizations projections 4w - MIN,4821,2021-01-18,IRQ
-NO NPI additional Hospitalizations projections 4w - MAX,6130,2021-01-18,IRQ
+NO NPI additional Hospitalizations projections 4w - MIN,4829,2021-01-18,IRQ
+NO NPI additional Hospitalizations projections 4w - MAX,6161,2021-01-18,IRQ
