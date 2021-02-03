@@ -652,8 +652,8 @@ NO NPI additional Hospitalizations projections 4w - MIN,4,2021-01-30,SOM
 NO NPI additional Hospitalizations projections 4w - MAX,0,2021-01-30,SOM
 Estimated doubling time NPI,1590.6384418781397,2021-02-03,SOM
 NPI Reff,1.0030532472392657,2021-02-03,SOM
-Estimated doubling time No NPI,1166.8565570329417,2021-02-03,SOM
-No NPI Reff,1.0041635598603682,2021-02-03,SOM
+Estimated doubling time No NPI,1166.8565571153629,2021-02-03,SOM
+No NPI Reff,1.0041635598601555,2021-02-03,SOM
 Current situation - WHO cases most recent,4784,2021-02-03,SOM
 Current situation - WHO deaths most recent,130,2021-02-03,SOM
 CFR,2.717391304347826,2021-02-03,SOM
@@ -681,9 +681,9 @@ NO NPI - projected additional reported deaths in 4w - MAX,4,2021-02-03,SOM
 Maximum number of extra cases if NPIs are lifted,38,2021-02-03,SOM
 Maximum number of extra deaths if NPIs are lifted,2,2021-02-03,SOM
 Current situation - latest date MPHO reported numbers,2021-01-28,2021-02-03,SOM
-Current situation - latest MPHO cases,4784,2021-02-03,SOM
+Current situation - latest MPHO cases,4783,2021-02-03,SOM
 Current situation - latest MPHO deaths,131,2021-02-03,SOM
-"Current situation - WHO daily new cases, 7-day average",4.285714285714286,2021-02-03,SOM
+"Current situation - WHO daily new cases, 7-day average",0.0,2021-02-03,SOM
 "Current situation - WHO daily new deaths, 7-day average",0.0,2021-02-03,SOM
 Negative values in last 7 days from WHO,False,2021-02-03,SOM
 Hospitalizations current situation - MIN,22,2021-02-03,SOM

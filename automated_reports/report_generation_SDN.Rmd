@@ -51,25 +51,23 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* No data has been reported since 31 Dec 2020 (MOPH) and since 4 Jan 2021 (WHO), which means that we have not received any new information since our last report. Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
-* Per the WHO, a total of 26,279 cases and 1,603 deaths have been reported. 
-* The number of current severe cases requiring hospitalization is estimated at 2,222 - 2,728.
-* Case Fatality Rate stands at a concerning 6.1%, which may partly due to underreporting. We note that the WHO has reported significantly more deaths than the MOPH.
-* A study by Imperial College London estimates that only 2% of deaths due to COVID-19 were reported in official reported mortality numbers between April and September 2020, suggesting that the total number of deaths would be markedly higher than reported above. More on the study here: https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-39-sudan/
-* According to the data reported by the MOPH and WHO, while some regions are on track for containment with fewer than 1 case per 100,000 people, many regions are seeing community or accelerated spread (yellow and orange risk levels.) Khartoum is in the highest level of risk (red, Tipping Point) with an estimated incidence at 50.9 cases per 100,000 people.
+* No data has been reported since 1 Jan 2021 (MOPH), which means that we have not received any new information from the country office since our last report. Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
+* Per the WHO, a total of 29,536 cases and 1,829 deaths have been reported. 
+* The number of current severe cases requiring hospitalization is estimated at 2,572 - 3,494.
+* Case Fatality Rate stands at a concerning 6.2%, which may partly due to underreporting. A study by Imperial College London estimates that only 2% of deaths due to COVID-19 were reported in official reported mortality numbers between April and September 2020, suggesting that the total number of deaths would be markedly higher than reported above. More on the study here: https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-39-sudan/
+* According to the data reported by the MOPH and WHO, while some regions are on track for containment with fewer than 1 case per 100,000 people, many regions are seeing community spread (yellow risk levels), with River Nile facing accelerated spread (orange risk level). Khartoum is in the highest level of risk (red, Tipping Point) with an estimated incidence at 60 cases per 100,000 people.
 * We note the following measures as currently in place: limits on public gatherings (25% compliance), border closings (25% compliance), and partial lockdown (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * The data reported by the authorities suffers from concerning gaps and displays significant variation from day-to-day. This might reflect challenges in data collection and/or batching where multiple days' worth of data are reported at once. For these reasons it is difficult to assess the stability of trends.
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 4,164 - 6,064 cases and 229 - 330 deaths will be reported if current NPIs are maintained. The curve is projected to climb sharply, indicating a rapid deterioration of the situation.
-* Lifting the NPIs would lead to a larger increase in cases and deaths (up to 3,188 more cases and up to 140 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
-* The number of active severe cases requiring hospitalization is projected to decrease by 457 - 642 assuming NPIs are maintained, and to stay roughly constant if they are lifted (see section 3).
+* In 4 weeks, we project that an additional 2,658 - 5,906 cases and 223 - 386 deaths will be reported if current NPIs are maintained. The curve is projected to climb sharply, indicating a rapid deterioration of the situation.
+* Lifting the NPIs would lead to a larger increase in cases and deaths (up to 5,706 more cases and up to 279 more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* The number of active severe cases requiring hospitalization is projected to decrease by 1014 - 1031 assuming NPIs are maintained, and to decrease only slightly (by 84 - 362) if they are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
-* In two weeks incidence is projected to increase or stay constant in White Nile, North, West, and Central Darfur, and Abyei PCA.
-* For the regions projected to see a decline in incidence, many are still expected to have community spread present (yellow risk level.)
+* In two weeks incidence is projected to stay constant or decline in all regions. However, many of these regions are still expected to have community spread present (yellow risk level.)
 * We note a highly concerning projected incidence in Khartoum, which would maintain the region in the highest level of risk (red; see section 4).
 "
 
@@ -93,9 +91,6 @@ assignment_date <- as.Date(params$assignment_date)
 # compute projection dates
 projection_date_4w <- assignment_date + 28
 projection_date_2w <- assignment_date + 14
-
-# specify file location
-who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
 
 # functions
 colorize <- function(x, color) {
@@ -218,21 +213,11 @@ effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'
 ```
 
 ```{r current_who_data, include = FALSE}
-who_data <- read.csv(who_data_filename)
-who_data$Date_reported <- as.Date(who_data$Date_reported)
-who_current_cum_cases <- who_data %>%
-                      filter(Country == country & 
-                      Date_reported == assignment_date) %>%
-                      select(Cumulative_cases) %>%
-                      as.numeric() %>%
-                      format(., big.mark = ",")
+who_current_cum_cases <- report_metrics %>% filter(metric_name == "Current situation - WHO cases most recent") %>% select(metric_value) %>% as.numeric()
+who_current_cum_cases <- format(round(who_current_cum_cases, 0), big.mark = ",")
 
-who_current_cum_deaths <- who_data %>%
-                      filter(Country == country & 
-                      Date_reported == assignment_date) %>%
-                      select(Cumulative_deaths) %>%
-                      as.numeric() %>%
-                      format(., big.mark = ",")  
+who_current_cum_deaths <- report_metrics %>% filter(metric_name == "Current situation - WHO deaths most recent") %>% select(metric_value) %>% as.numeric()
+who_current_cum_deaths <- format(round(who_current_cum_deaths, 0), big.mark = ",")
 
 who_current_newdaily_7daverage_cases <- report_metrics %>% filter(metric_name == "Current situation - WHO daily new cases, 7-day average") %>% select(metric_value) %>% as.numeric()
 who_current_newdaily_7daverage_cases <- format(round(who_current_newdaily_7daverage_cases, 1), big.mark = ",")

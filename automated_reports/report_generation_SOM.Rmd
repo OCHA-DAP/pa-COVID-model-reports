@@ -51,18 +51,18 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. We are concerned there might be severe underreporting in the country: nearby countries report rates of 3.8 (Djibouti), 2.7 (Ethiopia), and 1.7 (Kenya) weekly number of new cases per 100,000 people while Somalia reports 0.1. If reports underrepresent the severity of the crisis, the model will underestimate the magnitude and might erroneously predict the path of the disease even after accounting for some underreporting. 
-* Per the WHO, a total of 4,744 cases and 130 deaths have been reported to date with the current number of daily new cases standing at 2.6 (7-day average). 
-* The number of active severe cases requiring hospitalization is estimated at 10 - 13.
+* Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. We are concerned there might be severe underreporting in the country: nearby countries report rates of 1.3 (Djibouti), 3.3 (Ethiopia), and 1.5 (Kenya) weekly number of new cases per 100,000 people while Somalia reports 0.2. If reports underrepresent the severity of the crisis, the model will underestimate the magnitude and might erroneously predict the path of the disease even after accounting for some underreporting. 
+* Per the WHO, a total of 4,783 cases and 131 deaths have been reported to date with no new cases reported in the last 7 days. 
+* The number of active severe cases requiring hospitalization is estimated at 22 - 29.
 * We note the following measures as currently in place: limits on public gatherings (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 * Based on the reports from the WHO and MOPH, the country is on track for containment (see section 2). However we are concerned about likely underreporting that may hide the true severity of the crisis.
 * The data reported by the authorities suffers from severe gaps and displays significant variation from day-to-day. This might reflect challenges in data collection and/or batching where multiple days' worth of data are reported at once. For these reasons it is difficult to assess the stability of trends.
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project that an additional 27 - 35 cases and about one death will be reported if current NPIs are maintained.
-* Lifting of NPIs would lead to a larger increase in cases in particular (up to 24 more cases; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
-* The number of severe cases requiring hospitalization is projected to decrease and reach 8 - 10 if NPIs are maintained, and to increase to 11 - 18 if NPIs are lifted (see section 3).
+* In 4 weeks, we project that an additional 73 - 91 cases and about one death will be reported if current NPIs are maintained.
+* Lifting of NPIs would lead to a larger increase in cases in particular (up to 38 more cases; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
+* The number of severe cases requiring hospitalization is projected to decrease and reach 16 - 21 if NPIs are maintained, and to slightly increase to 24 - 32 if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
@@ -89,9 +89,6 @@ assignment_date <- as.Date(params$assignment_date)
 # compute projection dates
 projection_date_4w <- assignment_date + 28
 projection_date_2w <- assignment_date + 14
-
-# specify file location
-who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
 
 # functions
 colorize <- function(x, color) {
@@ -214,21 +211,11 @@ effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'
 ```
 
 ```{r current_who_data, include = FALSE}
-who_data <- read.csv(who_data_filename)
-who_data$Date_reported <- as.Date(who_data$Date_reported)
-who_current_cum_cases <- who_data %>%
-                      filter(Country == country & 
-                      Date_reported == assignment_date) %>%
-                      select(Cumulative_cases) %>%
-                      as.numeric() %>%
-                      format(., big.mark = ",")
+who_current_cum_cases <- report_metrics %>% filter(metric_name == "Current situation - WHO cases most recent") %>% select(metric_value) %>% as.numeric()
+who_current_cum_cases <- format(round(who_current_cum_cases, 0), big.mark = ",")
 
-who_current_cum_deaths <- who_data %>%
-                      filter(Country == country & 
-                      Date_reported == assignment_date) %>%
-                      select(Cumulative_deaths) %>%
-                      as.numeric() %>%
-                      format(., big.mark = ",")  
+who_current_cum_deaths <- report_metrics %>% filter(metric_name == "Current situation - WHO deaths most recent") %>% select(metric_value) %>% as.numeric()
+who_current_cum_deaths <- format(round(who_current_cum_deaths, 0), big.mark = ",")
 
 who_current_newdaily_7daverage_cases <- report_metrics %>% filter(metric_name == "Current situation - WHO daily new cases, 7-day average") %>% select(metric_value) %>% as.numeric()
 who_current_newdaily_7daverage_cases <- format(round(who_current_newdaily_7daverage_cases, 1), big.mark = ",")
