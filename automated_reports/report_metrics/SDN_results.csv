@@ -695,13 +695,13 @@ NO NPI Hospitalizations projections 4w - MIN,2306,2021-01-30,SDN
 NO NPI Hospitalizations projections 4w - MAX,3636,2021-01-30,SDN
 NO NPI additional Hospitalizations projections 4w - MIN,-453,2021-01-30,SDN
 NO NPI additional Hospitalizations projections 4w - MAX,-10,2021-01-30,SDN
-Estimated doubling time NPI,169.40753752234727,2021-02-03,SDN
-NPI Reff,1.0288956346364433,2021-02-03,SDN
+Estimated doubling time NPI,169.40753621956037,2021-02-03,SDN
+NPI Reff,1.0288956348606193,2021-02-03,SDN
 Estimated doubling time No NPI,133.58144104762397,2021-02-03,SDN
 No NPI Reff,1.0367321366146411,2021-02-03,SDN
-Current situation - WHO cases most recent,29488,2021-02-03,SDN
-Current situation - WHO deaths most recent,1812,2021-02-03,SDN
-CFR,6.1448724905046115,2021-02-03,SDN
+Current situation - WHO cases most recent,29536,2021-02-03,SDN
+Current situation - WHO deaths most recent,1829,2021-02-03,SDN
+CFR,6.192443120260021,2021-02-03,SDN
 Estimated case reporting rate,3.370596345895132,2021-02-03,SDN
 NPI - projected reported cases in 4w - MIN,36401,2021-02-03,SDN
 NPI - projected reported cases in 4w - MAX,39649,2021-02-03,SDN
@@ -728,8 +728,8 @@ Maximum number of extra deaths if NPIs are lifted,279,2021-02-03,SDN
 Current situation - latest date MPHO reported numbers,2021-01-01,2021-02-03,SDN
 Current situation - latest MPHO cases,26278,2021-02-03,SDN
 Current situation - latest MPHO deaths,1638,2021-02-03,SDN
-"Current situation - WHO daily new cases, 7-day average",70.57142857142857,2021-02-03,SDN
-"Current situation - WHO daily new deaths, 7-day average",8.857142857142858,2021-02-03,SDN
+"Current situation - WHO daily new cases, 7-day average",67.14285714285714,2021-02-03,SDN
+"Current situation - WHO daily new deaths, 7-day average",9.857142857142858,2021-02-03,SDN
 Negative values in last 7 days from WHO,False,2021-02-03,SDN
 Hospitalizations current situation - MIN,2572,2021-02-03,SDN
 Hospitalizations current situation - MAX,3494,2021-02-03,SDN

@@ -51,7 +51,7 @@ editor_options:
 # NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 55,121 cases and 2,405 deaths have been reported with the current number of daily new cases standing at 53.0 (7-day average).
+* Per the WHO, a total of 55,174 cases and 2,406 deaths have been reported with the current number of daily new cases standing at 45.7 (7-day average).
 * The current number of active severe cases requiring healthcare support is estimated at 665 - 1,112.
 * There is community spread in most of the country, and accelerated spread in Hirat and Kapisa, according to estimates of true number of cases that adjust for underreporting. More intense control efforts are recommended to counter further spread (see section 2 for detail).
 * We note that public health awareness campaigns are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.

@@ -695,13 +695,13 @@ NO NPI Hospitalizations projections 4w - MIN,6868,2021-01-30,IRQ
 NO NPI Hospitalizations projections 4w - MAX,9223,2021-01-30,IRQ
 NO NPI additional Hospitalizations projections 4w - MIN,5083,2021-01-30,IRQ
 NO NPI additional Hospitalizations projections 4w - MAX,6230,2021-01-30,IRQ
-Estimated doubling time NPI,404.35431798766484,2021-02-03,IRQ
-NPI Reff,1.0120440603539747,2021-02-03,IRQ
+Estimated doubling time NPI,404.35431833814226,2021-02-03,IRQ
+NPI Reff,1.0120440603435172,2021-02-03,IRQ
 Estimated doubling time No NPI,134.0313985092971,2021-02-03,IRQ
 No NPI Reff,1.0366074490871495,2021-02-03,IRQ
-Current situation - WHO cases most recent,620620,2021-02-03,IRQ
-Current situation - WHO deaths most recent,13057,2021-02-03,IRQ
-CFR,2.1038638780574264,2021-02-03,IRQ
+Current situation - WHO cases most recent,621755,2021-02-03,IRQ
+Current situation - WHO deaths most recent,13068,2021-02-03,IRQ
+CFR,2.101792506694759,2021-02-03,IRQ
 Estimated case reporting rate,14.33945881896068,2021-02-03,IRQ
 NPI - projected reported cases in 4w - MIN,650480,2021-02-03,IRQ
 NPI - projected reported cases in 4w - MAX,657534,2021-02-03,IRQ
@@ -726,10 +726,10 @@ NO NPI - projected additional reported deaths in 4w - MAX,530,2021-02-03,IRQ
 Maximum number of extra cases if NPIs are lifted,87973,2021-02-03,IRQ
 Maximum number of extra deaths if NPIs are lifted,289,2021-02-03,IRQ
 Current situation - latest date MPHO reported numbers,2021-01-30,2021-02-03,IRQ
-Current situation - latest MPHO cases,618922,2021-02-03,IRQ
+Current situation - latest MPHO cases,618921,2021-02-03,IRQ
 Current situation - latest MPHO deaths,13041,2021-02-03,IRQ
-"Current situation - WHO daily new cases, 7-day average",863.4285714285714,2021-02-03,IRQ
-"Current situation - WHO daily new deaths, 7-day average",8.142857142857142,2021-02-03,IRQ
+"Current situation - WHO daily new cases, 7-day average",910.7142857142857,2021-02-03,IRQ
+"Current situation - WHO daily new deaths, 7-day average",8.285714285714286,2021-02-03,IRQ
 Negative values in last 7 days from WHO,False,2021-02-03,IRQ
 Hospitalizations current situation - MIN,2011,2021-02-03,IRQ
 Hospitalizations current situation - MAX,2848,2021-02-03,IRQ

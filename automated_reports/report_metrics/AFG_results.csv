@@ -607,9 +607,9 @@ Estimated doubling time NPI,970.374831436453,2021-02-03,AFG
 NPI Reff,1.0050079024266112,2021-02-03,AFG
 Estimated doubling time No NPI,758.1652262391623,2021-02-03,AFG
 No NPI Reff,1.0064123834658203,2021-02-03,AFG
-Current situation - WHO cases most recent,55121,2021-02-03,AFG
-Current situation - WHO deaths most recent,2405,2021-02-03,AFG
-CFR,4.363128390268681,2021-02-03,AFG
+Current situation - WHO cases most recent,55174,2021-02-03,AFG
+Current situation - WHO deaths most recent,2406,2021-02-03,AFG
+CFR,4.360749628448183,2021-02-03,AFG
 Estimated case reporting rate,2.8750369988835383,2021-02-03,AFG
 NPI - projected reported cases in 4w - MIN,55105,2021-02-03,AFG
 NPI - projected reported cases in 4w - MAX,55349,2021-02-03,AFG
@@ -634,10 +634,10 @@ NO NPI - projected additional reported deaths in 4w - MAX,130,2021-02-03,AFG
 Maximum number of extra cases if NPIs are lifted,598,2021-02-03,AFG
 Maximum number of extra deaths if NPIs are lifted,42,2021-02-03,AFG
 Current situation - latest date MPHO reported numbers,2021-02-02,2021-02-03,AFG
-Current situation - latest MPHO cases,54027,2021-02-03,AFG
-Current situation - latest MPHO deaths,2384,2021-02-03,AFG
-"Current situation - WHO daily new cases, 7-day average",53.0,2021-02-03,AFG
-"Current situation - WHO daily new deaths, 7-day average",2.2857142857142856,2021-02-03,AFG
+Current situation - latest MPHO cases,54026,2021-02-03,AFG
+Current situation - latest MPHO deaths,2385,2021-02-03,AFG
+"Current situation - WHO daily new cases, 7-day average",45.714285714285715,2021-02-03,AFG
+"Current situation - WHO daily new deaths, 7-day average",2.4285714285714284,2021-02-03,AFG
 Negative values in last 7 days from WHO,False,2021-02-03,AFG
 Hospitalizations current situation - MIN,665,2021-02-03,AFG
 Hospitalizations current situation - MAX,1112,2021-02-03,AFG
