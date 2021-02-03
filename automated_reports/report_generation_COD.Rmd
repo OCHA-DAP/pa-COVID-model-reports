@@ -95,9 +95,6 @@ assignment_date <- as.Date(params$assignment_date)
 projection_date_4w <- assignment_date + 28
 projection_date_2w <- assignment_date + 14
 
-# specify file location
-who_data_filename <- "../WHO_data/WHO-COVID-19-global-data.csv"
-
 # functions
 colorize <- function(x, color) {
   if (knitr::is_latex_output()) {
@@ -219,21 +216,9 @@ effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'
 ```
 
 ```{r current_who_data, include = FALSE}
-who_data <- read.csv(who_data_filename)
-who_data$Date_reported <- as.Date(who_data$Date_reported)
-who_current_cum_cases <- who_data %>%
-                      filter(Country == country & 
-                      Date_reported == assignment_date) %>%
-                      select(Cumulative_cases) %>%
-                      as.numeric() %>%
-                      format(., big.mark = ",")
 
-who_current_cum_deaths <- who_data %>%
-                      filter(Country == country & 
-                      Date_reported == assignment_date) %>%
-                      select(Cumulative_deaths) %>%
-                      as.numeric() %>%
-                      format(., big.mark = ",")  
+who_current_cum_cases <- report_metrics %>% filter(metric_name == "Current situation - WHO cases most recent") %>% select(metric_value) %>% as.numeric()
+who_current_cum_deaths <- report_metrics %>% filter(metric_name == "Current situation - WHO deaths most recent") %>% select(metric_value) %>% as.numeric()
 
 who_current_newdaily_7daverage_cases <- report_metrics %>% filter(metric_name == "Current situation - WHO daily new cases, 7-day average") %>% select(metric_value) %>% as.numeric()
 who_current_newdaily_7daverage_cases <- format(round(who_current_newdaily_7daverage_cases, 1), big.mark = ",")
