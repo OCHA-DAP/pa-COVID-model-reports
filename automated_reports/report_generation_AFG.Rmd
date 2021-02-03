@@ -214,7 +214,10 @@ effort_needed_table <- data.frame('level' = c('Red', 'Orange', 'Yellow', 'Green'
 ```{r current_who_data, include = FALSE}
 
 who_current_cum_cases <- report_metrics %>% filter(metric_name == "Current situation - WHO cases most recent") %>% select(metric_value) %>% as.numeric()
+who_current_cum_cases <- format(round(who_current_cum_cases, 0), big.mark = ",")
+
 who_current_cum_deaths <- report_metrics %>% filter(metric_name == "Current situation - WHO deaths most recent") %>% select(metric_value) %>% as.numeric()
+who_current_cum_deaths <- format(round(who_current_cum_deaths, 0), big.mark = ",")
 
 who_current_newdaily_7daverage_cases <- report_metrics %>% filter(metric_name == "Current situation - WHO daily new cases, 7-day average") %>% select(metric_value) %>% as.numeric()
 who_current_newdaily_7daverage_cases <- format(round(who_current_newdaily_7daverage_cases, 1), big.mark = ",")
