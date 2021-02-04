@@ -66,7 +66,7 @@ key_messages_current_situation <- "
 
 key_messages_national_projections <- "
 
-* Even if current NPIs are maintined, we project an increase in the number of daily new cases, with an additional  {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_LOW} deaths reported in the next four weeks. 
+* Even if current NPIs are maintined, we project an increase in the number of daily new cases, with an additional  {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} deaths reported in the next four weeks. 
 
 * Currently implemented mitigation strategies are insufficient to curb the spread of the virus: cases are projected to increase even if NPIs are maintained. More intense control efforts are needed.
 

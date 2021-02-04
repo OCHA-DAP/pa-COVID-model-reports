@@ -70,7 +70,7 @@ key_messages_national_projections <- "
 
 * Case numbers are starting to increase in several regions, particularly in Kongo-Central which is already facing accelerated spread (orange risk level)
 
-* In 4 weeks, we project that an additional {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_LOW} deaths will be reported if current NPIs are maintained. 
+* In 4 weeks, we project that an additional {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} deaths will be reported if current NPIs are maintained. 
 
 * The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to stay roughly constant if NPIs are maintained and to start climbing sharply if NPIs are lifted.
 
