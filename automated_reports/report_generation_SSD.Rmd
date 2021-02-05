@@ -190,11 +190,11 @@ no_npi_projected_deltas_deaths_4w_LOW <- format(round(no_npi_projected_deltas_de
 no_npi_projected_deltas_deaths_4w_HI <- report_metrics %>% filter(metric_name == "NO NPI - projected additional reported deaths in 4w - MAX") %>% select(metric_value) %>% as.numeric()
 no_npi_projected_deltas_deaths_4w_HI <- format(round(no_npi_projected_deltas_deaths_4w_HI, 0), big.mark = ",")
 
-no_npi_projected_deltas_cases_4w_MAX <- report_metrics %>% filter(metric_name == "Maximum number of extra cases if NPIs are lifted") %>% select(metric_value) %>% as.numeric()
-no_npi_projected_deltas_cases_4w_MAX <- format(round(no_npi_projected_deltas_cases_4w_MAX, 0), big.mark = ",")
+no_npi_vs_npi_projected_deltas_cases_4W_MAX <- report_metrics %>% filter(metric_name == "Maximum number of extra cases if NPIs are lifted") %>% select(metric_value) %>% as.numeric()
+no_npi_vs_npi_projected_deltas_cases_4W_MAX <- format(round(no_npi_vs_npi_projected_deltas_cases_4W_MAX, 0), big.mark = ",")
 
-no_npi_projected_deltas_deaths_4w_MAX <- report_metrics %>% filter(metric_name == "Maximum number of extra deaths if NPIs are lifted") %>% select(metric_value) %>% as.numeric()
-no_npi_projected_deltas_deaths_4w_MAX <- format(round(no_npi_projected_deltas_deaths_4w_MAX, 0), big.mark = ",")
+no_npi_vs_npi_projected_deltas_deaths_4W_MAX <- report_metrics %>% filter(metric_name == "Maximum number of extra deaths if NPIs are lifted") %>% select(metric_value) %>% as.numeric()
+no_npi_vs_npi_projected_deltas_deaths_4W_MAX <- format(round(no_npi_vs_npi_projected_deltas_deaths_4W_MAX, 0), big.mark = ",")
 
 # projected hospitalizations at 4w
 hospitalizations_current_LOW <- report_metrics %>% filter(metric_name == "Hospitalizations current situation - MIN") %>% select(metric_value) %>% as.numeric()
@@ -210,10 +210,10 @@ npi_hospitalizations_HI <- report_metrics %>% filter(metric_name == "NPI Hospita
 npi_hospitalizations_HI <- format(round(npi_hospitalizations_HI, 0), big.mark = ",")
 
 npi_hospitalizations_delta_LOW <- report_metrics %>% filter(metric_name == "NPI additional Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
-npi_hospitalizations_delta_LOW <- format(round(abs(npi_hospitalizations_delta_LOW), 0), big.mark = ",")
+npi_hospitalizations_delta_LOW <- format(round(npi_hospitalizations_delta_LOW, 0), big.mark = ",")
 
 npi_hospitalizations_delta_HI <- report_metrics %>% filter(metric_name == "NPI additional Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
-npi_hospitalizations_delta_HI <- format(round(abs(npi_hospitalizations_delta_HI), 0), big.mark = ",")
+npi_hospitalizations_delta_HI <- format(round(npi_hospitalizations_delta_HI, 0), big.mark = ",")
 
 no_npi_hospitalizations_LOW <- report_metrics %>% filter(metric_name == "NO NPI Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
 no_npi_hospitalizations_LOW <- format(round(no_npi_hospitalizations_LOW, 0), big.mark = ",")
@@ -222,10 +222,10 @@ no_npi_hospitalizations_HI <- report_metrics %>% filter(metric_name == "NO NPI H
 no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.mark = ",")
 
 no_npi_hospitalizations_delta_LOW <- report_metrics %>% filter(metric_name == "NO NPI additional Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
-no_npi_hospitalizations_delta_LOW <- format(round(abs(no_npi_hospitalizations_delta_LOW), 0), big.mark = ",")
+no_npi_hospitalizations_delta_LOW <- format(round(no_npi_hospitalizations_delta_LOW, 0), big.mark = ",")
 
 no_npi_hospitalizations_delta_HI <- report_metrics %>% filter(metric_name == "NO NPI additional Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
-no_npi_hospitalizations_delta_HI <- format(round(abs(no_npi_hospitalizations_delta_HI), 0), big.mark = ",")
+no_npi_hospitalizations_delta_HI <- format(round(no_npi_hospitalizations_delta_HI, 0), big.mark = ",")
 
 ```
 
