@@ -74,7 +74,7 @@ key_messages_national_projections <- "
 
 * Lifting the NPIs would lead to a larger increase in cases and deaths (up to {no_npi_projected_deltas_cases_4w_MAX} more cases and up to {no_npi_projected_deltas_deaths_4w_MAX} more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
 
-* The number of active severe cases requiring hospitalization is projected to decrease by {npi_hospitalizations_delta_LOW} - {npi_hospitalizations_delta_HI} assuming NPIs are maintained, and to decrease only slightly (by {no_npi_hospitalizations_delta_LOW} - {no_npi_hospitalizations_delta_HI}) if they are lifted (see section 3).
+* The number of active severe cases requiring hospitalization is projected to decrease by {format(-as.numeric(gsub(',', '', npi_hospitalizations_delta_LOW)), big.mark=',')} - {format(-as.numeric(gsub(',', '', npi_hospitalizations_delta_HI)), big.mark=',')} assuming NPIs are maintained, and to stay roughly constant if they are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
