@@ -66,7 +66,7 @@ key_messages_current_situation <- "
 
 key_messages_national_projections <- "
 
-* In 4 weeks, we project {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} additional cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} additional deaths will be reported if current NPIs are maintained.
+* In 4 weeks, we project that {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} additional cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} additional deaths will be reported if current NPIs are maintained.
 
 * The trajectory of the crisis depends on whether NPIs are kept in place: lifting of NPIs would lead daily new cases to hold steady or increase rather than decrease if NPIs are maintained. Thus lifting NPIs would result in an increase in cases and deaths by up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and {no_npi_vs_npi_projected_deltas_deaths_4W_MAX} more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
 
