@@ -53,6 +53,8 @@ editor_options:
 
 key_messages_current_situation <- "
 
+* The subnational data from MOPH is inconsistent with the numbers reported by WHO. Please keep mind that the projections are based on subnational data, and our current assessment of the situation and all projections depend on the data being complete and accurate.
+
 * Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported with the current number of daily new cases standing at {who_current_newdaily_7daverage_cases} (7-day average).
 
 * The current number of active severe cases requiring healthcare support is estimated at {hospitalizations_current_LOW} - {hospitalizations_current_HI}.
