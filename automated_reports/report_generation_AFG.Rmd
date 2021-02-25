@@ -57,7 +57,7 @@ key_messages_current_situation <- "
 
 * The current number of active severe cases requiring healthcare support is estimated at {hospitalizations_current_LOW} - {hospitalizations_current_HI}.
 
-* There is community spread in most of the country, and accelerated spread in Hirat and Kapisa, according to estimates of true number of cases that adjust for underreporting. More intense control efforts are recommended to counter further spread (see section 2 for detail).
+* There is community spread in several parts of the country, according to estimates of true number of cases that adjust for underreporting. Current control efforts should be maintained to counter further spread (see section 2 for detail).
 
 * We note that public health awareness campaigns are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 
@@ -70,18 +70,17 @@ key_messages_national_projections <- "
 
 * The trajectory of the crisis depends on whether NPIs are kept in place: lifting of NPIs would lead daily new cases to hold steady or increase rather than decrease if NPIs are maintained. Thus lifting NPIs would result in an increase in cases and deaths by up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and {no_npi_vs_npi_projected_deltas_deaths_4W_MAX} more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
 
-* The number of active severe cases requiring healthcare is projected to decrease but still reach {npi_hospitalizations_LOW} - {npi_hospitalizations_HI} if NPIs are maintained. Hospitalizations may increase if NPIs are lifted (see section 3).
+* The number of active severe cases requiring healthcare is projected to decrease but still reach {npi_hospitalizations_LOW} - {npi_hospitalizations_HI} if NPIs are maintained. If NPIs are lifted, hospitalizations are expected to remain at approximately 
+the current level (see section 3).
 "
 
 key_messages_subnational_projections <- "
 
-* In two weeks, the country is projected to continue to see high incidence in most areas according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
+* In two weeks, the country is projected to continue to see community spread in several areas according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
 
 * Assuming NPIs remain in place, most regions are projected to see a decrease in their ratio of daily new cases per 100,000 people.
 
-* Despite a decreasing incidence, most regions are projected to still be facing community spread (yellow risk level) while Hirat is projected to have accelerated spread (orange level of risk; see section 4).
-
-* Strategies for containment should be intensified to mitigate spread.
+* Strategies for containment should be maintained to continue the reduce the amount of community transmission.
 "
 ```
 

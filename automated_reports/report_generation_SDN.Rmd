@@ -53,15 +53,15 @@ editor_options:
 
 key_messages_current_situation <- "
 
-* No data has been reported since 1 Jan 2021 (MOPH), which means that we have not received any new information from the country office since our last report. Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
+* The subnational data from MOPH is inconsistent with the numbers reported by WHO. Please keep mind that the projections are based on subnational data, and our current assessment of the situation and all projections depend on the data being complete and accurate.
 
 * Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported. 
 
 * The number of current severe cases requiring hospitalization is estimated at {hospitalizations_current_LOW} - {hospitalizations_current_HI}.
 
-* Case Fatality Rate stands at a concerning {cfr}, which may partly due to underreporting. A study by Imperial College London estimates that only 2% of deaths due to COVID-19 were reported in official reported mortality numbers between April and September 2020, suggesting that the total number of deaths would be markedly higher than reported above. More on the study here: https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-39-sudan/
+* Case Fatality Rate stands at a concerning {cfr}%, which may partly be due to underreporting. A study by Imperial College London estimates that only 2% of deaths due to COVID-19 were reported in official reported mortality numbers between April and September 2020, suggesting that the total number of deaths would be markedly higher than reported above. More on the study here: https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-39-sudan/
 
-* According to the data reported by the MOPH and WHO, while some regions are on track for containment with fewer than 1 case per 100,000 people, many regions are seeing community spread (yellow risk levels), with River Nile facing accelerated spread (orange risk level). Khartoum is in the highest level of risk (red, Tipping Point) with an estimated incidence at 60 cases per 100,000 people.
+* According to the data reported by the MOPH and WHO, while some regions are on track for containment with fewer than 1 case per 100,000 people, others are seeing community spread, with Northern and Khartoum having the highest incidence of 9 and 8 cases per 100,000 people, respectively.
 
 * We note the following measures as currently in place: limits on public gatherings (25% compliance), border closings (25% compliance), and partial lockdown (25% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 
@@ -70,18 +70,18 @@ key_messages_current_situation <- "
 
 key_messages_national_projections <- "
 
-* In 4 weeks, we project that an additional {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} deaths will be reported if current NPIs are maintained. The curve is projected to climb sharply, indicating a rapid deterioration of the situation.
+* In 4 weeks, we project that an additional {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} deaths will be reported if current NPIs are maintained.
 
-* Lifting the NPIs would lead to a larger increase in cases and deaths (up to {no_npi_projected_deltas_cases_4w_MAX} more cases and up to {no_npi_projected_deltas_deaths_4w_MAX} more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* Lifting the NPIs would lead to a larger increase in cases and deaths (up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and up to {no_npi_vs_npi_projected_deltas_deaths_4W_MAX } more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
 
-* The number of active severe cases requiring hospitalization is projected to decrease by {format(-as.numeric(gsub(',', '', npi_hospitalizations_delta_LOW)), big.mark=',')} - {format(-as.numeric(gsub(',', '', npi_hospitalizations_delta_HI)), big.mark=',')} assuming NPIs are maintained, and to stay roughly constant if they are lifted (see section 3).
+* The number of active severe cases requiring hospitalization is projected to decrease by {format(-as.numeric(gsub(',', '', npi_hospitalizations_delta_LOW)), big.mark=',')} - {format(-as.numeric(gsub(',', '', npi_hospitalizations_delta_HI)), big.mark=',')} assuming NPIs are maintained, and to decrease somewhat more slowly (by by {format(-as.numeric(gsub(',', '', no_npi_hospitalizations_delta_LOW)), big.mark=',')} - {format(-as.numeric(gsub(',', '', no_npi_hospitalizations_delta_HI)), big.mark=',')}) if they are lifted.
 "
 
 key_messages_subnational_projections <- "
 
 * In two weeks incidence is projected to stay constant or decline in all regions. However, many of these regions are still expected to have community spread present (yellow risk level.)
 
-* We note a highly concerning projected incidence in Khartoum, which would maintain the region in the highest level of risk (red; see section 4).
+* Strategies for containment should be maintained to continue the reduce the amount of community transmission.
 "
 
 ```

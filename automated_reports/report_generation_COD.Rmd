@@ -74,7 +74,7 @@ key_messages_national_projections <- "
 
 * The trajectory of the outbreak is projected to change based on whether NPIs are maintained: daily new cases are expected to stay roughly constant if NPIs are maintained and to start climbing sharply if NPIs are lifted.
 
-* Lifting the NPIs would lead to a significantly higher number of additional cases and deaths in 4 weeks: up to {no_npi_projected_deltas_cases_4w_MAX} more cases and up to {no_npi_projected_deltas_deaths_4w_MAX} more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 8 weeks later.
+* Lifting the NPIs would lead to a significantly higher number of additional cases and deaths in 4 weeks: up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX } more cases and up to {no_npi_vs_npi_projected_deltas_deaths_4W_MAX } more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 8 weeks later.
 
 * The number of active severe cases requiring hospitalization is projected to stay roughly constant assuming NPIs are maintained, and to increase by {no_npi_hospitalizations_delta_LOW} - {no_npi_hospitalizations_delta_HI} if NPIs are lifted (see section 3).
 "

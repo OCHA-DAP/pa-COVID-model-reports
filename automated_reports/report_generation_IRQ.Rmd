@@ -57,7 +57,7 @@ key_messages_current_situation <- "
 
 * The current number of active severe cases requiring hospitalization is estimated at {hospitalizations_current_LOW} - {hospitalizations_current_HI}.
 
-* Progress towards containment is insufficient: the entire country is seeing Community or Accelerated Spread (yellow or orange risk levels), while Kerbala, Diyala, and Al-Najaf are at the Tipping Point (red risk level). More intense control efforts are critically needed (see section 2).
+* Progress towards containment is insufficient: the entire country is seeing Community or Accelerated Spread (yellow or orange risk levels), with several regions at the Tipping Point (red risk level). Of particular concern are Al-Basrah, Al-Najaf, and Kerbala, which are currently estimated to all have more 100 cases per 100,000 people. More intense control efforts are critically needed (see section 2).
 
 * We note that mitigation measures currently in place include an awareness campaign, face mask wearing (50% compliance) and limits on public gatherings (50% compliance). Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 
@@ -70,9 +70,9 @@ key_messages_national_projections <- "
 
 * Currently implemented mitigation strategies are insufficient to curb the spread of the virus: cases are projected to increase even if NPIs are maintained. More intense control efforts are needed.
 
-* Lifting the NPIs would lead to a markedly sharp increase in cases and deaths (up to {no_npi_projected_deltas_cases_4w_MAX} more cases and up to {no_npi_projected_deltas_deaths_4w_MAX} more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* Lifting the NPIs would lead to a markedly sharp increase in cases and deaths (up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and up to {no_npi_vs_npi_projected_deltas_deaths_4W_MAX } more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
 
-* Active severe cases requiring healthcare are projected to reach {npi_hospitalizations_LOW} - {npi_hospitalizations_HI} if NPIs are maintained, and to jump to {no_npi_hospitalizations_delta_LOW} - {no_npi_hospitalizations_delta_HI} if they are lifted (see section 3).
+* Active severe cases requiring healthcare are projected to reach {npi_hospitalizations_LOW} - {npi_hospitalizations_HI} if NPIs are maintained, and to jump to {no_npi_hospitalizations_LOW} - {no_npi_hospitalizations_HI} if they are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
