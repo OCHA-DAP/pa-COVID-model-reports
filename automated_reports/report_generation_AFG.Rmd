@@ -48,26 +48,39 @@ editor_options:
 
 ```{r key_messages, echo = FALSE}
 
-# NOTE: each bullet point needs to start with a * followed by a space, and end with a Return when followed by another bullet point
+# NOTE: each bullet point needs to start with a *, and there must be a blank line between bullet points. 
+# There must also be a blank line at the beginning of the string.
 
 key_messages_current_situation <- "
-* Per the WHO, a total of 55,174 cases and 2,406 deaths have been reported with the current number of daily new cases standing at 45.7 (7-day average).
-* The current number of active severe cases requiring healthcare support is estimated at 665 - 1,112.
+
+* Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported with the current number of daily new cases standing at {who_current_newdaily_7daverage_cases} (7-day average).
+
+* The current number of active severe cases requiring healthcare support is estimated at {hospitalizations_current_LOW} - {hospitalizations_current_HI}.
+
 * There is community spread in most of the country, and accelerated spread in Hirat and Kapisa, according to estimates of true number of cases that adjust for underreporting. More intense control efforts are recommended to counter further spread (see section 2 for detail).
+
 * We note that public health awareness campaigns are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
+
 * Please keep mind that the current assessment of the situation and all projections depend on complete, accurate data. The model might underestimate the crisis even after accounting for some underreporting. 
 "   
 
 key_messages_national_projections <- "
-* In 4 weeks, we project 984 - 1228 additional cases and 88 - 119 additional deaths will be reported if current NPIs are maintained.
-* The trajectory of the crisis depends on whether NPIs are kept in place: lifting of NPIs would lead daily new cases to hold steady or increase rather than decrease if NPIs are maintained. Thus lifting NPIs would result in an increase in cases and deaths by up to 598 more cases and 42 more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
-* The number of active severe cases requiring healthcare is projected to decrease but still reach 557 - 752 if NPIs are maintained. Hospitalizations may increase if NPIs are lifted (see section 3).
+
+* In 4 weeks, we project that {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} additional cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} additional deaths will be reported if current NPIs are maintained.
+
+* The trajectory of the crisis depends on whether NPIs are kept in place: lifting of NPIs would lead daily new cases to hold steady or increase rather than decrease if NPIs are maintained. Thus lifting NPIs would result in an increase in cases and deaths by up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and {no_npi_vs_npi_projected_deltas_deaths_4W_MAX} more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+
+* The number of active severe cases requiring healthcare is projected to decrease but still reach {npi_hospitalizations_LOW} - {npi_hospitalizations_HI} if NPIs are maintained. Hospitalizations may increase if NPIs are lifted (see section 3).
 "
 
 key_messages_subnational_projections <- "
+
 * In two weeks, the country is projected to continue to see high incidence in most areas according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
+
 * Assuming NPIs remain in place, most regions are projected to see a decrease in their ratio of daily new cases per 100,000 people.
+
 * Despite a decreasing incidence, most regions are projected to still be facing community spread (yellow risk level) while Hirat is projected to have accelerated spread (orange level of risk; see section 4).
+
 * Strategies for containment should be intensified to mitigate spread.
 "
 ```
@@ -77,6 +90,7 @@ library(tidyverse)
 library(knitr)
 library(kableExtra)
 library(pander)
+library(glue)
 
 options(scipen = 999) # effectively remove scientific notation
 
@@ -179,6 +193,12 @@ no_npi_projected_deltas_deaths_4w_LOW <- format(round(no_npi_projected_deltas_de
 no_npi_projected_deltas_deaths_4w_HI <- report_metrics %>% filter(metric_name == "NO NPI - projected additional reported deaths in 4w - MAX") %>% select(metric_value) %>% as.numeric()
 no_npi_projected_deltas_deaths_4w_HI <- format(round(no_npi_projected_deltas_deaths_4w_HI, 0), big.mark = ",")
 
+no_npi_vs_npi_projected_deltas_cases_4W_MAX <- report_metrics %>% filter(metric_name == "Maximum number of extra cases if NPIs are lifted") %>% select(metric_value) %>% as.numeric()
+no_npi_vs_npi_projected_deltas_cases_4W_MAX <- format(round(no_npi_vs_npi_projected_deltas_cases_4W_MAX, 0), big.mark = ",")
+
+no_npi_vs_npi_projected_deltas_deaths_4W_MAX <- report_metrics %>% filter(metric_name == "Maximum number of extra deaths if NPIs are lifted") %>% select(metric_value) %>% as.numeric()
+no_npi_vs_npi_projected_deltas_deaths_4W_MAX <- format(round(no_npi_vs_npi_projected_deltas_deaths_4W_MAX, 0), big.mark = ",")
+
 # projected hospitalizations at 4w
 hospitalizations_current_LOW <- report_metrics %>% filter(metric_name == "Hospitalizations current situation - MIN") %>% select(metric_value) %>% as.numeric()
 hospitalizations_current_LOW <- format(round(hospitalizations_current_LOW, 0), big.mark = ",")
@@ -192,11 +212,23 @@ npi_hospitalizations_LOW <- format(round(npi_hospitalizations_LOW, 0), big.mark 
 npi_hospitalizations_HI <- report_metrics %>% filter(metric_name == "NPI Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
 npi_hospitalizations_HI <- format(round(npi_hospitalizations_HI, 0), big.mark = ",")
 
+npi_hospitalizations_delta_LOW <- report_metrics %>% filter(metric_name == "NPI additional Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
+npi_hospitalizations_delta_LOW <- format(round(npi_hospitalizations_delta_LOW, 0), big.mark = ",")
+
+npi_hospitalizations_delta_HI <- report_metrics %>% filter(metric_name == "NPI additional Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
+npi_hospitalizations_delta_HI <- format(round(npi_hospitalizations_delta_HI, 0), big.mark = ",")
+
 no_npi_hospitalizations_LOW <- report_metrics %>% filter(metric_name == "NO NPI Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
 no_npi_hospitalizations_LOW <- format(round(no_npi_hospitalizations_LOW, 0), big.mark = ",")
 
 no_npi_hospitalizations_HI <- report_metrics %>% filter(metric_name == "NO NPI Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
 no_npi_hospitalizations_HI <- format(round(no_npi_hospitalizations_HI, 0), big.mark = ",")
+
+no_npi_hospitalizations_delta_LOW <- report_metrics %>% filter(metric_name == "NO NPI additional Hospitalizations projections 4w - MIN") %>% select(metric_value) %>% as.numeric()
+no_npi_hospitalizations_delta_LOW <- format(round(no_npi_hospitalizations_delta_LOW, 0), big.mark = ",")
+
+no_npi_hospitalizations_delta_HI <- report_metrics %>% filter(metric_name == "NO NPI additional Hospitalizations projections 4w - MAX") %>% select(metric_value) %>% as.numeric()
+no_npi_hospitalizations_delta_HI <- format(round(no_npi_hospitalizations_delta_HI, 0), big.mark = ",")
 
 ```
 
@@ -269,15 +301,15 @@ This report summarizes the COVID-19 model results for `r country`, developed by 
 
 \large \textbf{Current Situation} \normalsize (as of `r format(assignment_date, "%d %b %Y")`)
 \normalsize
-`r key_messages_current_situation`
+`r glue(key_messages_current_situation)`
 
 \large \textbf{National Projections} \normalsize (in the next 4 weeks or by `r format(projection_date_4w, "%d %b %Y")`)
 \normalsize
-`r key_messages_national_projections`
+`r glue(key_messages_national_projections)`
 
 \large \textbf{Subnational Projections} \normalsize (in the next 2 weeks or by `r format(projection_date_2w, "%d %b %Y")`)
 \normalsize
-`r key_messages_subnational_projections`
+`r glue(key_messages_subnational_projections)`
 
 \newpage
 
