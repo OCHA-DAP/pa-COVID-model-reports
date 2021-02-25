@@ -53,8 +53,6 @@ editor_options:
 
 key_messages_current_situation <- "
 
-* **As of 1 March 2021 COVID-19 projections will no longer be produced on a bi-weekly basis but will be available on request. Please contact leonardo.milano@un.org for updated projections.**
-
 * The subnational data from MOPH is inconsistent with the numbers reported by WHO. Please keep mind that the projections are based on subnational data, and our current assessment of the situation and all projections depend on the data being complete and accurate.
 
 * Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported with the current number of daily new cases standing at {who_current_newdaily_7daverage_cases} (7-day average).
@@ -299,6 +297,9 @@ subnational_projections$daily_cases_total_per_100k_inTWOweeks <- round(subnation
 This report summarizes the COVID-19 model results for `r country`, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r format(assignment_date, format="%d %B %Y")`. The data is sourced from World Health Organization (WHO) and the country's Ministry of Public Health (MOPH). For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
 
 ![](visual_assets/green_horizontal_line.png){height=30px}
+
+\normalsize
+**As of 1 March 2021 COVID-19 projections will no longer be produced on a bi-weekly basis but will be available on request. Please contact leonardo.milano@un.org for updated projections.**
 
 \Large \textbf{`r colorize('1. Key Messages', 'centreGreen')`}
 
