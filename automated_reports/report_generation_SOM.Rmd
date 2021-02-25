@@ -53,6 +53,8 @@ editor_options:
 
 key_messages_current_situation <- "
 
+* **As of 1 March 2021 COVID-19 projections will no longer be produced on a bi-weekly basis but will be available on request. Please contact leonardo.milano@un.org for updated projections.**
+
 * Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported to date. The current number of daily new cases stands at {who_current_newdaily_7daverage_cases} (7-day average).
 
 * The number of active severe cases requiring hospitalization is estimated at {hospitalizations_current_LOW} - {hospitalizations_current_HI}.

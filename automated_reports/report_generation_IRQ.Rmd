@@ -48,12 +48,14 @@ editor_options:
 
 ```{r key_messages, echo = FALSE}
 
-# NOTE: each bullet point needs to start with a *, and there must be a blank line between bullet points. 
+# NOTE: each bullet point needs to start with a *, and   there must be a blank line between bullet points. 
 # There must also be a blank line at the beginning of the string.
 
 key_messages_current_situation <- "
 
-* Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported, an improvement over our last update. The current number of daily new cases stands at {who_current_newdaily_7daverage_cases} (7-day average).
+* **As of 1 March 2021 COVID-19 projections will no longer be produced on a bi-weekly basis but will be available on request. Please contact leonardo.milano@un.org for updated projections.**
+
+* Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported. The current number of daily new cases stands at {who_current_newdaily_7daverage_cases} (7-day average).
 
 * The current number of active severe cases requiring hospitalization is estimated at {hospitalizations_current_LOW} - {hospitalizations_current_HI}.
 
@@ -70,7 +72,7 @@ key_messages_national_projections <- "
 
 * Currently implemented mitigation strategies are insufficient to curb the spread of the virus: cases are projected to increase even if NPIs are maintained. More intense control efforts are needed.
 
-* Lifting the NPIs would lead to a markedly sharp increase in cases and deaths (up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and up to {no_npi_vs_npi_projected_deltas_deaths_4W_MAX } more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* Lifting the NPIs would lead to a markedly sharp increase in cases (up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
 
 * Active severe cases requiring healthcare are projected to reach {npi_hospitalizations_LOW} - {npi_hospitalizations_HI} if NPIs are maintained, and to jump to {no_npi_hospitalizations_LOW} - {no_npi_hospitalizations_HI} if they are lifted (see section 3).
 "

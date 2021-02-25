@@ -53,6 +53,8 @@ editor_options:
 
 key_messages_current_situation <- "
 
+* **As of 1 March 2021 COVID-19 projections will no longer be produced on a bi-weekly basis but will be available on request. Please contact leonardo.milano@un.org for updated projections.**
+
 * The subnational data from MOPH is inconsistent with the numbers reported by WHO. Please keep mind that the projections are based on subnational data, and our current assessment of the situation and all projections depend on the data being complete and accurate.
 
 * Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported. 

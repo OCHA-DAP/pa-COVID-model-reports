@@ -53,6 +53,8 @@ editor_options:
 
 key_messages_current_situation <- "
 
+* **As of 1 March 2021 COVID-19 projections will no longer be produced on a bi-weekly basis but will be available on request. Please contact leonardo.milano@un.org for updated projections.**
+
 * The subnational data from MOPH is inconsistent with the numbers reported by WHO. Please keep mind that the projections are based on subnational data, and our current assessment of the situation and all projections depend on the data being complete and accurate.
 
 * Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported with the current number of daily new cases standing at {who_current_newdaily_7daverage_cases} (7-day average).
@@ -70,7 +72,7 @@ key_messages_national_projections <- "
 
 * In 4 weeks, we project that {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} additional cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} additional deaths will be reported if current NPIs are maintained.
 
-* The trajectory of the crisis depends on whether NPIs are kept in place: lifting of NPIs would lead daily new cases to hold steady or increase rather than decrease if NPIs are maintained. Thus lifting NPIs would result in an increase in cases and deaths by up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and {no_npi_vs_npi_projected_deltas_deaths_4W_MAX} more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* The trajectory of the crisis depends on whether NPIs are kept in place: lifting NPIs would result in an increase in cases and deaths by up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and {no_npi_vs_npi_projected_deltas_deaths_4W_MAX} more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
 
 * The number of active severe cases requiring healthcare is projected to decrease but still reach {npi_hospitalizations_LOW} - {npi_hospitalizations_HI} if NPIs are maintained. If NPIs are lifted, hospitalizations are expected to remain at approximately 
 the current level (see section 3).
