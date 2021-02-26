@@ -53,11 +53,13 @@ editor_options:
 
 key_messages_current_situation <- "
 
+* The subnational data from MOPH is inconsistent with the numbers reported by WHO. Please keep mind that the projections are based on subnational data, and our current assessment of the situation and all projections depend on the data being complete and accurate.
+
 * Per the WHO, a total of {who_current_cum_cases} cases and {who_current_cum_deaths} deaths have been reported with the current number of daily new cases standing at {who_current_newdaily_7daverage_cases} (7-day average).
 
 * The current number of active severe cases requiring healthcare support is estimated at {hospitalizations_current_LOW} - {hospitalizations_current_HI}.
 
-* There is community spread in most of the country, and accelerated spread in Hirat and Kapisa, according to estimates of true number of cases that adjust for underreporting. More intense control efforts are recommended to counter further spread (see section 2 for detail).
+* There is community spread in several parts of the country, according to estimates of true number of cases that adjust for underreporting. Current control efforts should be maintained to counter further spread (see section 2 for detail).
 
 * We note that public health awareness campaigns are the sole containment measure currently in place. Please email us (leonardo.milano@un.org) if this information is inaccurate or incomplete as it affects the accuracy of projections.
 
@@ -68,20 +70,19 @@ key_messages_national_projections <- "
 
 * In 4 weeks, we project that {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} additional cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} additional deaths will be reported if current NPIs are maintained.
 
-* The trajectory of the crisis depends on whether NPIs are kept in place: lifting of NPIs would lead daily new cases to hold steady or increase rather than decrease if NPIs are maintained. Thus lifting NPIs would result in an increase in cases and deaths by up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and {no_npi_vs_npi_projected_deltas_deaths_4W_MAX} more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
+* The trajectory of the crisis depends on whether NPIs are kept in place: lifting NPIs would result in an increase in cases and deaths by up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and {no_npi_vs_npi_projected_deltas_deaths_4W_MAX} more deaths (see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases will ultimately result in higher deaths 2 - 4 weeks later.
 
-* The number of active severe cases requiring healthcare is projected to decrease but still reach {npi_hospitalizations_LOW} - {npi_hospitalizations_HI} if NPIs are maintained. Hospitalizations may increase if NPIs are lifted (see section 3).
+* The number of active severe cases requiring healthcare is projected to decrease but still reach {npi_hospitalizations_LOW} - {npi_hospitalizations_HI} if NPIs are maintained. If NPIs are lifted, hospitalizations are expected to remain at approximately 
+the current level (see section 3).
 "
 
 key_messages_subnational_projections <- "
 
-* In two weeks, the country is projected to continue to see high incidence in most areas according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
+* In two weeks, the country is projected to continue to see community spread in several areas according to estimates of true number of cases that adjust for underreporting and assume that NPIs will stay in place (see section 4). 
 
 * Assuming NPIs remain in place, most regions are projected to see a decrease in their ratio of daily new cases per 100,000 people.
 
-* Despite a decreasing incidence, most regions are projected to still be facing community spread (yellow risk level) while Hirat is projected to have accelerated spread (orange level of risk; see section 4).
-
-* Strategies for containment should be intensified to mitigate spread.
+* Strategies for containment should be maintained to continue the reduce the amount of community transmission.
 "
 ```
 
@@ -296,6 +297,9 @@ subnational_projections$daily_cases_total_per_100k_inTWOweeks <- round(subnation
 This report summarizes the COVID-19 model results for `r country`, developed by the OCHA Centre for Humanitarian Data in partnership with the Johns Hopkins University Applied Physics Laboratory. These projections are based on COVID-19 cases and deaths data up to `r format(assignment_date, format="%d %B %Y")`. The data is sourced from World Health Organization (WHO) and the country's Ministry of Public Health (MOPH). For dynamic updates to this data and more, see the [HDX COVID-19 Map Explorer](https://data.humdata.org/visualization/covid19-humanitarian-operations/#). For additional information, please contact Leonardo Milano at: <leonardo.milano@un.org>.
 
 ![](visual_assets/green_horizontal_line.png){height=30px}
+
+\normalsize
+**As of 1 March 2021 COVID-19 projections will no longer be produced on a bi-weekly basis but will be available on request. Please contact leonardo.milano@un.org for updated projections.**
 
 \Large \textbf{`r colorize('1. Key Messages', 'centreGreen')`}
 

@@ -72,7 +72,7 @@ key_messages_national_projections <- "
 
 * In 4 weeks and based on the available data, we project that an additional {npi_projected_deltas_cases_4w_LOW} - {npi_projected_deltas_cases_4w_HI} cases and {npi_projected_deltas_deaths_4w_LOW} - {npi_projected_deltas_deaths_4w_HI} deaths will be reported if current NPIs are maintained.
 
-* Lifting the NPIs would lead to a larger number of cases being added (up to {no_npi_projected_deltas_cases_4w_MAX} more cases and up to {no_npi_projected_deltas_deaths_4w_MAX} more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
+* Lifting the NPIs would lead to a larger number of cases being added (up to {no_npi_vs_npi_projected_deltas_cases_4W_MAX} more cases and up to {no_npi_vs_npi_projected_deltas_deaths_4W_MAX } more deaths; see sections 2 and 3 for details). Due to the lag between cases and deaths, a larger number of cases would ultimately result in higher deaths 2 - 4 weeks later.
 
 * The number of active severe cases requiring hospitalization is projected to decrease if NPIs are maintained and to increase by up to {no_npi_hospitalizations_delta_HI} if NPIs are lifted (see section 3).
 "
